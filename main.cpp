@@ -1,8 +1,11 @@
 //Mode.hpp declares the "Mode::current" static member variable, which is used to decide where event-handling, updating, and drawing events go:
 #include "Mode.hpp"
 
-//The 'PongMode' mode plays the game:
-#include "PongMode.hpp"
+//The 'PlayMode' mode plays the game:
+#include "PlayMode.hpp"
+
+//For asset loading:
+#include "Load.hpp"
 
 //GL.hpp will include a non-namespace-polluting set of opengl prototypes:
 #include "GL.hpp"
@@ -47,16 +50,16 @@ int main(int argc, char **argv) {
 
 	//create window:
 	SDL_Window *window = SDL_CreateWindow(
-		"gp20 pong", //TODO: remember to set a title for your game!
+		"gp20 game1: remember to change your title", //TODO: remember to set a title for your game!
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		640, 480, //TODO: modify window size if you'd like
+		2*PPU466::ScreenWidth, 2*PPU466::ScreenHeight, //TODO: modify window size if you'd like
 		SDL_WINDOW_OPENGL
 		| SDL_WINDOW_RESIZABLE //uncomment to allow resizing
 		| SDL_WINDOW_ALLOW_HIGHDPI //uncomment for full resolution on high-DPI screens
 	);
 
 	//prevent exceedingly tiny windows when resizing:
-	SDL_SetWindowMinimumSize(window, 100, 100);
+	SDL_SetWindowMinimumSize(window,PPU466::ScreenWidth, PPU466::ScreenHeight);
 
 	if (!window) {
 		std::cerr << "Error creating SDL window: " << SDL_GetError() << std::endl;
@@ -86,8 +89,11 @@ int main(int argc, char **argv) {
 	//Hide mouse cursor (note: showing can be useful for debugging):
 	//SDL_ShowCursor(SDL_DISABLE);
 
+	//------------ load assets --------------
+	call_load_functions();
+
 	//------------ create game mode + make current --------------
-	Mode::set_current(std::make_shared< PongMode >());
+	Mode::set_current(std::make_shared< PlayMode >());
 
 	//------------ main loop ------------
 

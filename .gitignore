@@ -1,7 +1,7 @@
 objs/
 dist/README-SDL.txt
-dist/pong.ilk
-dist/pong.pdb
+dist/game.ilk
+dist/game.pdb
 dist/SDL2.dll
-dist/pong
-dist/pong.exe
+dist/game
+dist/game.exe

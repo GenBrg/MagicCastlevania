@@ -63,8 +63,8 @@ struct PPU466 {
 	//  bit1_at_2_7 = (tile.bit1[7] >> 2) & 1;
 	//  color_index_at_2_7 = (bit1_at_2_7 << 1) | bit0_at_2_7;
 	struct Tile {
-		uint8_t bit0[8]; //<-- controls bit 0 of the color index
-		uint8_t bit1[8]; //<-- controls bit 1 of the color index
+		std::array< uint8_t, 8 > bit0; //<-- controls bit 0 of the color index
+		std::array< uint8_t, 8 > bit1; //<-- controls bit 1 of the color index
 	};
 	static_assert(sizeof(Tile) == 16, "Tile is packed");
 
