@@ -17,6 +17,7 @@ struct PlayMode : Mode {
 
 	//----- game state -----
 
+	float background_fade = 0.0f;
 
 
 	//----- drawing handled by PPU466 -----

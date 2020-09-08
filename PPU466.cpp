@@ -98,8 +98,8 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 	glClearColor(
 		background_color.r / 255.0f, 
 		background_color.g / 255.0f, 
-		background_color.b / 255.0f, 
-		background_color.a / 255.0f
+		background_color.b / 255.0f,
+		1.0f
 	);
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -228,7 +228,7 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 			}
 		}
 
-		glBindTexture(GL_TEXTURE_2D, data_stream->palette_tex);
+		glBindTexture(GL_TEXTURE_2D, data_stream->tile_tex);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_R8UI, 128, 128, 0, GL_RED_INTEGER, GL_UNSIGNED_BYTE, data.data());
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
@@ -265,9 +265,9 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 
 	// bind texture units to proper texture objects:
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, data_stream->tile_tex);
-	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, data_stream->palette_tex);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, data_stream->tile_tex);
 
 	//now that the pipeline is configured, trigger drawing of triangle strip:
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, triangle_strip.size());
@@ -319,6 +319,9 @@ PPUTileProgram::PPUTileProgram() {
 		"void main() {\n"
 		"	uint index = texelFetch(TILE_TABLE, ivec2(tileCoord), 0).r;\n"
 		"	fragColor = texelFetch(PALETTE_TABLE, ivec2(index, palette), 0);\n"
+		//"	fragColor = vec4(float(index)/4.0,float(palette)/8,1,1);\n"
+		//"	fragColor = texelFetch(TILE_TABLE, ivec2(int(gl_FragCoord.x) % textureSize(TILE_TABLE,0).x, int(gl_FragCoord.y) % textureSize(TILE_TABLE,0).y), 0);\n"
+		//"	fragColor = texelFetch(PALETTE_TABLE, ivec2(int(gl_FragCoord.x) % textureSize(PALETTE_TABLE,0).x, int(gl_FragCoord.y) % textureSize(PALETTE_TABLE,0).y), 0);\n"
 		"}\n"
 	);
 
