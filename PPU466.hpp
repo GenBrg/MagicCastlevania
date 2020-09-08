@@ -83,13 +83,13 @@ struct PPU466 {
 	//  the origin of the grid (tile (0,0)) is the bottom left of the grid
 	//  each value in the grid gives:
 	//    - bits 0-7: tile table index
-	//    - bits 8-12: palette table index
-	//    - bits 13-15: unused, should be 0
+	//    - bits 8-10: palette table index
+	//    - bits 11-15: unused, should be 0
 	//
 	//  bits:  F E D C B A 9 8 7 6 5 4 3 2 1 0
-	//        |-------|-----|-----------------|
-	//            ^      ^          ^-- tile index
-	//            |      '------------- palette index
+	//        |---------|-----|---------------|
+	//            ^        ^        ^-- tile index
+	//            |        '----------- palette index
 	//            '-------------------- unused (set to zero)
 	std::array< uint16_t, BackgroundWidth * BackgroundHeight > background;
 
