@@ -171,11 +171,11 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 
 				//reduce to (-BackgroundWidthPixels,0] x (-BackgroundHeightPixels,0]:
 				pos.x = ((pos.x % BackgroundWidthPixels) - BackgroundWidthPixels) % BackgroundWidthPixels;
-				pos.y = ((pos.x % BackgroundHeightPixels) - BackgroundHeightPixels) % BackgroundHeightPixels;
+				pos.y = ((pos.y % BackgroundHeightPixels) - BackgroundHeightPixels) % BackgroundHeightPixels;
 
 				//move chunk if it doesn't overlap the screen:
 				if (pos.x + int32_t(ScreenWidth) <= 0) pos.x += ScreenWidth;
-				if (pos.y + int32_t(ScreenHeight) <= 0) pos.x += ScreenHeight;
+				if (pos.y + int32_t(ScreenHeight) <= 0) pos.y += ScreenHeight;
 
 				int32_t ox = chunk_x / 8;
 				int32_t oy = chunk_y / 8;
@@ -185,7 +185,7 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 						draw_tile(
 							glm::ivec2(pos.x + 8*x, pos.y + 8*y),
 							info & 0xff, //extract tile index bits
-							(info) & 0x07 //extract palette index bits
+							(info >> 8) & 0x07 //extract palette index bits
 						);
 					}
 				}
