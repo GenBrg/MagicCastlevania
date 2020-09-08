@@ -79,7 +79,7 @@ PPU466::PPU466() {
 	}
 
 	for (uint32_t i = 0; i < background.size(); ++i) {
-		background[i] = (
+		background[i] = int16_t(
 			  (i % 8) << 8 //cycle through all palettes
 			| (i % palette_table.size()) //cycle through all tiles
 		);
@@ -122,7 +122,7 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 
 	//build triangle strip representing background and sprites:
 
-	constexpr uint32_t TristripSize = 6 * (BackgroundWidth * BackgroundHeight + decltype(sprites)().size());
+	constexpr uint32_t TristripSize = uint32_t(6 * (BackgroundWidth * BackgroundHeight + decltype(sprites)().size()));
 	std::vector< PPUDataStream::Vertex > triangle_strip;
 	triangle_strip.reserve(TristripSize);
 
@@ -174,8 +174,8 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 				pos.y = ((pos.y % BackgroundHeightPixels) - BackgroundHeightPixels) % BackgroundHeightPixels;
 
 				//move chunk if it doesn't overlap the screen:
-				if (pos.x + int32_t(ScreenWidth) <= 0) pos.x += ScreenWidth;
-				if (pos.y + int32_t(ScreenHeight) <= 0) pos.y += ScreenHeight;
+				if (pos.x + int32_t(ScreenWidth) <= 0) pos.x += BackgroundWidthPixels;
+				if (pos.y + int32_t(ScreenHeight) <= 0) pos.y += BackgroundHeightPixels;
 
 				int32_t ox = chunk_x / 8;
 				int32_t oy = chunk_y / 8;
@@ -204,7 +204,7 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 	{ //upload palette texture:
 		static_assert(sizeof(palette_table) == 4 * 4 * decltype(palette_table)().size(), "palette table is packed");
 		glBindTexture(GL_TEXTURE_2D, data_stream->palette_tex);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 4, palette_table.size(), 0, GL_RGBA, GL_UNSIGNED_BYTE, palette_table.data());
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 4, GLsizei(palette_table.size()), 0, GL_RGBA, GL_UNSIGNED_BYTE, palette_table.data());
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
@@ -270,7 +270,7 @@ void PPU466::draw(glm::uvec2 const &drawable_size) const {
 	glBindTexture(GL_TEXTURE_2D, data_stream->tile_tex);
 
 	//now that the pipeline is configured, trigger drawing of triangle strip:
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, triangle_strip.size());
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, GLsizei(triangle_strip.size()));
 
 	//return state to default:
 	glActiveTexture(GL_TEXTURE1);
