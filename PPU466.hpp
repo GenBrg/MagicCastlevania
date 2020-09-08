@@ -21,7 +21,7 @@ struct PPU466 {
 
 	//for debugging, you can ask the PPU to draw its current tiles, palettes, etc:
 	// pass the size of the current framebuffer in pixels so it knows how to scale itself
-	void draw_DEBUG_overlay(glm::uvec2 drawable_size) const;
+	//someday, maybe: void draw_DEBUG_overlay(glm::uvec2 drawable_size) const;
 
 	//--------------------------------------------------------------
 	//Set the values below to control the PPU's drawing:
