@@ -78,6 +78,7 @@ GAME_NAMES =
 	ColorTextureProgram
 	Mode
 	GL
+	PPU466
 	;
 
 LOCATE_TARGET = objs ; #put objects in 'objs' directory
