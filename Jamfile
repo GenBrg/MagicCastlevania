@@ -76,7 +76,6 @@ GAME_NAMES =
 	main
 	load_save_png
 	gl_compile_program
-	ColorTextureProgram
 	Mode
 	GL
 	Load
