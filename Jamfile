@@ -73,9 +73,12 @@ if $(OS) = NT { #Windows
 GAME_NAMES =
 	PlayMode
 	main
+	LitColorTextureProgram
+	#ColorTextureProgram #not used right now, but you might want it
 	;
 
 COMMON_NAMES =
+	data_path
 	PathFont
 	PathFont-font
 	DrawLines

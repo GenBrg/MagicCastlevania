@@ -50,16 +50,16 @@ int main(int argc, char **argv) {
 
 	//create window:
 	SDL_Window *window = SDL_CreateWindow(
-		"gp20 game1: remember to change your title", //TODO: remember to set a title for your game!
+		"gp20 game2: enter the matr... virtual world", //TODO: remember to set a title for your game!
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		2*PPU466::ScreenWidth + 8, 2*PPU466::ScreenHeight + 8, //TODO: modify window size if you'd like
+		1280, 720, //TODO: modify window size if you'd like
 		SDL_WINDOW_OPENGL
 		| SDL_WINDOW_RESIZABLE //uncomment to allow resizing
 		| SDL_WINDOW_ALLOW_HIGHDPI //uncomment for full resolution on high-DPI screens
 	);
 
 	//prevent exceedingly tiny windows when resizing:
-	SDL_SetWindowMinimumSize(window,PPU466::ScreenWidth, PPU466::ScreenHeight);
+	SDL_SetWindowMinimumSize(window,100,100);
 
 	if (!window) {
 		std::cerr << "Error creating SDL window: " << SDL_GetError() << std::endl;

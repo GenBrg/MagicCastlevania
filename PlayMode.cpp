@@ -2,6 +2,7 @@
 
 #include "LitColorTextureProgram.hpp"
 
+#include "Mesh.hpp"
 #include "Load.hpp"
 #include "gl_errors.hpp"
 #include "data_path.hpp"
@@ -11,14 +12,14 @@
 #include <random>
 
 GLuint hexapod_meshes_for_lit_color_texture_program = 0;
-Load< MeshBuffer > hexapod_meshes(LoadTagDefault, [&]() -> MeshBuffer const * {
+Load< MeshBuffer > hexapod_meshes(LoadTagDefault, []() -> MeshBuffer const * {
 	MeshBuffer const *ret = new MeshBuffer(data_path("hexapod.pnct"));
 	hexapod_meshes_for_lit_color_texture_program = ret->make_vao_for_program(lit_color_texture_program->program);
+	return ret;
 });
 
-Load< Scene > hexapod_scene(LoadTagDefault, [&]() -> Scene const * {
+Load< Scene > hexapod_scene(LoadTagDefault, []() -> Scene const * {
 	return new Scene(data_path("hexapod.scene"), [&](Scene &scene, Scene::Transform *transform, std::string const &mesh_name){
-		if (!buffer_vao) return;
 		Mesh const &mesh = hexapod_meshes->lookup(mesh_name);
 
 		scene.drawables.emplace_back(transform);
@@ -34,100 +35,24 @@ Load< Scene > hexapod_scene(LoadTagDefault, [&]() -> Scene const * {
 	});
 });
 
-PlayMode::PlayMode() {
-	//TODO:
-	// you *must* use an asset pipeline of some sort to generate tiles.
-	// don't hardcode them like this!
-	// or, at least, if you do hardcode them like this,
-	//  make yourself a script that spits out the code that you paste in here
-	//   and check that script into your repository.
-
-	//Also, *don't* use these tiles in your game:
-
-	{ //use tiles 0-16 as some weird dot pattern thing:
-		std::array< uint8_t, 8*8 > distance;
-		for (uint32_t y = 0; y < 8; ++y) {
-			for (uint32_t x = 0; x < 8; ++x) {
-				float d = glm::length(glm::vec2((x + 0.5f) - 4.0f, (y + 0.5f) - 4.0f));
-				d /= glm::length(glm::vec2(4.0f, 4.0f));
-				distance[x+8*y] = std::max(0,std::min(255,int32_t( 255.0f * d )));
-			}
-		}
-		for (uint32_t index = 0; index < 16; ++index) {
-			PPU466::Tile tile;
-			uint8_t t = (255 * index) / 16;
-			for (uint32_t y = 0; y < 8; ++y) {
-				uint8_t bit0 = 0;
-				uint8_t bit1 = 0;
-				for (uint32_t x = 0; x < 8; ++x) {
-					uint8_t d = distance[x+8*y];
-					if (d > t) {
-						bit0 |= (1 << x);
-					} else {
-						bit1 |= (1 << x);
-					}
-				}
-				tile.bit0[y] = bit0;
-				tile.bit1[y] = bit1;
-			}
-			ppu.tile_table[index] = tile;
-		}
+PlayMode::PlayMode() : scene(*hexapod_scene) {
+	//get pointers to leg for convenience:
+	for (auto &transform : scene.transforms) {
+		if (transform.name == "Hip.FL") hip = &transform;
+		else if (transform.name == "UpperLeg.FL") upper_leg = &transform;
+		else if (transform.name == "LowerLeg.FL") lower_leg = &transform;
 	}
+	if (hip == nullptr) throw std::runtime_error("Hip not found.");
+	if (upper_leg == nullptr) throw std::runtime_error("Upper leg not found.");
+	if (lower_leg == nullptr) throw std::runtime_error("Lower leg not found.");
 
-	//use sprite 32 as a "player":
-	ppu.tile_table[32].bit0 = {
-		0b01111110,
-		0b11111111,
-		0b11111111,
-		0b11111111,
-		0b11111111,
-		0b11111111,
-		0b11111111,
-		0b01111110,
-	};
-	ppu.tile_table[32].bit1 = {
-		0b00000000,
-		0b00000000,
-		0b00011000,
-		0b00100100,
-		0b00000000,
-		0b00100100,
-		0b00000000,
-		0b00000000,
-	};
+	hip_base_rotation = hip->rotation;
+	upper_leg_base_rotation = upper_leg->rotation;
+	lower_leg_base_rotation = lower_leg->rotation;
 
-	//makes the outside of tiles 0-16 solid:
-	ppu.palette_table[0] = {
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-	};
-
-	//makes the center of tiles 0-16 solid:
-	ppu.palette_table[1] = {
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-	};
-
-	//used for the player:
-	ppu.palette_table[7] = {
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0xff, 0xff, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-	};
-
-	//used for the misc other sprites:
-	ppu.palette_table[6] = {
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-		glm::u8vec4(0x88, 0x88, 0xff, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-		glm::u8vec4(0x00, 0x00, 0x00, 0x00),
-	};
-
+	//get pointer to camera for convenience:
+	if (scene.cameras.size() != 1) throw std::runtime_error("Expecting scene to have exactly one camera, but it has " + std::to_string(scene.cameras.size()));
+	camera = &scene.cameras.front();
 }
 
 PlayMode::~PlayMode() {
@@ -169,21 +94,54 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 		}
 	}
 
+	//handle mouse capture / uncapture:
+	//... TODO ...
+	if (evt.type == SDL_MOUSEBUTTONDOWN) {
+	}
+
 	return false;
 }
 
 void PlayMode::update(float elapsed) {
 
 	//slowly rotates through [0,1):
-	// (will be used to set background color)
-	background_fade += elapsed / 10.0f;
-	background_fade -= std::floor(background_fade);
+	wobble += elapsed / 10.0f;
+	wobble -= std::floor(wobble);
 
-	constexpr float PlayerSpeed = 30.0f;
-	if (left.pressed) player_at.x -= PlayerSpeed * elapsed;
-	if (right.pressed) player_at.x += PlayerSpeed * elapsed;
-	if (down.pressed) player_at.y -= PlayerSpeed * elapsed;
-	if (up.pressed) player_at.y += PlayerSpeed * elapsed;
+	hip->rotation = hip_base_rotation * glm::angleAxis(
+		glm::radians(5.0f * std::sin(wobble * 2.0f * float(M_PI))),
+		glm::vec3(0.0f, 1.0f, 0.0f)
+	);
+	upper_leg->rotation = upper_leg_base_rotation * glm::angleAxis(
+		glm::radians(7.0f * std::sin(wobble * 2.0f * 2.0f * float(M_PI))),
+		glm::vec3(0.0f, 0.0f, 1.0f)
+	);
+	lower_leg->rotation = lower_leg_base_rotation * glm::angleAxis(
+		glm::radians(10.0f * std::sin(wobble * 3.0f * 2.0f * float(M_PI))),
+		glm::vec3(0.0f, 0.0f, 1.0f)
+	);
+
+	//move camera:
+	{
+
+		//combine inputs into a move:
+		constexpr float PlayerSpeed = 30.0f;
+		glm::vec2 move = glm::vec2(0.0f);
+		if (left.pressed && !right.pressed) move.x =-1.0f;
+		if (!left.pressed && right.pressed) move.x = 1.0f;
+		if (down.pressed && !up.pressed) move.y =-1.0f;
+		if (!down.pressed && up.pressed) move.y = 1.0f;
+
+		//make it so that moving diagonally doesn't go faster:
+		if (move != glm::vec2(0.0f)) move = glm::normalize(move) * PlayerSpeed * elapsed;
+
+		glm::mat4x3 frame = camera->transform->make_local_to_parent();
+		glm::vec3 right = frame[0];
+		//glm::vec3 up = frame[1];
+		glm::vec3 forward = -frame[2];
+
+		camera->transform->position += move.x * right + move.y * forward;
+	}
 
 	//reset button press counters:
 	left.downs = 0;
@@ -193,45 +151,26 @@ void PlayMode::update(float elapsed) {
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
-	//--- set ppu state based on game state ---
+	//update camera aspect ratio for drawable:
+	camera->aspect = float(drawable_size.x) / float(drawable_size.y);
 
-	//background color will be some hsv-like fade:
-	ppu.background_color = glm::u8vec4(
-		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 0.0f / 3.0f) ) ) ))),
-		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 1.0f / 3.0f) ) ) ))),
-		std::min(255,std::max(0,int32_t(255 * 0.5f * (0.5f + std::sin( 2.0f * M_PI * (background_fade + 2.0f / 3.0f) ) ) ))),
-		0xff
-	);
+	//set up light type and position for lit_color_texture_program:
+	// TODO: consider using the Light(s) in the scene to do this
+	glUseProgram(lit_color_texture_program->program);
+	glUniform1i(lit_color_texture_program->LIGHT_TYPE_int, 1);
+	GL_ERRORS();
+	glUniform3fv(lit_color_texture_program->LIGHT_DIRECTION_vec3, 1, glm::value_ptr(glm::vec3(0.0f, 0.0f,-1.0f)));
+	GL_ERRORS();
+	glUniform3fv(lit_color_texture_program->LIGHT_ENERGY_vec3, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 0.95f)));
+	GL_ERRORS();
+	glUseProgram(0);
 
-	//tilemap gets recomputed every frame as some weird plasma thing:
-	//NOTE: don't do this in your game! actually make a map or something :-)
-	for (uint32_t y = 0; y < PPU466::BackgroundHeight; ++y) {
-		for (uint32_t x = 0; x < PPU466::BackgroundWidth; ++x) {
-			//TODO: make weird plasma thing
-			ppu.background[x+PPU466::BackgroundWidth*y] = ((x+y)%16);
-		}
-	}
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClearDepth(1.0f); //1.0 is actually the default value to clear the depth buffer to, but FYI you can change it.
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//background scroll:
-	ppu.background_position.x = int32_t(-0.5f * player_at.x);
-	ppu.background_position.y = int32_t(-0.5f * player_at.y);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS); //this is the default depth comparison function, but FYI you can change it.
 
-	//player sprite:
-	ppu.sprites[0].x = int32_t(player_at.x);
-	ppu.sprites[0].y = int32_t(player_at.y);
-	ppu.sprites[0].index = 32;
-	ppu.sprites[0].attributes = 7;
-
-	//some other misc sprites:
-	for (uint32_t i = 1; i < 63; ++i) {
-		float amt = (i + 2.0f * background_fade) / 62.0f;
-		ppu.sprites[i].x = int32_t(0.5f * PPU466::ScreenWidth + std::cos( 2.0f * M_PI * amt * 5.0f + 0.01f * player_at.x) * 0.4f * PPU466::ScreenWidth);
-		ppu.sprites[i].y = int32_t(0.5f * PPU466::ScreenHeight + std::sin( 2.0f * M_PI * amt * 3.0f + 0.01f * player_at.y) * 0.4f * PPU466::ScreenWidth);
-		ppu.sprites[i].index = 32;
-		ppu.sprites[i].attributes = 6;
-		if (i % 2) ppu.sprites[i].attributes |= 0x80; //'behind' bit
-	}
-
-	//--- actually draw ---
-	ppu.draw(drawable_size);
+	scene.draw(*camera);
 }
