@@ -12,7 +12,14 @@ Here is a quick overview of what is included. For further information, ☺read t
 	- [`Jamfile`](Jamfile) responsible for telling FTJam how to build the project. Change this when you add additional .cpp files and to change your runtime executable's name.
 	- [`.gitignore`](.gitignore) ignores generated files. You will need to change it if your executable name changes. (If you find yourself changing it to ignore, e.g., your editor's swap files you should probably, instead, be investigating making this change in the global git configuration.)
 - Useful code (files you should investigate, but probably won't change):
-	- [`PPU466.hpp`](PPU466.hpp), [`PPU466.cpp`](PPU466.cpp) very restricted sprite + background drawing class.
+	- [`Mesh.hpp`](Mesh.hpp), [`Mesh.cpp`](Mesh.cpp) mesh loading.
+	- [`Scene.hpp`](Scene.hpp), [`Scene.cpp`](Scene.cpp) scene (transform hierarchy) loading and display (hmm, you might actually edit this code a bit).
+	- shaders (you might also build on these:
+		- [`ColorProgram.hpp`](ColorProgram.hpp), [`ColorProgram.cpp`](ColorProgram.cpp) GLSL shader that draws objects with vertex colors.
+		- [`ColorTextureProgram.hpp`](ColorTextureProgram.hpp), [`ColorTextureProgram.cpp`](ColorTextureProgram.cpp) GLSL shader that draws objects with vertex colors and textures.
+		- [`LitColorTextureProgram.hpp`](LitColorTextureProgram.hpp), [`LitColorTextureProgram.cpp`](LitColorTextureProgram.cpp) GLSL shader that draws objects with vertex colors, textures, and lighting.
+	- [`DrawLines.hpp`](DrawLines.hpp), [`DrawLines.cpp`](DrawLines.cpp) draw lines in a 3D scene. Very useful for debugging.
+	- [`PathFont.hpp`](PathFont.hpp), [`PathFont.cpp`](PathFont.cpp) line-based font, used by DrawLines for text drawing.
 	- [`read_write_chunk.hpp`](read_write_chunk.hpp) templated helpers for reading chunk-based binary formats.
 	- [`Load.hpp`](Load.hpp), [`Load.cpp`](Load.cpp) asset loading wrapper; load things in the global scope but not until after an OpenGL context is established.
 	- [`Mode.hpp`](Mode.hpp), [`Mode.cpp`](Mode.cpp) base class for modes (things that recieve events and draw).
@@ -21,9 +28,16 @@ Here is a quick overview of what is included. For further information, ☺read t
 	- [`GL.hpp`](GL.hpp), [`GL.cpp`](GL.cpp) includes OpenGL 3.3 prototypes without the namespace pollution of (e.g.) SDL's OpenGL header; on Windows, deals with some function pointer wrangling.
 	- [`gl_errors.hpp`](gl_errors.hpp) provides a `GL_ERRORS()` macro.
 	- [`.github/workflows/build-workflow.yml`](.github/workflows/build-workflow.yml) sets up the repository to be built via github actions whenever it is pushed or released.
+	- Asset Viewers:
+		- [`show-meshes.cpp`](show-meshes.cpp), [`ShowMeshesMode.hpp`](ShowMeshesMode.hpp), [`ShowMeshesMode.cpp`](ShowMeshesMode.cpp) -- builds `scene/show-meshes` which can view `.pnct` files.
+		- [`show-scene.cpp`](show-scene.cpp), [`ShowSceneMode.hpp`](ShowSceneMode.hpp), [`ShowSceneMode.cpp`](ShowSceneMode.cpp) -- builds `scene/show-scene` which can view `.scene` files.
+		- shaders used by these helpers:
+			- [`ShowMeshesProgram.hpp`](ShowMeshesProgram.hpp), [`ShowMeshesProgram.cpp`](ShowMeshesProgram.cpp)
+			- [`ShowSceneProgram.hpp`](ShowSceneProgram.hpp), [`ShowSceneProgram.cpp`](ShowSceneProgram.cpp)
 - Here be dragons (files you probably don't need to look at):
 	- [`make-GL.py`](make-GL.py) does what it says on the tin. Included in case you are curious. You won't need to run it.
 	- [`glcorearb.h`](glcorearb.h) used by `make-GL.py` to produce `GL.*pp`
+	- [`make-PathFont-font.py`](make-PathFont-font.py) processes [`PathFont-font.svg`](PathFont-font.svg) to create [`PathFont-font.cpp`](PathFont-font.cpp) (the line-based font used in the DrawLines code).
 
 
 

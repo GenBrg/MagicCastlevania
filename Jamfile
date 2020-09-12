@@ -69,11 +69,19 @@ if $(OS) = NT { #Windows
 #---- build ----
 #This is the part of the file that tells Jam how to build your project.
 
-#Store the names of all the .cpp files to build into a variable:
+#Store the names of various .cpp files to build into variables:
 GAME_NAMES =
 	PlayMode
-	PPU466
 	main
+	;
+
+COMMON_NAMES =
+	PathFont
+	PathFont-font
+	DrawLines
+	ColorProgram
+	Scene
+	Mesh
 	load_save_png
 	gl_compile_program
 	Mode
@@ -81,8 +89,32 @@ GAME_NAMES =
 	Load
 	;
 
+SHOW_MESHES_NAMES =
+	show-meshes
+	ShowMeshesProgram
+	ShowMeshesMode
+	;
+
+
+SHOW_SCENE_NAMES =
+	show-scene
+	ShowSceneProgram
+	ShowSceneMode
+	;
+
+
+
 LOCATE_TARGET = objs ; #put objects in 'objs' directory
-Objects $(GAME_NAMES:S=.cpp) ;
+Objects 
+	$(GAME_NAMES:S=.cpp)
+	$(COMMON_NAMES:S=.cpp)
+	$(SHOW_MESHES_NAMES:S=.cpp)
+	$(SHOW_SCENE_NAMES:S=.cpp)
+	;
 
 LOCATE_TARGET = dist ; #put main in 'dist' directory
-MainFromObjects game : $(GAME_NAMES:S=$(SUFOBJ)) ;
+MainFromObjects game : $(GAME_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
+
+LOCATE_TARGET = scenes ; #put show-meshes and show-scene utilities in the 'scenes' directory:
+MainFromObjects show-meshes : $(SHOW_MESHES_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
+MainFromObjects show-scene : $(SHOW_SCENE_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
