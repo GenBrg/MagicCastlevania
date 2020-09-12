@@ -1,12 +1,38 @@
 #include "PlayMode.hpp"
 
-//for the GL_ERRORS() macro:
-#include "gl_errors.hpp"
+#include "LitColorTextureProgram.hpp"
 
-//for glm::value_ptr() :
+#include "Load.hpp"
+#include "gl_errors.hpp"
+#include "data_path.hpp"
+
 #include <glm/gtc/type_ptr.hpp>
 
 #include <random>
+
+GLuint hexapod_meshes_for_lit_color_texture_program = 0;
+Load< MeshBuffer > hexapod_meshes(LoadTagDefault, [&]() -> MeshBuffer const * {
+	MeshBuffer const *ret = new MeshBuffer(data_path("hexapod.pnct"));
+	hexapod_meshes_for_lit_color_texture_program = ret->make_vao_for_program(lit_color_texture_program->program);
+});
+
+Load< Scene > hexapod_scene(LoadTagDefault, [&]() -> Scene const * {
+	return new Scene(data_path("hexapod.scene"), [&](Scene &scene, Scene::Transform *transform, std::string const &mesh_name){
+		if (!buffer_vao) return;
+		Mesh const &mesh = hexapod_meshes->lookup(mesh_name);
+
+		scene.drawables.emplace_back(transform);
+		Scene::Drawable &drawable = scene.drawables.back();
+
+		drawable.pipeline = lit_color_texture_program_pipeline;
+
+		drawable.pipeline.vao = hexapod_meshes_for_lit_color_texture_program;
+		drawable.pipeline.type = mesh.type;
+		drawable.pipeline.start = mesh.start;
+		drawable.pipeline.count = mesh.count;
+
+	});
+});
 
 PlayMode::PlayMode() {
 	//TODO:

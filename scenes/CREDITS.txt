@@ -1,0 +1,9 @@
+Blender files in this folder may be used/modified under a Creative Commons Attribution license.
+Authors to credit:
+ brunch.blend -- Yixin He
+ city.blend -- Jim McCann
+ garden.blend -- Yixin He
+ hexapod.blend -- Jim McCann
+ pool.blend -- Jim McCann
+ sphere-roller.blend -- Jim McCann
+ sphere-world.blend -- Jim McCann
