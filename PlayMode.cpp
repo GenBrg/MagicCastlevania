@@ -2,6 +2,7 @@
 
 #include "LitColorTextureProgram.hpp"
 
+#include "DrawLines.hpp"
 #include "Mesh.hpp"
 #include "Load.hpp"
 #include "gl_errors.hpp"
@@ -61,42 +62,58 @@ PlayMode::~PlayMode() {
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
 
 	if (evt.type == SDL_KEYDOWN) {
-		if (evt.key.keysym.sym == SDLK_LEFT) {
+		if (evt.key.keysym.sym == SDLK_ESCAPE) {
+			SDL_SetRelativeMouseMode(SDL_FALSE);
+			return true;
+		} else if (evt.key.keysym.sym == SDLK_a) {
 			left.downs += 1;
 			left.pressed = true;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_RIGHT) {
+		} else if (evt.key.keysym.sym == SDLK_d) {
 			right.downs += 1;
 			right.pressed = true;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_UP) {
+		} else if (evt.key.keysym.sym == SDLK_w) {
 			up.downs += 1;
 			up.pressed = true;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_DOWN) {
+		} else if (evt.key.keysym.sym == SDLK_s) {
 			down.downs += 1;
 			down.pressed = true;
 			return true;
 		}
 	} else if (evt.type == SDL_KEYUP) {
-		if (evt.key.keysym.sym == SDLK_LEFT) {
+		if (evt.key.keysym.sym == SDLK_a) {
 			left.pressed = false;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_RIGHT) {
+		} else if (evt.key.keysym.sym == SDLK_d) {
 			right.pressed = false;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_UP) {
+		} else if (evt.key.keysym.sym == SDLK_w) {
 			up.pressed = false;
 			return true;
-		} else if (evt.key.keysym.sym == SDLK_DOWN) {
+		} else if (evt.key.keysym.sym == SDLK_s) {
 			down.pressed = false;
 			return true;
 		}
-	}
-
-	//handle mouse capture / uncapture:
-	//... TODO ...
-	if (evt.type == SDL_MOUSEBUTTONDOWN) {
+	} else if (evt.type == SDL_MOUSEBUTTONDOWN) {
+		if (SDL_GetRelativeMouseMode() == SDL_FALSE) {
+			SDL_SetRelativeMouseMode(SDL_TRUE);
+			return true;
+		}
+	} else if (evt.type == SDL_MOUSEMOTION) {
+		if (SDL_GetRelativeMouseMode() == SDL_TRUE) {
+			glm::vec2 motion = glm::vec2(
+				evt.motion.xrel / float(window_size.y),
+				-evt.motion.yrel / float(window_size.y)
+			);
+			camera->transform->rotation = glm::normalize(
+				camera->transform->rotation
+				* glm::angleAxis(-motion.x * camera->fovy, glm::vec3(0.0f, 1.0f, 0.0f))
+				* glm::angleAxis(motion.y * camera->fovy, glm::vec3(1.0f, 0.0f, 0.0f))
+			);
+			return true;
+		}
 	}
 
 	return false;
@@ -173,4 +190,26 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	glDepthFunc(GL_LESS); //this is the default depth comparison function, but FYI you can change it.
 
 	scene.draw(*camera);
+
+	{ //use DrawLines to overlay some text:
+		glDisable(GL_DEPTH_TEST);
+		float aspect = float(drawable_size.x) / float(drawable_size.y);
+		DrawLines lines(glm::mat4(
+			1.0f / aspect, 0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		));
+
+		constexpr float H = 0.09f;
+		lines.draw_text("Mouse motion rotates camera; WASD moves; escape ungrabs mouse",
+			glm::vec3(-aspect + 0.1f * H, -1.0 + 0.1f * H, 0.0),
+			glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+			glm::u8vec4(0x00, 0x00, 0x00, 0x00));
+		float ofs = 2.0f / drawable_size.y;
+		lines.draw_text("Mouse motion rotates camera; WASD moves; escape ungrabs mouse",
+			glm::vec3(-aspect + 0.1f * H + ofs, -1.0 + + 0.1f * H + ofs, 0.0),
+			glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+			glm::u8vec4(0xff, 0xff, 0xff, 0x00));
+	}
 }
