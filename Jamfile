@@ -26,7 +26,7 @@ if $(OS) = NT { #Windows
 	;
 	LINKLIBS =
 		SDL2main.lib SDL2.lib OpenGL32.lib
-		libpng.lib zlib.lib opusfile.lib libopus.lib libogg.lib
+		libpng.lib zlib.lib opusfile.lib opus.lib libogg.lib
 	;
 
 	File SDL2.dll : $(NEST_LIBS)\\SDL2\\dist\\SDL2.dll ;
