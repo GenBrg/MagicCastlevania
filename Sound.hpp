@@ -125,8 +125,7 @@ std::shared_ptr< PlayingSample > loop_3D(
 
 //Listener controls the panning of "3D" samples (ones played using the "position" version of the play functions):
 struct Listener {
-	void set_position(glm::vec3 const &new_position, float ramp = 1.0f / 60.0f);
-	void set_right(glm::vec3 const &new_right, float ramp = 1.0f / 60.0f);
+	void set_position_right(glm::vec3 const &new_position, glm::vec3 const &new_right, float ramp = 1.0f / 60.0f);
 
 	//internals:
 	Ramp< glm::vec3 > position = Ramp< glm::vec3 >(0.0f); //listener's location

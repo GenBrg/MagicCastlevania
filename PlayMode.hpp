@@ -1,6 +1,7 @@
 #include "Mode.hpp"
 
 #include "Scene.hpp"
+#include "Sound.hpp"
 
 #include <glm/glm.hpp>
 
@@ -35,6 +36,11 @@ struct PlayMode : Mode {
 	glm::quat upper_leg_base_rotation;
 	glm::quat lower_leg_base_rotation;
 	float wobble = 0.0f;
+
+	glm::vec3 get_leg_tip_position();
+
+	//music coming from the tip of the leg (as a demonstration):
+	std::shared_ptr< Sound::PlayingSample > leg_tip_loop;
 	
 	//camera:
 	Scene::Camera *camera = nullptr;

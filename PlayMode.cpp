@@ -36,6 +36,10 @@ Load< Scene > hexapod_scene(LoadTagDefault, []() -> Scene const * {
 	});
 });
 
+Load< Sound::Sample > dusty_floor_sample(LoadTagDefault, []() -> Sound::Sample const * {
+	return new Sound::Sample(data_path("dusty-floor.opus"));
+});
+
 PlayMode::PlayMode() : scene(*hexapod_scene) {
 	//get pointers to leg for convenience:
 	for (auto &transform : scene.transforms) {
@@ -54,6 +58,10 @@ PlayMode::PlayMode() : scene(*hexapod_scene) {
 	//get pointer to camera for convenience:
 	if (scene.cameras.size() != 1) throw std::runtime_error("Expecting scene to have exactly one camera, but it has " + std::to_string(scene.cameras.size()));
 	camera = &scene.cameras.front();
+
+	//start music loop playing:
+	// (note: position will be over-ridden in update())
+	leg_tip_loop = Sound::loop_3D(*dusty_floor_sample, 1.0f, get_leg_tip_position(), 10.0f);
 }
 
 PlayMode::~PlayMode() {
@@ -138,6 +146,9 @@ void PlayMode::update(float elapsed) {
 		glm::vec3(0.0f, 0.0f, 1.0f)
 	);
 
+	//move sound to follow leg tip position:
+	leg_tip_loop->set_position(get_leg_tip_position(), 1.0f / 60.0f);
+
 	//move camera:
 	{
 
@@ -158,6 +169,13 @@ void PlayMode::update(float elapsed) {
 		glm::vec3 forward = -frame[2];
 
 		camera->transform->position += move.x * right + move.y * forward;
+	}
+
+	{ //update listener to camera position:
+		glm::mat4x3 frame = camera->transform->make_local_to_parent();
+		glm::vec3 right = frame[0];
+		glm::vec3 at = frame[3];
+		Sound::listener.set_position_right(at, right, 1.0f / 60.0f);
 	}
 
 	//reset button press counters:
@@ -212,4 +230,9 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 			glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
 			glm::u8vec4(0xff, 0xff, 0xff, 0x00));
 	}
+}
+
+glm::vec3 PlayMode::get_leg_tip_position() {
+	//the vertex position here was read from the model in blender:
+	return lower_leg->make_local_to_world() * glm::vec4(-1.26137f, -11.861f, 0.0f, 1.0f);
 }

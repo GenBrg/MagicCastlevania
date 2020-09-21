@@ -193,14 +193,9 @@ void Sound::PlayingSample::stop(float ramp) {
 
 //------------------
 
-void Sound::Listener::set_position(glm::vec3 const &new_position, float ramp) {
+void Sound::Listener::set_position_right(glm::vec3 const &new_position, glm::vec3 const &new_right, float ramp) {
 	Sound::lock();
 	position.set(new_position, ramp);
-	Sound::unlock();
-}
-
-void Sound::Listener::set_right(glm::vec3 const &new_right, float ramp) {
-	Sound::lock();
 	//some extra code to make sure right is always a unit vector:
 	if (new_right == glm::vec3(0.0f)) {
 		right.set(glm::vec3(1.0f, 0.0f, 0.0f), ramp);
