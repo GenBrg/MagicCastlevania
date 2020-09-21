@@ -9,6 +9,8 @@ if $(OS) = NT { #Windows
 		/I"$(NEST_LIBS)/SDL2/include"
 		/I"$(NEST_LIBS)/glm/include"
 		/I"$(NEST_LIBS)/libpng/include"
+		/I"$(NEST_LIBS)/opusfile/include"
+		/I"$(NEST_LIBS)/libopus/include"
 		#disable a few warnings:
 		/wd4146 #-1U is still unsigned
 		/wd4297 #unforunately SDLmain is nothrow
@@ -17,10 +19,13 @@ if $(OS) = NT { #Windows
 		/LIBPATH:"$(NEST_LIBS)/SDL2/lib"
 		/LIBPATH:"$(NEST_LIBS)/libpng/lib"
 		/LIBPATH:"$(NEST_LIBS)/zlib/lib"
+		/LIBPATH:"$(NEST_LIBS)/opusfile/lib"
+		/LIBPATH:"$(NEST_LIBS)/libopus/lib"
+		/LIBPATH:"$(NEST_LIBS)/libogg/lib"
 	;
 	LINKLIBS =
 		SDL2main.lib SDL2.lib OpenGL32.lib
-		libpng.lib zlib.lib
+		libpng.lib zlib.lib opusfile.lib libopus.lib libogg.lib
 	;
 
 	File SDL2.dll : $(NEST_LIBS)\\SDL2\\dist\\SDL2.dll ;
@@ -34,14 +39,19 @@ if $(OS) = NT { #Windows
 		-std=c++17 -g -Wall -Werror
 		`'$(NEST_LIBS)/SDL2/bin/sdl2-config' --prefix='$(NEST_LIBS)/SDL2' --cflags` #SDL2
 		-I$(NEST_LIBS)/glm/include                                                  #glm
-		-I$(NEST_LIBS)/libpng/include     
+		-I$(NEST_LIBS)/libpng/include                                               #libpng
+		-I$(NEST_LIBS)/opusfile/include                                             #opusfile
+		-I$(NEST_LIBS)/libopus/include                                              #libopus
 		;
 	LINK = clang++ ;
 	LINKFLAGS = -std=c++17 -g -Wall -Werror ;
 	LINKLIBS =
 		`'$(NEST_LIBS)/SDL2/bin/sdl2-config' --prefix='$(NEST_LIBS)/SDL2' --static-libs` -framework OpenGL #SDL2
-		-L$(NEST_LIBS)/libpng/lib -lpng                                                       #libpng
-		-L$(NEST_LIBS)/zlib/lib -lz  
+		-L$(NEST_LIBS)/libpng/lib -lpng                                             #libpng
+		-L$(NEST_LIBS)/zlib/lib -lz                                                 #zlib (for libpng)
+		-L$(NEST_LIBS)/opusfile/lib -lopusfile                                      #opusfile
+		-L$(NEST_LIBS)/libopus/lib -lopus                                           #libopus (for opusfile)
+		-L$(NEST_LIBS)/libogg/lib -logg                                             #libogg (for opusfile)
 		;
 	File README-SDL.txt : $(NEST_LIBS)/SDL2/dist/README-SDL.txt ;
 	MakeLocate README-SDL.txt : dist ;
@@ -53,13 +63,18 @@ if $(OS) = NT { #Windows
 		`'$(NEST_LIBS)/SDL2/bin/sdl2-config' --prefix='$(NEST_LIBS)/SDL2' --cflags` #SDL2
 		-I$(NEST_LIBS)/glm/include                                                  #glm
 		-I$(NEST_LIBS)/libpng/include                                               #libpng
+		-I$(NEST_LIBS)/opusfile/include                                             #opusfile
+		-I$(NEST_LIBS)/libopus/include                                              #libopus
 		;
 	LINK = g++ -no-pie ;
 	LINKFLAGS = -std=c++17 -g -Wall -Werror ;
 	LINKLIBS =
 		`'$(NEST_LIBS)/SDL2/bin/sdl2-config' --prefix='$(NEST_LIBS)/SDL2' --static-libs` -lGL #SDL2
 		-L$(NEST_LIBS)/libpng/lib -lpng                                                       #libpng
-		-L$(NEST_LIBS)/zlib/lib -lz                                                           #zlib
+		-L$(NEST_LIBS)/zlib/lib -lz                                                           #zlib (for libpng)
+		-L$(NEST_LIBS)/opusfile/lib -lopusfile                                                #opusfile
+		-L$(NEST_LIBS)/libopus/lib -lopus                                                     #libopus (for opusfile)
+		-L$(NEST_LIBS)/libogg/lib -logg                                                       #libogg (for opusfile)
 		;
 	#`PATH=$(KIT_LIBS)/SDL2/bin:$PATH sdl2-config --static-libs` -lGL #SDL2 (old way that allows system libs to also work)
 	File README-SDL.txt : $(NEST_LIBS)/SDL2/dist/README-SDL.txt ;
@@ -75,6 +90,9 @@ GAME_NAMES =
 	main
 	LitColorTextureProgram
 	#ColorTextureProgram #not used right now, but you might want it
+	Sound
+	load_wav
+	load_opus
 	;
 
 COMMON_NAMES =
