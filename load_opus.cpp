@@ -25,8 +25,18 @@ void load_opus(std::string const &filename, std::vector< float > *data_) {
 		throw std::runtime_error("opusfile error " + std::to_string(err) + " opening \"" + filename + "\".");
 	}
 
+	//get length in samples:
+	ogg_int64_t length = op_pcm_total(op.get(), -1);
+	if (length >= 0) {
+		data.reserve(length);
+	} else {
+		std::cerr << "WARNING: cannot estimate length of '" << filename << "', loading may be slow." << std::endl;
+		length = 0;
+		data.reserve(2*48000);
+	}
+
+	std::vector< float > pcm(2*48000*2, 0.0f); //seems like reads are generally 960 samples so this is definitely overkill
 	for (;;) {
-		std::vector< float > pcm(2*48000*2, 0.0f);
 		int ret = op_read_float_stereo(op.get(), pcm.data(), int(pcm.size()));
 		if (ret >= 0) {
 			//positive return values are the number of samples read per channel; copy into data:
