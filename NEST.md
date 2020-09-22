@@ -66,9 +66,9 @@ Setup for your development environment should be relatively simple:
 	- MacOS: e.g. `brew install ftjam`
 	- Windows: (skip this step; jam for windows is included in the nest-libs package)
  3. Extract an appropriate [release of nest-libs](https://github.com/15-466/nest-libs/releases) to a sibling of this folder:
-    - Linux: https://github.com/15-466/nest-libs/releases/download/v0.4/nest-libs-linux-v0.4.tar.gz
-	- MacOS: https://github.com/15-466/nest-libs/releases/download/v0.4/nest-libs-macos-v0.4.tar.gz
-	- Windows: https://github.com/15-466/nest-libs/releases/download/v0.4/nest-libs-windows-v0.4.zip
+    - Linux: https://github.com/15-466/nest-libs/releases/download/v0.5/nest-libs-linux-v0.5.tar.gz
+	- MacOS: https://github.com/15-466/nest-libs/releases/download/v0.5/nest-libs-macos-v0.5.tar.gz
+	- Windows: https://github.com/15-466/nest-libs/releases/download/v0.5/nest-libs-windows-v0.5.zip
 
 Once you are finished, your directory tree should looks something like this:
 
