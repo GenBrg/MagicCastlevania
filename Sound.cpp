@@ -99,7 +99,7 @@ void Sound::unlock() {
 	if (device) SDL_UnlockAudioDevice(device);
 }
 
-std::shared_ptr< Sound::PlayingSample > Sound::play(Sample const &sample, float pan, float volume) {
+std::shared_ptr< Sound::PlayingSample > Sound::play(Sample const &sample, float volume, float pan) {
 	std::shared_ptr< Sound::PlayingSample > playing_sample = std::make_shared< Sound::PlayingSample >(sample, volume, pan, false);
 	lock();
 	playing_samples.emplace_back(playing_sample);
@@ -115,7 +115,7 @@ std::shared_ptr< Sound::PlayingSample > Sound::play_3D(Sample const &sample, flo
 	return playing_sample;
 }
 
-std::shared_ptr< Sound::PlayingSample > Sound::loop(Sample const &sample, float pan, float volume) {
+std::shared_ptr< Sound::PlayingSample > Sound::loop(Sample const &sample, float volume, float pan) {
 	std::shared_ptr< Sound::PlayingSample > playing_sample = std::make_shared< Sound::PlayingSample >(sample, volume, pan, true);
 	lock();
 	playing_samples.emplace_back(playing_sample);
