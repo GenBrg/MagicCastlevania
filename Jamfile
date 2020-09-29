@@ -25,6 +25,8 @@ if $(OS) = NT { #Windows
 		/LIBPATH:"$(NEST_LIBS)/opusfile/lib"
 		/LIBPATH:"$(NEST_LIBS)/libopus/lib"
 		/LIBPATH:"$(NEST_LIBS)/libogg/lib"
+		/LIBPATH:"$(NEST_LIBS)/harfbuzz/lib"
+		/LIBPATH:"$(NEST_LIBS)/freetype/lib"
 	;
 	LINKLIBS =
 		SDL2main.lib SDL2.lib OpenGL32.lib Shell32.lib
