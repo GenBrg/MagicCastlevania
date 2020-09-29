@@ -149,11 +149,11 @@ Objects
 	;
 
 #------------------------
-#check that a program that uses harfbuzz + freetype functions links properly:
-LOCATE_TARGET = objs ; #put objects in 'objs' directory
-Objects freetype-test.cpp ;
-LOCATE_TARGET = dist ;
-MainFromObjects freetype-test : freetype-test$(SUFOBJ) ;
+##check that a program that uses harfbuzz + freetype functions links properly:
+#LOCATE_TARGET = objs ;
+#Objects freetype-test.cpp ;
+#LOCATE_TARGET = dist ;
+#MainFromObjects freetype-test : freetype-test$(SUFOBJ) ;
 #------------------------
 
 LOCATE_TARGET = dist ; #put main in 'dist' directory
