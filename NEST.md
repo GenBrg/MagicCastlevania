@@ -41,6 +41,7 @@ Here is a quick overview of what is included. For further information, ☺read t
 	- [`make-GL.py`](make-GL.py) does what it says on the tin. Included in case you are curious. You won't need to run it.
 	- [`glcorearb.h`](glcorearb.h) used by `make-GL.py` to produce `GL.*pp`
 	- [`make-PathFont-font.py`](make-PathFont-font.py) processes [`PathFont-font.svg`](PathFont-font.svg) to create [`PathFont-font.cpp`](PathFont-font.cpp) (the line-based font used in the DrawLines code).
+	- [`freetype-test.cpp`](freetype-test.cpp) just exists to check that hb/ft programs are compiling+linking properly
 
 
 

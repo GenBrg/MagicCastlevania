@@ -12,6 +12,8 @@ if $(OS) = NT { #Windows
 		/I"$(NEST_LIBS)/opusfile/include"
 		/I"$(NEST_LIBS)/libopus/include"
 		/I"$(NEST_LIBS)/libogg/include"
+		/I"$(NEST_LIBS)/harfbuzz/include"
+		/I"$(NEST_LIBS)/freetype/include"
 		#disable a few warnings:
 		/wd4146 #-1U is still unsigned
 		/wd4297 #unforunately SDLmain is nothrow
@@ -26,7 +28,7 @@ if $(OS) = NT { #Windows
 	;
 	LINKLIBS =
 		SDL2main.lib SDL2.lib OpenGL32.lib Shell32.lib
-		libpng.lib zlib.lib opusfile.lib opus.lib libogg.lib
+		libpng.lib zlib.lib opusfile.lib opus.lib libogg.lib harfbuzz.lib freetype.lib
 	;
 
 	File SDL2.dll : $(NEST_LIBS)\\SDL2\\dist\\SDL2.dll ;
@@ -44,6 +46,8 @@ if $(OS) = NT { #Windows
 		-I$(NEST_LIBS)/opusfile/include                                             #opusfile
 		-I$(NEST_LIBS)/libopus/include                                              #libopus
 		-I$(NEST_LIBS)/libogg/include                                               #libogg
+		-I$(NEST_LIBS)/freetype/include                                             #freetype
+		-I$(NEST_LIBS)/harfbuzz/include                                             #harfbuzz
 		;
 	LINK = clang++ ;
 	LINKFLAGS = -std=c++17 -g -Wall -Werror ;
@@ -54,6 +58,8 @@ if $(OS) = NT { #Windows
 		-L$(NEST_LIBS)/opusfile/lib -lopusfile                                      #opusfile
 		-L$(NEST_LIBS)/libopus/lib -lopus                                           #libopus (for opusfile)
 		-L$(NEST_LIBS)/libogg/lib -logg                                             #libogg (for opusfile)
+		-L$(NEST_LIBS)/harfbuzz/lib -lharfbuzz                                      #harfbuzz
+		-L$(NEST_LIBS)/freetype/lib -lfreetype                                      #freetype
 		;
 	File README-SDL.txt : $(NEST_LIBS)/SDL2/dist/README-SDL.txt ;
 	MakeLocate README-SDL.txt : dist ;
@@ -68,6 +74,8 @@ if $(OS) = NT { #Windows
 		-I$(NEST_LIBS)/opusfile/include                                             #opusfile
 		-I$(NEST_LIBS)/libopus/include                                              #libopus
 		-I$(NEST_LIBS)/libogg/include                                               #libogg
+		-I$(NEST_LIBS)/freetype/include                                             #freetype
+		-I$(NEST_LIBS)/harfbuzz/include                                             #harfbuzz
 		;
 	LINK = g++ -no-pie ;
 	LINKFLAGS = -std=c++17 -g -Wall -Werror ;
@@ -78,6 +86,8 @@ if $(OS) = NT { #Windows
 		-L$(NEST_LIBS)/opusfile/lib -lopusfile                                                #opusfile
 		-L$(NEST_LIBS)/libopus/lib -lopus                                                     #libopus (for opusfile)
 		-L$(NEST_LIBS)/libogg/lib -logg                                                       #libogg (for opusfile)
+		-L$(NEST_LIBS)/harfbuzz/lib -lharfbuzz                                                #harfbuzz
+		-L$(NEST_LIBS)/freetype/lib -lfreetype                                                #freetype
 		;
 	#`PATH=$(KIT_LIBS)/SDL2/bin:$PATH sdl2-config --static-libs` -lGL #SDL2 (old way that allows system libs to also work)
 	File README-SDL.txt : $(NEST_LIBS)/SDL2/dist/README-SDL.txt ;
@@ -136,9 +146,18 @@ Objects
 	$(SHOW_SCENE_NAMES:S=.cpp)
 	;
 
+#------------------------
+#check that a program that uses harfbuzz + freetype functions links properly:
+LOCATE_TARGET = objs ; #put objects in 'objs' directory
+Objects freetype-test.cpp ;
+LOCATE_TARGET = dist ;
+MainFromObjects freetype-test : freetype-test$(SUFOBJ) ;
+#------------------------
+
 LOCATE_TARGET = dist ; #put main in 'dist' directory
 MainFromObjects game : $(GAME_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
 
 LOCATE_TARGET = scenes ; #put show-meshes and show-scene utilities in the 'scenes' directory:
 MainFromObjects show-meshes : $(SHOW_MESHES_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
 MainFromObjects show-scene : $(SHOW_SCENE_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
+
