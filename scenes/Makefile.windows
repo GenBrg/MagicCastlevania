@@ -3,11 +3,14 @@ BLENDER="C:\Program Files\Blender Foundation\Blender 2.90\blender.exe"
 DIST=../dist
 
 all : \
-    $(DIST)/hexapod.pnct \
-    $(DIST)/hexapod.scene \
+    $(DIST)/phone-bank.pnct \
+    $(DIST)/phone-bank.scene \
 
-$(DIST)/hexapod.scene : hexapod.blend export-scene.py
-    $(BLENDER) --background --python export-scene.py -- "hexapod.blend:Main" "$(DIST)/hexapod.scene"
+$(DIST)/phone-bank.scene : phone-bank.blend export-scene.py
+    $(BLENDER) --background --python export-scene.py -- "phone-bank.blend:Platforms" "$(DIST)/phone-bank.scene"
 
-$(DIST)/hexapod.pnct : hexapod.blend export-meshes.py
-    $(BLENDER) --background --python export-meshes.py -- "hexapod.blend:Main" "$(DIST)/hexapod.pnct" 
+$(DIST)/phone-bank.pnct : phone-bank.blend export-meshes.py
+    $(BLENDER) --background --python export-meshes.py -- "phone-bank.blend:Platforms" "$(DIST)/phone-bank.pnct" 
+
+$(DIST)/phone-bank.w : phone-bank.blend export-walkmeshes.py
+    $(BLENDER) --background --python export-walkmeshes.py -- "phone-bank.blend:WalkMeshes" "$(DIST)/phone-bank.w" 

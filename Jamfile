@@ -101,6 +101,7 @@ if $(OS) = NT { #Windows
 
 #Store the names of various .cpp files to build into variables:
 GAME_NAMES =
+	WalkMesh
 	PlayMode
 	main
 	LitColorTextureProgram

@@ -11,17 +11,21 @@ else
 endif
 
 EXPORT_MESHES=export-meshes.py
+EXPORT_WALKMESHES=export-walkmeshes.py
 EXPORT_SCENE=export-scene.py
 
 DIST=../dist
 
 all : \
-	$(DIST)/hexapod.pnct \
-	$(DIST)/hexapod.scene \
+	$(DIST)/phone-bank.pnct \
+	$(DIST)/phone-bank.w \
+	$(DIST)/phone-bank.scene \
 
+$(DIST)/phone-bank.pnct : phone-bank.blend $(EXPORT_MESHES)
+	$(BLENDER) --background --python $(EXPORT_MESHES) -- '$<':Platforms '$@'
 
-$(DIST)/hexapod.scene : hexapod.blend $(EXPORT_SCENE)
-	$(BLENDER) --background --python $(EXPORT_SCENE) -- '$<':Main '$@'
+$(DIST)/phone-bank.scene : phone-bank.blend $(EXPORT_SCENE)
+	$(BLENDER) --background --python $(EXPORT_SCENE) -- '$<':Platforms '$@'
 
-$(DIST)/hexapod.pnct : hexapod.blend $(EXPORT_MESHES)
-	$(BLENDER) --background --python $(EXPORT_MESHES) -- '$<':Main '$@'
+$(DIST)/phone-bank.w : phone-bank.blend $(EXPORT_WALKMESHES)
+	$(BLENDER) --background --python $(EXPORT_WALKMESHES) -- '$<':WalkMeshes '$@'
