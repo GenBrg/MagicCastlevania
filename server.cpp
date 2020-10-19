@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <cassert>
+#include <unordered_map>
 
 int main(int argc, char **argv) {
 #ifdef _WIN32
