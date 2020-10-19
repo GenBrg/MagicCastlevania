@@ -4,6 +4,8 @@ Author: (TODO: your name)
 
 Design: (TODO: In two sentences or fewer, describe what is new and interesting about your game.)
 
+Networking: (TODO: How does your game implement client/server multiplayer? What is transmitted? Where in the code?)
+
 Screen Shot:
 
 ![Screen Shot](screenshot.png)
