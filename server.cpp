@@ -118,8 +118,8 @@ int main(int argc, char **argv) {
 		//TODO: replace with *your* game state update
 		std::string status_message = "";
 		int32_t overall_sum = 0;
-		for ([[maybe_unused]] auto &[c, player] : players) {
-			//^^ work around erroneous "unused variable" warning on whatever version of g++ github actions is running
+		for (auto &[c, player] : players) {
+			(void)c; //work around "unused variable" warning on whatever version of g++ github actions is running
 			for (; player.left_presses > 0; --player.left_presses) {
 				player.total -= 1;
 			}
@@ -143,6 +143,7 @@ int main(int argc, char **argv) {
 		//send updated game state to all clients
 		//TODO: update for your game state
 		for (auto &[c, player] : players) {
+			(void)player; //work around "unused variable" warning on whatever g++ github actions uses
 			//send an update starting with 'm', a 24-bit size, and a blob of text:
 			c->send('m');
 			c->send(uint8_t(status_message.size() >> 16));

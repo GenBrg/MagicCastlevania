@@ -53,6 +53,7 @@ int main(int argc, char **argv) {
 #include <ws2tcpip.h> //for getaddrinfo
 #undef max
 #undef min
+#undef APIENTRY
 
 #pragma comment(lib, "Ws2_32.lib") //link against the winsock2 library
 

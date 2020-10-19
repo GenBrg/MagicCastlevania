@@ -7,12 +7,13 @@ This name captures the goal of having the various parts and functions relatively
 
 Here is a quick overview of what is included. For further information, ☺read the code☺ !
 - Base code (files you will certainly edit):
-	- [`WalkMesh.cpp`](WalkMesh.cpp) and [`WalkMesh.hpp`](WalkMesh.hpp) contain the start of a walk mesh implementation for you to fill in.
-	- [`main.cpp`](main.cpp) creates the game window and contains the main loop. Set your window title, size, and initial Mode here.
-	- [`PlayMode.hpp`](PlayMode.hpp), [`PlayMode.cpp`](PlayMode.cpp) declaration+definition for a basic PPU demonstration. You'll probably build your game on it.
+	- [`server.cpp`](server.cpp) game server. Update game state and communicate with clients here.
+	- [`client.cpp`](client.cpp) creates the game window and contains the main loop. Set your window title, size, and initial Mode here.
+	- [`PlayMode.hpp`](PlayMode.hpp), [`PlayMode.cpp`](PlayMode.cpp) declaration+definition for a basic game client. You'll probably build your game on it.
 	- [`Jamfile`](Jamfile) responsible for telling FTJam how to build the project. Change this when you add additional .cpp files and to change your runtime executable's name.
 	- [`.gitignore`](.gitignore) ignores generated files. You will need to change it if your executable name changes. (If you find yourself changing it to ignore, e.g., your editor's swap files you should probably, instead, be investigating making this change in the global git configuration.)
 - Useful code (files you should investigate, but probably won't change):
+	- [`Connection.hpp`](Connection.hpp), [`Connection.cpp`](Connection.cpp) polling-based Client and Server classes which talk via sockets.
 	- [`Sound.hpp`](Sound.hpp), [`Sound.cpp`](Sound.cpp) `Sound` namespace, functions for `Sample` loading and playback in 2D and 3D.
 	- [`Mesh.hpp`](Mesh.hpp), [`Mesh.cpp`](Mesh.cpp) mesh loading.
 	- [`Scene.hpp`](Scene.hpp), [`Scene.cpp`](Scene.cpp) scene (transform hierarchy) loading and display (hmm, you might actually edit this code a bit).
