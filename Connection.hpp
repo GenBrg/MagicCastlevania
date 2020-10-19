@@ -42,34 +42,16 @@ int main(int argc, char **argv) {
 //NOTE: much of the sockets code herein is based on http-tweak's single-header http server
 // see: https://github.com/ixchow/http-tweak
 
-//--------- OS-specific socket-related headers ---------
+//--------- 'SOCKET' is of different types on different OS's -------
 #ifdef _WIN32
-#define _CRT_SECURE_NO_WARNINGS 1 //so we can use strerror()
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
+#ifdef _WIN64
+typedef unsigned __int64 SOCKET;
+#else
+typedef unsigned int SOCKET;
 #endif
-#undef APIENTRY
-#include <winsock2.h>
-#include <ws2tcpip.h> //for getaddrinfo
-#undef max
-#undef min
-#undef APIENTRY
-
-#pragma comment(lib, "Ws2_32.lib") //link against the winsock2 library
-
-#define MSG_DONTWAIT 0 //on windows, sockets are set to non-blocking with an ioctl
-typedef int ssize_t;
-
+constexpr const SOCKET INVALID_SOCKET = -1;
 #else
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/ip.h>
-#include <unistd.h>
-#include <netdb.h>
-
-#define closesocket close
 typedef int SOCKET;
 constexpr const SOCKET INVALID_SOCKET = -1;
 #endif
@@ -93,12 +75,7 @@ struct Connection {
 	}
 
 	//Call 'close' to mark a connection for discard:
-	void close() {
-		if (socket != INVALID_SOCKET) {
-			::closesocket(socket);
-			socket = INVALID_SOCKET;
-		}
-	}
+	void close();
 
 	//so you can if(connection) ... to check for validity:
 	explicit operator bool() { return socket != INVALID_SOCKET; }

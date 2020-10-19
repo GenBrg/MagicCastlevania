@@ -1,5 +1,37 @@
 #include "Connection.hpp"
 
+//--------- OS-specific socket-related headers ---------
+#ifdef _WIN32
+#define _CRT_SECURE_NO_WARNINGS 1 //so we can use strerror()
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN 1
+#endif
+#undef APIENTRY
+#include <winsock2.h>
+#include <ws2tcpip.h> //for getaddrinfo
+#undef max
+#undef min
+
+#pragma comment(lib, "Ws2_32.lib") //link against the winsock2 library
+
+#define MSG_DONTWAIT 0 //on windows, sockets are set to non-blocking with an ioctl
+typedef int ssize_t;
+
+#else
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/ip.h>
+#include <unistd.h>
+#include <netdb.h>
+
+#define closesocket close
+
+#endif
+
+//------------------------------------------------------
+
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -11,6 +43,13 @@
 
 //Also, some help and examples for getaddrinfo from: https://beej.us/guide/bgnet/html/multi/syscalls.html
 
+
+void Connection::close() {
+	if (socket != INVALID_SOCKET) {
+		::closesocket(socket);
+		socket = INVALID_SOCKET;
+	}
+}
 
 //---------------------------------
 //Polling helper used by both server and client:
