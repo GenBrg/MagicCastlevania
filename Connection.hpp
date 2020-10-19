@@ -42,18 +42,21 @@ int main(int argc, char **argv) {
 //NOTE: much of the sockets code herein is based on http-tweak's single-header http server
 // see: https://github.com/ixchow/http-tweak
 
-//--------- 'SOCKET' is of different types on different OS's -------
+//--------- 'Socket' is of different types on different OS's -------
 #ifdef _WIN32
-#ifdef _WIN64
-typedef unsigned __int64 SOCKET;
+	// (this is a work-around so that we don't expose the rest of the code
+	//  to the horrors of windows.h )
+	//on windows, 'Socket' will match 'SOCKET' / 'INVALID_SOCKET'
+	#ifdef _WIN64
+	typedef unsigned __int64 Socket;
+	#else
+	typedef unsigned int Socket;
+	#endif
+	constexpr const Socket InvalidSocket = -1;
 #else
-typedef unsigned int SOCKET;
-#endif
-constexpr const SOCKET INVALID_SOCKET = -1;
-#else
-
-typedef int SOCKET;
-constexpr const SOCKET INVALID_SOCKET = -1;
+	//on linux, 'Socket' is just int and we'll use '-1' for an invalid value:
+	typedef int Socket;
+	constexpr const Socket InvalidSocket = -1;
 #endif
 //--------- ---------------------------------- ---------
 
@@ -78,7 +81,7 @@ struct Connection {
 	void close();
 
 	//so you can if(connection) ... to check for validity:
-	explicit operator bool() { return socket != INVALID_SOCKET; }
+	explicit operator bool() { return socket != InvalidSocket; }
 
 	//To send data over a connection, append it to send_buffer:
 	std::vector< char > send_buffer;
@@ -86,7 +89,7 @@ struct Connection {
 	std::vector< char > recv_buffer;
 
 	//internals:
-	SOCKET socket = INVALID_SOCKET;
+	Socket socket = InvalidSocket;
 
 	enum Event {
 		OnOpen,
@@ -105,7 +108,7 @@ struct Server {
 	);
 
 	std::list< Connection > connections;
-	SOCKET listen_socket = INVALID_SOCKET;
+	Socket listen_socket = InvalidSocket;
 };
 
 

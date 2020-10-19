@@ -46,9 +46,9 @@ typedef int ssize_t;
 
 
 void Connection::close() {
-	if (socket != INVALID_SOCKET) {
+	if (socket != InvalidSocket) {
 		::closesocket(socket);
-		socket = INVALID_SOCKET;
+		socket = InvalidSocket;
 	}
 }
 
@@ -59,7 +59,7 @@ void poll_connections(
 	std::list< Connection > &connections,
 	std::function< void(Connection *, Connection::Event event) > const &on_event,
 	double timeout,
-	SOCKET listen_socket = INVALID_SOCKET) {
+	Socket listen_socket = InvalidSocket) {
 
 	fd_set read_fds, write_fds;
 	FD_ZERO(&read_fds);
@@ -68,14 +68,14 @@ void poll_connections(
 	int max = 0;
 
 	//add listen_socket to fd_set if needed:
-	if (listen_socket != INVALID_SOCKET) {
+	if (listen_socket != InvalidSocket) {
 		max = std::max(max, int(listen_socket));
 		FD_SET(listen_socket, &read_fds);
 	}
 
 	//add each connection's socket to read (and possibly write) sets:
 	for (auto c : connections) {
-		if (c.socket != INVALID_SOCKET) {
+		if (c.socket != InvalidSocket) {
 			max = std::max(max, int(c.socket));
 			FD_SET(c.socket, &read_fds);
 			if (!c.send_buffer.empty()) {
@@ -100,9 +100,9 @@ void poll_connections(
 	}
 
 	//add new connections as needed:
-	if (listen_socket != INVALID_SOCKET && FD_ISSET(listen_socket, &read_fds)) {
-		SOCKET got = accept(listen_socket, NULL, NULL);
-		if (got == INVALID_SOCKET) {
+	if (listen_socket != InvalidSocket && FD_ISSET(listen_socket, &read_fds)) {
+		Socket got = accept(listen_socket, NULL, NULL);
+		if (got == InvalidSocket) {
 			//oh well.
 		} else {
 			#ifdef _WIN32
@@ -125,7 +125,7 @@ void poll_connections(
 	//process requests:
 	for (auto &c : connections) {
 		//only read from valid sockets marked readable:
-		if (c.socket == INVALID_SOCKET || !FD_ISSET(c.socket, &read_fds)) continue;
+		if (c.socket == InvalidSocket || !FD_ISSET(c.socket, &read_fds)) continue;
 
 		ssize_t ret = recv(c.socket, buffer, BufferSize, MSG_DONTWAIT);
 		if (ret < 0 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
@@ -150,7 +150,7 @@ void poll_connections(
 	//process responses:
 	for (auto &c : connections) {
 		//don't bother with connections unless they are valid, have something to send, and are marked writable:
-		if (c.socket == INVALID_SOCKET || c.send_buffer.empty() || !FD_ISSET(c.socket, &write_fds)) continue;
+		if (c.socket == InvalidSocket || c.send_buffer.empty() || !FD_ISSET(c.socket, &write_fds)) continue;
 		
 		#ifdef _WIN32
 		ssize_t ret = send(c.socket, reinterpret_cast< char const * >(c.send_buffer.data()), int(c.send_buffer.size()), MSG_DONTWAIT);
@@ -223,8 +223,8 @@ Server::Server(std::string const &port) {
 				std::cout << "... "; std::cout.flush();
 			}
 
-			SOCKET s = socket(info->ai_family, info->ai_socktype, info->ai_protocol);
-			if (s == INVALID_SOCKET) {
+			Socket s = socket(info->ai_family, info->ai_socktype, info->ai_protocol);
+			if (s == InvalidSocket) {
 				std::cout << "(failed to create socket: " << strerror(errno) << ")" << std::endl;
 				continue;
 			}
@@ -256,7 +256,7 @@ Server::Server(std::string const &port) {
 		freeaddrinfo(res);
 	}
 
-	if (listen_socket == INVALID_SOCKET) {
+	if (listen_socket == InvalidSocket) {
 		throw std::runtime_error("Failed to bind to port " + port);
 	}
 
@@ -276,7 +276,7 @@ void Server::poll(std::function< void(Connection *, Connection::Event event) > c
 	for (auto connection = connections.begin(); connection != connections.end(); /*later*/) {
 		auto old = connection;
 		++connection;
-		if (old->socket == INVALID_SOCKET) {
+		if (old->socket == InvalidSocket) {
 			connections.erase(old);
 		}
 	}
@@ -325,8 +325,8 @@ Client::Client(std::string const &host, std::string const &port) : connections(1
 				std::cout << "... "; std::cout.flush();
 			}
 
-			SOCKET s = socket(info->ai_family, info->ai_socktype, info->ai_protocol);
-			if (s == INVALID_SOCKET) {
+			Socket s = socket(info->ai_family, info->ai_socktype, info->ai_protocol);
+			if (s == InvalidSocket) {
 				std::cout << "(failed to create socket: " << strerror(errno) << ")" << std::endl;
 				continue;
 			}
@@ -351,6 +351,6 @@ Client::Client(std::string const &host, std::string const &port) : connections(1
 
 
 void Client::poll(std::function< void(Connection *, Connection::Event event) > const &on_event, double timeout) {
-	poll_connections("Client::poll", connections, on_event, timeout, INVALID_SOCKET);
+	poll_connections("Client::poll", connections, on_event, timeout, InvalidSocket);
 }
 
