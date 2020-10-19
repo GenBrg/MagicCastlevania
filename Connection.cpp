@@ -1,4 +1,3 @@
-#include "Connection.hpp"
 
 //--------- OS-specific socket-related headers ---------
 #ifdef _WIN32
@@ -29,6 +28,8 @@ typedef int ssize_t;
 #define closesocket close
 
 #endif
+
+#include "Connection.hpp"
 
 //------------------------------------------------------
 
