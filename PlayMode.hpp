@@ -1,14 +1,12 @@
 #include "Mode.hpp"
 
-#include "Connection.hpp"
-
 #include <glm/glm.hpp>
 
 #include <vector>
 #include <deque>
 
 struct PlayMode : Mode {
-	PlayMode(Client &client);
+	PlayMode();
 	virtual ~PlayMode();
 
 	//functions called by main loop:
@@ -23,11 +21,4 @@ struct PlayMode : Mode {
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
 	} left, right, down, up;
-
-	//last message from server:
-	std::string server_message;
-
-	//connection to server:
-	Client &client;
-
 };

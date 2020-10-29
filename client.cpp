@@ -1,6 +1,5 @@
 #include "PlayMode.hpp"
 
-#include "Connection.hpp"
 #include "Mode.hpp"
 #include "Load.hpp"
 #include "Sound.hpp"
@@ -20,14 +19,6 @@ int main(int argc, char **argv) {
 	//when compiled on windows, unhandled exceptions don't have their message printed, which can make debugging simple issues difficult.
 	try {
 #endif
-	//------------ command line arguments ------------
-	if (argc != 3) {
-		std::cerr << "Usage:\n\t./client <host> <port>" << std::endl;
-		return 1;
-	}
-
-	//------------ connect to server --------------
-	Client client(argv[1], argv[2]);
 
 	//------------  initialization ------------
 
@@ -96,7 +87,7 @@ int main(int argc, char **argv) {
 	call_load_functions();
 
 	//------------ create game mode + make current --------------
-	Mode::set_current(std::make_shared< PlayMode >(client));
+	Mode::set_current(std::make_shared< PlayMode >());
 
 	//------------ main loop ------------
 

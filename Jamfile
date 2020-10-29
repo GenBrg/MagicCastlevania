@@ -127,31 +127,12 @@ COMMON_NAMES =
 	Mode
 	GL
 	Load
-	Connection
-	hex_dump
 	;
-
-SHOW_MESHES_NAMES =
-	show-meshes
-	ShowMeshesProgram
-	ShowMeshesMode
-	;
-
-
-SHOW_SCENE_NAMES =
-	show-scene
-	ShowSceneProgram
-	ShowSceneMode
-	;
-
 
 LOCATE_TARGET = objs ; #put objects in 'objs' directory
 Objects 
 	$(CLIENT_NAMES:S=.cpp)
-	$(SERVER_NAMES:S=.cpp)
 	$(COMMON_NAMES:S=.cpp)
-	$(SHOW_MESHES_NAMES:S=.cpp)
-	$(SHOW_SCENE_NAMES:S=.cpp)
 	;
 
 #------------------------
@@ -164,9 +145,4 @@ Objects
 
 LOCATE_TARGET = dist ; #put main in 'dist' directory
 MainFromObjects client : $(CLIENT_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
-MainFromObjects server : $(SERVER_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
-
-LOCATE_TARGET = scenes ; #put show-meshes and show-scene utilities in the 'scenes' directory:
-MainFromObjects show-meshes : $(SHOW_MESHES_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
-MainFromObjects show-scene : $(SHOW_SCENE_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
 
