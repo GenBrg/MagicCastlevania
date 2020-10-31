@@ -100,17 +100,17 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 			0.0f, 0.0f, 0.0f, 1.0f
 		));
 
-		auto draw_text = [&](glm::vec2 const &at, std::string const &text, float H) {
-			lines.draw_text(text,
-				glm::vec3(at.x, at.y, 0.0),
-				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
-				glm::u8vec4(0x00, 0x00, 0x00, 0x00));
-			float ofs = 2.0f / drawable_size.y;
-			lines.draw_text(text,
-				glm::vec3(at.x + ofs, at.y + ofs, 0.0),
-				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
-				glm::u8vec4(0xff, 0xff, 0xff, 0x00));
-		};
+		// auto draw_text = [&](glm::vec2 const &at, std::string const &text, float H) {
+		// 	lines.draw_text(text,
+		// 		glm::vec3(at.x, at.y, 0.0),
+		// 		glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+		// 		glm::u8vec4(0x00, 0x00, 0x00, 0x00));
+		// 	float ofs = 2.0f / drawable_size.y;
+		// 	lines.draw_text(text,
+		// 		glm::vec3(at.x + ofs, at.y + ofs, 0.0),
+		// 		glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+		// 		glm::u8vec4(0xff, 0xff, 0xff, 0x00));
+		// };
 
 		// draw_text(glm::vec2(-aspect + 0.1f, 0.0f), server_message, 0.09f);
 
