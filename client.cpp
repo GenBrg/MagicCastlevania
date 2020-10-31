@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 
 	//create window:
 	SDL_Window *window = SDL_CreateWindow(
-		"gp20 game6: multiplayer", //TODO: remember to set a title for your game!
+		"Magic Castlevania",
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		1280, 720, //TODO: modify window size if you'd like
 		SDL_WINDOW_OPENGL

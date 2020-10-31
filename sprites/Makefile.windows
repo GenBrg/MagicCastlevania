@@ -1,0 +1,6 @@
+ProjectName=MagicCastlevania
+GIMP="D:\GIMP 2\bin\gimp-console-2.10.exe"
+
+../dist/$(ProjectName).png ../dist/$(ProjectName).atlas : $(ProjectName).xcf $(ProjectName).list extract-sprites.py pack-sprites.exe
+	rmdir /s /q $(ProjectName)
+	python make-sprites-win.py $(ProjectName) $(GIMP)

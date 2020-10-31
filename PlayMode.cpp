@@ -3,10 +3,23 @@
 #include "DrawLines.hpp"
 #include "gl_errors.hpp"
 #include "data_path.hpp"
+#include "Load.hpp"
+#include "Sprite.hpp"
+#include "DrawSprites.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
 
 #include <random>
+
+Sprite const *sprite_dunes = nullptr;
+
+Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
+	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
+
+	sprite_dunes = &ret->lookup("dunes-ship");
+
+	return ret;
+});
 
 PlayMode::PlayMode() {
 }
@@ -63,8 +76,22 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	//use alpha blending:
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//don't use the depth test:
+	glDisable(GL_DEPTH_TEST);
+
+	{ //use a DrawSprites to do the drawing:
+		DrawSprites draw(*sprites, view_min, view_max, drawable_size, DrawSprites::AlignPixelPerfect);
+		glm::vec2 ul = glm::vec2(view_max.x / 2.0f, view_max.y / 2.0f);
+		draw.draw(*sprite_dunes, ul, glm::radians(0.0f));
+		draw.draw(*sprite_dunes, ul, glm::radians(20.0f));
+		draw.draw(*sprite_dunes, ul, glm::radians(40.0f));
+		draw.draw(*sprite_dunes, ul, glm::radians(60.0f));
+	}
+
 	{ //use DrawLines to overlay some text:
-		glDisable(GL_DEPTH_TEST);
 		float aspect = float(drawable_size.x) / float(drawable_size.y);
 		DrawLines lines(glm::mat4(
 			1.0f / aspect, 0.0f, 0.0f, 0.0f,

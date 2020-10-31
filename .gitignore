@@ -15,6 +15,10 @@ dist/server.pdb
 dist/SDL2.dll
 dist/freetype-test
 dist/freetype-test.*
+dist/*.atlas
+dist/*.png
 scenes/show-meshes*
 scenes/show-scene*
 *.blend[0-9]
+.vscode
+sprites/MagicCastlevania

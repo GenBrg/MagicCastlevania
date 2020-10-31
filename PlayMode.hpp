@@ -21,4 +21,7 @@ struct PlayMode : Mode {
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
 	} left, right, down, up;
+
+	glm::vec2 view_min = glm::vec2(0,0);
+	glm::vec2 view_max = glm::vec2(256, 224);
 };

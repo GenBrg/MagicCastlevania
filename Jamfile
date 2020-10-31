@@ -104,14 +104,10 @@ CLIENT_NAMES =
 	client
 	PlayMode
 	LitColorTextureProgram
-	#ColorTextureProgram #not used right now, but you might want it
+	ColorTextureProgram
 	Sound
 	load_wav
 	load_opus
-	;
-
-SERVER_NAMES =
-	server
 	;
 
 COMMON_NAMES =
@@ -127,6 +123,9 @@ COMMON_NAMES =
 	Mode
 	GL
 	Load
+	Sprite
+	DrawSprites
+	Util
 	;
 
 LOCATE_TARGET = objs ; #put objects in 'objs' directory
