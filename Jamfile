@@ -128,6 +128,10 @@ COMMON_NAMES =
 	Util
 	;
 
+PACK_SPRITES_NAMES =
+	pack-sprites
+	;
+
 LOCATE_TARGET = objs ; #put objects in 'objs' directory
 Objects 
 	$(CLIENT_NAMES:S=.cpp)
@@ -145,3 +149,5 @@ Objects
 LOCATE_TARGET = dist ; #put main in 'dist' directory
 MainFromObjects client : $(CLIENT_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
 
+LOCATE_TARGET = sprites ; #put pack-sprites utility in the 'sprites' directory:
+MainFromObjects pack-sprites : $(PACK_SPRITES_NAMES:S=$(SUFOBJ)) load_save_png$(SUFOBJ) ;
