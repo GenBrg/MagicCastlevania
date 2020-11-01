@@ -6,20 +6,11 @@
 #include "Load.hpp"
 #include "Sprite.hpp"
 #include "DrawSprites.hpp"
+#include "Util.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
 
 #include <random>
-
-Sprite const *sprite_dunes = nullptr;
-
-Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
-	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
-
-	sprite_dunes = &ret->lookup("dunes-ship");
-
-	return ret;
-});
 
 PlayMode::PlayMode() {
 }
@@ -69,7 +60,7 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
-
+	
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {

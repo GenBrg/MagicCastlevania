@@ -1,6 +1,10 @@
-# (TODO: your game's title)
+# Magic Castlevania
 
-Author: (TODO: your name)
+Author:\
+Jiasheng Zhou \<jiashen2@andrew.cmu.edu\>\
+Hao Wang \<\>\
+Jianxiang Li \<\>
+
 
 Design: (TODO: In two sentences or fewer, describe what is new and interesting about your game.)
 
