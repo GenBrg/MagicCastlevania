@@ -16,5 +16,11 @@ How To Play:
 
 Sources: (TODO: list a source URL for any assets you did not create yourself. Make sure you have a license for the asset.)
 
+Roguelike https://kenney.nl/assets/micro-roguelike \
+Platformer https://kenney.nl/assets/platformer-pack-redux \
+Roguelike Dungeon https://kenney.nl/assets/roguelike-caves-dungeons \
+Roguelike RPG https://kenney.nl/assets/roguelike-rpg-pack \
+Monsters https://craftpix.net/freebies/free-rpg-monster-sprites-pixel-art/ \
+
 This game was built with [NEST](NEST.md).
 
