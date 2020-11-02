@@ -4,6 +4,8 @@
 
 #include <vector>
 #include <deque>
+#include <gamebase/Room.hpp>
+#include <gamebase/MainPlayer.hpp>
 
 struct PlayMode : Mode {
 	PlayMode();
@@ -24,4 +26,7 @@ struct PlayMode : Mode {
 
 	glm::vec2 view_min = glm::vec2(0,0);
 	glm::vec2 view_max = glm::vec2(256, 224);
+
+	Room* currRoomP;
+	Player* playerP;
 };

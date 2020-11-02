@@ -28,48 +28,49 @@ PlayMode::~PlayMode() {
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
+	playerP->onKeyEvent(evt);
+	return true;
+//	if (evt.type == SDL_KEYDOWN) {
+//		if (evt.key.repeat) {
+//			//ignore repeats
+//		} else if (evt.key.keysym.sym == SDLK_a) {
+//			left.downs += 1;
+//			left.pressed = true;
+//			return true;
+//		} else if (evt.key.keysym.sym == SDLK_d) {
+//			right.downs += 1;
+//			right.pressed = true;
+//			return true;
+//		} else if (evt.key.keysym.sym == SDLK_w) {
+//			up.downs += 1;
+//			up.pressed = true;
+//			return true;
+//		} else if (evt.key.keysym.sym == SDLK_s) {
+//			down.downs += 1;
+//			down.pressed = true;
+//			return true;
+//		}
+//	} else if (evt.type == SDL_KEYUP) {
+//		if (evt.key.keysym.sym == SDLK_a) {
+//			left.pressed = false;
+//			return true;
+//		} else if (evt.key.keysym.sym == SDLK_d) {
+//			right.pressed = false;
+//			return true;
+//		} else if (evt.key.keysym.sym == SDLK_w) {
+//			up.pressed = false;
+//			return true;
+//		} else if (evt.key.keysym.sym == SDLK_s) {
+//			down.pressed = false;
+//			return true;
+//		}
+//	}
 
-	if (evt.type == SDL_KEYDOWN) {
-		if (evt.key.repeat) {
-			//ignore repeats
-		} else if (evt.key.keysym.sym == SDLK_a) {
-			left.downs += 1;
-			left.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_d) {
-			right.downs += 1;
-			right.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_w) {
-			up.downs += 1;
-			up.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_s) {
-			down.downs += 1;
-			down.pressed = true;
-			return true;
-		}
-	} else if (evt.type == SDL_KEYUP) {
-		if (evt.key.keysym.sym == SDLK_a) {
-			left.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_d) {
-			right.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_w) {
-			up.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_s) {
-			down.pressed = false;
-			return true;
-		}
-	}
-
-	return false;
+//	return false;
 }
 
 void PlayMode::update(float elapsed) {
-
+	// room->update(elapsed);
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
