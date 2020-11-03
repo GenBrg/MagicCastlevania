@@ -126,6 +126,7 @@ COMMON_NAMES =
 	Sprite
 	DrawSprites
 	Util
+	Player
 	;
 
 PACK_SPRITES_NAMES =
@@ -148,6 +149,3 @@ Objects
 
 LOCATE_TARGET = dist ; #put main in 'dist' directory
 MainFromObjects client : $(CLIENT_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
-
-LOCATE_TARGET = sprites ; #put pack-sprites utility in the 'sprites' directory:
-MainFromObjects pack-sprites : $(PACK_SPRITES_NAMES:S=$(SUFOBJ)) load_save_png$(SUFOBJ) ;

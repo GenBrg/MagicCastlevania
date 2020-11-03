@@ -1,20 +1,20 @@
-#include "Player.hpp"
+ #include "Player.hpp"
 #include "Util.hpp"
-#include "DrawSprite.hpp"
 
-Player::Player()
+Player::Player() :
+sprite_(sprites->lookup("dunes-ship")),
+position_()
 {
-	sprite_ = &ret->lookup("dunes-ship");
 }
 
 void Player::MoveLeft()
 {
-	acceleration_.x = (moving_state_ == MovingState::IN_AIR) ? kHorizontalAccelerationOnGround : kHorizontalAccelerationInAir;
+	acceleration_.x = (moving_state_ == MovingState::IN_AIR) ? -kHorizontalAccelerationOnGround : -kHorizontalAccelerationInAir;
 }
 
 void Player::MoveRight()
 {
-	acceleration_.x = (moving_state_ == MovingState::IN_AIR) ? -kHorizontalAccelerationOnGround : -kHorizontalAccelerationInAir;
+	acceleration_.x = (moving_state_ == MovingState::IN_AIR) ? kHorizontalAccelerationOnGround : kHorizontalAccelerationInAir;
 }
 
 void Player::Jump()
@@ -56,6 +56,8 @@ void Player::Update(float elapsed)
 	acceleration_.x = 0.0f;
 
 	velocity_.y += acceleration_.y * elapsed;
+
+	velocity_.x = glm::clamp(velocity_.x, -kMaxHorizontalSpeed, kMaxHorizontalSpeed);
 	
 	position_ += (original_velocity + velocity_) * elapsed / 2.0f;
 
@@ -66,7 +68,7 @@ void Player::Update(float elapsed)
 	}
 }
 
-void Player::Draw(const DrawSprites& draw) const
+void Player::Draw(DrawSprites& draw) const
 {
 	draw.draw(sprite_, position_);
 }

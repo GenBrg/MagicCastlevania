@@ -2,11 +2,12 @@
 
 #include "Sprite.hpp"
 #include "Load.hpp"
+#include "data_path.hpp"
 
 #include <glm/glm.hpp>
 
 inline Sprite const *sprite_dunes = nullptr;
-inline static constexpr float kGravity { -9.8f };
+inline static constexpr float kGravity { -200.0f };
 
 inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));

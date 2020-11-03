@@ -39,6 +39,10 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 			down.downs += 1;
 			down.pressed = true;
 			return true;
+		} else if (evt.key.keysym.sym == SDLK_SPACE) {
+			space.downs += 1;
+			space.pressed = true;
+			return true;
 		}
 	} else if (evt.type == SDL_KEYUP) {
 		if (evt.key.keysym.sym == SDLK_a) {
@@ -53,6 +57,9 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 		} else if (evt.key.keysym.sym == SDLK_s) {
 			down.pressed = false;
 			return true;
+		} else if (evt.key.keysym.sym == SDLK_SPACE) {
+			space.pressed = false;
+			return true;
 		}
 	}
 
@@ -60,7 +67,19 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
-	
+	if (right.pressed && !left.pressed) {
+		player.MoveRight();
+	}
+
+	if (left.pressed && !right.pressed) {
+		player.MoveLeft();
+	}
+
+	if (space.pressed) {
+		player.Jump();
+	}
+
+	player.Update(elapsed);
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
@@ -75,11 +94,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 
 	{ //use a DrawSprites to do the drawing:
 		DrawSprites draw(*sprites, view_min, view_max, drawable_size, DrawSprites::AlignPixelPerfect);
-		glm::vec2 ul = glm::vec2(view_max.x / 2.0f, view_max.y / 2.0f);
-		draw.draw(*sprite_dunes, ul, glm::radians(0.0f));
-		draw.draw(*sprite_dunes, ul, glm::radians(20.0f));
-		draw.draw(*sprite_dunes, ul, glm::radians(40.0f));
-		draw.draw(*sprite_dunes, ul, glm::radians(60.0f));
+		player.Draw(draw);
 	}
 
 	{ //use DrawLines to overlay some text:
