@@ -5,6 +5,8 @@
 
 #include <vector>
 #include <deque>
+// #include <gamebase/Room.hpp>
+// #include <gamebase/MainPlayer.hpp>
 
 struct PlayMode : Mode {
 	PlayMode();
