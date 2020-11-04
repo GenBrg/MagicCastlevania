@@ -1,4 +1,8 @@
-objs/
+objs/*.obj
+objs/engine/*
+objs/gamebase/*
+!objs/engine/
+!objs/gamebase/
 dist/README-SDL.txt
 dist/game
 dist/game.exe
@@ -15,8 +19,6 @@ dist/server.pdb
 dist/SDL2.dll
 dist/freetype-test
 dist/freetype-test.*
-dist/*.atlas
-dist/*.png
 scenes/show-meshes*
 scenes/show-scene*
 *.blend[0-9]

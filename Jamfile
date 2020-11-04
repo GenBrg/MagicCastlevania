@@ -127,11 +127,27 @@ COMMON_NAMES =
 	DrawSprites
 	Util
 	;
+	
+GAMEBASE_NAME =
+	#Player
+	;
+
+ENGINE_NAMES =
+	#MovementComponent
+	#InputSystem
+	Transform2D
+	;
+
+PACK_SPRITES_NAMES =
+	pack-sprites
+	;
 
 LOCATE_TARGET = objs ; #put objects in 'objs' directory
 Objects 
 	$(CLIENT_NAMES:S=.cpp)
 	$(COMMON_NAMES:S=.cpp)
+	gamebase/$(GAMEBASE_NAME:S=.cpp)
+	engine/$(ENGINE_NAMES:S=.cpp)
 	;
 
 #------------------------
@@ -143,5 +159,5 @@ Objects
 #------------------------
 
 LOCATE_TARGET = dist ; #put main in 'dist' directory
-MainFromObjects client : $(CLIENT_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) ;
-
+#MainFromObjects client : $(CLIENT_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) gamebase/$(GAMEBASE_NAME:S=$(SUFOBJ)) engine/$(ENGINE_NAMES:S=$(SUFOBJ)) ;
+MainFromObjects client : $(CLIENT_NAMES:S=$(SUFOBJ)) $(COMMON_NAMES:S=$(SUFOBJ)) gamebase/$(GAMEBASE_NAME:S=$(SUFOBJ)) engine/$(ENGINE_NAMES:S=$(SUFOBJ)) ;

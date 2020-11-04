@@ -6,20 +6,11 @@
 #include "Load.hpp"
 #include "Sprite.hpp"
 #include "DrawSprites.hpp"
+#include "Util.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
 
 #include <random>
-
-Sprite const *sprite_dunes = nullptr;
-
-Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
-	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
-
-	sprite_dunes = &ret->lookup("dunes-ship");
-
-	return ret;
-});
 
 PlayMode::PlayMode() {
 }
@@ -28,48 +19,12 @@ PlayMode::~PlayMode() {
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
-
-	if (evt.type == SDL_KEYDOWN) {
-		if (evt.key.repeat) {
-			//ignore repeats
-		} else if (evt.key.keysym.sym == SDLK_a) {
-			left.downs += 1;
-			left.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_d) {
-			right.downs += 1;
-			right.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_w) {
-			up.downs += 1;
-			up.pressed = true;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_s) {
-			down.downs += 1;
-			down.pressed = true;
-			return true;
-		}
-	} else if (evt.type == SDL_KEYUP) {
-		if (evt.key.keysym.sym == SDLK_a) {
-			left.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_d) {
-			right.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_w) {
-			up.pressed = false;
-			return true;
-		} else if (evt.key.keysym.sym == SDLK_s) {
-			down.pressed = false;
-			return true;
-		}
-	}
-
+	// return player.OnKeyEvent(evt);
 	return false;
 }
 
 void PlayMode::update(float elapsed) {
-
+	// player.Update(elapsed);
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
@@ -84,11 +39,16 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 
 	{ //use a DrawSprites to do the drawing:
 		DrawSprites draw(*sprites, view_min, view_max, drawable_size, DrawSprites::AlignPixelPerfect);
-		glm::vec2 ul = glm::vec2(view_max.x / 2.0f, view_max.y / 2.0f);
-		draw.draw(*sprite_dunes, ul, glm::radians(0.0f));
-		draw.draw(*sprite_dunes, ul, glm::radians(20.0f));
-		draw.draw(*sprite_dunes, ul, glm::radians(40.0f));
-		draw.draw(*sprite_dunes, ul, glm::radians(60.0f));
+		// player.Draw(draw);
+		Transform2D transform(nullptr);
+		transform.position_ = glm::vec2(100.0f, 100.0f);
+
+		for (int i = 0; i < 10; ++i) {
+			transform.rotation_ += glm::radians(10.0f);
+			transform.position_ += glm::vec2(20.0f, 20.0f);
+			transform.scale_ -= glm::vec2(0.15f, 0.15f);
+			draw.draw(*sprite_dunes, transform);
+		}
 	}
 
 	{ //use DrawLines to overlay some text:

@@ -1,9 +1,12 @@
 #include "Mode.hpp"
+#include "gamebase/Player.hpp"
 
 #include <glm/glm.hpp>
 
 #include <vector>
 #include <deque>
+// #include <gamebase/Room.hpp>
+// #include <gamebase/MainPlayer.hpp>
 
 struct PlayMode : Mode {
 	PlayMode();
@@ -20,8 +23,10 @@ struct PlayMode : Mode {
 	struct Button {
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
-	} left, right, down, up;
+	} left, right, down, up, space;
 
 	glm::vec2 view_min = glm::vec2(0,0);
 	glm::vec2 view_max = glm::vec2(256, 224);
+
+	// Player player;
 };
