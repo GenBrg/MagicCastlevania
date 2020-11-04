@@ -19,11 +19,12 @@ PlayMode::~PlayMode() {
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
-	return player.OnKeyEvent(evt);
+	// return player.OnKeyEvent(evt);
+	return false;
 }
 
 void PlayMode::update(float elapsed) {
-	player.Update(elapsed);
+	// player.Update(elapsed);
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
@@ -38,7 +39,16 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 
 	{ //use a DrawSprites to do the drawing:
 		DrawSprites draw(*sprites, view_min, view_max, drawable_size, DrawSprites::AlignPixelPerfect);
-		player.Draw(draw);
+		// player.Draw(draw);
+		Transform2D transform(nullptr);
+		transform.position_ = glm::vec2(100.0f, 100.0f);
+
+		for (int i = 0; i < 10; ++i) {
+			transform.rotation_ += glm::radians(10.0f);
+			transform.position_ += glm::vec2(20.0f, 20.0f);
+			transform.scale_ -= glm::vec2(0.15f, 0.15f);
+			draw.draw(*sprite_dunes, transform);
+		}
 	}
 
 	{ //use DrawLines to overlay some text:

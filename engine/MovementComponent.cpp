@@ -23,7 +23,7 @@ void MovementComponent::Jump()
 	}
 }
 
-void MovementComponent::Update(float elapsed)
+void MovementComponent::Update(float elapsed, const std::vector<Collider*>& colliders_to_consider)
 {
 	// Calculate speed
 	glm::vec2 original_velocity = velocity_;
@@ -56,7 +56,28 @@ void MovementComponent::Update(float elapsed)
 	velocity_.x = glm::clamp(velocity_.x, -max_horizontal_speed_, max_horizontal_speed_);
 	velocity_.y = glm::clamp(velocity_.y, -max_vertical_speed_, max_vertical_speed_);
 	
-	transform_.position_ += (original_velocity + velocity_) * elapsed / 2.0f;
+	glm::vec2 delta_position = (original_velocity + velocity_) * elapsed / 2.0f;
+
+	// TODO sort colliders in proximity
+	for (Collider* other_collider : colliders_to_consider) {
+		glm::vec2 contact_point;
+		glm::vec2 contact_normal;
+		float time;
+
+		if (collider_.DynamicCollisionQuery(*other_collider, delta_position, contact_point, contact_normal, time)) {
+			// collision resolution routine
+
+			if (contact_normal.x != 0.0f) {
+				velocity_.x = 0.0f;
+			} else {
+				velocity_.y = 0.0f;
+			}
+
+			delta_position += contact_normal * (1 - time) * glm::vec2(std::abs(delta_position.x), std::abs(delta_position.y));
+		}
+	}
+	
+	transform_.position_ += delta_position;
 
 	if (transform_.position_.y < 0.0f) {
 		transform_.position_.y = 0.0f;

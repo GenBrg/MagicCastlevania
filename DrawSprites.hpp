@@ -25,7 +25,7 @@ struct DrawSprites {
 	DrawSprites(SpriteAtlas const &atlas, glm::vec2 const &view_min, glm::vec2 const &view_max, glm::uvec2 const &drawable_size, AlignMode mode = AlignSloppy);
 
 	//Add more sprites to draw:
-	void draw(Sprite const &sprite, Transform2D transform, glm::u8vec4 const &tint = glm::u8vec4(0xff, 0xff, 0xff, 0xff));
+	void draw(Sprite const &sprite, const Transform2D& transform, glm::u8vec4 const &tint = glm::u8vec4(0xff, 0xff, 0xff, 0xff));
 
 	//Actually draws the sprites on deallocation:
 	~DrawSprites();

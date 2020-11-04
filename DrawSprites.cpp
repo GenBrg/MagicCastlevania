@@ -120,7 +120,7 @@ DrawSprites::DrawSprites(
 	//DEBUG: std::cout << glm::to_string(to_clip) << std::endl;
 }
 
-void DrawSprites::draw(Sprite const &sprite, Transform2D transform, glm::u8vec4 const &tint) {
+void DrawSprites::draw(Sprite const &sprite, const Transform2D& transform, glm::u8vec4 const &tint) {
 	glm::vec2 min_tc = sprite.min_px / glm::vec2(atlas.tex_size);
 	glm::vec2 max_tc = sprite.max_px / glm::vec2(atlas.tex_size);
 
@@ -135,20 +135,10 @@ void DrawSprites::draw(Sprite const &sprite, Transform2D transform, glm::u8vec4 
 		upper_right_corner
 	};
 
-	float cos_theta = glm::cos(transform.rotation_);
-	float sin_theta = glm::sin(transform.rotation_);
-
-	glm::mat2 rotation_mat(glm::vec2(cos_theta, sin_theta), glm::vec2(-sin_theta, cos_theta));
-
+	glm::mat3 model_mat = transform.MakeLocalToWorld();
+	
 	for (auto& corner : corners) {
-		// Scale
-		corner *= transform.scale_;
-
-		// Rotate
-		corner = rotation_mat * corner;
-
-		// Translate
-		corner += transform.position_;
+		corner = model_mat * glm::vec3(corner, 1.0f);
 	}
 
 	if (mode == AlignPixelPerfect) {

@@ -2,9 +2,14 @@
 
 #include <algorithm>
 
+Collider(const glm::vec4& box, Transform2D* transform) :
+
+{
+
+}
+
 Collider::Collider(const glm::vec4& box):
-upper_right_corner_ { box[0], box[1] },
-lower_left_corner_ { box[2], box[3] }
+
 {}
 
 // bool Collider::isCollide(const Collider& other)
@@ -12,15 +17,15 @@ lower_left_corner_ { box[2], box[3] }
 	
 // }
 
-// bool Collider::DynamicCollisionResolution(const Collider& other)
+// bool Collider::DynamicCollisionQuery(const Collider& other)
 // {
 
 // }
 
 // bool Collider::IsPointInCollider(const glm::vec2& point) const
 // {
-// 	return point.x >= box_.x && point.x <= box_.z 
-// 		&& point.y >= box_.y && point.y <= box_.w;
+// 	return point.x >= bounding_box_.x && point.x <= bounding_box_.z 
+// 		&& point.y >= bounding_box_.y && point.y <= bounding_box_.w;
 // }
 
 bool Collider::IsIntersectWithRay(const glm::vec2& ray_origin, const glm::vec2& ray_dir, 

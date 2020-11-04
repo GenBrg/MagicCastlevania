@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 
 /**
- * An axis-aligned bounding box that is able to do collision detection and resolution.
+ * An axis-aligned bounding bounding_box that is able to do collision detection and resolution.
  * It uses swept AABB collision detection and resolution.
  * Idea from https://www.youtube.com/watch?v=8JJ-4JgR7Dg&t=24s&ab_channel=javidx9
  * Code reference from https://github.com/OneLoneCoder/olcPixelGameEngine/blob/master/Videos/OneLoneCoder_PGE_Rectangles.cpp
@@ -16,21 +16,25 @@ class Collider {
 	friend class CollisionSystem;
 public:
 	/**
-	 * @param box (xmin, ymin, xmax, ymax).
+	 * @param bounding_box (xmin, ymin, xmax, ymax). Relative position to the anchor point.
+	 * @param transform The parent transform of this collider which represents the anchor
+	 * 					point . If nullptr is passed in, the bounding_box will essentially be an absolute position.
+	 * @note The bounding_box is the position relative to the anchor point rather than an absolute position.
 	 */
-	Collider(const glm::vec4& box);
+	Collider(const glm::vec4& bounding_box, Transform2D* transform);
 
 	/** Naively statically check if this collider is colliding with another collider.
-	 *  @param other The collider to check with.
+	 *  @param other_collider The collider to check with.
 	 *  @return True if the a collision is detected.
 	 */
-	bool IsCollide(const Collider& other);
+	bool IsColliding(const Collider& other_collider);
 
 	/** Swept AABB collision detection and resolution.
-	 *  @param other The collider to check with.
+	 *  @param other_collider The collider to check with.
+	 *  @param delta_position The offset of for the collider to advance.
 	 *  @return True if the a collision is detected.
 	 */
-	bool DynamicCollisionResolution(const Collider& other);
+	bool DynamicCollisionQuery(const Collider& other_collider, const glm::vec2& delta_position, glm::vec2& contact_point, glm::vec2& contact_normal, float& time);
 
 	bool IsPointInCollider(const glm::vec2& point) const;
 
@@ -45,13 +49,9 @@ public:
 	bool IsIntersectWithRay(const glm::vec2& ray_origin, const glm::vec2& ray_dir,
 	glm::vec2& contact_point, glm::vec2& contact_normal, float& t_hit_near) const;
 
-
+	void GetCorners(glm::vec2& upper_right_corner, glm::vec2& lower_left_corner);
 
 private:
-	//box
-	glm::vec2 upper_right_corner_;
-	glm::vec2 lower_left_corner_;
-
-	Transform2D* transform_;
-	glm::vec2 last_position_;
+	glm::vec4 bounding_box_;
+	Transform2D transform_;
 };

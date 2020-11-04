@@ -5,6 +5,8 @@
 
 #include <glm/glm.hpp>
 
+#include <vector>
+
 /**
  * Class that extracts the common behavior of all moving objects like player character.
  * It collabrates with Collider to control a Transform2D.
@@ -18,15 +20,16 @@ public:
 		IN_AIR
 	};
 
-	MovementComponent(Transform2D& transform) : 
-	transform_(transform)
+	MovementComponent(const glm::vec4& box, Transform2D& transform) : 
+	transform_(transform),
+	collider_(box, &transform)
 	{}
 
 	// Gameplay
 	void MoveLeft();  
 	void MoveRight();
 	void Jump();
-	void Update(float elapsed);
+	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 
 	// Configure
 	void SetMaxGroundSpeed(float max_ground_speed) { max_horizontal_speed_ = max_ground_speed; }
@@ -40,6 +43,7 @@ public:
 private:
 	// Runtime variables
 	Transform2D& transform_;
+	Collider collider_;
 	State state_ { State::STILL };
 	glm::vec2 velocity_ { 0.0f };
 	glm::vec2 acceleration_ { 0.0f };

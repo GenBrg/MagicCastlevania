@@ -19,4 +19,5 @@ inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 
 namespace util {
 	void PrintVec2(const glm::vec2& vec2);
+	void PrintMat3(const glm::mat3& mat3);
 }
