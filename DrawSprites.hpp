@@ -10,6 +10,7 @@
  */
 
 #include "Sprite.hpp"
+#include "engine/Transform2D.hpp"
 
 #include <glm/glm.hpp>
 
@@ -24,15 +25,7 @@ struct DrawSprites {
 	DrawSprites(SpriteAtlas const &atlas, glm::vec2 const &view_min, glm::vec2 const &view_max, glm::uvec2 const &drawable_size, AlignMode mode = AlignSloppy);
 
 	//Add more sprites to draw:
-	void draw(Sprite const &sprite, glm::vec2 const &center, float rotation = 0.0f, float scale = 1.0f, glm::u8vec4 const &tint = glm::u8vec4(0xff, 0xff, 0xff, 0xff));
-
-	//Add text to draw:
-	void draw_text(std::string const &name, glm::vec2 const &anchor, float rotation, float scale, glm::u8vec4 const &color);
-
-	//Measure text:
-	void get_text_extents(std::string const &name, glm::vec2 const &anchor, float scale, glm::vec2 *min, glm::vec2 *max);
-
-
+	void draw(Sprite const &sprite, Transform2D transform, glm::u8vec4 const &tint = glm::u8vec4(0xff, 0xff, 0xff, 0xff));
 
 	//Actually draws the sprites on deallocation:
 	~DrawSprites();

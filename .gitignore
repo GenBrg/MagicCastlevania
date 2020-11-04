@@ -1,4 +1,8 @@
-objs/
+objs/*
+objs/engine/*
+objs/gamebase/*
+!objs/engine/
+!objs/gamebase/
 dist/README-SDL.txt
 dist/game
 dist/game.exe

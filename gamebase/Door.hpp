@@ -1,15 +1,15 @@
-#pragma once
+// #pragma once
 
-#include "Room.hpp"
+// #include "Room.hpp"
 
-class Door {
-private:
-	Animation animation;
-	Room* nextRoomP;
+// class Door {
+// private:
+// 	Animation animation;
+// 	Room* nextRoomP;
 
-	// a field to represent if this door is being open
+// 	// a field to represent if this door is being open
 
-private:
-	Room* getRoom();
+// private:
+// 	Room* getRoom();
 
-};
+// };

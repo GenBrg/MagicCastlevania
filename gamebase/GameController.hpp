@@ -1,15 +1,15 @@
-#pragma once
+// #pragma once
 
-#include <vector>
-#include "AOE.hpp"
+// #include <vector>
+// #include "AOE.hpp"
 
-class GameController {
-private:
-	// current room of the player
-	//
+// class GameController {
+// private:
+// 	// current room of the player
+// 	//
 
-//	std::vector<AOE>
+// //	std::vector<AOE>
 
-public:
-	void updateMonsters();
-};
+// public:
+// 	void updateMonsters();
+// };

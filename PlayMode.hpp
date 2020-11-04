@@ -1,5 +1,5 @@
 #include "Mode.hpp"
-#include "Player.hpp"
+#include "gamebase/Player.hpp"
 
 #include <glm/glm.hpp>
 
