@@ -27,6 +27,10 @@ bool Collider::IsColliding(const Collider& other_collider)
 
 bool Collider::DynamicCollisionQuery(const Collider& other_collider, const glm::vec2& delta_position, glm::vec2& contact_point, glm::vec2& contact_normal, float& time)
 {
+	if (delta_position.x == 0.0f && delta_position.y == 0.0f) {
+		return false;
+	}
+
 	glm::vec2 lower_left_corner, upper_right_corner;
 	glm::vec2 other_lower_left_corner, other_upper_right_corner;
 
@@ -40,39 +44,39 @@ bool Collider::DynamicCollisionQuery(const Collider& other_collider, const glm::
 	other_lower_left_corner -= half_box_size;
 	other_upper_right_corner += half_box_size;
 
-	
-}
+	auto ray_rect_intersection_test = [](const glm::vec2& ray_origin, const glm::vec2& ray_dir, const glm::vec2& lower_left_corner, const glm::vec2& upper_right_corner,
+					glm::vec2& contact_point, glm::vec2& contact_normal, float& t_hit_near) {
+		glm::vec2 t_near = (upper_right_corner - ray_origin) / ray_dir;
+		glm::vec2 t_far = (lower_left_corner - ray_origin) / ray_dir;
 
-bool Collider::IsIntersectWithRay(const glm::vec2& ray_origin, const glm::vec2& ray_dir, 
-					glm::vec2& contact_point, glm::vec2& contact_normal, float& t_hit_near) const
-{
-	// TODO Edge cases: vertical and horizontal lines.
+		// TODO Edge cases: vertical and horizontal lines.
 
-	glm::vec2 lower_left_corner;
-	glm::vec2 upper_right_corner;
-	GetCorners(lower_left_corner, upper_right_corner);
-	glm::vec2 t_near = (upper_right_corner - ray_origin) / ray_dir;
-	glm::vec2 t_far = (lower_left_corner - ray_origin) / ray_dir;
+		if (std::isnan(t_near.x) || std::isnan(t_near.y)) return false;
+		if (std::isnan(t_far.x) || std::isnan(t_far.y)) return false;
 
-	if (t_near.x > t_far.x) std::swap(t_near.x, t_far.x);
-	if (t_near.y > t_far.y) std::swap(t_near.y, t_far.y);
+		if (t_near.x > t_far.x) std::swap(t_near.x, t_far.x);
+		if (t_near.y > t_far.y) std::swap(t_near.y, t_far.y);
 
-	if (t_near.x > t_far.y || t_near.y > t_far.x) return false;
+		if (t_near.x > t_far.y || t_near.y > t_far.x) return false;
 
-	t_hit_near = std::max(t_near.x, t_near.y);
-	float t_hit_far = std::min(t_far.x, t_far.y);
+		t_hit_near = std::max(t_near.x, t_near.y);
+		float t_hit_far = std::min(t_far.x, t_far.y);
 
-	if (t_hit_far < 0.0f) return false;
+		if (t_hit_far < 0.0f) return false;
 
-	contact_point = ray_origin + t_hit_near * ray_dir;
+		contact_point = ray_origin + t_hit_near * ray_dir;
 
-	if (t_near.x > t_near.y) {
-		contact_normal = (ray_dir.x > 0.0f) ? glm::vec2(-1.0f, 0.0f) : glm::vec2(1.0f, 0.0f);
-	} else {
-		contact_normal = (ray_dir.y > 0.0f) ? glm::vec2(0.0f, -1.0f) : glm::vec2(0.0f, 1.0f);
-	}
+		if (t_near.x > t_near.y) {
+			contact_normal = (ray_dir.x > 0.0f) ? glm::vec2(-1.0f, 0.0f) : glm::vec2(1.0f, 0.0f);
+		} else {
+			contact_normal = (ray_dir.y > 0.0f) ? glm::vec2(0.0f, -1.0f) : glm::vec2(0.0f, 1.0f);
+		}
 
-	return true;
+		return true;
+	};
+
+	return ray_rect_intersection_test(center, delta_position, other_lower_left_corner, other_upper_right_corner, contact_point, contact_normal, time)
+			 && time <= 1.0f && time >= 0.0f;
 }
 
 void Collider::GetCorners(glm::vec2& lower_left_corner, glm::vec2& upper_right_corner) const

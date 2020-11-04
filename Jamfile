@@ -129,13 +129,14 @@ COMMON_NAMES =
 	;
 	
 GAMEBASE_NAME =
-	#Player
+	Player
 	;
 
 ENGINE_NAMES =
-	#MovementComponent
-	#InputSystem
+	MovementComponent
+	InputSystem
 	Transform2D
+	Collider
 	;
 
 PACK_SPRITES_NAMES =

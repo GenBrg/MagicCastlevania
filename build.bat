@@ -1,1 +1,1 @@
-jam -j24 && dist\client.exe
+jam clean && jam -j24 && dist\client.exe

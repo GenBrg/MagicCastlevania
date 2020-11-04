@@ -1,8 +1,8 @@
 MagicCastleVania.xcf?dunes 0 0 256 224 0 0 dunes-bg
-"MagicCastleVania.xcf?traveller dunes&traveller shadow dunes" 179 190 +15 +24 0 0 dunes-traveller
+"MagicCastleVania.xcf?traveller dunes&traveller shadow dunes" 179 190 +15 +24 0 +24 dunes-traveller
 "MagicCastleVania.xcf?ship&shadow&ramp" 83 57 +88 +155 129 115 dunes-ship
 MagicCastleVania.xcf?grass&shadows&water-shine&water&oasis 0 0 256 224 0 0 oasis-bg
-"MagicCastleVania.xcf?traveller oasis&traveller shadow oasis" 43 190 +15 +24 0 0 oasis-traveller
+"MagicCastleVania.xcf?traveller oasis&traveller shadow oasis" 43 190 +15 +24 +0 +0 oasis-traveller
 "MagicCastleVania.xcf?oasis missing&oasis missing shadow" 183 196 +3 +5 0 0 oasis-missing
 "MagicCastleVania.xcf?stones&stones shadow&depression&hill" 0 0 256 224 0 0 hill-bg
 "MagicCastleVania.xcf?traveller hill&traveller shadow hill" 112 89 +17 +25 0 0 hill-traveller

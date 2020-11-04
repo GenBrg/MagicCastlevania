@@ -48,7 +48,7 @@
 class Player {
 public:
 	bool OnKeyEvent(SDL_Event const &evt);
-	void Update(float elapsed);
+	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void Draw(DrawSprites& draw) const;
 
 	Player();

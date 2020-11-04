@@ -2,6 +2,7 @@
 
 #include "Transform2D.hpp"
 #include "Collider.hpp"
+#include "../Util.hpp"
 
 #include <glm/glm.hpp>
 
@@ -23,7 +24,7 @@ public:
 	MovementComponent(const glm::vec4& box, Transform2D& transform) : 
 	transform_(transform),
 	collider_(box, &transform)
-	{}
+	{ acceleration_.y = kGravity; }
 
 	// Gameplay
 	void MoveLeft();  
@@ -54,7 +55,7 @@ private:
 	// Constraint configurations
 	float max_horizontal_speed_ { 100.0f };
 	float max_vertical_speed_ { 1000.0f };
-	float initial_jump_speed_ { 50.0f };
+	float initial_jump_speed_ { 100.0f };
 	float ground_fraction_ { 200.0f };
 	float air_fraction_ { 100.0f };
 	float horizontal_ground_accelaration_ { 50.0f };
