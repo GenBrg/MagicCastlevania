@@ -36,8 +36,6 @@ public:
 	 */
 	bool DynamicCollisionQuery(const Collider& other_collider, const glm::vec2& delta_position, glm::vec2& contact_point, glm::vec2& contact_normal, float& time);
 
-	bool IsPointInCollider(const glm::vec2& point) const;
-
 	/** Check if a ray intersects with the collider.
 	 *  @param ray_origin The origin of the ray.
 	 *  @param ray_dir The direction vector of the ray.
@@ -49,7 +47,7 @@ public:
 	bool IsIntersectWithRay(const glm::vec2& ray_origin, const glm::vec2& ray_dir,
 	glm::vec2& contact_point, glm::vec2& contact_normal, float& t_hit_near) const;
 
-	void GetCorners(glm::vec2& upper_right_corner, glm::vec2& lower_left_corner);
+	void GetCorners(glm::vec2& lower_left_corner, glm::vec2& upper_right_corner) const;
 
 private:
 	glm::vec4 bounding_box_;
