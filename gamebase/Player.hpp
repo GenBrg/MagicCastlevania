@@ -51,12 +51,25 @@ public:
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void Draw(DrawSprites& draw) const;
 
+	void TakeDamage(int attack);
+	void Attack();
+
 	Player();
 
 private:
 	Transform2D transform_;
 	InputSystem input_system_;
 	MovementComponent movement_component_;
+
+	int level_;
+	int hp_;
+	int max_hp_;
+	int mp_;
+	int max_mp_;
+	int attack_;
+	int defense_;
+	int exp_;
+	int max_exp_;
 	
 	const Sprite& sprite_;
 };

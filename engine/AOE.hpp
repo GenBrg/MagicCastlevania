@@ -13,3 +13,19 @@
 // 	Animation animation;
 // 	Collider collider;
 // };
+
+#pragma once
+
+#include "Transform2D.hpp"
+#include "Collider.hpp"
+
+class AOE {
+public:
+	
+
+private:
+	Transform2D transform_;
+	Collider collider_;
+	int attack_;
+	
+};
