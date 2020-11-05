@@ -19,13 +19,18 @@ private:
 	float move_radius_;
 	glm::vec2 central_pos_;
 	int mov_direction_;
+
+	bool destroyed_ { false };
 // 	// moving pattern of the monster
 // 	glm::vec2 position;
 // 	glm::vec2 scale;
 
-// 	int healthPoint;
-// 	int attackPoint;
-// 	int defensePoint;
+	int hp_;
+	int max_hp_;
+	int attack_;
+	int defense_;
+
+	float invulnerable_countdown_ { 0.0f };
 
 // 	// regular moving bound (button left x, button left y, top right x, top right y)
 // 	glm::vec4 movingBox;
@@ -42,10 +47,17 @@ private:
 // 	Animation* animationP;
 
 public:
+	inline constexpr static float kStiffnessTime { 2.0f };
+
 	Monster(const glm::vec2& pos, float move_radius, std::string monster_key);
 	// update its position
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void Draw(DrawSprites& draw) const;
+
+	void TakeDamage(int attack);
+	void Destroy() { destroyed_ = true; }
+	bool IsDestroyed() const { return destroyed_; }
+	Collider* GetCollider() { return movement_component_.GetCollider(); }
 
 
 // 	bool inBattle();

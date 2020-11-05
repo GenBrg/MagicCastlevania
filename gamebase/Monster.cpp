@@ -26,3 +26,20 @@ void Monster::Update(float elapsed, const std::vector<Collider*>& colliders_to_c
 		mov_direction_ *= -1;
 	}
 }
+
+void Monster::TakeDamage(int attack)
+{
+	if (invulnerable_countdown_ <= 0.0f) {
+		int damage = 1;
+
+		if (attack > defense_) {
+			damage = attack - defense_;
+		}
+
+		hp_ -= damage;
+
+		invulnerable_countdown_ = kStiffnessTime;
+
+		// if (hp_ <= 0) ...
+	}
+}

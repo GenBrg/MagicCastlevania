@@ -139,6 +139,7 @@ ENGINE_NAMES =
 	InputSystem
 	Transform2D
 	Collider
+	AOE
 	;
 
 PACK_SPRITES_NAMES =

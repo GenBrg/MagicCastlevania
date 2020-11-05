@@ -56,7 +56,7 @@ public:
 
 	void TakeDamage(int attack);
 	void Attack();
-	Collider* GetCollider() const { return movement_component_.GetCollider(); }
+	Collider* GetCollider() { return movement_component_.GetCollider(); }
 
 	Player();
 
