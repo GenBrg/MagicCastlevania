@@ -43,11 +43,11 @@ private:
 	glm::vec2 acceleration_ { 0.0f };
 
 	// Constraint configurations
-	float max_horizontal_speed_ { 100.0f };
+	float max_horizontal_speed_ { 200.0f };
 	float max_vertical_speed_ { 1000.0f };
-	float initial_jump_speed_ { 100.0f };
-	float ground_fraction_ { 200.0f };
-	float air_fraction_ { 100.0f };
-	float horizontal_ground_accelaration_ { 50.0f };
-	float horizontal_air_accelaration_ { 50.0f };
+	float initial_jump_speed_ { 500.0f };
+	float ground_fraction_ { 1000.0f };
+	float air_fraction_ { 300.0f };
+	float horizontal_ground_accelaration_ { 300.0f };
+	float horizontal_air_accelaration_ { 300.0f };
 };

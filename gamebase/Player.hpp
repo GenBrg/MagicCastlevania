@@ -50,6 +50,7 @@ public:
 	bool OnKeyEvent(SDL_Event const &evt);
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void Draw(DrawSprites& draw) const;
+	void SetPosition(const glm::vec2& pos);
 
 	void TakeDamage(int attack);
 	void Attack();

@@ -9,6 +9,11 @@ namespace util
 		std::cout << vec2.x << " " << vec2.y << std::endl;
 	}
 
+	void PrintVec4(const glm::vec4& vec4)
+	{
+		std::cout << vec4.x << " " << vec4.y << " " << vec4.z << " " << vec4.w << std::endl;
+	}
+
 	void PrintMat3(const glm::mat3& mat3)
 	{
 		for (int i = 0; i < 3; ++i) {
