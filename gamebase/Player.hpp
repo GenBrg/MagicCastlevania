@@ -72,15 +72,15 @@ private:
 	InputSystem input_system_;
 	MovementComponent movement_component_;
 
-	int level_ { 1 };
+	// int level_ { 1 };
 	int hp_ { 100 };
-	int max_hp_ { 100 };
-	int mp_ { 100 };
-	int max_mp_ { 100 };
+	// int max_hp_ { 100 };
+	// int mp_ { 100 };
+	// int max_mp_ { 100 };
 	int attack_ { 10 };
 	int defense_ { 10 };
-	int exp_ { 0 };
-	int max_exp_ { 100 };
+	// int exp_ { 0 };
+	// int max_exp_ { 100 };
 
 	float invulnerable_countdown_ { 0.0f };
 	

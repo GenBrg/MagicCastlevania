@@ -29,7 +29,7 @@ private:
 // 	glm::vec2 scale;
 
 	int hp_ { 20 };
-	int max_hp_ { 100 };
+	// int max_hp_ { 100 };
 	int attack_ { 50 };
 	int defense_ { 3 };
 
