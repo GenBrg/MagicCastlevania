@@ -18,8 +18,8 @@
 
 #include "Transform2D.hpp"
 #include "Collider.hpp"
-#include "Sprite.hpp"
-#include "DrawSprites.hpp"
+#include "../Sprite.hpp"
+#include "../DrawSprites.hpp"
 
 #include <glm/glm.hpp>
 
@@ -41,8 +41,9 @@ public:
 
 	int GetAttack() const { return attack_; }
 	void Update(float elapsed, const std::vector<CollisionQuery>& collision_queries);
-	void Draw(DrawSprites& draw_sprite);
+	void Draw(DrawSprites& draw_sprite) const;
 	void Destroy() { destroyed_ = true; }
+	bool IsDestroyed() { return destroyed_; }
 
 private:
 	Transform2D transform_;

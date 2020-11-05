@@ -131,6 +131,7 @@ COMMON_NAMES =
 GAMEBASE_NAME =
 	Player
     Room
+    Monster
 	;
 
 ENGINE_NAMES =
@@ -138,6 +139,7 @@ ENGINE_NAMES =
 	InputSystem
 	Transform2D
 	Collider
+	AOE
 	;
 
 PACK_SPRITES_NAMES =

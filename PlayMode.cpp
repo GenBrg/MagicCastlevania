@@ -12,7 +12,9 @@
 
 #include <random>
 
-PlayMode::PlayMode():cur_room(data_path("Room_1")) {
+PlayMode::PlayMode() :
+cur_room(data_path("Room_1")) 
+{
 	player.SetPosition(glm::vec2(1, 113));
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
 //	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));
@@ -26,7 +28,7 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
-	player.Update(elapsed, cur_room.colliders);
+	cur_room.Update(elapsed, &player);
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
@@ -45,8 +47,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 		tranform_.position_ = glm::vec2(0.0f, 0.0f);
 		draw.draw(*sprite_bg, tranform_);
 		player.Draw(draw);
-
-		
+		cur_room.Draw(draw);
 	}
 
 	{ //use DrawLines to overlay some text:

@@ -35,6 +35,8 @@ public:
 	void SetHorizontalGroundAcceleration(float horizontal_ground_accelaration) { horizontal_ground_accelaration_ = horizontal_ground_accelaration; }
 	void SetAirAcceleration(float horizontal_air_accelaration) { horizontal_air_accelaration_ = horizontal_air_accelaration; }
 
+	Collider* GetCollider() { return &collider_; }
+
 private:
 	// Runtime variables
 	Transform2D& transform_;
