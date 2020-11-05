@@ -12,7 +12,9 @@
 
 #include <random>
 
-PlayMode::PlayMode():cur_room(data_path("Room_1")) {
+PlayMode::PlayMode() :
+cur_room(data_path("Room_1")) 
+{
 	player.SetPosition(glm::vec2(1, 113));
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
 //	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));

@@ -1,17 +1,24 @@
-// #pragma once
+#pragma once
 
-// #include <vector>
-// #include <string>
-// #include <SDL2/SDL_events.h>
-// #include <Sprite.hpp>
-// #include <map>
-// #include "Equipment.hpp"
-// #include "Collider.hpp"
-// #include "Animation.hpp"
-// #include "AOE.hpp"
+#include <vector>
+#include <string>
+#include "../Sprite.hpp"
+#include "../engine/MovementComponent.hpp"
+#include "../DrawSprites.hpp"
+#include <map>
 
-// class Monster {
-// private:
+
+
+class Monster {
+private:
+	Transform2D transform_;
+	MovementComponent movement_component_;
+	const Sprite& sprite_;
+
+	// tmp
+	float move_radius_;
+	glm::vec2 central_pos_;
+	int mov_direction_;
 // 	// moving pattern of the monster
 // 	glm::vec2 position;
 // 	glm::vec2 scale;
@@ -34,9 +41,12 @@
 
 // 	Animation* animationP;
 
-// public:
-// 	// update its position
-// 	void update(float elapsed);
+public:
+	Monster(const glm::vec2& pos, float move_radius, std::string monster_key);
+	// update its position
+	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
+	void Draw(DrawSprites& draw) const;
+
 
 // 	bool inBattle();
 // 	void onEnterBattleState();
@@ -51,4 +61,4 @@
 // 	// if the death animation completes and this object is ready to free
 // 	bool readyToFree();
 
-// };
+};

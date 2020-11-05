@@ -21,9 +21,9 @@ Room::Room(const std::string& platform_file) {
 
 		platforms_.push_back(new Collider(bounding_box, nullptr));
 	}
-//	for(auto* p: platforms_) {
-//		util::PrintVec4(p->GetBoundingBox());
-//	}
+
+	// tmp hard code to generate monsters
+	monsters_.push_back(new Monster(glm::vec2(505, 198), 60, "ghost_idle_1"));
 }
 
 Room::~Room() {
@@ -49,43 +49,46 @@ void Room::Update(float elapsed, Player* player)
 	}
 
 	for (AOE* player_AOE : player_AOEs_) {
+		std::vector<AOE::CollisionQuery> collision_queries;
 		for (Monster* monster : monsters_) {
-			player_AOE->Update(elapsed, std::make_pair(monster->GetCollider(), [&](){
+			collision_queries.emplace_back(monster->GetCollider(), [&](){
 				monster->TakeDamage(player_AOE->GetAttack());
-			}));
-		}
+			});
+		}	
+
+		player_AOE->Update(elapsed, collision_queries);
 	}
 
 	for (AOE* monster_AOE : monster_AOEs_) {
-		monster_AOE->Update(elapsed, std::make_pair(player->GetCollider(), [&](){
+		monster_AOE->Update(elapsed, { std::make_pair(player->GetCollider(), [&](){
 			player->TakeDamage(monster_AOE->GetAttack());
-		}));
+		}) });
 	}
 
 	// Recycle memory
-	std::remove_if(monsters_.begin(), monsters_.end(), [](AOE* monster){
+	static_cast<void>(std::remove_if(monsters_.begin(), monsters_.end(), [](Monster* monster){
 		if (monster->IsDestroyed()) {
 			delete monster;
 			return true;
 		}
 		return false;
-	});
+	}));
 
-	std::remove_if(player_AOEs_.begin(), player_AOEs_.end(), [](AOE* player_AOE){
+	static_cast<void>(std::remove_if(player_AOEs_.begin(), player_AOEs_.end(), [](AOE* player_AOE){
 		if (player_AOE->IsDestroyed()) {
 			delete player_AOE;
 			return true;
 		}
 		return false;
-	});
+	}));
 
-	std::remove_if(monster_AOEs_.begin(), monster_AOEs_.end(), [](AOE* monster_AOE){
+	static_cast<void>(std::remove_if(monster_AOEs_.begin(), monster_AOEs_.end(), [](AOE* monster_AOE){
 		if (monster_AOE->IsDestroyed()) {
 			delete monster_AOE;
 			return true;
 		}
 		return false;
-	});
+	}));
 }
 
 void Room::Draw(DrawSprites& draw_sprite)

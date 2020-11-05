@@ -27,8 +27,6 @@ sprite_(sprites->lookup("player_walk_1"))
 			movement_component_.Jump();
 		}
 	});
-
-	transform_.position_ = glm::vec2(100.0f, 100.0f);
 }
 
 bool Player::OnKeyEvent(SDL_Event const &evt)
