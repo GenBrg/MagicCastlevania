@@ -13,18 +13,19 @@
 #include <random>
 
 PlayMode::PlayMode() {
+	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
+	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));
 }
 
 PlayMode::~PlayMode() {
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
-	// return player.OnKeyEvent(evt);
-	return false;
+	return player.OnKeyEvent(evt);
 }
 
 void PlayMode::update(float elapsed) {
-	// player.Update(elapsed);
+	player.Update(elapsed, colliders);
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
@@ -39,17 +40,11 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 
 	{ //use a DrawSprites to do the drawing:
 		DrawSprites draw(*sprites, view_min, view_max, drawable_size, DrawSprites::AlignPixelPerfect);
-		// player.Draw(draw);
-		Transform2D transform(nullptr);
-		transform.position_ = glm::vec2(32.0f, 111.0f);
-		transform.rotation_ = glm::radians(0.0f);
-		transform.scale_ = glm::vec2(1.0f, 1.0f);
-		draw.draw(*sprite_dunes, transform);
-		//for (int i = 0; i < 10; ++i) {
-		//	transform.position_ += glm::vec2(20.0f, 20.0f);
-		//	//transform.scale_ -= glm::vec2(0.15f, 0.15f);
-		//	draw.draw(*sprite_dunes, transform);
-		//}
+		player.Draw(draw);
+
+		Transform2D tranform_(nullptr);
+		tranform_.position_ = glm::vec2(200.0f, 80.0f);
+		draw.draw(*sprite_oasis_traveller, tranform_);
 	}
 
 	{ //use DrawLines to overlay some text:

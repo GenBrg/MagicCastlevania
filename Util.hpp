@@ -7,12 +7,14 @@
 #include <glm/glm.hpp>
 
 inline Sprite const *sprite_dunes = nullptr;
-inline static constexpr float kGravity { -200.0f };
+inline Sprite const *sprite_oasis_traveller = nullptr;
+inline static constexpr float kGravity { -100.0f };
 
 inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
 
-	sprite_dunes = &ret->lookup("door_1");
+	sprite_dunes = &ret->lookup("dunes-ship");
+	sprite_oasis_traveller = &ret->lookup("oasis-traveller");
 
 	return ret;
 });

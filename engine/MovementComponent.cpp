@@ -1,45 +1,44 @@
 #include "MovementComponent.hpp"
-#include "../Util.hpp"
 
 #include <glm/glm.hpp>
 
+#include <iostream>
+
 void MovementComponent::MoveLeft()
 {
-	acceleration_.x = (state_ == State::IN_AIR) ? -horizontal_ground_accelaration_ : -horizontal_air_accelaration_;
+	acceleration_.x = (velocity_.y != 0.0f) ? -horizontal_ground_accelaration_ : -horizontal_air_accelaration_;
 }
 
 void MovementComponent::MoveRight()
 {
-	acceleration_.x = (state_ == State::IN_AIR) ? horizontal_ground_accelaration_ : horizontal_air_accelaration_;
+	acceleration_.x = (velocity_.y != 0.0f) ? horizontal_ground_accelaration_ : horizontal_air_accelaration_;
 }
 
 void MovementComponent::Jump()
 {
-	if (state_ != State::IN_AIR) {
-		state_ = State::IN_AIR;
-
-		acceleration_.y = kGravity;
+	if (velocity_.y == 0.0f) {
 		velocity_.y = initial_jump_speed_;
 	}
 }
 
 void MovementComponent::Update(float elapsed, const std::vector<Collider*>& colliders_to_consider)
 {
-	// Calculate speed
 	glm::vec2 original_velocity = velocity_;
 	
 	// Calculate acceleration
 	// Horizontal
-	if (acceleration_.x == 0.0f && state_ != State::IN_AIR) {
+	if (acceleration_.x == 0.0f) {
+		float fraction = (velocity_.y == 0.0f) ? ground_fraction_ : air_fraction_;
+
 		// Fraction
 		if (velocity_.x != 0.0f) {
 			if (velocity_.x > 0) {
-				velocity_.x -= ground_fraction_ * elapsed;
+				velocity_.x -= fraction * elapsed;
 				if (velocity_.x < 0.0f) {
 					velocity_.x = 0.0f;
 				}
 			} else {
-				velocity_.x += ground_fraction_ * elapsed;
+				velocity_.x += fraction * elapsed;
 				if (velocity_.x > 0.0f) {
 					velocity_.x = 0.0f;
 				}
@@ -78,10 +77,4 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 	}
 	
 	transform_.position_ += delta_position;
-
-	if (transform_.position_.y < 0.0f) {
-		transform_.position_.y = 0.0f;
-		acceleration_.y = 0.0f;
-		state_ = (velocity_.x == 0.0f) ? State::STILL : State::ON_GROUND;
-	}
 }
