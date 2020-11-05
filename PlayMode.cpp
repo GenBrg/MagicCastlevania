@@ -45,8 +45,9 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 		tranform_.position_ = glm::vec2(0.0f, 0.0f);
 		draw.draw(*sprite_bg, tranform_);
 		player.Draw(draw);
-
-		
+		for(auto*m: cur_room.monsters) {
+			m->Draw(draw);
+		}
 	}
 
 	{ //use DrawLines to overlay some text:

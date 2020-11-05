@@ -19,9 +19,11 @@ Room::Room(const std::string& platform_file) {
 
 		colliders.push_back(new Collider(bounding_box, nullptr));
 	}
-//	for(auto* p: colliders) {
+//	for(auto* p: colliders) {a
 //		util::PrintVec4(p->GetBoundingBox());
 //	}
+	// tmp hard code to generate monsters
+	monsters.push_back(new Monster(glm::vec2(505, 198), 60, "ghost_idle_1"));
 }
 
 Room::~Room() {

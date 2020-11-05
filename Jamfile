@@ -131,6 +131,7 @@ COMMON_NAMES =
 GAMEBASE_NAME =
 	Player
     Room
+    Monster
 	;
 
 ENGINE_NAMES =
