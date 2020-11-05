@@ -62,7 +62,7 @@ void Player::SetPosition(const glm::vec2 &pos) {
 }
 
 void Player::Reset() {
-	SetPosition(glm::vec2(1.0f, 113.0f));
+	SetPosition(glm::vec2(20.0f, 113.0f));
 	hp_ = 100;
 }
 

@@ -27,6 +27,7 @@ Room::Room(const std::string& platform_file) {
 
 	// tmp hard code to generate monsters
 	monsters_.push_back(new Monster(glm::vec2(505, 198), 60, "ghost_idle_1", this));
+	AddMonsterAOE(new AOE(glm::vec4(434.0f, 0.0f, 951.0f, 40.0f), nullptr, glm::vec2(0.0f, 0.0f), -1.0f, 10000, glm::vec2(0.0f, 0.0f), nullptr));
 }
 
 Room::~Room() {
@@ -68,7 +69,7 @@ void Room::Update(float elapsed, Player* player)
 		}) });
 	}
 
-	// Recycle memory
+	// Garbage collection
 	monsters_.erase(remove_if(monsters_.begin(), monsters_.end(), [](Monster* monster){
 		if (monster->IsDestroyed()) {
 			delete monster;
