@@ -97,6 +97,6 @@ void Player::Attack(Room* room)
 
 		glm::vec2 initial_pos = transform_.position_ + glm::vec2(20.0f, 0.0f) * transform_.scale_;
 		glm::vec2 velocity = glm::vec2(200.0f, 0.0f) * transform_.scale_;
-		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("ghost_idle_1"), velocity, 3.0f, attack_, initial_pos, nullptr));
+		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("fire_1"), velocity, 3.0f, attack_, initial_pos, nullptr));
 	}
 }
