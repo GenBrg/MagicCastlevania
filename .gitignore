@@ -1,4 +1,5 @@
 objs/*.obj
+objs/*.o
 dist/README-SDL.txt
 dist/game
 dist/game.exe
@@ -20,3 +21,6 @@ scenes/show-scene*
 *.blend[0-9]
 .vscode
 sprites/MagicCastlevania
+.idea
+CMakeLists.txt
+cmake-build-debug/*
