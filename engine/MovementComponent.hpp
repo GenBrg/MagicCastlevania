@@ -15,12 +15,6 @@
  */
 class MovementComponent {
 public:
-	enum class State : uint8_t {
-		STILL = 0,
-		ON_GROUND,
-		IN_AIR
-	};
-
 	MovementComponent(const glm::vec4& box, Transform2D& transform) : 
 	transform_(transform),
 	collider_(box, &transform)
@@ -45,12 +39,8 @@ private:
 	// Runtime variables
 	Transform2D& transform_;
 	Collider collider_;
-	State state_ { State::STILL };
 	glm::vec2 velocity_ { 0.0f };
 	glm::vec2 acceleration_ { 0.0f };
-
-	bool move_left_ { false };
-	bool move_right_ { false };
 
 	// Constraint configurations
 	float max_horizontal_speed_ { 100.0f };
