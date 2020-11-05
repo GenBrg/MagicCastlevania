@@ -84,7 +84,10 @@ void Collider::GetCorners(glm::vec2& lower_left_corner, glm::vec2& upper_right_c
 	lower_left_corner = glm::vec2(bounding_box_[0], bounding_box_[1]);
 	upper_right_corner = glm::vec2(bounding_box_[2], bounding_box_[3]);
 
-	glm::mat3 model_mat = transform_.MakeLocalToWorld();
+	// glm::mat3 model_mat = transform_.MakeLocalToWorld();
+
+	// Collider ignores scale and rotation because it only supports axis-aligned bounding box and sudden change may cause issue.
+	glm::mat3 model_mat = transform_.GetTranslationMat_r();
 
 	lower_left_corner = model_mat * glm::vec3(lower_left_corner, 1.0f);
 	upper_right_corner = model_mat * glm::vec3(upper_right_corner, 1.0f);

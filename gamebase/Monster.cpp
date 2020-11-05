@@ -15,7 +15,8 @@ move_radius_(move_radius)
 	central_pos_ = pos;
 	mov_direction_ = 1;
 
-	room->AddMonsterAOE(new AOE(glm::vec4(0.0f, 0.0f, 51.0f, 66.0f), nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack_, glm::vec2(0.0f, 0.0f), &transform_));
+	collision_aoe_ = new AOE(glm::vec4(0.0f, 0.0f, 51.0f, 66.0f), nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack_, glm::vec2(0.0f, 0.0f), &transform_);
+	room->AddMonsterAOE(collision_aoe_);
 }
 
 void Monster::Draw(DrawSprites &draw) const {
@@ -37,6 +38,12 @@ void Monster::Update(float elapsed, const std::vector<Collider*>& colliders_to_c
 	}
 }
 
+void Monster::Die()
+{
+	Destroy();
+	collision_aoe_->Destroy();
+}
+
 void Monster::TakeDamage(int attack)
 {
 	if (invulnerable_countdown_ <= 0.0f) {
@@ -53,7 +60,7 @@ void Monster::TakeDamage(int attack)
 		invulnerable_countdown_ = kStiffnessTime;
 
 		if (hp_ <= 0) {
-			Destroy();
+			Die();
 		}
 	}
 }

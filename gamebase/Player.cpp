@@ -8,7 +8,7 @@
 
 Player::Player(Room* room) :
 transform_(nullptr),
-movement_component_(glm::vec4(0.0f, 0.0f, 15.0f, 24.0f), transform_),
+movement_component_(glm::vec4(0.0f, 0.0f, 20.0f, 50.0f), transform_),
 sprite_(sprites->lookup("player_walk_1"))
 {
 	input_system_.Register(SDLK_a, [this](InputSystem::KeyState key_state, float elapsed) {
@@ -94,6 +94,9 @@ void Player::Attack(Room* room)
 
 	if (now - last_attack_time > kAttackCoolDown) {
 		last_attack_time = now;
-		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("ghost_idle_1"), glm::vec2(200.0f, 0.0f), 3.0f, attack_, transform_.position_, nullptr));
+
+		glm::vec2 initial_pos = transform_.position_ + glm::vec2(20.0f, 0.0f) * transform_.scale_;
+		glm::vec2 velocity = glm::vec2(200.0f, 0.0f) * transform_.scale_;
+		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("ghost_idle_1"), velocity, 3.0f, attack_, initial_pos, nullptr));
 	}
 }

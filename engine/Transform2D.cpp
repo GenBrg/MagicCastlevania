@@ -59,3 +59,11 @@ glm::mat3 Transform2D::GetScaleMat() const
 
 	return scale_mat;
 }
+
+glm::mat3 Transform2D::GetTranslationMat_r() const
+{
+	if (!parent_) {
+			return GetTranslationMat();
+	}
+	return parent_->GetTranslationMat_r() * GetTranslationMat();
+}

@@ -15,6 +15,13 @@
  */
 class MovementComponent {
 public:
+	enum class State : uint8_t {
+		STILL = 0,
+		MOVING,
+		JUMPING,
+		FALLING
+	};
+
 	MovementComponent(const glm::vec4& box, Transform2D& transform) : 
 	transform_(transform),
 	collider_(box, &transform)
@@ -36,6 +43,7 @@ public:
 	void SetAirAcceleration(float horizontal_air_accelaration) { horizontal_air_accelaration_ = horizontal_air_accelaration; }
 
 	Collider* GetCollider() { return &collider_; }
+	State GetState() const { return state_; }
 
 private:
 	// Runtime variables
@@ -43,6 +51,7 @@ private:
 	Collider collider_;
 	glm::vec2 velocity_ { 0.0f };
 	glm::vec2 acceleration_ { 0.0f };
+	State state_ { State::STILL };
 
 	// Constraint configurations
 	float max_horizontal_speed_ { 200.0f };
@@ -50,6 +59,6 @@ private:
 	float initial_jump_speed_ { 600.0f };
 	float ground_fraction_ { 1000.0f };
 	float air_fraction_ { 300.0f };
-	float horizontal_ground_accelaration_ { 300.0f };
-	float horizontal_air_accelaration_ { 300.0f };
+	float horizontal_ground_accelaration_ { 1300.0f };
+	float horizontal_air_accelaration_ { 1300.0f };
 };

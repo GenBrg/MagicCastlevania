@@ -3,20 +3,23 @@
 #include <glm/glm.hpp>
 
 #include <iostream>
+#include <stdexcept>
 
 void MovementComponent::MoveLeft()
 {
-	acceleration_.x = (velocity_.y != 0.0f) ? -horizontal_ground_accelaration_ : -horizontal_air_accelaration_;
+	acceleration_.x = (state_ == State::STILL || state_ == State::MOVING) ? -horizontal_ground_accelaration_ : -horizontal_air_accelaration_;
+	transform_.scale_ = glm::vec2(-1.0f, 1.0f);
 }
 
 void MovementComponent::MoveRight()
 {
-	acceleration_.x = (velocity_.y != 0.0f) ? horizontal_ground_accelaration_ : horizontal_air_accelaration_;
+	acceleration_.x = (state_ == State::STILL || state_ == State::MOVING) ? horizontal_ground_accelaration_ : horizontal_air_accelaration_;
+	transform_.scale_ = glm::vec2(1.0f, 1.0f);
 }
 
 void MovementComponent::Jump()
 {
-	if (velocity_.y == 0.0f) {
+	if (state_ == State::STILL || state_ == State::MOVING) {
 		velocity_.y = initial_jump_speed_;
 	}
 }
@@ -24,31 +27,32 @@ void MovementComponent::Jump()
 void MovementComponent::Update(float elapsed, const std::vector<Collider*>& colliders_to_consider)
 {
 	glm::vec2 original_velocity = velocity_;
+
+	bool has_external_force = acceleration_.x != 0.0f;
 	
 	// Calculate acceleration
 	// Horizontal
-	if (acceleration_.x == 0.0f) {
-		float fraction = (velocity_.y == 0.0f) ? ground_fraction_ : air_fraction_;
-
-		// Fraction
-		if (velocity_.x != 0.0f) {
-			if (velocity_.x > 0) {
-				velocity_.x -= fraction * elapsed;
-				if (velocity_.x < 0.0f) {
-					velocity_.x = 0.0f;
-				}
-			} else {
-				velocity_.x += fraction * elapsed;
-				if (velocity_.x > 0.0f) {
-					velocity_.x = 0.0f;
-				}
-			}
-		}
-	} else {
-		velocity_.x += acceleration_.x * elapsed;
+	float fraction = 0.0f;
+	if (state_ != State::STILL) {
+		fraction = (state_ == State::MOVING) ? ground_fraction_ : air_fraction_;
 	}
 
+	// Fraction
+	if (velocity_.x > 0) {
+		acceleration_.x -= fraction;
+	} else if (velocity_.x < 0) {
+		acceleration_.x += fraction;
+	}
+	
+	velocity_.x += acceleration_.x * elapsed;
 	acceleration_.x = 0.0f;
+
+	// Avoid fraction from causing movement in opposite direction
+	if (!has_external_force) {
+		if (original_velocity.x * velocity_.x <= 0.0f) {
+			velocity_.x = 0.0f;
+		}
+	}
 
 	velocity_.y += acceleration_.y * elapsed;
 
@@ -56,6 +60,8 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 	velocity_.y = glm::clamp(velocity_.y, -max_vertical_speed_, max_vertical_speed_);
 	
 	glm::vec2 delta_position = (original_velocity + velocity_) * elapsed / 2.0f;
+
+	bool hit_ground = false;
 
 	// TODO sort colliders in proximity
 	for (Collider* other_collider : colliders_to_consider) {
@@ -73,8 +79,45 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 			}
 
 			delta_position += contact_normal * (1 - time) * glm::vec2(std::abs(delta_position.x), std::abs(delta_position.y));
+
+			if (contact_normal.y > 0.0f) {
+				hit_ground = true;
+			}
 		}
 	}
 	
 	transform_.position_ += delta_position;
+
+	switch (state_) {
+		case State::STILL:
+			if (velocity_.y > 0.0f) {
+				state_ = State::JUMPING;
+			} else if (velocity_.y < 0.0f) {
+				state_ = State::FALLING;
+			} else if (velocity_.x != 0.0f) {
+				state_ = State::MOVING;
+			}
+		break;
+		case State::JUMPING:
+			if (velocity_.y < 0.0f) {
+				state_ = State::FALLING;
+			}
+		break;
+		case State::FALLING:
+			if (hit_ground) {
+				state_ = (velocity_.x == 0.0f) ? State::STILL : State::MOVING;
+			}
+		break;
+		case State::MOVING:
+			if (velocity_.y > 0.0f) {
+				state_ = State::JUMPING;
+			} else if (velocity_.y < 0.0f) {
+				state_ = State::FALLING;
+			} else if (velocity_.x == 0.0f) {
+				state_ = State::STILL;
+			}
+		break;
+		default:
+		throw std::runtime_error("Unknown MovementComponent::State!");
+	}
 }

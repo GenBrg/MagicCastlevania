@@ -22,10 +22,11 @@ struct Transform2D {
 	glm::mat3 MakeLocalToWorld() const;
 	glm::mat3 MakeWorldToLocal() const;
 
-	Transform2D(Transform2D const &) = delete;
-
-private:
 	glm::mat3 GetTranslationMat() const;
 	glm::mat3 GetRotationMat() const;
 	glm::mat3 GetScaleMat() const;
+
+	glm::mat3 GetTranslationMat_r() const;
+
+	Transform2D(Transform2D const &) = delete;
 };

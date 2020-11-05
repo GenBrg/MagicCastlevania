@@ -5,6 +5,7 @@
 #include "../Sprite.hpp"
 #include "../engine/MovementComponent.hpp"
 #include "../DrawSprites.hpp"
+#include "../engine/AOE.hpp"
 #include <map>
 
 class Room;
@@ -21,6 +22,8 @@ private:
 	int mov_direction_;
 
 	bool destroyed_ { false };
+	AOE* collision_aoe_ { nullptr };
+	void Die();
 // 	// moving pattern of the monster
 // 	glm::vec2 position;
 // 	glm::vec2 scale;
