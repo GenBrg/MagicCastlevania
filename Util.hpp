@@ -12,7 +12,7 @@ inline Sprite const *sprite_ghost = nullptr;
 inline glm::vec2 VIEW_MIN = glm::vec2(0,0);
 inline glm::vec2 VIEW_MAX = glm::vec2(960, 541);
 
-inline static constexpr float kGravity { -100.0f };
+inline static constexpr float kGravity { -980.0f };
 
 inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
