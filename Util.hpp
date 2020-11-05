@@ -9,6 +9,9 @@
 inline Sprite const *sprite_bg = nullptr;
 inline Sprite const *sprite_ghost = nullptr;
 
+inline glm::vec2 VIEW_MIN = glm::vec2(0,0);
+inline glm::vec2 VIEW_MAX = glm::vec2(960, 541);
+
 inline static constexpr float kGravity { -100.0f };
 
 inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
@@ -22,5 +25,6 @@ inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 
 namespace util {
 	void PrintVec2(const glm::vec2& vec2);
+	void PrintVec4(const glm::vec4& vec4);
 	void PrintMat3(const glm::mat3& mat3);
 }

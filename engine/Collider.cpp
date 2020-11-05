@@ -89,3 +89,7 @@ void Collider::GetCorners(glm::vec2& lower_left_corner, glm::vec2& upper_right_c
 	lower_left_corner = model_mat * glm::vec3(lower_left_corner, 1.0f);
 	upper_right_corner = model_mat * glm::vec3(upper_right_corner, 1.0f);
 }
+
+glm::vec4 Collider::GetBoundingBox() const {
+	return bounding_box_;
+}

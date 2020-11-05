@@ -12,9 +12,10 @@
 
 #include <random>
 
-PlayMode::PlayMode() {
-	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
-	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));
+PlayMode::PlayMode():cur_room(data_path("Room_1")) {
+	player.SetPosition(glm::vec2(1, 113));
+//	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
+//	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));
 }
 
 PlayMode::~PlayMode() {
@@ -25,7 +26,7 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
-	player.Update(elapsed, colliders);
+	player.Update(elapsed, cur_room.colliders);
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {
@@ -39,7 +40,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	glDisable(GL_DEPTH_TEST);
 
 	{ //use a DrawSprites to do the drawing:
-		DrawSprites draw(*sprites, view_min, view_max, drawable_size, DrawSprites::AlignPixelPerfect);
+		DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, drawable_size, DrawSprites::AlignPixelPerfect);
 		Transform2D tranform_(nullptr);
 		tranform_.position_ = glm::vec2(0.0f, 0.0f);
 		draw.draw(*sprite_bg, tranform_);

@@ -41,6 +41,8 @@ public:
 
 	void GetCorners(glm::vec2& lower_left_corner, glm::vec2& upper_right_corner) const;
 
+	glm::vec4 GetBoundingBox() const;
+
 private:
 	glm::vec4 bounding_box_;
 	Transform2D transform_;

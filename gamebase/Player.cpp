@@ -46,3 +46,7 @@ void Player::Draw(DrawSprites& draw) const
 {
 	draw.draw(sprite_, transform_);
 }
+
+void Player::SetPosition(const glm::vec2 &pos) {
+	transform_.position_ = pos;
+}

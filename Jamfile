@@ -130,6 +130,7 @@ COMMON_NAMES =
 	
 GAMEBASE_NAME =
 	Player
+    Room
 	;
 
 ENGINE_NAMES =
