@@ -1,11 +1,12 @@
 #include "Player.hpp"
 #include "../Util.hpp"
+#include "Room.hpp"
 
 #include <SDL.h>
 
 #include <iostream>
 
-Player::Player() :
+Player::Player(Room* room) :
 transform_(nullptr),
 movement_component_(glm::vec4(0.0f, 0.0f, 15.0f, 24.0f), transform_),
 sprite_(sprites->lookup("player_walk_1"))
@@ -25,6 +26,12 @@ sprite_(sprites->lookup("player_walk_1"))
 	input_system_.Register(SDLK_SPACE, [this](InputSystem::KeyState key_state, float elapsed) {
 		if (key_state.pressed) {
 			movement_component_.Jump();
+		}
+	});
+
+	input_system_.Register(SDLK_j, [this, room](InputSystem::KeyState key_state, float elapsed) {
+		if (key_state.pressed) {
+			Attack(room);
 		}
 	});
 }
@@ -54,9 +61,16 @@ void Player::SetPosition(const glm::vec2 &pos) {
 	transform_.position_ = pos;
 }
 
+void Player::Reset() {
+	SetPosition(glm::vec2(1.0f, 113.0f));
+	hp_ = 100;
+}
+
 void Player::TakeDamage(int attack)
 {
 	if (invulnerable_countdown_ <= 0.0f) {
+		std::cout << "Player take damage!" << std::endl;
+
 		int damage = 1;
 
 		if (attack > defense_) {
@@ -67,6 +81,19 @@ void Player::TakeDamage(int attack)
 
 		invulnerable_countdown_ = kStiffnessTime;
 
-		// if (hp_ <= 0) ...
+		if (hp_ <= 0) {
+			Reset();
+		}
+	}
+}
+
+void Player::Attack(Room* room)
+{
+	static std::chrono::high_resolution_clock::time_point last_attack_time;
+	auto now = std::chrono::high_resolution_clock::now();
+
+	if (now - last_attack_time > kAttackCoolDown) {
+		last_attack_time = now;
+		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("ghost_idle_1"), glm::vec2(200.0f, 0.0f), 3.0f, attack_, transform_.position_, nullptr));
 	}
 }

@@ -1,4 +1,5 @@
 #include "Transform2D.hpp"
+#include <iostream>
 
 glm::mat3 Transform2D::MakeLocalToParent() const
 {
@@ -15,7 +16,6 @@ glm::mat3 Transform2D::MakeLocalToWorld() const
 	if (!parent_) {
 		return MakeLocalToParent();
 	}
-	
 	return parent_->MakeLocalToWorld() * MakeLocalToParent();
 }
 

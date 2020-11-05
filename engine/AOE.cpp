@@ -1,14 +1,18 @@
 #include "AOE.hpp"
 
-AOE::AOE(const glm::vec4& box, Sprite* sprite, const glm::vec2& velocity,
-	 float duration, int attack, Transform2D* parent_transform) :
+#include "../Util.hpp"
+
+AOE::AOE(const glm::vec4& box, const Sprite* sprite, const glm::vec2& velocity,
+ float duration, int attack, const glm::vec2& initial_pos, Transform2D* parent_transform) :
 transform_(parent_transform),
 collider_(box, &transform_),
 velocity_(velocity),
 duration_(duration),
 sprite_(sprite),
 attack_(attack)
-{}
+{
+	transform_.position_ = initial_pos;
+}
 
 void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_queries)
 {
@@ -32,14 +36,14 @@ void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_que
 		}
 
 		transform_.position_ += delta_position;
+	}
 
-		if (duration_ >= 0.0f) {
-			if (duration_ <= elapsed) {
-				duration_ = 0.0f;
-				Destroy();
-			} else {
-				duration_ -= elapsed;
-			}
+	if (duration_ >= 0.0f) {
+		if (duration_ <= elapsed) {
+			duration_ = 0.0f;
+			Destroy();
+		} else {
+			duration_ -= elapsed;
 		}
 	}
 }

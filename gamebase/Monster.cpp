@@ -1,8 +1,11 @@
 #include "../Util.hpp"
 #include "../DrawSprites.hpp"
 #include "Monster.hpp"
+#include "Room.hpp"
 
-Monster::Monster(const glm::vec2& pos, float move_radius, std::string monster_key):
+#include <iostream>
+
+Monster::Monster(const glm::vec2& pos, float move_radius, std::string monster_key, Room* room):
 transform_(nullptr),
 movement_component_(glm::vec4(0.0f, 0.0f, 51.0f, 66.0f), transform_),
 sprite_(sprites->lookup(monster_key)),
@@ -11,6 +14,8 @@ move_radius_(move_radius)
 	transform_.position_ = pos;
 	central_pos_ = pos;
 	mov_direction_ = 1;
+
+	room->AddMonsterAOE(new AOE(glm::vec4(0.0f, 0.0f, 51.0f, 66.0f), nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack_, glm::vec2(0.0f, 0.0f), &transform_));
 }
 
 void Monster::Draw(DrawSprites &draw) const {
@@ -25,11 +30,18 @@ void Monster::Update(float elapsed, const std::vector<Collider*>& colliders_to_c
 		transform_.position_.x -= move_speed * elapsed * (float)mov_direction_;
 		mov_direction_ *= -1;
 	}
+
+	invulnerable_countdown_ -= elapsed;
+	if (invulnerable_countdown_ < 0.0f) {
+		invulnerable_countdown_ = 0.0f;
+	}
 }
 
 void Monster::TakeDamage(int attack)
 {
 	if (invulnerable_countdown_ <= 0.0f) {
+		std::cout << "Monster take damage!" << std::endl;
+
 		int damage = 1;
 
 		if (attack > defense_) {
@@ -40,6 +52,8 @@ void Monster::TakeDamage(int attack)
 
 		invulnerable_countdown_ = kStiffnessTime;
 
-		// if (hp_ <= 0) ...
+		if (hp_ <= 0) {
+			Destroy();
+		}
 	}
 }

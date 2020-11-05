@@ -1,10 +1,13 @@
 
 #include "Room.hpp"
 #include "../Util.hpp"
+#include "Player.hpp"
 
 #include <fstream>
 #include <iostream>
 #include <utility>
+
+#include <iostream>
 
 /**
  * Constructor of a room
@@ -23,7 +26,7 @@ Room::Room(const std::string& platform_file) {
 	}
 
 	// tmp hard code to generate monsters
-	monsters_.push_back(new Monster(glm::vec2(505, 198), 60, "ghost_idle_1"));
+	monsters_.push_back(new Monster(glm::vec2(505, 198), 60, "ghost_idle_1", this));
 }
 
 Room::~Room() {
@@ -66,29 +69,29 @@ void Room::Update(float elapsed, Player* player)
 	}
 
 	// Recycle memory
-	static_cast<void>(std::remove_if(monsters_.begin(), monsters_.end(), [](Monster* monster){
+	monsters_.erase(remove_if(monsters_.begin(), monsters_.end(), [](Monster* monster){
 		if (monster->IsDestroyed()) {
 			delete monster;
 			return true;
 		}
 		return false;
-	}));
+	}), monsters_.end());
 
-	static_cast<void>(std::remove_if(player_AOEs_.begin(), player_AOEs_.end(), [](AOE* player_AOE){
+	player_AOEs_.erase(std::remove_if(player_AOEs_.begin(), player_AOEs_.end(), [](AOE* player_AOE){
 		if (player_AOE->IsDestroyed()) {
 			delete player_AOE;
 			return true;
 		}
 		return false;
-	}));
+	}), player_AOEs_.end());
 
-	static_cast<void>(std::remove_if(monster_AOEs_.begin(), monster_AOEs_.end(), [](AOE* monster_AOE){
+	monster_AOEs_.erase(std::remove_if(monster_AOEs_.begin(), monster_AOEs_.end(), [](AOE* monster_AOE){
 		if (monster_AOE->IsDestroyed()) {
 			delete monster_AOE;
 			return true;
 		}
 		return false;
-	}));
+	}),monster_AOEs_.end());
 }
 
 void Room::Draw(DrawSprites& draw_sprite)

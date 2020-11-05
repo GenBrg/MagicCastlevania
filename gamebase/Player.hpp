@@ -45,9 +45,13 @@
 
 #include <glm/glm.hpp>
 
+#include <chrono>
+
+class Room;
 class Player {
 public:
 	inline constexpr static float kStiffnessTime { 2.0f };
+	inline constexpr static std::chrono::milliseconds kAttackCoolDown { 1000 };
 
 	bool OnKeyEvent(SDL_Event const &evt);
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
@@ -55,25 +59,28 @@ public:
 	void SetPosition(const glm::vec2& pos);
 
 	void TakeDamage(int attack);
-	void Attack();
+	void Attack(Room* room);
+	void Reset();
 	Collider* GetCollider() { return movement_component_.GetCollider(); }
 
-	Player();
+	Player(Room* room);
+
+	int GetHp() const { return hp_; }
 
 private:
 	Transform2D transform_;
 	InputSystem input_system_;
 	MovementComponent movement_component_;
 
-	int level_;
-	int hp_;
-	int max_hp_;
-	int mp_;
-	int max_mp_;
-	int attack_;
-	int defense_;
-	int exp_;
-	int max_exp_;
+	int level_ { 1 };
+	int hp_ { 100 };
+	int max_hp_ { 100 };
+	int mp_ { 100 };
+	int max_mp_ { 100 };
+	int attack_ { 10 };
+	int defense_ { 10 };
+	int exp_ { 0 };
+	int max_exp_ { 100 };
 
 	float invulnerable_countdown_ { 0.0f };
 	

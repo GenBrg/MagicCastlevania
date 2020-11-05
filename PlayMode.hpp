@@ -26,7 +26,6 @@ struct PlayMode : Mode {
 		uint8_t pressed = 0;
 	} left, right, down, up, space;
 
-
-	Player player;
 	Room cur_room;
+	Player player;
 };

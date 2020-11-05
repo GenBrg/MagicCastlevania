@@ -7,7 +7,7 @@
 #include "../DrawSprites.hpp"
 #include <map>
 
-
+class Room;
 
 class Monster {
 private:
@@ -25,10 +25,10 @@ private:
 // 	glm::vec2 position;
 // 	glm::vec2 scale;
 
-	int hp_;
-	int max_hp_;
-	int attack_;
-	int defense_;
+	int hp_ { 20 };
+	int max_hp_ { 100 };
+	int attack_ { 50 };
+	int defense_ { 3 };
 
 	float invulnerable_countdown_ { 0.0f };
 
@@ -47,9 +47,9 @@ private:
 // 	Animation* animationP;
 
 public:
-	inline constexpr static float kStiffnessTime { 2.0f };
+	inline constexpr static float kStiffnessTime { 1.0f };
 
-	Monster(const glm::vec2& pos, float move_radius, std::string monster_key);
+	Monster(const glm::vec2& pos, float move_radius, std::string monster_key, Room* room);
 	// update its position
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void Draw(DrawSprites& draw) const;

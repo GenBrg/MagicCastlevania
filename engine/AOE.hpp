@@ -35,9 +35,10 @@ public:
 	 * @param velocity Velocity of the AOE.
 	 * @param duration Duration of the AOE, for number less than 0.0f, it will remain forever.
 	 * @param attack The power of the AOE.
+	 * @param initial_pos The initial offset from the parent_transform or world origin.
 	 * @param parent_transform The transform the AOE is moving with.
 	 */
-	AOE(const glm::vec4& box, Sprite* sprite, const glm::vec2& velocity, float duration, int attack, Transform2D* parent_transform = nullptr);
+	AOE(const glm::vec4& box, const Sprite* sprite, const glm::vec2& velocity, float duration, int attack, const glm::vec2& initial_pos, Transform2D* parent_transform = nullptr);
 
 	int GetAttack() const { return attack_; }
 	void Update(float elapsed, const std::vector<CollisionQuery>& collision_queries);
@@ -50,7 +51,7 @@ private:
 	Collider collider_;
 	glm::vec2 velocity_;
 	float duration_;
-	Sprite* sprite_;
+	const Sprite* sprite_;
 	// Animation animation_;
 	int attack_;
 

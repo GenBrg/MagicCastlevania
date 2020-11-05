@@ -11,9 +11,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <random>
+#include <iostream>
+#include <sstream>
 
 PlayMode::PlayMode() :
-cur_room(data_path("Room_1")) 
+cur_room(data_path("Room_1")),
+player(&cur_room)
 {
 	player.SetPosition(glm::vec2(1, 113));
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
@@ -59,21 +62,21 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 			0.0f, 0.0f, 0.0f, 1.0f
 		));
 
-		// auto draw_text = [&](glm::vec2 const &at, std::string const &text, float H) {
-		// 	lines.draw_text(text,
-		// 		glm::vec3(at.x, at.y, 0.0),
-		// 		glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
-		// 		glm::u8vec4(0x00, 0x00, 0x00, 0x00));
-		// 	float ofs = 2.0f / drawable_size.y;
-		// 	lines.draw_text(text,
-		// 		glm::vec3(at.x + ofs, at.y + ofs, 0.0),
-		// 		glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
-		// 		glm::u8vec4(0xff, 0xff, 0xff, 0x00));
-		// };
+		auto draw_text = [&](glm::vec2 const &at, std::string const &text, float H) {
+			lines.draw_text(text,
+				glm::vec3(at.x, at.y, 0.0),
+				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+				glm::u8vec4(0x00, 0x00, 0x00, 0x00));
+			float ofs = 2.0f / drawable_size.y;
+			lines.draw_text(text,
+				glm::vec3(at.x + ofs, at.y + ofs, 0.0),
+				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+				glm::u8vec4(0xff, 0xff, 0xff, 0x00));
+		};
 
-		// draw_text(glm::vec2(-aspect + 0.1f, 0.0f), server_message, 0.09f);
-
-		// draw_text(glm::vec2(-aspect + 0.1f,-0.9f), "(press WASD to change your total)", 0.09f);
+		std::stringstream message;
+		message << "HP: " << player.GetHp();
+		draw_text(glm::vec2(-aspect + 0.5f, 0.9f), message.str(), 0.09f);
 	}
 	GL_ERRORS();
 }
