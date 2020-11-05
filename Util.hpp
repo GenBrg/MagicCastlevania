@@ -6,15 +6,16 @@
 
 #include <glm/glm.hpp>
 
-inline Sprite const *sprite_dunes = nullptr;
-inline Sprite const *sprite_oasis_traveller = nullptr;
+inline Sprite const *sprite_bg = nullptr;
+inline Sprite const *sprite_ghost = nullptr;
+
 inline static constexpr float kGravity { -100.0f };
 
 inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
 
-	sprite_dunes = &ret->lookup("dunes-ship");
-	sprite_oasis_traveller = &ret->lookup("oasis-traveller");
+	sprite_bg = &ret->lookup("bg");
+	sprite_ghost = &ret->lookup("ghost_idle_1");
 
 	return ret;
 });

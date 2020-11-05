@@ -40,11 +40,12 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 
 	{ //use a DrawSprites to do the drawing:
 		DrawSprites draw(*sprites, view_min, view_max, drawable_size, DrawSprites::AlignPixelPerfect);
+		Transform2D tranform_(nullptr);
+		tranform_.position_ = glm::vec2(0.0f, 0.0f);
+		draw.draw(*sprite_bg, tranform_);
 		player.Draw(draw);
 
-		Transform2D tranform_(nullptr);
-		tranform_.position_ = glm::vec2(200.0f, 80.0f);
-		draw.draw(*sprite_oasis_traveller, tranform_);
+		
 	}
 
 	{ //use DrawLines to overlay some text:
