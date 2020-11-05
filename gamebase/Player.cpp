@@ -40,6 +40,11 @@ void Player::Update(float elapsed, const std::vector<Collider*>& colliders_to_co
 {
 	input_system_.Update(elapsed);
 	movement_component_.Update(elapsed, colliders_to_consider);
+
+	invulnerable_countdown_ -= elapsed;
+	if (invulnerable_countdown_ < 0.0f) {
+		invulnerable_countdown_ = 0.0f;
+	}
 }
 
 void Player::Draw(DrawSprites& draw) const
@@ -49,4 +54,21 @@ void Player::Draw(DrawSprites& draw) const
 
 void Player::SetPosition(const glm::vec2 &pos) {
 	transform_.position_ = pos;
+}
+
+void Player::TakeDamage(int attack)
+{
+	if (invulnerable_countdown_ <= 0.0f) {
+		int damage = 1;
+
+		if (attack > defense_) {
+			damage = attack - defense_;
+		}
+
+		hp_ -= damage;
+
+		invulnerable_countdown_ = kStiffnessTime;
+
+		// if (hp_ <= 0) ...
+	}
 }

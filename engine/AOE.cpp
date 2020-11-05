@@ -44,7 +44,7 @@ void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_que
 	}
 }
 
-void AOE::Draw(DrawSprites& draw)
+void AOE::Draw(DrawSprites& draw) const
 {
 	if (sprite_) {
 		draw.draw(*sprite_, transform_);

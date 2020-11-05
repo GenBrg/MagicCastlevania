@@ -47,6 +47,8 @@
 
 class Player {
 public:
+	inline constexpr static float kStiffnessTime { 2.0f };
+
 	bool OnKeyEvent(SDL_Event const &evt);
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void Draw(DrawSprites& draw) const;
@@ -54,6 +56,7 @@ public:
 
 	void TakeDamage(int attack);
 	void Attack();
+	Collider* GetCollider() const { return movement_component_.GetCollider(); }
 
 	Player();
 
@@ -71,6 +74,8 @@ private:
 	int defense_;
 	int exp_;
 	int max_exp_;
+
+	float invulnerable_countdown_ { 0.0f };
 	
 	const Sprite& sprite_;
 };

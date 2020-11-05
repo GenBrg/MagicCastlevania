@@ -1,28 +1,29 @@
 #pragma once
 
-#include <vector>
-#include <unordered_map>
 #include "../engine/Collider.hpp"
+#include "../engine/AOE.hpp"
 #include "Monster.hpp"
 #include "Door.hpp"
+#include "Player.hpp"
 
+#include <vector>
+#include <unordered_map>
 class Room {
 private:
 	// 	// other rooms that connect with this room
 	// 	std::unordered_map<glm::vec2, Door> doors;
-	//
-	// 	// Monsters in this room
-	// 	std::vector<Monster> monsters;
-	// 	std::vector<AOE> AOEs;
 
-	// void updateMonsters(float elapsed);
-	// void updateAOEs(float elapsed);
+	std::vector<Monster*> monsters_;
+	std::vector<AOE*> player_AOEs_;
+	std::vector<AOE*> monster_AOEs_;
+	
+	// layout of this single room
+	std::vector<Collider*> platforms_;
 
 public:
-	// layout of this single room
-	std::vector<Collider*> colliders;
+	void Update(float elapsed, Player* player);
+	void Draw(DrawSprites& draw_sprite);
 
-	// void update(float elapsed);
 	Room(const std::string& platform_file);
 	~Room();
 };
