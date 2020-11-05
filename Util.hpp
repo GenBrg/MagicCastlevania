@@ -12,7 +12,7 @@ inline static constexpr float kGravity { -200.0f };
 inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
 
-	sprite_dunes = &ret->lookup("dunes-ship");
+	sprite_dunes = &ret->lookup("door_1");
 
 	return ret;
 });

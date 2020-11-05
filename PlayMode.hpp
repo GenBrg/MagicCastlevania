@@ -26,7 +26,7 @@ struct PlayMode : Mode {
 	} left, right, down, up, space;
 
 	glm::vec2 view_min = glm::vec2(0,0);
-	glm::vec2 view_max = glm::vec2(256, 224);
+	glm::vec2 view_max = glm::vec2(960, 541);
 
 	// Player player;
 };

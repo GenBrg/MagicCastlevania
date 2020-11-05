@@ -1,2 +1,4 @@
-"MagicCastleVania.xcf?door1.png" 32 347 109 429 0 0 door_1
-"MagicCastleVania.xcf?Background.png" 0 0 960 540 0 0 bg
+"MagicCastleVania.xcf?Background" 0 0 960 541 +0 +541 bg
+"MagicCastleVania.xcf?player_walk_1" 108 375 +59 +53 +0 +53 player_walk_1
+"MagicCastleVania.xcf?ghost_idle_1" 501 279 +51 +66 +0 +66 ghost_idle_1
+"MagicCastleVania.xcf?door_1_1" 26 345 +77 +84 0 +84 door_1_1

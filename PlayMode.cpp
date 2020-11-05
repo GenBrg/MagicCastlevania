@@ -41,14 +41,15 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 		DrawSprites draw(*sprites, view_min, view_max, drawable_size, DrawSprites::AlignPixelPerfect);
 		// player.Draw(draw);
 		Transform2D transform(nullptr);
-		transform.position_ = glm::vec2(100.0f, 100.0f);
-
-		for (int i = 0; i < 10; ++i) {
-			transform.rotation_ += glm::radians(10.0f);
-			transform.position_ += glm::vec2(20.0f, 20.0f);
-			transform.scale_ -= glm::vec2(0.15f, 0.15f);
-			draw.draw(*sprite_dunes, transform);
-		}
+		transform.position_ = glm::vec2(32.0f, 111.0f);
+		transform.rotation_ = glm::radians(0.0f);
+		transform.scale_ = glm::vec2(1.0f, 1.0f);
+		draw.draw(*sprite_dunes, transform);
+		//for (int i = 0; i < 10; ++i) {
+		//	transform.position_ += glm::vec2(20.0f, 20.0f);
+		//	//transform.scale_ -= glm::vec2(0.15f, 0.15f);
+		//	draw.draw(*sprite_dunes, transform);
+		//}
 	}
 
 	{ //use DrawLines to overlay some text:
