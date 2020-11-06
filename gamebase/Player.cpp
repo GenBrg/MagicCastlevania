@@ -1,15 +1,24 @@
 #include "Player.hpp"
 #include "../Util.hpp"
+#include "../Load.hpp"
 #include "Room.hpp"
 
 #include <SDL.h>
 
 #include <iostream>
+#include <fstream>
+#include <stdexcept>
+
+// Needs to load animation after all sprites are loaded.
+Load<void> load_player_config(LoadTagLate, [](){
+	Player::LoadConfig(data_path("player.config"));
+});
 
 Player::Player(Room* room) :
 transform_(nullptr),
 movement_component_(glm::vec4(0.0f, 0.0f, 20.0f, 50.0f), transform_),
-sprite_(sprites->lookup("player_walk_1"))
+sprite_(sprites->lookup("player_walk_1")),
+animation_controller_(&transform_)
 {
 	input_system_.Register(SDLK_a, [this](InputSystem::KeyState key_state, float elapsed) {
 		if (key_state.pressed) {
@@ -34,6 +43,8 @@ sprite_(sprites->lookup("player_walk_1"))
 			Attack(room);
 		}
 	});
+
+	animation_controller_.PlayAnimation("player_walk", 0.1f, false);
 }
 
 bool Player::OnKeyEvent(SDL_Event const &evt)
@@ -45,16 +56,12 @@ void Player::Update(float elapsed, const std::vector<Collider*>& colliders_to_co
 {
 	input_system_.Update(elapsed);
 	movement_component_.Update(elapsed, colliders_to_consider);
-
-	invulnerable_countdown_ -= elapsed;
-	if (invulnerable_countdown_ < 0.0f) {
-		invulnerable_countdown_ = 0.0f;
-	}
+	animation_controller_.Update(elapsed);
 }
 
 void Player::Draw(DrawSprites& draw) const
 {
-	draw.draw(sprite_, transform_);
+	animation_controller_.Draw(draw);
 }
 
 void Player::SetPosition(const glm::vec2 &pos) {
@@ -69,22 +76,18 @@ void Player::Reset() {
 void Player::TakeDamage(int attack)
 {
 	take_damage_guard_(kStiffnessTime, [&](){
-		if (invulnerable_countdown_ <= 0.0f) {
-			std::cout << "Player take damage!" << std::endl;
+		std::cout << "Player take damage!" << std::endl;
 
-			int damage = 1;
+		int damage = 1;
 
-			if (attack > defense_) {
-				damage = attack - defense_;
-			}
+		if (attack > defense_) {
+			damage = attack - defense_;
+		}
 
-			hp_ -= damage;
+		hp_ -= damage;
 
-			invulnerable_countdown_ = kStiffnessTime;
-
-			if (hp_ <= 0) {
-				Reset();
-			}
+		if (hp_ <= 0) {
+			Reset();
 		}
 	});
 }
@@ -94,11 +97,24 @@ void Player::Attack(Room* room)
 	attack_guard_(kAttackCooldown, [&](){
 		glm::vec2 initial_pos = transform_.position_ + glm::vec2(20.0f, 0.0f) * transform_.scale_;
 		glm::vec2 velocity = glm::vec2(200.0f, 0.0f) * transform_.scale_;
-<<<<<<< HEAD
-		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("ghost_idle_1"), velocity, 3.0f, attack_, initial_pos, nullptr));
-	});
-=======
 		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("fire_1"), velocity, 3.0f, attack_, initial_pos, nullptr));
+	});
+}
+
+void Player::LoadConfig(const std::string& config_file_path)
+{
+	std::ifstream f(config_file_path);
+
+	if (!f.is_open()) {
+		throw std::runtime_error("Fail to load " + config_file_path);
 	}
->>>>>>> 52a6a96eec0398add67d42bb5364723fa2bbca25
+
+	std::string animation_name;
+	int sprite_num;
+
+	while (f >> animation_name >> sprite_num) {
+		AnimationController::LoadAnimation("player_" + animation_name, sprite_num);
+	}
+
+	// TODO populate prototype
 }

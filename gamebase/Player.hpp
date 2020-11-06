@@ -41,12 +41,14 @@
 #include "../engine/Transform2D.hpp"
 #include "../engine/InputSystem.hpp"
 #include "../engine/TimerGuard.hpp"
+#include "../engine/Animation.hpp"
 #include "../Sprite.hpp"
 #include "../DrawSprites.hpp"
 
 #include <glm/glm.hpp>
 
 #include <chrono>
+#include <string>
 
 class Room;
 class Player {
@@ -68,10 +70,17 @@ public:
 
 	int GetHp() const { return hp_; }
 
+	// TODO Apply prototype pattern
+	// static Player* GetCopy();
+	static void LoadConfig(const std::string& config_file_path);
+
 private:
 	Transform2D transform_;
 	InputSystem input_system_;
 	MovementComponent movement_component_;
+	AnimationController animation_controller_;
+
+	// static Player prototype_;
 
 	// int level_ { 1 };
 	int hp_ { 100 };
@@ -82,11 +91,12 @@ private:
 	int defense_ { 10 };
 	// int exp_ { 0 };
 	// int max_exp_ { 100 };
-
-	float invulnerable_countdown_ { 0.0f };
 	
 	const Sprite& sprite_;
 
 	TimerGuard attack_guard_;
 	TimerGuard take_damage_guard_;
+
+	Player(const Player& player);
+	// Player() = default;
 };

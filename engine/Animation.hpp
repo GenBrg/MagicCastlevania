@@ -35,24 +35,38 @@
 
 #pragma once
 
-#include "Sprite.hpp"
-#include "DrawSprites.hpp"
+#include "../Sprite.hpp"
+#include "../DrawSprites.hpp"
+#include "Transform2D.hpp"
 
 #include <vector>
 #include <unordered_map>
-
-using Animation = std::vector<Sprite*>;
-
-extern std::unordered_map<std::string, Animation> animation_collection;
+#include <string>
 
 class AnimationController {
 public:
-	AnimationController(const std::string& animation_name);
+	using Animation = std::vector<const Sprite*>;
 
+	AnimationController(Transform2D* parent_transform) :
+	transform_(parent_transform)
+	{}
+
+	void PlayAnimation(const std::string& animation_name, float interval, bool loop);
 	void Update(float elapsed);
 	void Draw(DrawSprites& draw) const;
 
+	static void LoadAnimation(const std::string& animation_name, int sprite_num);
+
 private:
-	Animation* animation;
-	size_t current_sprite;
+	static std::unordered_map<std::string, Animation> animation_collection;
+
+	Transform2D transform_;
+	Animation* animation_ { nullptr };
+	const Sprite* current_sprite_ { nullptr };
+	float interval_;
+	float time_since_begin_ { 0.0f };
+	float length_;
+
+	bool playing_ { false };
+	bool loop_ { false };
 };

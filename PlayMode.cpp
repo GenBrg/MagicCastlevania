@@ -15,7 +15,7 @@
 #include <sstream>
 
 PlayMode::PlayMode() :
-cur_room(data_path("Room_1")),
+cur_room(data_path("1.room")),
 player(&cur_room)
 {
 	player.SetPosition(glm::vec2(20.0f, 113.0f));
