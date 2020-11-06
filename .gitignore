@@ -9,10 +9,6 @@ dist/client
 dist/client.exe
 dist/client.ilk
 dist/client.pdb
-dist/server
-dist/server.exe
-dist/server.ilk
-dist/server.pdb
 dist/SDL2.dll
 dist/freetype-test
 dist/freetype-test.*

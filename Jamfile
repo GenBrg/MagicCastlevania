@@ -140,6 +140,8 @@ ENGINE_NAMES =
 	Transform2D
 	Collider
 	AOE
+	Timer
+	TimerGuard
 	;
 
 PACK_SPRITES_NAMES =

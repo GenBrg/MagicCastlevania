@@ -68,35 +68,32 @@ void Player::Reset() {
 
 void Player::TakeDamage(int attack)
 {
-	if (invulnerable_countdown_ <= 0.0f) {
-		std::cout << "Player take damage!" << std::endl;
+	take_damage_guard_(kStiffnessTime, [&](){
+		if (invulnerable_countdown_ <= 0.0f) {
+			std::cout << "Player take damage!" << std::endl;
 
-		int damage = 1;
+			int damage = 1;
 
-		if (attack > defense_) {
-			damage = attack - defense_;
+			if (attack > defense_) {
+				damage = attack - defense_;
+			}
+
+			hp_ -= damage;
+
+			invulnerable_countdown_ = kStiffnessTime;
+
+			if (hp_ <= 0) {
+				Reset();
+			}
 		}
-
-		hp_ -= damage;
-
-		invulnerable_countdown_ = kStiffnessTime;
-
-		if (hp_ <= 0) {
-			Reset();
-		}
-	}
+	});
 }
 
 void Player::Attack(Room* room)
 {
-	static std::chrono::high_resolution_clock::time_point last_attack_time;
-	auto now = std::chrono::high_resolution_clock::now();
-
-	if (now - last_attack_time > kAttackCoolDown) {
-		last_attack_time = now;
-
+	attack_guard_(kAttackCooldown, [&](){
 		glm::vec2 initial_pos = transform_.position_ + glm::vec2(20.0f, 0.0f) * transform_.scale_;
 		glm::vec2 velocity = glm::vec2(200.0f, 0.0f) * transform_.scale_;
 		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("ghost_idle_1"), velocity, 3.0f, attack_, initial_pos, nullptr));
-	}
+	});
 }

@@ -32,3 +32,27 @@
 // 	// return true when loopPlay == false && curSpriteIdx == animationP->size() - 1
 // 	bool complete();
 // };
+
+#pragma once
+
+#include "Sprite.hpp"
+#include "DrawSprites.hpp"
+
+#include <vector>
+#include <unordered_map>
+
+using Animation = std::vector<Sprite*>;
+
+extern std::unordered_map<std::string, Animation> animation_collection;
+
+class AnimationController {
+public:
+	AnimationController(const std::string& animation_name);
+
+	void Update(float elapsed);
+	void Draw(DrawSprites& draw) const;
+
+private:
+	Animation* animation;
+	size_t current_sprite;
+};

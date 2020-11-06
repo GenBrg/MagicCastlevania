@@ -40,6 +40,7 @@
 #include "../engine/MovementComponent.hpp"
 #include "../engine/Transform2D.hpp"
 #include "../engine/InputSystem.hpp"
+#include "../engine/TimerGuard.hpp"
 #include "../Sprite.hpp"
 #include "../DrawSprites.hpp"
 
@@ -51,7 +52,7 @@ class Room;
 class Player {
 public:
 	inline constexpr static float kStiffnessTime { 2.0f };
-	inline constexpr static std::chrono::milliseconds kAttackCoolDown { 1000 };
+	inline constexpr static float kAttackCooldown { 1.0f };
 
 	bool OnKeyEvent(SDL_Event const &evt);
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
@@ -85,4 +86,7 @@ private:
 	float invulnerable_countdown_ { 0.0f };
 	
 	const Sprite& sprite_;
+
+	TimerGuard attack_guard_;
+	TimerGuard take_damage_guard_;
 };
