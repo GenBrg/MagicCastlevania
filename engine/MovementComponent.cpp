@@ -101,6 +101,7 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 			if (velocity_.y > 0.0f) {
 				state_ = State::JUMPING;
 			} else if (velocity_.y < 0.0f) {
+				--jump_chance_;
 				state_ = State::FALLING;
 			} else if (velocity_.x != 0.0f) {
 				state_ = State::MOVING;
@@ -121,6 +122,7 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 			if (velocity_.y > 0.0f) {
 				state_ = State::JUMPING;
 			} else if (velocity_.y < 0.0f) {
+				--jump_chance_;
 				state_ = State::FALLING;
 			} else if (velocity_.x == 0.0f) {
 				state_ = State::STILL;
