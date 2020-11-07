@@ -20,25 +20,29 @@ movement_component_(glm::vec4(0.0f, 0.0f, 20.0f, 50.0f), transform_),
 sprite_(sprites->lookup("player_walk_1")),
 animation_controller_(&transform_)
 {
-	input_system_.Register(SDLK_a, [this](InputSystem::KeyState key_state, float elapsed) {
+	input_system_.Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
 			movement_component_.MoveLeft();
 		}
 	});
 
-	input_system_.Register(SDLK_d, [this](InputSystem::KeyState key_state, float elapsed) {
+	input_system_.Register(SDLK_d, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
 			movement_component_.MoveRight();
 		}
 	});
 
-	input_system_.Register(SDLK_SPACE, [this](InputSystem::KeyState key_state, float elapsed) {
+	input_system_.Register(SDLK_SPACE, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
 			movement_component_.Jump();
+			key_state.pressed = false;
+		} else if (key_state.released) {
+			movement_component_.ReleaseJump();
+			key_state.released = false;
 		}
 	});
 
-	input_system_.Register(SDLK_j, [this, room](InputSystem::KeyState key_state, float elapsed) {
+	input_system_.Register(SDLK_j, [this, room](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
 			Attack(room);
 		}

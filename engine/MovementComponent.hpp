@@ -3,6 +3,7 @@
 #include "Transform2D.hpp"
 #include "Collider.hpp"
 #include "../Util.hpp"
+#include "TimerGuard.hpp"
 
 #include <glm/glm.hpp>
 
@@ -31,6 +32,7 @@ public:
 	void MoveLeft();  
 	void MoveRight();
 	void Jump();
+	void ReleaseJump();
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 
 	// Configure
@@ -52,11 +54,14 @@ private:
 	glm::vec2 velocity_ { 0.0f };
 	glm::vec2 acceleration_ { 0.0f };
 	State state_ { State::STILL };
+	int jump_chance_ { 3 };
+	int max_jump_chance_ { 3 };
 
 	// Constraint configurations
 	float max_horizontal_speed_ { 200.0f };
 	float max_vertical_speed_ { 1000.0f };
 	float initial_jump_speed_ { 600.0f };
+	float max_speed_after_jump_release { 300.0f };
 	float ground_fraction_ { 1000.0f };
 	float air_fraction_ { 300.0f };
 	float horizontal_ground_accelaration_ { 1300.0f };

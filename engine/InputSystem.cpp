@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void InputSystem::Register(SDL_Keycode keycode, const std::function<void(KeyState, float)>& action)
+void InputSystem::Register(SDL_Keycode keycode, const std::function<void(KeyState&, float)>& action)
 {
 	input_action_map_[keycode] = action;
 }
@@ -22,6 +22,7 @@ bool InputSystem::OnKeyEvent(const SDL_Event& evt)
 			if (input_action_map_.count(keycode) > 0) {
 				key_states_[keycode].downs += 1;
 				key_states_[keycode].pressed = true;
+				key_states_[keycode].released = false;
 			}
 			return true;
 		}
@@ -30,6 +31,7 @@ bool InputSystem::OnKeyEvent(const SDL_Event& evt)
 		if (input_action_map_.count(keycode) > 0) {
 			key_states_[keycode].downs += 1;
 			key_states_[keycode].pressed = false;
+			key_states_[keycode].released = true;
 		}
 		return true;
 	}

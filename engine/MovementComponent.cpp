@@ -19,8 +19,16 @@ void MovementComponent::MoveRight()
 
 void MovementComponent::Jump()
 {
-	if (state_ == State::STILL || state_ == State::MOVING) {
+	if (jump_chance_ > 0) {
+		--jump_chance_;
 		velocity_.y = initial_jump_speed_;
+	}
+}
+
+void MovementComponent::ReleaseJump() 
+{
+	if (state_ == State::JUMPING) {
+		velocity_.y = glm::min(velocity_.y, max_speed_after_jump_release);
 	}
 }
 
@@ -105,6 +113,7 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 		break;
 		case State::FALLING:
 			if (hit_ground) {
+				jump_chance_ = max_jump_chance_;
 				state_ = (velocity_.x == 0.0f) ? State::STILL : State::MOVING;
 			}
 		break;
