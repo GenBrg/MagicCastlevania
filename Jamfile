@@ -132,6 +132,7 @@ GAMEBASE_NAME =
 	Player
     Room
     Monster
+	HeadsUpDisplay
 	;
 
 ENGINE_NAMES =
