@@ -7,6 +7,7 @@
 #include "Sprite.hpp"
 #include "DrawSprites.hpp"
 #include "Util.hpp"
+#include "engine/Timer.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -32,6 +33,7 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 
 void PlayMode::update(float elapsed) {
 	cur_room.Update(elapsed, &player);
+	TimerManager::Instance().Update();
 }
 
 void PlayMode::draw(glm::uvec2 const &drawable_size) {

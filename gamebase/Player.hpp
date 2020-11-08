@@ -49,12 +49,36 @@
 
 #include <chrono>
 #include <string>
+#include <unordered_map>
+#include <string>
 
 class Room;
 class Player {
 public:
 	inline constexpr static float kStiffnessTime { 2.0f };
 	inline constexpr static float kAttackCooldown { 1.0f };
+
+	enum class State : uint8_t {
+		MOVING = 0,
+		ATTACKING,
+		TAKING_DAMAGE,
+		DYING
+	};
+
+	// TODO StateMachine interface
+	// StateMachine<Player> state_machine_;
+
+	enum class AnimationState : uint8_t {
+		STILL = 0,
+		WALK,
+		JUMP,
+		FALL,
+		HURT,
+		DEATH,
+		ATTACK
+	};
+
+	static const std::unordered_map<std::string, AnimationState> kAnimationNameStateMap;
 
 	bool OnKeyEvent(SDL_Event const &evt);
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
@@ -78,7 +102,8 @@ private:
 	Transform2D transform_;
 	InputSystem input_system_;
 	MovementComponent movement_component_;
-	AnimationController animation_controller_;
+	AnimationController<AnimationState> animation_controller_;
+	State state_ { State::MOVING };
 
 	// static Player prototype_;
 
@@ -99,4 +124,9 @@ private:
 
 	Player(const Player& player);
 	// Player() = default;
+
+	void UpdateState();
+	void EnterState(State state);
+	void ExitState(State state);
+	void SwitchState(State state);
 };
