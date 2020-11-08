@@ -1,8 +1,8 @@
 #include "Timer.hpp"
 
-void TimerManager::AddTimer(long long duration, const std::function<void()> &callback)
+void TimerManager::AddTimer(float duration, const std::function<void()> &callback)
 {
-	auto expire_time = std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(duration);
+	auto expire_time = std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(static_cast<long long>(duration * 1000));
 	timers_.emplace(callback, expire_time);
 }
 
