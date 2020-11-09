@@ -146,7 +146,6 @@ ENGINE_NAMES =
 	AOE
 	Timer
 	TimerGuard
-	Animation
 	;
 
 PACK_SPRITES_NAMES =

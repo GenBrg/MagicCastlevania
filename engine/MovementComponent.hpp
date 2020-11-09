@@ -54,8 +54,8 @@ private:
 	glm::vec2 velocity_ { 0.0f };
 	glm::vec2 acceleration_ { 0.0f };
 	State state_ { State::STILL };
-	int jump_chance_ { 3 };
-	int max_jump_chance_ { 3 };
+	int jump_chance_ { 1 };
+	int max_jump_chance_ { 1 };
 
 	// Constraint configurations
 	float max_horizontal_speed_ { 200.0f };
