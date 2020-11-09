@@ -5,6 +5,8 @@
 
 #include <glm/glm.hpp>
 
+#include <vector>
+
 //Shader program that draws transformed, vertices tinted with vertex colors:
 struct FontProgram {
 	FontProgram();

@@ -59,10 +59,8 @@ Text& Text::SetText(const char *text, FT_F26Dot6 height, int line_width)
 	hb_shape(font, buf, nullptr, 0);
 
 	unsigned int glyph_count;
-	hb_glyph_info_t *glyph_info {nullptr};
 	hb_glyph_position_t *glyph_pos {nullptr};
 
-	glyph_info = hb_buffer_get_glyph_infos(buf, &glyph_count);
 	glyph_pos = hb_buffer_get_glyph_positions(buf, &glyph_count);
 
 	FT_GlyphSlot slot = face_->glyph;
