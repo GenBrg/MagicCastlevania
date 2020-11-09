@@ -17,7 +17,8 @@
 
 PlayMode::PlayMode() :
 cur_room(data_path("1.room")),
-player(&cur_room)
+player(&cur_room),
+hud(&player)
 {
 	player.SetPosition(glm::vec2(20.0f, 113.0f));
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
@@ -53,6 +54,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 		draw.draw(*sprite_bg, tranform_);
 		player.Draw(draw);
 		cur_room.Draw(draw);
+		hud.Draw(draw);
 	}
 
 	{ //use DrawLines to overlay some text:

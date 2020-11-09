@@ -1,5 +1,6 @@
 #include "Mode.hpp"
 #include "gamebase/Player.hpp"
+#include "gamebase/HeadsUpDisplay.hpp"
 
 #include <glm/glm.hpp>
 
@@ -28,4 +29,5 @@ struct PlayMode : Mode {
 
 	Room cur_room;
 	Player player;
+	HeadsUpDisplay hud;
 };
