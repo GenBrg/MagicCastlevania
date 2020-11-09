@@ -80,7 +80,6 @@ public:
 
 	static const std::unordered_map<std::string, AnimationState> kAnimationNameStateMap;
 
-	bool OnKeyEvent(SDL_Event const &evt);
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void Draw(DrawSprites& draw) const;
 	void SetPosition(const glm::vec2& pos);
@@ -100,7 +99,6 @@ public:
 
 private:
 	Transform2D transform_;
-	InputSystem input_system_;
 	MovementComponent movement_component_;
 	AnimationController<AnimationState> animation_controller_;
 	State state_ { State::MOVING };

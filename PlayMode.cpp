@@ -29,10 +29,11 @@ PlayMode::~PlayMode() {
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
-	return player.OnKeyEvent(evt);
+	return InputSystem::Instance()->OnKeyEvent(evt);
 }
 
 void PlayMode::update(float elapsed) {
+	InputSystem::Instance()->Update(elapsed);
 	cur_room.Update(elapsed, &player);
 	TimerManager::Instance().Update();
 }
