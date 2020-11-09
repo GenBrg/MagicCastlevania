@@ -1,7 +1,7 @@
 #include "TextBase.hpp"
 
 #include "../Load.hpp"
-
+#include "../Util.hpp"
 #include <stdexcept>
 #include <iostream>
 
@@ -136,7 +136,10 @@ TextBase::~TextBase() {
 
 void TextBase::SetText(const std::string& text, FT_F26Dot6 size, glm::u8vec4 color, const glm::vec2& anchor) {
 	ClearText();
-	anchor_ = anchor;
+	glm::vec2 transformed_anchor;
+	transformed_anchor.x = anchor.x / INIT_WINDOW_W * 2.0f - 1.0f;
+	transformed_anchor.y = anchor.y / INIT_WINDOW_H * 2.0f - 1.0f;
+	anchor_ = transformed_anchor;
 	color_ = color;
 	text_ = text;
 

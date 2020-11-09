@@ -126,6 +126,7 @@ COMMON_NAMES =
 	Sprite
 	DrawSprites
 	Util
+	Texture2DProgram
 	;
 	
 GAMEBASE_NAME =
@@ -133,6 +134,8 @@ GAMEBASE_NAME =
     Room
     Monster
 	HeadsUpDisplay
+    TextBase
+    Dialog
 	;
 
 ENGINE_NAMES =

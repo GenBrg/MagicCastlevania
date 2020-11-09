@@ -22,6 +22,7 @@ hud(&player)
 	player.SetPosition(glm::vec2(20.0f, 113.0f));
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
 //	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));
+	dialog = Dialog("draw->draw(sprites->lookup(\"hp_bar\"), transform);\nadraw->draw(sprites->lookup(\"hp_bar\"), transform);\ndraw->draw(sprites->lookup(\"hp_bar\"), transform);\nutil::PrintVec2(transformed_anchor);");
 }
 
 PlayMode::~PlayMode() {
@@ -33,9 +34,10 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 
 void PlayMode::update(float elapsed) {
 	cur_room.Update(elapsed, &player);
+
 }
 
-void PlayMode::draw(glm::uvec2 const &drawable_size) {
+void PlayMode::draw(glm::uvec2 const &window_size) {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -46,7 +48,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 	glDisable(GL_DEPTH_TEST);
 
 	{ //use a DrawSprites to do the drawing:
-		DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, drawable_size, DrawSprites::AlignPixelPerfect);
+		DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, window_size, DrawSprites::AlignPixelPerfect);
 		Transform2D tranform_(nullptr);
 		tranform_.position_ = glm::vec2(0.0f, 0.0f);
 		draw.draw(*sprite_bg, tranform_);
@@ -55,30 +57,33 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 		hud.Draw(draw);
 	}
 
-	{ //use DrawLines to overlay some text:
-		float aspect = float(drawable_size.x) / float(drawable_size.y);
-		DrawLines lines(glm::mat4(
-			1.0f / aspect, 0.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 1.0f
-		));
+	{ //Overlay some text:
+		dialog.Draw(window_size);
 
-		auto draw_text = [&](glm::vec2 const &at, std::string const &text, float H) {
-			lines.draw_text(text,
-				glm::vec3(at.x, at.y, 0.0),
-				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
-				glm::u8vec4(0x00, 0x00, 0x00, 0x00));
-			float ofs = 2.0f / drawable_size.y;
-			lines.draw_text(text,
-				glm::vec3(at.x + ofs, at.y + ofs, 0.0),
-				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
-				glm::u8vec4(0xff, 0xff, 0xff, 0x00));
-		};
+//		float aspect = float(window_size.x) / float(window_size.y);
+//		DrawLines lines(glm::mat4(
+//			1.0f / aspect, 0.0f, 0.0f, 0.0f,
+//			0.0f, 1.0f, 0.0f, 0.0f,
+//			0.0f, 0.0f, 1.0f, 0.0f,
+//			0.0f, 0.0f, 0.0f, 1.0f
+//		));
+//
+//		auto draw_text = [&](glm::vec2 const &at, std::string const &text, float H) {
+//			lines.draw_text(text,
+//				glm::vec3(at.x, at.y, 0.0),
+//				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+//				glm::u8vec4(0x00, 0x00, 0x00, 0x00));
+//			float ofs = 2.0f / window_size.y;
+//			lines.draw_text(text,
+//				glm::vec3(at.x + ofs, at.y + ofs, 0.0),
+//				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+//				glm::u8vec4(0xff, 0xff, 0xff, 0x00));
+//		};
+//
+//		std::stringstream message;
+//		message << "HP: " << player.GetHp();
+//		draw_text(glm::vec2(-aspect + 0.5f, 0.9f), message.str(), 0.09f);
 
-		std::stringstream message;
-		message << "HP: " << player.GetHp();
-		draw_text(glm::vec2(-aspect + 0.5f, 0.9f), message.str(), 0.09f);
 	}
 	GL_ERRORS();
 }

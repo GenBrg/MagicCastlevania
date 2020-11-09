@@ -6,9 +6,9 @@
 
 #include <vector>
 #include <deque>
+#include "gamebase/Dialog.hpp"
 #include "gamebase/Room.hpp"
-// #include <gamebase/Room.hpp>
-// #include <gamebase/MainPlayer.hpp>
+
 
 struct PlayMode : Mode {
 	PlayMode();
@@ -17,7 +17,7 @@ struct PlayMode : Mode {
 	//functions called by main loop:
 	virtual bool handle_event(SDL_Event const &, glm::uvec2 const &window_size) override;
 	virtual void update(float elapsed) override;
-	virtual void draw(glm::uvec2 const &drawable_size) override;
+	virtual void draw(glm::uvec2 const &window_size) override;
 
 	//----- game state -----
 
@@ -30,4 +30,6 @@ struct PlayMode : Mode {
 	Room cur_room;
 	Player player;
 	HeadsUpDisplay hud;
+
+	Dialog dialog;
 };

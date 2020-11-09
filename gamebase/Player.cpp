@@ -17,8 +17,8 @@ Load<void> load_player_config(LoadTagLate, [](){
 Player::Player(Room* room) :
 transform_(nullptr),
 movement_component_(glm::vec4(0.0f, 0.0f, 20.0f, 50.0f), transform_),
-sprite_(sprites->lookup("player_walk_1")),
-animation_controller_(&transform_)
+animation_controller_(&transform_),
+sprite_(sprites->lookup("player_walk_1"))
 {
 	input_system_.Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
