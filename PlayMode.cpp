@@ -23,10 +23,11 @@ hud(&player)
 	player.SetPosition(glm::vec2(20.0f, 113.0f));
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
 //	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));
-	dialog = Dialog("draw->draw(sprites->lookup(\"hp_bar\"), transform);\nadraw->draw(sprites->lookup(\"hp_bar\"), transform);\ndraw->draw(sprites->lookup(\"hp_bar\"), transform);\nutil::PrintVec2(transformed_anchor);");
+	dialog_p = new Dialog("draw->draw(sprites->lookup(\"hp_bar\"), transform);\nadraw->draw(sprites->lookup(\"hp_bar\"), transform);\ndraw->draw(sprites->lookup(\"hp_bar\"), transform);\nutil::PrintVec2(transformed_anchor);");
 }
 
 PlayMode::~PlayMode() {
+	delete dialog_p;
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
@@ -60,7 +61,7 @@ void PlayMode::draw(glm::uvec2 const &window_size) {
 	}
 
 	{ //Overlay some text:
-		dialog.Draw(window_size);
+		dialog_p->Draw(window_size);
 
 //		float aspect = float(window_size.x) / float(window_size.y);
 //		DrawLines lines(glm::mat4(
