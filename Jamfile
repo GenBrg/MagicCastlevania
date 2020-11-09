@@ -127,6 +127,7 @@ COMMON_NAMES =
 	DrawSprites
 	Util
 	Texture2DProgram
+	FontProgram
 	;
 	
 GAMEBASE_NAME =
@@ -146,6 +147,7 @@ ENGINE_NAMES =
 	AOE
 	Timer
 	TimerGuard
+	Text
 	;
 
 PACK_SPRITES_NAMES =

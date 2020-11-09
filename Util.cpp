@@ -23,4 +23,14 @@ namespace util
 			std::cout << std::endl;
 		}
 	}
+
+	void PrintMat4(const glm::mat4& mat4)
+	{
+		for (int i = 0; i < 4; ++i) {
+			for (int j = 0; j < 4; ++j) {
+				std::cout << mat4[j][i] << " ";
+			}
+			std::cout << std::endl;
+		}
+	}
 } // namespace util

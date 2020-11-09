@@ -2,6 +2,8 @@
 #include "gamebase/Player.hpp"
 #include "gamebase/HeadsUpDisplay.hpp"
 
+#include "engine/Text.hpp"
+
 #include <glm/glm.hpp>
 
 #include <vector>
@@ -32,4 +34,5 @@ struct PlayMode : Mode {
 	HeadsUpDisplay hud;
 
 	Dialog* dialog_p;
+	Text text;
 };

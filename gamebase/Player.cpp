@@ -32,18 +32,27 @@ movement_component_(glm::vec4(0.0f, 0.0f, 20.0f, 50.0f), transform_),
 animation_controller_(&transform_)
 {
 	InputSystem::Instance()->Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
 		if (key_state.pressed) {
 			movement_component_.MoveLeft();
 		}
 	});
 
 	InputSystem::Instance()->Register(SDLK_d, [this](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
 		if (key_state.pressed) {
 			movement_component_.MoveRight();
 		}
 	});
 
 	InputSystem::Instance()->Register(SDLK_SPACE, [this](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
 		if (key_state.pressed) {
 			movement_component_.Jump();
 			key_state.pressed = false;
@@ -54,12 +63,15 @@ animation_controller_(&transform_)
 	});
 
 	InputSystem::Instance()->Register(SDLK_j, [this, room](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
 		if (key_state.pressed) {
 			Attack(room);
 		}
 	});
 
-	animation_controller_.PlayAnimation(AnimationState::STILL, 0.5f, true);
+	EnterState(State::MOVING);
 }
 
 void Player::Update(float elapsed, const std::vector<Collider*>& colliders_to_consider)
@@ -86,6 +98,10 @@ void Player::Reset() {
 
 void Player::TakeDamage(int attack)
 {
+	if (state_ == State::DYING || state_ == State::TAKING_DAMAGE) {
+		return;
+	}
+
 	take_damage_guard_(kStiffnessTime, [&](){
 		std::cout << "Player take damage!" << std::endl;
 
@@ -149,7 +165,7 @@ void Player::UpdateState()
 		switch (movement_component_.GetState())
 		{
 			case MovementComponent::State::STILL:
-				animation_controller_.PlayAnimation(AnimationState::STILL, 0.5f, true, false);
+				animation_controller_.PlayAnimation(AnimationState::STILL, 0.1f, true, false);
 				break;
 			case MovementComponent::State::MOVING:
 				animation_controller_.PlayAnimation(AnimationState::WALK, 0.1f, true, false);
@@ -178,9 +194,27 @@ void Player::UpdateState()
 
 void Player::EnterState(State state)
 {
+	state_ = state;
 	switch (state)
 	{
 	case State::MOVING:
+		switch (movement_component_.GetState())
+		{
+			case MovementComponent::State::STILL:
+				animation_controller_.PlayAnimation(AnimationState::STILL, 0.1f, true, true);
+				break;
+			case MovementComponent::State::MOVING:
+				animation_controller_.PlayAnimation(AnimationState::WALK, 0.1f, true, true);
+				break;
+			case MovementComponent::State::JUMPING:
+				animation_controller_.PlayAnimation(AnimationState::JUMP, 0.1f, false, true);
+				break;
+			case MovementComponent::State::FALLING:
+				animation_controller_.PlayAnimation(AnimationState::FALL, 0.1f, false, true);
+				break;
+			default:
+				break;
+		}
 		break;
 	case State::ATTACKING:
 		animation_controller_.PlayAnimation(AnimationState::ATTACK, 0.1f, false, true);
@@ -218,6 +252,5 @@ void Player::ExitState(State state)
 void Player::SwitchState(State state)
 {
 	ExitState(state);
-	state_ = state;
 	EnterState(state);
 }

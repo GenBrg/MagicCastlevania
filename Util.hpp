@@ -30,4 +30,5 @@ namespace util {
 	void PrintVec2(const glm::vec2& vec2);
 	void PrintVec4(const glm::vec4& vec4);
 	void PrintMat3(const glm::mat3& mat3);
+	void PrintMat4(const glm::mat4& mat4);
 }
