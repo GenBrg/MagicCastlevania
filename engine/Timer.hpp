@@ -42,6 +42,6 @@ public:
 		return timer_manager;
 	}
 
-	void AddTimer(long long duration, const std::function<void()> &callback);
+	void AddTimer(float duration, const std::function<void()> &callback);
 	void Update();
 };
