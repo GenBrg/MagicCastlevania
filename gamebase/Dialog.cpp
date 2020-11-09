@@ -52,8 +52,6 @@ void Dialog::Draw(const glm::uvec2 &window_size) {
 	// make it draw
 	delete draw;
 
-
-
 	tb.SetText(GenerateStr(),
 //			"draw->draw(sprites->lookup(\"hp_bar\"), transform);\nadraw->draw(sprites->lookup(\"hp_bar\"), transform);\ndraw->draw(sprites->lookup(\"hp_bar\"), transform);\nutil::PrintVec2(transformed_anchor);",
 			2300,
@@ -71,5 +69,5 @@ std::string Dialog::GenerateStr() {
 }
 
 bool Dialog::DialogComplete() {
-	return cur_idx + TEXT_LINES_PER_BOX >= texts.size();
+	return cur_idx + TEXT_LINES_PER_BOX >= (int)texts.size();
 }
