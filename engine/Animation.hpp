@@ -96,7 +96,7 @@ public:
 
 		// Avoid potential overflow
 		sprite_idx = std::clamp(sprite_idx, 0, static_cast<int>(animation_->size()));
-
+		std::cout << sprite_idx << std::endl;
 		current_sprite_ = (*animation_)[sprite_idx];
 	}
 

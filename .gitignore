@@ -17,6 +17,7 @@ scenes/show-scene*
 *.blend[0-9]
 .vscode
 sprites/MagicCastlevania
+sprites/Makefile.windows
 .idea
 CMakeLists.txt
 cmake-build-debug/*

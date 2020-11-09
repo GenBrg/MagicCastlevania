@@ -1,5 +1,5 @@
 ProjectName=MagicCastlevania
-GIMP="C:\Program Files\GIMP 2\bin\gimp-console-2.10.exe"
+GIMP="D:\GIMP 2\bin\gimp-2.10.exe"
 
 ../dist/$(ProjectName).png ../dist/$(ProjectName).atlas : $(ProjectName).xcf $(ProjectName).list extract-sprites.py pack-sprites.exe
 	IF exist myDirName ( rmdir /s /q $(ProjectName) )

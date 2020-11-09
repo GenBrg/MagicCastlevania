@@ -116,8 +116,6 @@ private:
 	int defense_ { 10 };
 	// int exp_ { 0 };
 	// int max_exp_ { 100 };
-	
-	const Sprite& sprite_;
 
 	TimerGuard attack_guard_;
 	TimerGuard take_damage_guard_;

@@ -17,7 +17,7 @@ Load<void> load_player_config(LoadTagLate, [](){
 
 const std::unordered_map<std::string, Player::AnimationState> Player::kAnimationNameStateMap 
 {
-	{ "still", Player::AnimationState::STILL },
+	{ "idle", Player::AnimationState::STILL },
 	{ "walk", Player::AnimationState::WALK },
 	{ "jump", Player::AnimationState::JUMP },
 	{ "fall", Player::AnimationState::FALL },
@@ -29,7 +29,6 @@ const std::unordered_map<std::string, Player::AnimationState> Player::kAnimation
 Player::Player(Room* room) :
 transform_(nullptr),
 movement_component_(glm::vec4(0.0f, 0.0f, 20.0f, 50.0f), transform_),
-sprite_(sprites->lookup("player_walk_1")),
 animation_controller_(&transform_)
 {
 	input_system_.Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
@@ -106,9 +105,9 @@ void Player::TakeDamage(int attack)
 
 		if (hp_ <= 0) {
 			SwitchState(State::DYING);
+		} else {
+			SwitchState(State::TAKING_DAMAGE);
 		}
-
-		SwitchState(State::TAKING_DAMAGE);
 	});
 }
 
@@ -151,7 +150,7 @@ void Player::UpdateState()
 		switch (movement_component_.GetState())
 		{
 			case MovementComponent::State::STILL:
-				animation_controller_.PlayAnimation(AnimationState::STILL, 0.0f, false, false);
+				animation_controller_.PlayAnimation(AnimationState::STILL, 0.1f, true, false);
 				break;
 			case MovementComponent::State::MOVING:
 				animation_controller_.PlayAnimation(AnimationState::WALK, 0.1f, true, false);
