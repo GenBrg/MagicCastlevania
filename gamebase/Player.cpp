@@ -17,7 +17,7 @@ Load<void> load_player_config(LoadTagLate, [](){
 
 const std::unordered_map<std::string, Player::AnimationState> Player::kAnimationNameStateMap 
 {
-	{ "idle", Player::AnimationState::STILL },
+	{ "stand", Player::AnimationState::STILL },
 	{ "walk", Player::AnimationState::WALK },
 	{ "jump", Player::AnimationState::JUMP },
 	{ "fall", Player::AnimationState::FALL },
@@ -59,7 +59,7 @@ animation_controller_(&transform_)
 		}
 	});
 
-	animation_controller_.PlayAnimation(AnimationState::STILL, 0.1f, true);
+	animation_controller_.PlayAnimation(AnimationState::STILL, 0.5f, true);
 }
 
 bool Player::OnKeyEvent(SDL_Event const &evt)
@@ -134,7 +134,12 @@ void Player::LoadConfig(const std::string& config_file_path)
 	int sprite_num;
 
 	while (f >> animation_name >> sprite_num) {
-		AnimationController<Player::AnimationState>::LoadAnimation(kAnimationNameStateMap.at(animation_name),
+		auto it = kAnimationNameStateMap.find(animation_name);
+		if (it == kAnimationNameStateMap.end()) {
+			std::cout << "No state correspoonds to " << animation_name << std::endl;
+			continue;
+		}
+		AnimationController<Player::AnimationState>::LoadAnimation((*it).second,
 		 "player_" + animation_name, sprite_num);
 	}
 
@@ -150,7 +155,7 @@ void Player::UpdateState()
 		switch (movement_component_.GetState())
 		{
 			case MovementComponent::State::STILL:
-				animation_controller_.PlayAnimation(AnimationState::STILL, 0.1f, true, false);
+				animation_controller_.PlayAnimation(AnimationState::STILL, 0.5f, true, false);
 				break;
 			case MovementComponent::State::MOVING:
 				animation_controller_.PlayAnimation(AnimationState::WALK, 0.1f, true, false);

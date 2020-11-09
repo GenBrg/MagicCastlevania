@@ -96,7 +96,6 @@ public:
 
 		// Avoid potential overflow
 		sprite_idx = std::clamp(sprite_idx, 0, static_cast<int>(animation_->size()));
-		std::cout << sprite_idx << std::endl;
 		current_sprite_ = (*animation_)[sprite_idx];
 	}
 
@@ -113,11 +112,11 @@ public:
 
 	static void LoadAnimation(AnimationState state, const std::string& animation_name, int sprite_num)
 	{
-		std::cout << "Load animation: " << animation_name << std::endl;
-
 		if (animation_collection.count(state) > 0) {
 			throw std::runtime_error("Duplicate animation name: " + animation_name);
 		}
+
+		std::cout << "Load animation: " << animation_name << std::endl;
 
 		Animation& animation = animation_collection[state];
 
