@@ -27,7 +27,7 @@ public:
 
 		auto it = animation_collection.find(state);
 		if (it == animation_collection.end()) {
-			throw std::runtime_error("Cannot find animation " + static_cast<uint32_t>(state));
+			throw std::runtime_error("Cannot find animation " + std::to_string(static_cast<uint32_t>(state)));
 		}
 
 		animation_ = &((*it).second);
