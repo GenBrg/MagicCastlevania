@@ -1,16 +1,20 @@
 #pragma once
 
+#include "Singleton.hpp"
+
 #include <SDL.h>
 
 #include <unordered_map>
 #include <string>
 #include <functional>
 
+class InputSystem;
+
 /**
  * Input system that maps each key code to action.
  * @author Jiasheng Zhou
  */
-class InputSystem {
+class InputSystem : public Singleton<InputSystem> {
 public:
 	struct KeyState {
 		uint8_t downs = 0;

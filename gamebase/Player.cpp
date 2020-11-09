@@ -32,19 +32,19 @@ movement_component_(glm::vec4(0.0f, 0.0f, 20.0f, 50.0f), transform_),
 animation_controller_(&transform_),
 sprite_(sprites->lookup("player_walk_1"))
 {
-	input_system_.Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
+	InputSystem::Instance()->Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
 			movement_component_.MoveLeft();
 		}
 	});
 
-	input_system_.Register(SDLK_d, [this](InputSystem::KeyState& key_state, float elapsed) {
+	InputSystem::Instance()->Register(SDLK_d, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
 			movement_component_.MoveRight();
 		}
 	});
 
-	input_system_.Register(SDLK_SPACE, [this](InputSystem::KeyState& key_state, float elapsed) {
+	InputSystem::Instance()->Register(SDLK_SPACE, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
 			movement_component_.Jump();
 			key_state.pressed = false;
@@ -54,7 +54,7 @@ sprite_(sprites->lookup("player_walk_1"))
 		}
 	});
 
-	input_system_.Register(SDLK_j, [this, room](InputSystem::KeyState& key_state, float elapsed) {
+	InputSystem::Instance()->Register(SDLK_j, [this, room](InputSystem::KeyState& key_state, float elapsed) {
 		if (key_state.pressed) {
 			Attack(room);
 		}
@@ -63,14 +63,8 @@ sprite_(sprites->lookup("player_walk_1"))
 	animation_controller_.PlayAnimation(AnimationState::STILL, 0.5f, true);
 }
 
-bool Player::OnKeyEvent(SDL_Event const &evt)
-{
-	return input_system_.OnKeyEvent(evt);
-}
-
 void Player::Update(float elapsed, const std::vector<Collider*>& colliders_to_consider)
 {
-	input_system_.Update(elapsed);
 	movement_component_.Update(elapsed, colliders_to_consider);
 	animation_controller_.Update(elapsed);
 	UpdateState();
