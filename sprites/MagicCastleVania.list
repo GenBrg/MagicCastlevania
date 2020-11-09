@@ -1,4 +1,16 @@
 "MagicCastleVania.xcf?Background" 0 0 960 541 +0 +541 bg
+"MagicCastleVania.xcf?player_idle_1" 113 340 +130 +88 162 428 player_idle_1
+"MagicCastleVania.xcf?player_idle_2" 113 340 +130 +88 162 428 player_idle_2
+"MagicCastleVania.xcf?player_idle_3" 113 340 +130 +88 162 428 player_idle_3
+"MagicCastleVania.xcf?player_idle_4" 113 340 +130 +88 162 428 player_idle_4
+"MagicCastleVania.xcf?player_idle_5" 113 340 +130 +88 162 428 player_idle_5
+"MagicCastleVania.xcf?player_idle_6" 113 340 +130 +88 162 428 player_idle_6
+"MagicCastleVania.xcf?player_idle_7" 113 340 +130 +88 162 428 player_idle_7
+"MagicCastleVania.xcf?player_idle_8" 113 340 +130 +88 162 428 player_idle_8
+"MagicCastleVania.xcf?player_idle_9" 113 340 +130 +88 162 428 player_idle_9
+"MagicCastleVania.xcf?player_idle_10" 113 340 +130 +88 162 428 player_idle_10
+"MagicCastleVania.xcf?player_idle_11" 113 340 +130 +88 162 428 player_idle_11
+"MagicCastleVania.xcf?player_idle_12" 113 340 +130 +88 162 428 player_idle_12
 "MagicCastleVania.xcf?player_walk_1" 113 340 +130 +88 162 428 player_walk_1
 "MagicCastleVania.xcf?player_walk_2" 113 340 +130 +88 162 428 player_walk_2
 "MagicCastleVania.xcf?player_walk_3" 113 340 +130 +88 162 428 player_walk_3
@@ -23,9 +35,9 @@
 "MagicCastleVania.xcf?player_jump_2" 113 340 +130 +88 162 428 player_jump_2
 "MagicCastleVania.xcf?player_jump_3" 113 340 +130 +88 162 428 player_jump_3
 "MagicCastleVania.xcf?player_jump_4" 113 340 +130 +88 162 428 player_jump_4
-"MagicCastleVania.xcf?player_jump_5" 113 340 +130 +88 162 428 player_jump_5
-"MagicCastleVania.xcf?player_jump_6" 113 340 +130 +88 162 428 player_jump_6
-"MagicCastleVania.xcf?player_jump_7" 113 340 +130 +88 162 428 player_jump_7
+"MagicCastleVania.xcf?player_jump_5" 113 340 +130 +88 162 428 player_fall_1
+"MagicCastleVania.xcf?player_jump_6" 113 340 +130 +88 162 428 player_fall_2
+"MagicCastleVania.xcf?player_jump_7" 113 340 +130 +88 162 428 player_fall_3
 "MagicCastleVania.xcf?player_hurt_1" 113 340 +130 +88 162 428 player_hurt_1
 "MagicCastleVania.xcf?player_hurt_2" 113 340 +130 +88 162 428 player_hurt_2
 "MagicCastleVania.xcf?player_hurt_3" 113 340 +130 +88 162 428 player_hurt_3
@@ -59,3 +71,4 @@
 "MagicCastleVania.xcf?hp_point" 18 13 +1 +12 +0 +12 hp_point
 "MagicCastleVania.xcf?hp_corner1" 12 13 +4 +12 +0 +12 hp_corner1
 "MagicCastleVania.xcf?hp_corner2" 110 13 +4 +12 +0 +12 hp_corner2
+"MagicCastleVania.xcf?dialog_box" 232 116 +495 +308 +0 +308 dialog_box
