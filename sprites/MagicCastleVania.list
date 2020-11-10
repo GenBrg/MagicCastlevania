@@ -78,10 +78,11 @@
 "MagicCastleVania.xcf?hp_corner2" 110 13 +4 +12 +0 +12 hp_corner2
 "MagicCastleVania.xcf?dialog_box" 232 116 +495 +308 +0 +308 dialog_box
 "MagicCastleVania.xcf?square_border_big_full" 440 231 +75 +79 +0 +79 square_border_big_full
-"MagicCastleVania.xcf?avatar_1" 448 238 +64 +64 +0 +64 avatar_1
-"MagicCastleVania.xcf?avatar_2" 448 238 +64 +64 +0 +64 avatar_2
-"MagicCastleVania.xcf?avatar_3" 448 238 +64 +64 +0 +64 avatar_3
-"MagicCastleVania.xcf?avatar_4" 448 238 +64 +64 +0 +64 avatar_4
-"MagicCastleVania.xcf?avatar_5" 448 238 +64 +64 +0 +64 avatar_5
+"MagicCastleVania.xcf?avatar_player" 448 238 +64 +64 +0 +64 avatar_player
+"MagicCastleVania.xcf?avatar_mage" 448 238 +64 +64 +0 +64 avatar_mage
+"MagicCastleVania.xcf?avatar_assassin" 448 238 +64 +64 +0 +64 avatar_assassin
+"MagicCastleVania.xcf?avatar_viking" 448 238 +64 +64 +0 +64 avatar_viking
+"MagicCastleVania.xcf?avatar_witch" 448 238 +64 +64 +0 +64 avatar_witch
+"MagicCastleVania.xcf?avatar_ghost" 448 238 +64 +64 +0 +64 avatar_ghost
 
 
