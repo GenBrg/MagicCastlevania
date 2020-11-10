@@ -1,6 +1,7 @@
 #include "Collider.hpp"
 
 #include <algorithm>
+#include <iostream>
 
 Collider::Collider(const glm::vec4& bounding_box, Transform2D* transform) :
 bounding_box_(bounding_box),
@@ -51,8 +52,12 @@ bool Collider::DynamicCollisionQuery(const Collider& other_collider, const glm::
 
 		// TODO Edge cases: vertical and horizontal lines.
 
-		if (std::isnan(t_near.x) || std::isnan(t_near.y)) return false;
-		if (std::isnan(t_far.x) || std::isnan(t_far.y)) return false;
+		if (std::isnan(t_near.x) || std::isnan(t_near.y)) {
+			return false;
+		} 
+		if (std::isnan(t_far.x) || std::isnan(t_far.y)) {
+			return false;
+		} 
 
 		if (t_near.x > t_far.x) std::swap(t_near.x, t_far.x);
 		if (t_near.y > t_far.y) std::swap(t_near.y, t_far.y);
@@ -76,7 +81,7 @@ bool Collider::DynamicCollisionQuery(const Collider& other_collider, const glm::
 	};
 
 	return ray_rect_intersection_test(center, delta_position, other_lower_left_corner, other_upper_right_corner, contact_point, contact_normal, time)
-			 && time <= 1.0f && time >= 0.0f;
+			 && time <= 1.0f && time >= -1.0f;
 }
 
 void Collider::GetCorners(glm::vec2& lower_left_corner, glm::vec2& upper_right_corner) const
