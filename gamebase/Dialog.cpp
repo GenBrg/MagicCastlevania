@@ -3,13 +3,34 @@
 #include "Dialog.hpp"
 
 #include <sstream>
-#include <iostream>
 #include <utility>
 #include <algorithm>
 
-Dialog::Dialog(const std::string &text, std::string  thumbnail_sprite, bool no_thumbnail):
-no_thumbnail_(no_thumbnail),
-thumbnail_sprite_(std::move(thumbnail_sprite)),
+#define AVATAR_PLAYER_SPRITE "avatar_player"
+#define DIALOG_BOX_SPRITE "dialog_box"
+#define AVATAR_BOARDER "square_border_big_full"
+
+// the dialog box is hardcoded to be at the bottom middle in the window
+#define DIALOG_BOX_WIDTH (0.5f * INIT_WINDOW_W)
+#define DIALOG_BOX_HEIGHT (0.25f * INIT_WINDOW_H)
+
+#define TEXT_LINES_PER_BOX 3
+#define LINE_HEIGHT 38
+#define FONT_SIZE 2300
+#define FONT_FILE_NAME "ReallyFree-ALwl7.ttf"
+
+#define ANIMATION_DELAY 0.05f
+
+
+// get the coordinate of the dialog box (bottom left corner in pixel)
+glm::vec2 GetDialogBottomLeft() {
+	float x = (INIT_WINDOW_W - DIALOG_BOX_WIDTH) * 0.5f;
+	return glm::vec2(x, 0);
+}
+
+Dialog::Dialog(const std::string &text, std::string  avatar_sprite, bool no_avatar):
+no_avatar_(no_avatar),
+avatar_sprite_(std::move(avatar_sprite)),
 text_(data_path(FONT_FILE_NAME), nullptr)
 {
 	// split text
@@ -70,13 +91,10 @@ text_(data_path(FONT_FILE_NAME), nullptr)
 		}
 	});
 
-	text_.SetFontSize(FONT_SIZE).SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff)).SetPos(glm::vec2(DIALOG_BOX_LEFT + 20, DIALOG_BOX_TOP - 10));
+	text_.SetFontSize(FONT_SIZE)
+	     .SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff))
+	     .SetPos(glm::vec2(GetDialogBottomLeft().x + 20,  DIALOG_BOX_HEIGHT - LINE_HEIGHT));
 }
-
-//bool Dialog::OnKeyEvent(const SDL_Event &evt) {
-//
-//	return false;
-//}
 
 void Dialog::Update(float elapsed) {
 	if(pause_animation) {
@@ -104,31 +122,47 @@ void Dialog::Draw(const glm::uvec2 &window_size) {
 	auto* drawSprites = new DrawSprites(*sprites, VIEW_MIN, VIEW_MAX, window_size, DrawSprites::AlignPixelPerfect);
 
 	Transform2D transform_box(nullptr);
-	transform_box.position_ = glm::vec2(DIALOG_BOX_LEFT, DIALOG_BOX_BOTTOM);
-	transform_box.scale_ = glm::vec2(1.0f, 0.5f);
-
-	Transform2D transform_thumbnail(nullptr);
-	transform_thumbnail.position_ = glm::vec2(DIALOG_BOX_LEFT - DIALOG_BOX_TOP, DIALOG_BOX_BOTTOM);
-
+	transform_box.position_ = GetDialogBottomLeft();
+	auto sprite = sprites->lookup(DIALOG_BOX_SPRITE);
+	transform_box.scale_ = glm::vec2(DIALOG_BOX_WIDTH / sprite.size_px.x, DIALOG_BOX_HEIGHT / sprite.size_px.y);
 	// draw a dialog background
-	drawSprites->draw(sprites->lookup("dialog_box"), transform_box);
-	if(!no_thumbnail_) {
-		// draw a thumbnail img
-		drawSprites->draw(sprites->lookup(thumbnail_sprite_), transform_thumbnail);
+	drawSprites->draw(sprite, transform_box);
+
+	if(!no_avatar_) {
+		Transform2D transform_avatar_boarder(nullptr), transform_avatar(nullptr);
+		auto sprite_avatar = sprites->lookup(avatar_sprite_);
+		auto sprite_avatar_boarder = sprites->lookup(AVATAR_BOARDER);
+		float scale_para = DIALOG_BOX_HEIGHT / sprite_avatar.size_px.x * 0.9f; // 0.9 make it a little smaller than dialog box
+		transform_avatar_boarder.scale_ = glm::vec2(scale_para,scale_para);
+		transform_avatar.scale_ = transform_avatar_boarder.scale_;
+
+		if(avatar_sprite_ == AVATAR_PLAYER_SPRITE) {
+			// place it left
+			transform_avatar_boarder.position_ = glm::vec2(GetDialogBottomLeft().x - 0.5 * DIALOG_BOX_HEIGHT,
+												  DIALOG_BOX_HEIGHT * 0.05f);
+			transform_avatar.position_ = transform_avatar_boarder.position_;
+		} else {
+			// place it right
+			transform_avatar_boarder.scale_.x = - transform_avatar_boarder.scale_.x;
+			transform_avatar_boarder.position_ = glm::vec2(GetDialogBottomLeft().x + DIALOG_BOX_WIDTH + 0.5 * DIALOG_BOX_HEIGHT,
+												  DIALOG_BOX_HEIGHT * 0.05f);
+			transform_avatar.position_ = transform_avatar_boarder.position_;
+		}
+
+		// draw a avatar img
+		drawSprites->draw(sprite_avatar, transform_avatar);
+		drawSprites->draw(sprite_avatar_boarder, transform_avatar_boarder);
 	}
 
 	// force it draw
 	delete drawSprites;
 
-	text_.SetText(GenerateStr().c_str());
-
+	text_.SetText(GenerateStr());
 	text_.Draw(window_size);
 }
 
 std::string Dialog::GenerateStr() {
 	std::stringstream ss;
-//	std::cout<<"cur_line_idx="<<cur_line_idx<<" cur_animation_line_idx="<<cur_animation_line_idx
-//	<<" pause_animation="<<pause_animation<<std::endl;
 
 	for(int i=cur_line_idx; i <= cur_animation_line_idx &&
 							i < (int)texts.size() &&
@@ -144,10 +178,9 @@ std::string Dialog::GenerateStr() {
 			}
 		}
 	}
-//	std::cout<<"======Begin====\n"<<ss.str()<<"\n========eNd======\n";
 	return ss.str();
 }
 
-bool Dialog::ShouldExitDialog() {
+bool Dialog::ShouldExitDialog() const {
 	return exit_flag_;
 }
