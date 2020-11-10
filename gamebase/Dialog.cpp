@@ -1,7 +1,6 @@
 #include "../engine/InputSystem.hpp"
 #include "../Util.hpp"
 #include "Dialog.hpp"
-#include "TextBase.hpp"
 
 #include <sstream>
 #include <iostream>
@@ -10,7 +9,8 @@
 
 Dialog::Dialog(const std::string &text, std::string  thumbnail_sprite, bool no_thumbnail):
 no_thumbnail_(no_thumbnail),
-thumbnail_sprite_(std::move(thumbnail_sprite))
+thumbnail_sprite_(std::move(thumbnail_sprite)),
+text_(data_path(FONT_FILE_NAME), nullptr)
 {
 	// split text
 	std::stringstream ss(text);
@@ -19,7 +19,6 @@ thumbnail_sprite_(std::move(thumbnail_sprite))
 		texts.push_back(std::move(single_text));
 	}
 	texts.emplace_back("<Press X to exit>");
-	tb = TextBase(data_path(FONT_FILE_NAME), LINE_HEIGHT);
 
 	// handle down press
 	InputSystem::Instance()->Register(SDLK_DOWN, [this](InputSystem::KeyState& key_state, float elapsed) {
@@ -70,6 +69,8 @@ thumbnail_sprite_(std::move(thumbnail_sprite))
 			key_state.released = false;
 		}
 	});
+
+	text_.SetFontSize(FONT_SIZE).SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff)).SetPos(glm::vec2(DIALOG_BOX_LEFT + 20, DIALOG_BOX_TOP - 10));
 }
 
 //bool Dialog::OnKeyEvent(const SDL_Event &evt) {
@@ -119,13 +120,9 @@ void Dialog::Draw(const glm::uvec2 &window_size) {
 	// force it draw
 	delete drawSprites;
 
-	tb.SetText(GenerateStr(),
-	           FONT_SIZE,
-			glm::u8vec4(0x00, 0x00, 0x00, 0xff),
-			glm::vec2(DIALOG_BOX_LEFT + 20, DIALOG_BOX_TOP - 10));// the top left corner of the tex
+	text_.SetText(GenerateStr().c_str());
 
-
-	tb.Draw(window_size);
+	text_.Draw(window_size);
 }
 
 std::string Dialog::GenerateStr() {

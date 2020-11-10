@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <glm/fwd.hpp>
 #include "../DrawSprites.hpp"
-#include "TextBase.hpp"
+#include "../engine/Text.hpp"
 
 #define DIALOG_BOX_LEFT (INIT_WINDOW_W * 0.25f)
 #define DIALOG_BOX_RIGHT (INIT_WINDOW_W * 0.75f)
@@ -28,7 +28,7 @@ private:
 	const std::string thumbnail_sprite_;
 	// current showing text: texts[cur_line_idx, ..., cur_line_idx + TEXT_LINES_PER_BOX)
 	int cur_line_idx = 0;
-	TextBase tb;
+	Text text_;
 
 	bool complete_flag_ = false;
 	bool exit_flag_ = false;

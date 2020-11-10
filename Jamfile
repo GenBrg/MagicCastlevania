@@ -135,7 +135,6 @@ GAMEBASE_NAME =
     Room
     Monster
 	HeadsUpDisplay
-    TextBase
     Dialog
 	;
 
