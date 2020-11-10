@@ -71,7 +71,8 @@ void FontProgram::DrawGlyphs(const std::vector<Glyph *> &glyphs, const glm::vec2
 		glm::vec4(scale / aspect, 0.0f, 0.0f, 0.0f),
 		glm::vec4(0.0f, scale, 0.0f, 0.0f),
 		glm::vec4(0.0f, 0.0f, 1.0f, 0.0f),
-		glm::vec4(anchor.x * (scale / aspect), anchor.y * scale, 0.0f, 1.0f)};
+		glm::vec4((anchor.x - drawable_size.x / 2.0f) * (scale / aspect) , (anchor.y - drawable_size.y / 2.0f) * scale , 0.0f, 1.0f)};
+
 	glUniformMatrix4fv(OBJECT_TO_CLIP_mat4, 1, GL_FALSE, glm::value_ptr(object_to_clip));
 	glBindVertexArray(vertex_array);
 

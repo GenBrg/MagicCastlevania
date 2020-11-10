@@ -24,10 +24,8 @@ text(data_path("ReallyFree-ALwl7.ttf"), nullptr)
 	player.SetPosition(glm::vec2(20.0f, 113.0f));
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
 //	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));
-	// dialog_p = new Dialog("draw->draw(sprites->lookup(\"hp_bar\"), transform);\nadraw->draw(sprites->lookup(\"hp_bar\"), transform);\ndraw->draw(sprites->lookup(\"hp_bar\"), transform);\nutil::PrintVec2(transformed_anchor);");
-	text.SetText("Test123asfawefawefwaefwfwefwefwaswdwacszcxzczxceasdfweqfqe", 2000, 100);
-	text.SetColor(glm::u8vec4(0x12, 0xff, 0x56, 0xff));
-	text.SetPos(glm::vec2(-100.0f, -100.0f));
+	std::string test_str = "1abcdefghijklmnopqrstuvwxyz\"~!!!\n2abcdefghijklmnopqrstuvwxyz\"~!!!\n3abcdefghijklmnopqrstuvwxyz\"~!!!\n4abcdefghijklmnopqrstuvwxyz\"~!!!\n5abcdefghijklmnopqrstuvwxyz\"~!!!\n66666666666666\n7abcdefghijklmnopqrstuvwxyz\"~!!!\n888888888888888";
+	dialog_p = new Dialog(test_str, "ghost_hurt_1", false);
 }
 
 PlayMode::~PlayMode() {
@@ -43,7 +41,7 @@ void PlayMode::update(float elapsed) {
 	cur_room.Update(elapsed, &player);
 	TimerManager::Instance().Update();
 
-	// dialog_p->Update(elapsed);
+	dialog_p->Update(elapsed);
 }
 
 void PlayMode::draw(glm::uvec2 const &window_size) {
@@ -67,8 +65,9 @@ void PlayMode::draw(glm::uvec2 const &window_size) {
 	}
 
 	{ //Overlay some text:
-		// dialog_p->Draw(window_size);
-		text.Draw(window_size);
+		if(!dialog_p->ShouldExitDialog()) {
+			dialog_p->Draw(window_size);
+		}
 
 //		float aspect = float(window_size.x) / float(window_size.y);
 //		DrawLines lines(glm::mat4(

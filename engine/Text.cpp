@@ -5,6 +5,8 @@
 
 #include <stdexcept>
 
+#include <iostream>
+
 FT_Library Text::library_;
 
 Load<void> load_ft_library(LoadTagEarly, []() {
@@ -29,6 +31,9 @@ void Text::Draw(const glm::uvec2 &drawable_size)
 
 void Text::ClearText()
 {
+	line_number_ = 0;
+	anchor_ = glm::vec2(0.0f, 0.0f);
+
 	for (const auto& glyph : glyphs_) {
 		delete glyph;
 	}
@@ -40,19 +45,32 @@ Text::~Text()
 	ClearText();
 }
 
-// pos: OpenGL position (-1, 1)
-Text& Text::SetText(const char *text, FT_F26Dot6 height, int line_width)
+Text& Text::SetText(const std::string& text)
 {
-	ClearText();
+	if (text == text_) {
+		return *this;
+	}
 
-	text_ = text;
-	FT_Set_Char_Size(face_, 0, height, 0, 0);
+	if (text.length() > text_.length() && text_ == text.substr(0, text_.length())) {
+		return AppendText(text.substr(text_.length()));
+	}
+
+	ClearText();
+	return AppendText(text);
+}
+
+// pos: OpenGL position (-1, 1)
+Text& Text::AppendText(const std::string& text)
+{
+	text_.append(text);
+	std::cout << "current text " << text_ << std::endl;
+	FT_Set_Char_Size(face_, 0, height_, 0, 0);
 
 	hb_font_t *font {nullptr};
 	hb_buffer_t *buf {nullptr};
 	font = hb_ft_font_create(face_, nullptr);
 	buf = hb_buffer_create();
-	hb_buffer_add_utf8(buf, text, -1, 0, -1);
+	hb_buffer_add_utf8(buf, text.c_str(), -1, 0, -1);
 	hb_buffer_set_direction(buf, HB_DIRECTION_LTR);
 	hb_buffer_set_script(buf, HB_SCRIPT_LATIN);
 	hb_buffer_set_language(buf, hb_language_from_string("en", -1));
@@ -65,14 +83,11 @@ Text& Text::SetText(const char *text, FT_F26Dot6 height, int line_width)
 
 	FT_GlyphSlot slot = face_->glyph;
 
-	int line_number = 0;
-	glm::vec2 anchor { 0.0f };
-
 	for (unsigned int i = 0; i < glyph_count; ++i)
 	{
 		auto new_line = [&]() {
-			++line_number;
-			anchor = glm::vec2(0.0f, -line_number * height / 64.0f);
+			++line_number_;
+			anchor_ = glm::vec2(0.0f, -line_number_ * height_ / 64.0f);
 		};
 
 		if (text[i] == '\n') {
@@ -89,16 +104,16 @@ Text& Text::SetText(const char *text, FT_F26Dot6 height, int line_width)
 		auto x_advance = glyph_pos[i].x_advance / 64.0f;
 		auto y_advance = glyph_pos[i].y_advance / 64.0f;
 
-		if (x_offset + anchor.x > line_width) {
+		if (line_width_ > 0 && x_offset + anchor_.x > line_width_) {
 			new_line();
 		}
 
 		auto &bitmap = slot->bitmap;
 		glyphs_.push_back(new FontProgram::Glyph(
-			{anchor.x + x_offset + slot->bitmap_left, anchor.y + y_offset + slot->bitmap_top},
+			{anchor_.x + x_offset + slot->bitmap_left, anchor_.y + y_offset + slot->bitmap_top},
 			 bitmap.width, bitmap.rows, bitmap.buffer));
 
-		anchor += glm::vec2(x_advance, y_advance);
+		anchor_ += glm::vec2(x_advance, y_advance);
 	}
 
 	hb_buffer_destroy(buf);
@@ -107,9 +122,21 @@ Text& Text::SetText(const char *text, FT_F26Dot6 height, int line_width)
 	return *this;
 }
 
-Text& Text::SetPos(const glm::vec2 &anchor)
+Text& Text::SetPos(const glm::vec2 &text_start_position)
 {
-	transform_.position_ = anchor;
+	transform_.position_ = text_start_position;
+	return *this;
+}
+
+Text& Text::SetLineWidth(int line_width)
+{
+	line_width_ = line_width;
+	return *this;
+}
+
+Text& Text::SetFontSize(FT_F26Dot6 height)
+{
+	height_ = height;
 	return *this;
 }
 
