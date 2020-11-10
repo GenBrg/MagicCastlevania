@@ -1,7 +1,6 @@
 #include "../engine/InputSystem.hpp"
 #include "../Util.hpp"
 #include "Dialog.hpp"
-#include "TextBase.hpp"
 
 #include <sstream>
 #include <iostream>

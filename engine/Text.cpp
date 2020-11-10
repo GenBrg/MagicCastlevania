@@ -5,8 +5,6 @@
 
 #include <stdexcept>
 
-#include <iostream>
-
 FT_Library Text::library_;
 
 Load<void> load_ft_library(LoadTagEarly, []() {
@@ -63,7 +61,6 @@ Text& Text::SetText(const std::string& text)
 Text& Text::AppendText(const std::string& text)
 {
 	text_.append(text);
-	std::cout << "current text " << text_ << std::endl;
 	FT_Set_Char_Size(face_, 0, height_, 0, 0);
 
 	hb_font_t *font {nullptr};
