@@ -12,6 +12,8 @@ public:
 	void Destroy() { destroyed_ = true; }
 	bool IsDestroyed() const { return destroyed_; }
 	Collider* GetCollider() { return &collider_; }
+	
+	virtual ~Entity() {}
 
 protected:
 	Transform2D transform_;
