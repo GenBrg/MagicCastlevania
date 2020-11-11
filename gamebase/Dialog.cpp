@@ -10,7 +10,7 @@
 Dialog::Dialog(const std::string &text, std::string  thumbnail_sprite, bool no_thumbnail):
 no_thumbnail_(no_thumbnail),
 thumbnail_sprite_(std::move(thumbnail_sprite)),
-text_(data_path(FONT_FILE_NAME), nullptr)
+text_(data_path(FONT_FILE_NAME))
 {
 	// split text
 	std::stringstream ss(text);
@@ -122,7 +122,7 @@ void Dialog::Draw(const glm::uvec2 &window_size) {
 
 	text_.SetText(GenerateStr().c_str());
 
-	text_.Draw(window_size);
+	text_.Draw();
 }
 
 std::string Dialog::GenerateStr() {

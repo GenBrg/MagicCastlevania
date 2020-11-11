@@ -18,8 +18,7 @@
 PlayMode::PlayMode() :
 cur_room(data_path("1.room")),
 player(&cur_room),
-hud(&player),
-text(data_path("ReallyFree-ALwl7.ttf"), nullptr)
+hud(&player)
 {
 	player.SetPosition(glm::vec2(20.0f, 113.0f));
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
