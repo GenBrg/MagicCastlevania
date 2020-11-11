@@ -24,7 +24,8 @@ hud(&player)
 //	colliders.emplace_back(new Collider(glm::vec4(0.0f, 0.0f, 10000.0f, 60.0f), nullptr));
 //	colliders.emplace_back(new Collider(glm::vec4(200.0f, 80.0f, 215.0f, 104.0f), nullptr));
 	std::string test_str = "1abcdefghijklmnopqrstuvwxyz\"~!!!\n2abcdefghijklmnopqrstuvwxyz\"~!!!\n3abcdefghijklmnopqrstuvwxyz\"~!!!\n4abcdefghijklmnopqrstuvwxyz\"~!!!\n5abcdefghijklmnopqrstuvwxyz\"~!!!\n66666666666666\n7abcdefghijklmnopqrstuvwxyz\"~!!!\n888888888888888";
-	dialog_p = new Dialog(test_str, "ghost_hurt_1", false);
+//	dialog_p = new Dialog(test_str, "avatar_assassin", false);
+	dialog_p = new Dialog(test_str, "avatar_player", false);
 }
 
 PlayMode::~PlayMode() {
