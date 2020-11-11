@@ -9,6 +9,8 @@
 #include <unordered_map>
 
 class Player;
+class Trigger;
+
 class Room {
 private:
 	// 	// other rooms that connect with this room
@@ -21,11 +23,14 @@ private:
 	// layout of this single room
 	std::vector<Collider*> platforms_ {};
 
+	std::vector<Trigger*> triggers_ {};
+
 public:
 	void Update(float elapsed, Player* player);
 	void Draw(DrawSprites& draw_sprite);
 	void AddPlayerAOE(AOE* aoe) { player_AOEs_.push_back(aoe); }
 	void AddMonsterAOE(AOE* aoe) { monster_AOEs_.push_back(aoe); }
+	void AddTrigger(Trigger* trigger) { triggers_.push_back(trigger); }
 
 	Room(const std::string& platform_file);
 	~Room();

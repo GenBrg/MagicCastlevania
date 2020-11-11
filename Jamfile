@@ -147,6 +147,8 @@ ENGINE_NAMES =
 	Timer
 	TimerGuard
 	Text
+	Trigger
+	Entity
 	;
 
 PACK_SPRITES_NAMES =

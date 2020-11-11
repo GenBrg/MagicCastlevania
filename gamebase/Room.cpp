@@ -1,6 +1,7 @@
 
 #include "Room.hpp"
 #include "../Util.hpp"
+#include "../engine/Trigger.hpp"
 #include "Player.hpp"
 
 #include <fstream>
@@ -28,6 +29,10 @@ Room::Room(const std::string& platform_file) {
 	// tmp hard code to generate monsters
 	monsters_.push_back(new Monster(glm::vec2(505, 198), 60, "ghost_idle_1", this));
 	AddMonsterAOE(new AOE(glm::vec4(434.0f, 0.0f, 951.0f, 40.0f), nullptr, glm::vec2(0.0f, 0.0f), -1.0f, 10000, glm::vec2(0.0f, 0.0f), nullptr));
+
+	Trigger::Create(*this, glm::vec4(0.0f, 10.0f, 300.0f, 1000.0f), nullptr, 10, 0.1f, [&](){
+		std::cout << "Player in area!!!" << std::endl;
+	});
 }
 
 Room::~Room() {
@@ -42,6 +47,17 @@ Room::~Room() {
 	for (AOE* monster_AOE : monster_AOEs_) {
 		delete monster_AOE;
 	}
+}
+
+template <typename T>
+void GarbageCollect(std::vector<T*>& arr) {
+	arr.erase(std::remove_if(arr.begin(), arr.end(), [](T* elem){
+		if (elem->IsDestroyed()) {
+			delete elem;
+			return true;
+		}
+		return false;
+	}),arr.end());
 }
 
 void Room::Update(float elapsed, Player* player)
@@ -69,30 +85,17 @@ void Room::Update(float elapsed, Player* player)
 		}) });
 	}
 
+	for (Trigger* trigger : triggers_) {
+		if (trigger->GetCollider()->IsColliding(*(player->GetCollider()))) {
+			trigger->OnTrigger();
+		}
+	}
+
 	// Garbage collection
-	monsters_.erase(remove_if(monsters_.begin(), monsters_.end(), [](Monster* monster){
-		if (monster->IsDestroyed()) {
-			delete monster;
-			return true;
-		}
-		return false;
-	}), monsters_.end());
-
-	player_AOEs_.erase(std::remove_if(player_AOEs_.begin(), player_AOEs_.end(), [](AOE* player_AOE){
-		if (player_AOE->IsDestroyed()) {
-			delete player_AOE;
-			return true;
-		}
-		return false;
-	}), player_AOEs_.end());
-
-	monster_AOEs_.erase(std::remove_if(monster_AOEs_.begin(), monster_AOEs_.end(), [](AOE* monster_AOE){
-		if (monster_AOE->IsDestroyed()) {
-			delete monster_AOE;
-			return true;
-		}
-		return false;
-	}),monster_AOEs_.end());
+	GarbageCollect(monsters_);
+	GarbageCollect(player_AOEs_);
+	GarbageCollect(monster_AOEs_);
+	GarbageCollect(triggers_);
 }
 
 void Room::Draw(DrawSprites& draw_sprite)
