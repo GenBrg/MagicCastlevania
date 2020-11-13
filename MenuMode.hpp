@@ -9,7 +9,7 @@
 
 #include "Sprite.hpp"
 #include "Mode.hpp"
-
+#include "engine/Transform2D.hpp"
 #include <vector>
 #include <functional>
 
@@ -30,27 +30,27 @@ struct MenuMode : Mode {
 		Item(
 			std::string const& name_,
 			Sprite const* sprite_ = nullptr,
-			float scale_ = 1.0f,
+			Sprite const* sprite_selected_ = nullptr,
 			glm::u8vec4 const& tint_ = glm::u8vec4(0xff),
-			std::function< void(Item const&) > const& on_select_ = nullptr,
-			glm::vec2 const& at_ = glm::vec2(0.0f)
-		) : name(name_), sprite(sprite_), scale(scale_), tint(tint_), selected_tint(tint_), on_select(on_select_), at(at_) {
+			std::function< void(Item const&) > const& on_select_ = nullptr
+		) : name(name_), sprite(sprite_),sprite_selected(sprite_selected_), tint(tint_), selected_tint(tint_), on_select(on_select_), transform(nullptr) {
 		}
 		std::string name;
-		Sprite const* sprite; //sprite drawn for item
-		float scale; //scale for sprite
+		Sprite const* sprite; //sprite drawn for item if not selected
+		Sprite const* sprite_selected; //sprite drawn for item if selected
+
 		glm::u8vec4 tint; //tint for sprite (unselected)
 		glm::u8vec4 selected_tint; //tint for sprite (selected)
 		std::function< void(Item const&) > on_select; //if set, item is selectable
-		glm::vec2 at; //location to draw item
+		Transform2D transform; //transform to draw item
 	};
 	std::vector< Item > items;
 
 	//call to arrange items in a centered list:
-	void layout_items(float gap = 0.0f);
+	void vertical_layout_items(float gap = 0.0f);
 
 	//if set, used to highlight the current selection:
-	Sprite const* left_select = nullptr;
+	/*Sprite const* left_select = nullptr;
 	Sprite const* right_select = nullptr;
 
 	glm::vec2 left_select_offset = glm::vec2(0.0f);
@@ -60,7 +60,7 @@ struct MenuMode : Mode {
 	glm::u8vec4 right_select_tint = glm::u8vec4(0xff);
 
 	float select_bounce_amount = 0.0f;
-	float select_bounce_acc = 0.0f;
+	float select_bounce_acc = 0.0f;*/
 
 	//must be set to the atlas from which all the sprites used herein are taken:
 	SpriteAtlas const* atlas = nullptr;

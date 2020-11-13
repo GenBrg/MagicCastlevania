@@ -28,5 +28,5 @@ struct Transform2D {
 
 	glm::mat3 GetTranslationMat_r() const;
 
-	Transform2D(Transform2D const &) = delete;
+	//Transform2D(Transform2D const &) = delete;
 };

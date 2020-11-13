@@ -3,4 +3,4 @@
 #include "MenuMode.hpp"
 #include <memory>
 
-extern std::shared_ptr< MenuMode > demo_menu;
+extern std::shared_ptr< MenuMode > main_menu;

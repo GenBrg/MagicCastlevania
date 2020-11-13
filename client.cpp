@@ -5,7 +5,7 @@
 #include "Sound.hpp"
 #include "GL.hpp"
 #include "load_save_png.hpp"
-
+#include "main_menu.hpp"
 #include <SDL.h>
 
 #include <chrono>
@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
 	call_load_functions();
 
 	//------------ create game mode + make current --------------
-	Mode::set_current(std::make_shared< PlayMode >());
+	Mode::set_current(main_menu);
 
 	//------------ main loop ------------
 

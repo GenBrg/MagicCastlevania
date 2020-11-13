@@ -103,11 +103,13 @@ if $(OS) = NT { #Windows
 CLIENT_NAMES =
 	client
 	PlayMode
+	MenuMode
 	LitColorTextureProgram
 	ColorTextureProgram
 	Sound
 	load_wav
 	load_opus
+	main_menu
 	;
 
 COMMON_NAMES =
