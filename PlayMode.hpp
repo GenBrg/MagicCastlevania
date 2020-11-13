@@ -34,5 +34,4 @@ struct PlayMode : Mode {
 	HeadsUpDisplay hud;
 
 	Dialog* dialog_p;
-	Text text;
 };

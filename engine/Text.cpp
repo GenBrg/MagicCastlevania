@@ -17,14 +17,14 @@ Load<void> load_ft_library(LoadTagEarly, []() {
 	}
 });
 
-void Text::Draw(const glm::uvec2 &drawable_size)
+void Text::Draw()
 {
 	if (!visible_)
 	{
 		return;
 	}
 
-	font_program->DrawGlyphs(glyphs_, transform_.MakeLocalToWorld()[2], drawable_size, color_);
+	font_program->DrawGlyphs(glyphs_, transform_.MakeLocalToWorld()[2], ref_drawable_size_, color_);
 }
 
 void Text::ClearText()
@@ -150,8 +150,9 @@ Text& Text::SetColor(const glm::u8vec4 &color)
 	return *this;
 }
 
-Text::Text(const std::string& font_path, Transform2D* parent_transform) :
-transform_(parent_transform)
+Text::Text(const std::string& font_path, const glm::uvec2& drawable_size, Transform2D* parent_transform) :
+transform_(parent_transform),
+ref_drawable_size_(drawable_size)
 {
 	auto it = cached_faces_.find(font_path);
 	if (it != cached_faces_.end()) {

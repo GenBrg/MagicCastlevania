@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../FontProgram.hpp"
+#include "../Util.hpp"
 #include "Transform2D.hpp"
 
 #include <ft2build.h>
@@ -27,6 +28,7 @@ private:
 	std::string text_;
 	glm::vec4 color_ {1.0f, 1.0f, 1.0f, 1.0f};
 	bool visible_ {true};
+	glm::uvec2 ref_drawable_size_;
 
 	int line_number_ { 0 };
 	glm::vec2 anchor_ { 0.0f };
@@ -40,9 +42,10 @@ public:
 
 	/** Construct a new text.
 	 *  @param font_path Path to the font file used to define the font of the text.
+	 *  @param drawable_size Reference drawable size for the font to be resized according to screen size.
 	 *  @param parent_transform Parent transform the font is attached to, pass nullptr if the text is in world space.
 	 */
-	Text(const std::string& font_path, Transform2D* parent_transform);
+	Text(const std::string& font_path, const glm::uvec2& drawable_size = glm::uvec2(INIT_WINDOW_W, INIT_WINDOW_H), Transform2D* parent_transform = nullptr);
 	~Text();
 
 	/** Append glyphs in the string to the current glyph buffer. It will upload new vertices and texture data to GPU for rendering.
@@ -65,6 +68,8 @@ public:
 
 	/** Sets the size of the font.
 	 *  @param height The height of a single glyph, the unit is 1/64 pixel.
+	 *  @note Font size should be set before you set text or append text, the size should be consistent.
+	 * 		  Also the font size won't actually affect the font size after you set or append text.
 	 */
 	Text& SetFontSize(FT_F26Dot6 height);
 
@@ -89,7 +94,6 @@ public:
 	void ClearText();
 
 	/** Draw text to screen.
-	 *  @param drawable_size The window drawable size.
 	 */
-	void Draw(const glm::uvec2 &drawable_size);
+	void Draw();
 };
