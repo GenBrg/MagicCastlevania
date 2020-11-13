@@ -110,6 +110,7 @@ CLIENT_NAMES =
 	load_wav
 	load_opus
 	main_menu
+	main_play
 	;
 
 COMMON_NAMES =

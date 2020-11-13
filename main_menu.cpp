@@ -2,42 +2,29 @@
 #include "Load.hpp"
 #include "Sprite.hpp"
 #include "data_path.hpp"
-
+#include "main_play.hpp"
 #include "PlayMode.hpp"
 
 std::shared_ptr< MenuMode > main_menu;
 
 Load< void > load_main_menu(LoadTagDefault, []() {
 	std::vector< MenuMode::Item > items;
-	items.emplace_back("[[ DEMO MENU ]]" ,&sprites->lookup("text_button_1"),&sprites->lookup("text_button_selected"));
-	/*items.back().sprite = sprites->lookup("text_button_1");
-	items.back().sprite_selected = sprites->lookup("text_button_selected");
+	items.emplace_back("[[ DEMO MENU ]]" ,&sprites->lookup("text_button_1"),&sprites->lookup("text_button_1_selected"));
 
-	items.emplace_back("Play 1");
+	items.emplace_back("Play", &sprites->lookup("text_button_1"), &sprites->lookup("text_button_1_selected"));
 	items.back().on_select = [](MenuMode::Item const&) {
-		Mode::set_current(std::make_shared< PlayMode >());
+		Mode::set_current(main_play);
 	};
-	items.back().sprite = sprites->lookup("text_button_1");
-	items.back().sprite_selected = sprites->lookup("text_button_selected");
-	items.emplace_back("Play 2");
-	items.back().on_select = [](MenuMode::Item const&) {
-		Mode::set_current(std::make_shared< PlayMode >());
-	};
-	items.back().sprite = sprites->lookup("text_button_1");
-	items.back().sprite_selected = sprites->lookup("text_button_selected");
-	items.emplace_back("Play 3");
-	items.back().on_select = [](MenuMode::Item const&) {
-		Mode::set_current(std::make_shared< PlayMode >());
-	};
-	items.back().sprite = sprites->lookup("text_button_1");
-	items.back().sprite_selected = sprites->lookup("text_button_selected");
-	items.emplace_back("Play 4");
-	items.back().on_select = [](MenuMode::Item const&) {
-		Mode::set_current(std::make_shared< PlayMode >());
-	};
-	items.back().sprite = sprites->lookup("text_button_1");
-	items.back().sprite_selected = sprites->lookup("text_button_selected");*/
 
+	items.emplace_back("Play 2", &sprites->lookup("text_button_1"), &sprites->lookup("text_button_1_selected"));
+	items.back().on_select = [](MenuMode::Item const&) {
+		Mode::set_current(main_play);
+	};
+
+	items.emplace_back("Play 3", &sprites->lookup("text_button_1"), &sprites->lookup("text_button_1_selected"));
+	items.back().on_select = [](MenuMode::Item const&) {
+		Mode::set_current(main_play);
+	};
 
 	main_menu = std::make_shared< MenuMode >(items);
 	main_menu->selected = 1;
