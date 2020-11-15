@@ -3,6 +3,6 @@
 
 std::shared_ptr< PlayMode > main_play;
 
-Load< void > load_main_play(LoadTagDefault, []() {
+Load< void > load_main_play(LoadTagLate, []() {
 	main_play = std::make_shared< PlayMode >();
 	});

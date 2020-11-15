@@ -7,7 +7,7 @@
 
 std::shared_ptr< MenuMode > main_menu;
 
-Load< void > load_main_menu(LoadTagDefault, []() {
+Load< void > load_main_menu(LoadTagLate, []() {
 	std::vector< MenuMode::Item > items;
 	items.emplace_back("[[ DEMO MENU ]]" ,&sprites->lookup("text_button_1"),&sprites->lookup("text_button_1_selected"));
 
