@@ -10,13 +10,13 @@
 #define INIT_WINDOW_W 960
 #define INIT_WINDOW_H 541
 
-inline Sprite const *sprite_bg = nullptr;
-inline Sprite const *sprite_ghost = nullptr;
+inline Sprite const* sprite_bg = nullptr;
+inline Sprite const* sprite_ghost = nullptr;
 
-inline glm::vec2 VIEW_MIN = glm::vec2(0,0);
+inline glm::vec2 VIEW_MIN = glm::vec2(0, 0);
 inline glm::vec2 VIEW_MAX = glm::vec2(960, 541);
 
-inline static constexpr float kGravity { -980.0f };
+inline static constexpr float kGravity{ -980.0f };
 
 using json = nlohmann::json;
 
@@ -27,7 +27,7 @@ inline Load< SpriteAtlas > sprites(LoadTagEarly, []() -> SpriteAtlas const * {
 	sprite_ghost = &ret->lookup("ghost_idle_1");
 
 	return ret;
-});
+	});
 
 namespace glm {
 	void from_json(const json& j, vec2& p);

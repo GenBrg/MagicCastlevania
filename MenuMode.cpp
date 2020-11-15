@@ -1,3 +1,4 @@
+
 #include "MenuMode.hpp"
 
 //for the GL_ERRORS() macro:
@@ -14,29 +15,29 @@
 
 #include <random>
 
-Load< Sound::Sample > sound_click(LoadTagDefault, []() -> Sound::Sample* {
-	std::vector< float > data(size_t(48000 * 0.2f), 0.0f);
-	for (uint32_t i = 0; i < data.size(); ++i) {
-		float t = i / float(48000);
-		//phase-modulated sine wave (creates some metal-like sound):
-		data[i] = std::sin(3.1415926f * 2.0f * 440.0f * t + std::sin(3.1415926f * 2.0f * 450.0f * t));
-		//quadratic falloff:
-		data[i] *= 0.3f * std::pow(std::max(0.0f, (1.0f - t / 0.2f)), 2.0f);
-	}
-	return new Sound::Sample(data);
-	});
-
-Load< Sound::Sample > sound_clonk(LoadTagDefault, []() -> Sound::Sample* {
-	std::vector< float > data(size_t(48000 * 0.2f), 0.0f);
-	for (uint32_t i = 0; i < data.size(); ++i) {
-		float t = i / float(48000);
-		//phase-modulated sine wave (creates some metal-like sound):
-		data[i] = std::sin(3.1415926f * 2.0f * 220.0f * t + std::sin(3.1415926f * 2.0f * 200.0f * t));
-		//quadratic falloff:
-		data[i] *= 0.3f * std::pow(std::max(0.0f, (1.0f - t / 0.2f)), 2.0f);
-	}
-	return new Sound::Sample(data);
-	});
+//Load< Sound::Sample > sound_click(LoadTagDefault, []() -> Sound::Sample* {
+//	std::vector< float > data(size_t(48000 * 0.2f), 0.0f);
+//	for (uint32_t i = 0; i < data.size(); ++i) {
+//		float t = i / float(48000);
+//		//phase-modulated sine wave (creates some metal-like sound):
+//		data[i] = std::sin(3.1415926f * 2.0f * 440.0f * t + std::sin(3.1415926f * 2.0f * 450.0f * t));
+//		//quadratic falloff:
+//		data[i] *= 0.3f * std::pow(std::max(0.0f, (1.0f - t / 0.2f)), 2.0f);
+//	}
+//	return new Sound::Sample(data);
+//	});
+//
+//Load< Sound::Sample > sound_clonk(LoadTagDefault, []() -> Sound::Sample* {
+//	std::vector< float > data(size_t(48000 * 0.2f), 0.0f);
+//	for (uint32_t i = 0; i < data.size(); ++i) {
+//		float t = i / float(48000);
+//		//phase-modulated sine wave (creates some metal-like sound):
+//		data[i] = std::sin(3.1415926f * 2.0f * 220.0f * t + std::sin(3.1415926f * 2.0f * 200.0f * t));
+//		//quadratic falloff:
+//		data[i] *= 0.3f * std::pow(std::max(0.0f, (1.0f - t / 0.2f)), 2.0f);
+//	}
+//	return new Sound::Sample(data);
+//	});
 
 
 MenuMode::MenuMode(std::vector< Item > const& items_) : items(items_) {
@@ -60,7 +61,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			for (uint32_t i = selected - 1; i < items.size(); --i) {
 				if (items[i].on_select) {
 					selected = i;
-					Sound::play(*sound_click);
+					//Sound::play(*sound_click);
 					break;
 				}
 			}
@@ -71,7 +72,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			for (uint32_t i = selected + 1; i < items.size(); ++i) {
 				if (items[i].on_select) {
 					selected = i;
-					Sound::play(*sound_click);
+					//Sound::play(*sound_click);
 					break;
 				}
 			}
@@ -79,7 +80,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 		}
 		else if (evt.key.keysym.sym == SDLK_RETURN) {
 			if (selected < items.size() && items[selected].on_select) {
-				Sound::play(*sound_clonk);
+				//Sound::play(*sound_clonk);
 				items[selected].on_select(items[selected]);
 				return true;
 			}
@@ -95,8 +96,8 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 
 void MenuMode::update(float elapsed) {
 
-	select_bounce_acc = select_bounce_acc + elapsed / 0.7f;
-	select_bounce_acc -= std::floor(select_bounce_acc);
+	//select_bounce_acc = select_bounce_acc + elapsed / 0.7f;
+	//select_bounce_acc -= std::floor(select_bounce_acc);
 
 	if (background) {
 		background->update(elapsed);
@@ -121,7 +122,7 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 	//don't use the depth test:
 	glDisable(GL_DEPTH_TEST);
 
-	float bounce = (0.25f - (select_bounce_acc - 0.5f) * (select_bounce_acc - 0.5f)) / 0.25f * select_bounce_amount;
+	//float bounce = (0.25f - (select_bounce_acc - 0.5f) * (select_bounce_acc - 0.5f)) / 0.25f * select_bounce_amount;
 
 	{ //draw the menu using DrawSprites:
 		assert(atlas && "it is an error to try to draw a menu without an atlas");
@@ -130,33 +131,18 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 		for (auto const& item : items) {
 			bool is_selected = (&item == &items[0] + selected);
 			glm::u8vec4 color = (is_selected ? item.selected_tint : item.tint);
-			float left, right;
-			if (!item.sprite) {
-				//draw item.name as text:
-				draw_sprites.draw_text(
-					item.name, item.at, item.scale, color
-				);
-				glm::vec2 min, max;
-				draw_sprites.get_text_extents(
-					item.name, item.at, item.scale, &min, &max
-				);
-				left = min.x;
-				right = max.x;
-			}
-			else {
-				draw_sprites.draw(*item.sprite, item.at, item.scale, color);
-				left = item.at.x + item.scale * (item.sprite->min_px.x - item.sprite->anchor_px.x);
-				right = item.at.x + item.scale * (item.sprite->max_px.x - item.sprite->anchor_px.x);
-			}
-			if (is_selected) {
-				if (left_select) {
-					draw_sprites.draw(*left_select, glm::vec2(left - bounce, item.at.y) + left_select_offset, item.scale, left_select_tint);
+			//float left, right;
+			if (item.sprite) {
+				if (is_selected) {
+					draw_sprites.draw(*item.sprite, item.transform);
 				}
-				if (right_select) {
-					draw_sprites.draw(*right_select, glm::vec2(right + bounce, item.at.y) + right_select_offset, item.scale, right_select_tint);
+				else {
+					draw_sprites.draw(*item.sprite_selected, item.transform);
 				}
 			}
-
+			if (!item.name.empty()) {
+				// TODO: draw text of item here
+			}
 		}
 	} //<-- gets drawn here!
 
@@ -165,24 +151,21 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 }
 
 
-void MenuMode::layout_items(float gap) {
+void MenuMode::vertical_layout_items(float gap) {
 	DrawSprites temp(*atlas, view_min, view_max, view_max - view_min, DrawSprites::AlignPixelPerfect); //<-- doesn't actually draw
 	float y = view_max.y;
 	for (auto& item : items) {
 		glm::vec2 min, max;
 		if (item.sprite) {
-			min = item.scale * (item.sprite->min_px - item.sprite->anchor_px);
-			max = item.scale * (item.sprite->max_px - item.sprite->anchor_px);
+			min = glm::vec2(item.transform.scale_.x * (item.sprite->min_px - item.sprite->anchor_px).x, item.transform.scale_.y * (item.sprite->min_px - item.sprite->anchor_px).y);
+			max = glm::vec2(item.transform.scale_.x * (item.sprite->max_px - item.sprite->anchor_px).x, item.transform.scale_.y * (item.sprite->max_px - item.sprite->anchor_px).y);
 		}
-		else {
-			temp.get_text_extents(item.name, glm::vec2(0.0f), item.scale, &min, &max);
-		}
-		item.at.y = y - max.y;
-		item.at.x = 0.5f * (view_max.x + view_min.x) - 0.5f * (max.x + min.x);
+		item.transform.position_.y = y - max.y;
+		item.transform.position_.x = 0.5f * (view_max.x + view_min.x) - 0.5f * (max.x + min.x);
 		y = y - (max.y - min.y) - gap;
 	}
 	float ofs = -0.5f * y;
 	for (auto& item : items) {
-		item.at.y += ofs;
+		item.transform.position_.y += ofs;
 	}
 }

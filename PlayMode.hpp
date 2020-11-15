@@ -1,3 +1,4 @@
+#pragma once
 #include "Mode.hpp"
 #include "gamebase/Player.hpp"
 #include "gamebase/HeadsUpDisplay.hpp"
