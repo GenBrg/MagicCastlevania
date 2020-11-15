@@ -16,7 +16,14 @@ class Animation {
 public:
 	float GetLength() const { return interval_ * sprites_.size(); }
 	static void LoadAnimation(const std::string& config_file_name);
-	static Animation* GetAnimation(const std::string& name) { return &animation_collection.at(name); }
+	static Animation* GetAnimation(const std::string& name) {
+		auto it = animation_collection.find(name);
+		if (it == animation_collection.end()) {
+			std::cout << "Can not find animation " << name << std::endl;
+			return nullptr;
+		}
+		return &((*it).second); 
+	}
 
 private:
 	inline static std::unordered_map<std::string, Animation> animation_collection;

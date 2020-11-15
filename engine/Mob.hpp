@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Entity.hpp"
-#include "Attack.hpp"
-#include "../gamebase/Room.hpp"
-#include "TimerGuard.hpp"
+#include <gamebase/Room.hpp>
+#include <engine/TimerGuard.hpp>
+#include <engine/Animation.hpp>
+#include <engine/Entity.hpp>
+#include <engine/Attack.hpp>
 
 #include <algorithm>
 #include <vector>
@@ -44,13 +45,9 @@ protected:
 	virtual int GetDamagePoint(int attack) { return std::max(1, attack - defense_); }
 
 	// @note nullptr will be created for the entry if the animation for the state doesn't exist.
-	virtual Animation* GetAnimation(AnimationState state) { return kStateAnimationMap[state]; }
-	virtual void PutAnimation(AnimationState state, Animation* animation) { kStateAnimationMap[state] = animation; }
+	virtual Animation* GetAnimation(AnimationState state) = 0;
 
-	Mob(const glm::vec4& bounding_box, Transform2D* transform) :
-	Entity(bounding_box, transform),
-	animation_controller_(&transform_)
-	{}
+	Mob(const glm::vec4& bounding_box, Transform2D* transform);
 
 	State state_ { State::MOVING };
 	int hp_;
@@ -58,7 +55,6 @@ protected:
 	int defense_;
 	float take_damage_cooldown_;
 	AnimationController animation_controller_;
-	std::unordered_map<AnimationState, Animation*> kStateAnimationMap;
 
 private:
 	TimerGuard take_damage_guard_;

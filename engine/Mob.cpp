@@ -1,9 +1,10 @@
 #include "Mob.hpp"
-#include "Timer.hpp"
+
+#include <engine/Timer.hpp>
 
 const std::unordered_map<std::string, Mob::AnimationState> Mob::kAnimationNameStateMap 
 {
-	{ "stand", Mob::AnimationState::STILL },
+	{ "idle", Mob::AnimationState::STILL },
 	{ "walk", Mob::AnimationState::WALK },
 	{ "jump", Mob::AnimationState::JUMP },
 	{ "fall", Mob::AnimationState::FALL },
@@ -23,6 +24,7 @@ void Mob::TakeDamage(int attack)
 
 		if (hp_ <= 0)
 		{
+			state_ = State::DYING;
 			animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
 			OnDie();
 		}
@@ -34,6 +36,7 @@ void Mob::TakeDamage(int attack)
 				if (state_ == State::TAKING_DAMAGE)
 				{
 					state_ = State::MOVING;
+					animation_controller_.PlayAnimation(GetAnimation(AnimationState::STILL), true, true);
 				}
 			});
 		}
@@ -51,12 +54,19 @@ void Mob::PerformAttack(Room& room, Attack& attack)
 	if (attack.Execute(room, attack_, transform_))
 	{
 		animation_controller_.PlayAnimation(animation, false);
+		state_ = State::ATTACKING;
 
 		TimerManager::Instance().AddTimer(animation->GetLength(), [&]() {
 			if (state_ == State::ATTACKING)
 			{
 				state_ = State::MOVING;
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::STILL), true, true);
 			}
 		});
 	}
 }
+
+Mob::Mob(const glm::vec4& bounding_box, Transform2D* transform) :
+Entity(bounding_box, transform),
+animation_controller_(&transform_)
+{}

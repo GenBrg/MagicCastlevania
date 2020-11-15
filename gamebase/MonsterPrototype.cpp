@@ -18,6 +18,7 @@ Monster* MonsterPrototype::Create(Room& room, const glm::vec2& initial_pos, floa
 	monster->defense_ = defense_;
 	monster->exp_ = exp_;
 	monster->speed_ = speed_;
+	monster->animation_controller_.PlayAnimation(monster->GetAnimation(Mob::AnimationState::STILL), true, true);
 	room.AddMonster(monster);
 	return monster;
 }
@@ -55,6 +56,11 @@ void MonsterPrototype::LoadConfig(const std::string& monster_list_file)
 		monster_prototype.bounding_box_ = j.at("bounding_box").get<glm::vec4>();
 		for (const auto& attack_json : j.at("skills")) {
 			monster_prototype.attacks_.push_back(attack_json.get<Attack>());
+		}
+
+		// Load animations
+		for (const auto& [animation_name, animation_state_name] : Mob::kAnimationNameStateMap) {
+			monster_prototype.animations_[animation_state_name] = Animation::GetAnimation(monster_name + "_" + animation_name);
 		}
 	}
 }

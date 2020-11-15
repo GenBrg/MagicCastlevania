@@ -41,9 +41,9 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 
 void PlayMode::update(float elapsed) {
 	InputSystem::Instance()->Update(elapsed);
-	cur_room->Update(elapsed, player);
 	TimerManager::Instance().Update();
 
+	cur_room->Update(elapsed, player);
 	dialog_p->Update(elapsed);
 }
 
@@ -65,9 +65,9 @@ void PlayMode::draw(glm::uvec2 const &window_size) {
 	}
 
 	{ //Overlay some text:
-		if(!dialog_p->ShouldExitDialog()) {
-			dialog_p->Draw(window_size);
-		}
+		// if(!dialog_p->ShouldExitDialog()) {
+		// 	dialog_p->Draw(window_size);
+		// }
 	}
 	GL_ERRORS();
 }

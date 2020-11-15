@@ -108,8 +108,13 @@ void Room::Draw(DrawSprites& draw_sprite)
 
 void Room::OnEnter(Player* player)
 {
+	for (const auto& platform : platforms_) {
+		glm::vec2 lower_left_corner, upper_right_corner;
+		platform->GetCorners(lower_left_corner, upper_right_corner);
+	}
+	
 	room_prototype_.Initialize(this);
-	player->SetPosition({20.0f, 113.0f});
+	player->SetPosition({140.0f, 200.0f});
 }
 
 void Room::OnLeave()

@@ -67,6 +67,11 @@ namespace util
 	glm::vec4 AssetSpaceToGameSpace(const glm::vec4& bounding_box)
 	{
 		return glm::vec4(bounding_box[0], VIEW_MAX.y - bounding_box[1] - bounding_box[3],
-	 					 bounding_box[0] + bounding_box[2], VIEW_MAX.y - bounding_box[3]);
+	 					 bounding_box[0] + bounding_box[2], VIEW_MAX.y - bounding_box[1]);
+	}
+
+	glm::vec2 AssetSpaceToGameSpace(const glm::vec2& bounding_box)
+	{
+		return glm::vec2(bounding_box[0], VIEW_MAX.y - bounding_box[1]);
 	}
 } // namespace util

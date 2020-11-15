@@ -59,16 +59,16 @@ class Player : public Mob {
 public:
 	virtual void UpdateImpl(float elapsed);
 	virtual void OnDie();
+	virtual Animation* GetAnimation(AnimationState state);
 
 	void UpdatePhysics(float elapsed, const std::vector<Collider*>& colliders_to_consider);
-	
 	void SetPosition(const glm::vec2& pos);
-
 	void Reset();
 
 	static Player* Create(Room** room, const std::string& player_config_file);
 
 private:
+	std::unordered_map<Mob::AnimationState, Animation*> animations_;
 	MovementComponent movement_component_;
 
 	// int level_ { 1 };

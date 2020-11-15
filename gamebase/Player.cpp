@@ -15,8 +15,6 @@ Player::Player(Room** room, const glm::vec4 bounding_box) :
 Mob(bounding_box, nullptr),
 movement_component_(collider_, transform_)
 {
-	// Load animations
-
 	InputSystem::Instance()->Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (state_ != State::MOVING) {
 			return;
@@ -70,16 +68,16 @@ void Player::UpdateImpl(float elapsed)
 		switch (movement_component_.GetState())
 		{
 			case MovementComponent::State::STILL:
-				animation_controller_.PlayAnimation(kStateAnimationMap[AnimationState::STILL], false);
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::STILL), true, false);
 				break; 
 			case MovementComponent::State::MOVING:
-				animation_controller_.PlayAnimation(kStateAnimationMap[AnimationState::WALK], false);
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::WALK), true, false);
 				break;
 			case MovementComponent::State::JUMPING:
-				animation_controller_.PlayAnimation(kStateAnimationMap[AnimationState::JUMP], false);
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::JUMP), false, false);
 				break;
 			case MovementComponent::State::FALLING:
-				animation_controller_.PlayAnimation(kStateAnimationMap[AnimationState::FALL], false);
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::FALL), false, false);
 				break;
 			default:
 				break;
@@ -132,5 +130,15 @@ Player* Player::Create(Room** room, const std::string& player_config_file)
 		player->skills_.push_back(attack_json.get<Attack>());
 	}
 
+	// Load Animations
+	for (const auto& [animation_name, animation_state_name] : Mob::kAnimationNameStateMap) {
+		player->animations_[animation_state_name] = Animation::GetAnimation("player_" + animation_name);
+	}
+
 	return player;
+}
+
+Animation* Player::GetAnimation(AnimationState state)
+{
+	return animations_[state];
 }

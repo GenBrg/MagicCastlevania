@@ -19,7 +19,7 @@ public:
 
 		friend void from_json(const json& j, MonsterInfo& monster_info) {
 			monster_info.monster_prototype_ = MonsterPrototype::GetMonsterPrototype(j.at("name").get<std::string>());
-			j.at("initial_pos").get_to(monster_info.initial_pos_);
+			monster_info.initial_pos_ = util::AssetSpaceToGameSpace(j.at("initial_pos").get<glm::vec2>());
 			j.at("move_radius").get_to(monster_info.move_radius_);
 		}
 	};
@@ -29,7 +29,7 @@ public:
 		int attack_;
 
 		friend void from_json(const json& j, Trap& trap) {
-			j.at("bounding_box").get_to(util::AssetSpaceToGameSpace(trap.bounding_box_));
+			trap.bounding_box_ = util::AssetSpaceToGameSpace(j.at("bounding_box").get<glm::vec4>());
 			j.at("attack").get_to(trap.attack_);
 		}
 	};

@@ -42,4 +42,5 @@ namespace util {
 	void PrintMat4(const glm::mat4& mat4);
 
 	glm::vec4 AssetSpaceToGameSpace(const glm::vec4& bounding_box);
+	glm::vec2 AssetSpaceToGameSpace(const glm::vec2& bounding_box);
 }

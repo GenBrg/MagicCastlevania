@@ -26,6 +26,7 @@ private:
 
 	virtual void UpdateImpl(float elapsed);
 	virtual void OnDie();
+	virtual Animation* GetAnimation(AnimationState state);
 
 	int hp_ { 20 };
 	// int max_hp_ { 100 };

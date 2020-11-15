@@ -1,7 +1,9 @@
 #include "Collider.hpp"
 
 #include <algorithm>
+
 #include <iostream>
+#include <Util.hpp>
 
 Collider::Collider(const glm::vec4& bounding_box, Transform2D* transform) :
 bounding_box_(bounding_box),

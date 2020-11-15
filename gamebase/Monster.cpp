@@ -1,7 +1,9 @@
-#include "../Util.hpp"
-#include "../DrawSprites.hpp"
 #include "Monster.hpp"
-#include "Room.hpp"
+
+#include <Util.hpp>
+#include <DrawSprites.hpp>
+#include <gamebase/MonsterPrototype.hpp>
+#include <gamebase/Room.hpp>
 
 #include <iostream>
 
@@ -14,11 +16,15 @@ Mob(bounding_box, nullptr)
 
 void Monster::UpdateImpl(float elapsed)
 {
-	transform_.position_.x += speed_ * elapsed * (float)mov_direction_;
-	if(transform_.position_.x > central_pos_.x + move_radius_ ||
-		transform_.position_.x < central_pos_.x - move_radius_) {
-		transform_.position_.x -= speed_ * elapsed * (float)mov_direction_;
-		mov_direction_ *= -1;
+	animation_controller_.Update(elapsed);
+	if (state_ == State::MOVING) {
+		transform_.position_.x += speed_ * elapsed * (float)mov_direction_;
+		if(transform_.position_.x > central_pos_.x + move_radius_ ||
+			transform_.position_.x < central_pos_.x - move_radius_) {
+			transform_.position_.x -= speed_ * elapsed * (float)mov_direction_;
+			mov_direction_ *= -1;
+			transform_.scale_.x = (mov_direction_ > 0) ? 1.0f : -1.0f;
+		}
 	}
 }
 
@@ -26,4 +32,9 @@ void Monster::OnDie()
 {
 	Destroy();
 	collision_aoe_->Destroy();
+}
+
+Animation* Monster::GetAnimation(AnimationState state)
+{
+	return monster_prototype_.GetAnimation(state);
 }

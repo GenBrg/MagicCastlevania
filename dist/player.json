@@ -2,7 +2,7 @@
 	"hp": 100,
 	"attack": 10,
 	"defense": 10,
-	"bounding_box": [0.0, 0.0, 30.0, 30.0],
+	"bounding_box": [-10.0, 0.0, 10.0, 20.0],
 	"movement": {
 		"max_horizontal_speed": 200.0,
 		"max_vertical_speed": 1000.0,
@@ -17,7 +17,7 @@
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "normal_attack",
-			"cooldown": 3.0,
+			"cooldown": 1.0,
 			"attach_to_entity": true
 		}
 	]
