@@ -1,0 +1,1 @@
+jam clean && jam -j24 && test\jsontest.exe

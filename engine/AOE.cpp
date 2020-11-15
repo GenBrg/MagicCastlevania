@@ -1,26 +1,38 @@
 #include "AOE.hpp"
+#include "../gamebase/Room.hpp"
 
 #include "../Util.hpp"
 
-AOE::AOE(const glm::vec4& box, const Sprite* sprite, const glm::vec2& velocity,
- float duration, int attack, const glm::vec2& initial_pos, Transform2D* parent_transform) :
+AOE::AOE(const glm::vec4& box, Animation* animation, const glm::vec2& velocity, float duration, int attack, const glm::vec2& initial_pos, bool penetrate,
+ Transform2D* parent_transform) :
 transform_(parent_transform),
 collider_(box, &transform_),
 velocity_(velocity),
 duration_(duration),
-sprite_(sprite),
-attack_(attack)
+animation_controller_(&transform_),
+attack_(attack),
+penetrate_(penetrate)
 {
 	transform_.position_ = initial_pos;
+	animation_controller_.PlayAnimation(animation, false);
 }
 
 void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_queries)
 {
+	if (IsDestroyed()) {
+		return;
+	}
+
 	if (velocity_.x == 0.0f && velocity_.y == 0.0f) {
 		// Static collision detection
 		for (const CollisionQuery& collision_query : collision_queries) {
 			if (collider_.IsColliding(*collision_query.first)) {
 				collision_query.second();
+
+				if (!penetrate_) {
+					Destroy();
+					return;
+				}
 			}
 		}
 	} else {
@@ -32,6 +44,11 @@ void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_que
 		for (const CollisionQuery& collision_query : collision_queries) {
 			if (collider_.DynamicCollisionQuery(*collision_query.first, delta_position, contact_point, contact_normal, time)) {
 				collision_query.second();
+				
+				if (!penetrate_) {
+					Destroy();
+					return;
+				}
 			}
 		}
 
@@ -50,7 +67,19 @@ void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_que
 
 void AOE::Draw(DrawSprites& draw) const
 {
-	if (sprite_) {
-		draw.draw(*sprite_, transform_);
-	}
+	animation_controller_.Draw(draw);
+}
+
+AOE* AOE::CreateMonsterAOE(Room& room, const glm::vec4& bounding_box, Transform2D& transform, int attack)
+{
+	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), 0.0f, attack, glm::vec2(0.0f, 0.0f), &transform);
+	room.AddMonsterAOE(aoe);
+	return aoe;
+}
+
+AOE* AOE::CreateMapAOE(Room& room, const glm::vec4& bounding_box, int attack)
+{
+	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), 0.0f, attack, glm::vec2(0.0f, 0.0f), true, nullptr);
+	room.AddMonsterAOE(aoe);
+	return aoe;
 }

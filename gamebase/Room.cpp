@@ -1,8 +1,11 @@
 
 #include "Room.hpp"
-#include "../Util.hpp"
-#include "../engine/Trigger.hpp"
-#include "Player.hpp"
+
+#include <Util.hpp>
+#include <engine/Trigger.hpp>
+#include <gamebase/RoomPrototype.hpp>
+#include <gamebase/Player.hpp>
+#include <gamebase/Monster.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -14,25 +17,11 @@
  * Constructor of a room
  * @param platform_file the position of platforms in this room
  */
-Room::Room(const std::string& platform_file) {
-	std::ifstream in_file(platform_file);
-	float top_left_x, top_left_y, relative_x, relative_y;
-	std::string platform_name;
-
-	while (in_file >> top_left_x >> top_left_y >> relative_x >> relative_y >> platform_name) {
-		glm::vec4 bounding_box(top_left_x, VIEW_MAX.y - top_left_y - relative_y,
-						 top_left_x + relative_x,VIEW_MAX.y - top_left_y);
-
-		platforms_.push_back(new Collider(bounding_box, nullptr));
-	}
-
-	// tmp hard code to generate monsters
-	monsters_.push_back(new Monster(glm::vec2(505, 198), 60, "ghost_idle_1", this));
-	AddMonsterAOE(new AOE(glm::vec4(434.0f, 0.0f, 951.0f, 40.0f), nullptr, glm::vec2(0.0f, 0.0f), -1.0f, 10000, glm::vec2(0.0f, 0.0f), nullptr));
-
-	Trigger::Create(*this, glm::vec4(0.0f, 10.0f, 300.0f, 1000.0f), nullptr, 10, 0.1f, [&](){
-		std::cout << "Player in area!!!" << std::endl;
-	});
+Room::Room(const RoomPrototype& room_prototype):
+room_prototype_(room_prototype),
+camera_(nullptr)
+{
+	camera_.position_ = { 0.0f, 0.0f };
 }
 
 Room::~Room() {
@@ -62,10 +51,11 @@ void GarbageCollect(std::vector<T*>& arr) {
 
 void Room::Update(float elapsed, Player* player)
 {
-	player->Update(elapsed, platforms_);
+	player->Update(elapsed);
+	player->UpdatePhysics(elapsed, platforms_);
 
 	for (Monster* monster : monsters_) {
-		monster->Update(elapsed, platforms_);
+		monster->Update(elapsed);
 	}
 
 	for (AOE* player_AOE : player_AOEs_) {
@@ -100,7 +90,9 @@ void Room::Update(float elapsed, Player* player)
 
 void Room::Draw(DrawSprites& draw_sprite)
 {
-	for (const Monster* monster : monsters_)
+	draw_sprite.draw(*background_sprite_, camera_);
+
+	for (Monster* monster : monsters_)
 	{
 		monster->Draw(draw_sprite);
 	}
@@ -112,4 +104,18 @@ void Room::Draw(DrawSprites& draw_sprite)
 	for (const AOE* monster_AOE : monster_AOEs_) {
 		monster_AOE->Draw(draw_sprite);
 	}
+}
+
+void Room::OnEnter(Player* player)
+{
+	room_prototype_.Initialize(this);
+	player->SetPosition({20.0f, 113.0f});
+}
+
+void Room::OnLeave()
+{
+	for (AOE* monster_AOE : monster_AOEs_) {
+		delete monster_AOE;
+	}
+	monster_AOEs_.clear();
 }

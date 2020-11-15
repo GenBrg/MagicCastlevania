@@ -4,6 +4,7 @@
 #include "Collider.hpp"
 #include "../DrawSprites.hpp"
 
+
 class Entity {
 public:
 	void Update(float elapsed);

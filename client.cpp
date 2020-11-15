@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 
 	//Initialize SDL library:
 	SDL_Init(SDL_INIT_VIDEO);
-
+	
 	//Ask for an OpenGL context version 3.3, core profile, enable debug:
 	SDL_GL_ResetAttributes();
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
@@ -51,12 +51,12 @@ int main(int argc, char **argv) {
 
 	//prevent exceedingly tiny windows when resizing:
 	SDL_SetWindowMinimumSize(window,100,100);
-
+	
 	if (!window) {
 		std::cerr << "Error creating SDL window: " << SDL_GetError() << std::endl;
 		return 1;
 	}
-
+	
 	//Create OpenGL context:
 	SDL_GLContext context = SDL_GL_CreateContext(window);
 

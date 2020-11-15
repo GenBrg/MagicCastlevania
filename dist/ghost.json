@@ -1,0 +1,21 @@
+{
+	"hp": 100,
+	"attack": 10,
+	"body_attack": 10,
+	"defense": 10,
+	"speed": 50.0,
+	"exp": 10,
+	"bounding_box": [0.0, 0.0, 30.0, 30.0],
+	"item": {
+		"necklace": 0.05,
+		"hp_bottle": 0.10
+	},
+	"skills": [
+		{
+			"mob_animation": "ghost_attack",
+			"aoe_prototype": "normal_attack",
+			"cooldown": 3.0,
+			"attach_to_entity": true
+		}
+	]
+}

@@ -23,9 +23,9 @@ public:
 		FALLING
 	};
 
-	MovementComponent(const glm::vec4& box, Transform2D& transform) : 
+	MovementComponent(Collider& collider, Transform2D& transform) : 
 	transform_(transform),
-	collider_(box, &transform)
+	collider_(collider)
 	{ acceleration_.y = kGravity; }
 
 	// Gameplay
@@ -42,15 +42,16 @@ public:
 	void SetGroundFraction(float ground_fraction) { ground_fraction_ = ground_fraction; }
 	void SetAirFraction(float air_fraction) { air_fraction_ = air_fraction; }
 	void SetHorizontalGroundAcceleration(float horizontal_ground_accelaration) { horizontal_ground_accelaration_ = horizontal_ground_accelaration; }
+	void SetHorizontalAirAcceleration(float horizontal_air_accelaration) { horizontal_air_accelaration_ = horizontal_air_accelaration; }
 	void SetAirAcceleration(float horizontal_air_accelaration) { horizontal_air_accelaration_ = horizontal_air_accelaration; }
+	void SetMaxSpeedAfterJumpRelease(float max_speed_after_jump_release) { max_speed_after_jump_release_ = max_speed_after_jump_release; }
 
-	Collider* GetCollider() { return &collider_; }
 	State GetState() const { return state_; }
 
 private:
 	// Runtime variables
 	Transform2D& transform_;
-	Collider collider_;
+	Collider& collider_;
 	glm::vec2 velocity_ { 0.0f };
 	glm::vec2 acceleration_ { 0.0f };
 	State state_ { State::STILL };
@@ -61,7 +62,7 @@ private:
 	float max_horizontal_speed_ { 200.0f };
 	float max_vertical_speed_ { 1000.0f };
 	float initial_jump_speed_ { 600.0f };
-	float max_speed_after_jump_release { 300.0f };
+	float max_speed_after_jump_release_ { 300.0f };
 	float ground_fraction_ { 1000.0f };
 	float air_fraction_ { 300.0f };
 	float horizontal_ground_accelaration_ { 1300.0f };

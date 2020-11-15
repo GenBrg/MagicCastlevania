@@ -28,7 +28,7 @@ void MovementComponent::Jump()
 void MovementComponent::ReleaseJump() 
 {
 	if (state_ == State::JUMPING) {
-		velocity_.y = glm::min(velocity_.y, max_speed_after_jump_release);
+		velocity_.y = glm::min(velocity_.y, max_speed_after_jump_release_);
 	}
 }
 

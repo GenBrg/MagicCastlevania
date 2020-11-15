@@ -21,17 +21,17 @@ struct PlayMode : Mode {
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const &window_size) override;
 
+	void SwitchRoom(Room* room);
+	void ProceedLevel();
+	void GenerateRooms();
+
 	//----- game state -----
 
-	//input tracking:
-	struct Button {
-		uint8_t downs = 0;
-		uint8_t pressed = 0;
-	} left, right, down, up, space;
-
-	Room cur_room;
-	Player player;
+	std::vector<Room*> rooms;
+	Room* cur_room;
+	Player* player;
 	HeadsUpDisplay hud;
 
 	Dialog* dialog_p;
+	size_t level_ { 0 };
 };

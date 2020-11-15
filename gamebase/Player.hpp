@@ -37,13 +37,15 @@
 
 #pragma once
 
-#include "../engine/MovementComponent.hpp"
-#include "../engine/Transform2D.hpp"
-#include "../engine/InputSystem.hpp"
-#include "../engine/TimerGuard.hpp"
-#include "../engine/Animation.hpp"
-#include "../Sprite.hpp"
-#include "../DrawSprites.hpp"
+#include <engine/MovementComponent.hpp>
+#include <engine/Transform2D.hpp>
+#include <engine/InputSystem.hpp>
+#include <engine/TimerGuard.hpp>
+#include <engine/Animation.hpp>
+#include <engine/Mob.hpp>
+#include <engine/Attack.hpp>
+#include <Sprite.hpp>
+#include <DrawSprites.hpp>
 
 #include <glm/glm.hpp>
 
@@ -53,76 +55,30 @@
 #include <string>
 
 class Room;
-class Player {
+class Player : public Mob {
 public:
-	inline constexpr static float kStiffnessTime { 2.0f };
-	inline constexpr static float kAttackCooldown { 1.0f };
+	virtual void UpdateImpl(float elapsed);
+	virtual void OnDie();
 
-	enum class State : uint8_t {
-		MOVING = 0,
-		ATTACKING,
-		TAKING_DAMAGE,
-		DYING
-	};
-
-	// TODO StateMachine interface
-	// StateMachine<Player> state_machine_;
-
-	enum class AnimationState : uint8_t {
-		STILL = 0,
-		WALK,
-		JUMP,
-		FALL,
-		HURT,
-		DEATH,
-		ATTACK
-	};
-
-	static const std::unordered_map<std::string, AnimationState> kAnimationNameStateMap;
-
-	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
-	void Draw(DrawSprites& draw) const;
+	void UpdatePhysics(float elapsed, const std::vector<Collider*>& colliders_to_consider);
+	
 	void SetPosition(const glm::vec2& pos);
 
-	void TakeDamage(int attack);
-	void Attack(Room* room);
 	void Reset();
-	Collider* GetCollider() { return movement_component_.GetCollider(); }
 
-	Player(Room* room);
-
-	int GetHp() const { return hp_; }
-
-	// TODO Apply prototype pattern
-	// static Player* GetCopy();
-	static void LoadConfig(const std::string& config_file_path);
+	static Player* Create(Room** room, const std::string& player_config_file);
 
 private:
-	Transform2D transform_;
 	MovementComponent movement_component_;
-	AnimationController<AnimationState> animation_controller_;
-	State state_ { State::MOVING };
-
-	// static Player prototype_;
 
 	// int level_ { 1 };
-	int hp_ { 100 };
-	// int max_hp_ { 100 };
+	int max_hp_ { 100 };
 	// int mp_ { 100 };
 	// int max_mp_ { 100 };
-	int attack_ { 10 };
-	int defense_ { 10 };
 	// int exp_ { 0 };
 	// int max_exp_ { 100 };
-
-	TimerGuard attack_guard_;
-	TimerGuard take_damage_guard_;
+	std::vector<Attack> skills_;
 
 	Player(const Player& player);
-	// Player() = default;
-
-	void UpdateState();
-	void EnterState(State state);
-	void ExitState(State state);
-	void SwitchState(State state);
+	Player(Room** room, const glm::vec4 bounding_box);
 };

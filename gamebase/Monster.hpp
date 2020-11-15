@@ -1,79 +1,41 @@
 #pragma once
 
-#include <vector>
-#include <string>
+#include "../engine/Mob.hpp"
+#include "../engine/AOE.hpp"
 #include "../Sprite.hpp"
 #include "../engine/MovementComponent.hpp"
 #include "../DrawSprites.hpp"
-#include "../engine/AOE.hpp"
+
 #include <map>
+#include <vector>
+#include <string>
 
 class Room;
+class MonsterPrototype;
 
-class Monster {
+class Monster : public Mob {
+	friend class MonsterPrototype;
 private:
-	Transform2D transform_;
-	MovementComponent movement_component_;
-	const Sprite& sprite_;
-
-	// tmp
+	const MonsterPrototype& monster_prototype_;
 	float move_radius_;
 	glm::vec2 central_pos_;
-	int mov_direction_;
+	int mov_direction_ { 1 };
 
 	bool destroyed_ { false };
 	AOE* collision_aoe_ { nullptr };
-	void Die();
-// 	// moving pattern of the monster
-// 	glm::vec2 position;
-// 	glm::vec2 scale;
+
+	virtual void UpdateImpl(float elapsed);
+	virtual void OnDie();
 
 	int hp_ { 20 };
 	// int max_hp_ { 100 };
 	int attack_ { 50 };
 	int defense_ { 3 };
+	int exp_ { 10 };
+	float speed_ { 50.0f };
 
-	float invulnerable_countdown_ { 0.0f };
-
-// 	// regular moving bound (button left x, button left y, top right x, top right y)
-// 	glm::vec4 movingBox;
-
-// 	// player enter this trigger box, will attack player
-// 	glm::vec4 triggerBox;
-
-// 	// Used for collision detection
-// 	Collider collider;
-
-// 	// if currently in battle state
-// 	bool battleState;
-
-// 	Animation* animationP;
+	Monster(const MonsterPrototype& monster_prototype, const glm::vec4& bounding_box, int body_attack, Room& room);
 
 public:
-	inline constexpr static float kStiffnessTime { 1.0f };
-
-	Monster(const glm::vec2& pos, float move_radius, std::string monster_key, Room* room);
-	// update its position
-	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
-	void Draw(DrawSprites& draw) const;
-
-	void TakeDamage(int attack);
-	void Destroy() { destroyed_ = true; }
-	bool IsDestroyed() const { return destroyed_; }
-	Collider* GetCollider() { return movement_component_.GetCollider(); }
-
-
-// 	bool inBattle();
-// 	void onEnterBattleState();
-
-// 	void onAttacked(int attackPoint);
-// 	bool defeated();
-
-// 	AOE* generateAOE();
-
-// 	void setCurAnimation(Animation* animation);
-
-// 	// if the death animation completes and this object is ready to free
-// 	bool readyToFree();
-
+	// static Monster* CreateTestMonster(const glm::vec4& bounding_box, const glm::vec2& initial_pos, float move_radius, std::string monster_key, Room* room, int body_attack);
 };

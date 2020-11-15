@@ -3,6 +3,7 @@
 #include "Sprite.hpp"
 #include "Load.hpp"
 #include "data_path.hpp"
+#include <nlohmann/json.hpp>
 
 #include <glm/glm.hpp>
 
@@ -17,7 +18,9 @@ inline glm::vec2 VIEW_MAX = glm::vec2(960, 541);
 
 inline static constexpr float kGravity { -980.0f };
 
-inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
+using json = nlohmann::json;
+
+inline Load< SpriteAtlas > sprites(LoadTagEarly, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
 
 	sprite_bg = &ret->lookup("bg");
@@ -26,9 +29,17 @@ inline Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	return ret;
 });
 
+namespace glm {
+	void from_json(const json& j, vec2& p);
+	void from_json(const json& j, vec3& p);
+	void from_json(const json& j, vec4& p);
+}
+
 namespace util {
 	void PrintVec2(const glm::vec2& vec2);
 	void PrintVec4(const glm::vec4& vec4);
 	void PrintMat3(const glm::mat3& mat3);
 	void PrintMat4(const glm::mat4& mat4);
+
+	glm::vec4 AssetSpaceToGameSpace(const glm::vec4& bounding_box);
 }

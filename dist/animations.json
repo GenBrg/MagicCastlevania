@@ -1,0 +1,77 @@
+[
+	{
+		"name": "player_stand",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "player_idle",
+		"sprite_num": 12,
+		"interval": 0.1
+	},
+	{
+		"name": "player_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "player_attack",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "player_death",
+		"sprite_num": 10,
+		"interval": 0.1
+	},
+	{
+		"name": "player_jump",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "player_fall",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "player_hurt",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "ghost_idle",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "ghost_walk",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "ghost_attack",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "ghost_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "ghost_death",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "door",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "fire",
+		"sprite_num": 1,
+		"interval": 0.1
+	}
+]
