@@ -28,10 +28,6 @@ private:
 	virtual void OnDie();
 	virtual Animation* GetAnimation(AnimationState state);
 
-	int hp_ { 20 };
-	// int max_hp_ { 100 };
-	int attack_ { 50 };
-	int defense_ { 3 };
 	int exp_ { 10 };
 	float speed_ { 50.0f };
 
