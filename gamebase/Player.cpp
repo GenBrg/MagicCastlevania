@@ -15,6 +15,8 @@ Player::Player(Room** room, const glm::vec4 bounding_box) :
 Mob(bounding_box, nullptr),
 movement_component_(collider_, transform_)
 {
+	is_monster_ = false;
+
 	InputSystem::Instance()->Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (state_ != State::MOVING) {
 			return;
@@ -58,7 +60,11 @@ movement_component_(collider_, transform_)
 
 void Player::OnDie()
 {
-	Reset();
+	state_ = State::DYING;
+	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
+	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
+		Reset();
+	});
 }
 
 void Player::UpdateImpl(float elapsed)

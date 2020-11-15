@@ -1,9 +1,9 @@
 #include "Attack.hpp"
 
-bool Attack::Execute(Room& room, int attack, Transform2D& transform)
+bool Attack::Execute(Room& room, int attack, Transform2D& transform, bool is_monster)
 {
 	return guard_(cooldown_, [&](){
-		aoe_prototype_->Create(room, attack, &transform, is_monster_, attach_to_entity_);
+		aoe_prototype_->Create(room, attack, &transform, is_monster, attach_to_entity_);
 	});
 }
 

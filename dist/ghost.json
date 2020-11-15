@@ -1,8 +1,8 @@
 {
-	"hp": 100,
-	"attack": 10,
-	"body_attack": 10,
-	"defense": 10,
+	"hp": 10,
+	"attack": 3,
+	"body_attack": 3,
+	"defense": 3,
 	"speed": 50.0,
 	"exp": 10,
 	"bounding_box": [0.0, 0.0, 30.0, 30.0],
@@ -14,7 +14,7 @@
 		{
 			"mob_animation": "ghost_attack",
 			"aoe_prototype": "normal_attack",
-			"cooldown": 3.0,
+			"cooldown": 1.0,
 			"attach_to_entity": true
 		}
 	]

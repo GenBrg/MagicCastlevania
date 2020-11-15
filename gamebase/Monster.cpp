@@ -4,6 +4,7 @@
 #include <DrawSprites.hpp>
 #include <gamebase/MonsterPrototype.hpp>
 #include <gamebase/Room.hpp>
+#include <engine/Timer.hpp>
 
 #include <iostream>
 
@@ -11,6 +12,7 @@ Monster::Monster(const MonsterPrototype& monster_prototype, const glm::vec4& bou
 monster_prototype_(monster_prototype),
 Mob(bounding_box, nullptr)
 {
+	is_monster_ = true;
 	collision_aoe_ = AOE::CreateMonsterAOE(room, bounding_box, transform_, body_attack);
 }
 
@@ -30,8 +32,12 @@ void Monster::UpdateImpl(float elapsed)
 
 void Monster::OnDie()
 {
-	Destroy();
+	state_ = State::DYING;
+	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
 	collision_aoe_->Destroy();
+	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
+		Destroy();
+	});
 }
 
 Animation* Monster::GetAnimation(AnimationState state)

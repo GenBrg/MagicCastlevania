@@ -4,7 +4,7 @@
 		"bounding_box": [0.0, 0.0, 10.0, 10.0],
 		"animation": null,
 		"velocity": [0.0, 0.0],
-		"duration": 3.0,
+		"duration": 0.5,
 		"initial_offset": [10.0, 10.0],
 		"penetrate": true
 	},

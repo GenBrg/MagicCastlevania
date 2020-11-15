@@ -24,8 +24,6 @@ void Mob::TakeDamage(int attack)
 
 		if (hp_ <= 0)
 		{
-			state_ = State::DYING;
-			animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
 			OnDie();
 		}
 		else
@@ -51,7 +49,7 @@ void Mob::PerformAttack(Room& room, Attack& attack)
 	}
 
 	Animation *animation = attack.GetAnimation();
-	if (attack.Execute(room, attack_, transform_))
+	if (attack.Execute(room, attack_, transform_, is_monster_))
 	{
 		animation_controller_.PlayAnimation(animation, false);
 		state_ = State::ATTACKING;

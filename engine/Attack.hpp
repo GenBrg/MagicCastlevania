@@ -13,11 +13,10 @@ public:
 	mob_animation_(mob_animation),
 	aoe_prototype_(aoe_prototype),
 	cooldown_(cooldown),
-	is_monster_(is_monster),
 	attach_to_entity_(attach_to_entity)
 	{}
 
-	bool Execute(Room& room, int attack, Transform2D& transform);
+	bool Execute(Room& room, int attack, Transform2D& transform, bool is_monster);
 	Animation* GetAnimation() const { return mob_animation_; }
 
 	friend void from_json(const json& j, Attack& attack);
@@ -26,7 +25,6 @@ private:
 	Animation* mob_animation_;
 	AOEPrototype* aoe_prototype_;
 	float cooldown_;
-	bool is_monster_; // TODO Bad
 	bool attach_to_entity_;
 
 	TimerGuard guard_;
