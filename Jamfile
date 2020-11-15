@@ -52,6 +52,7 @@ if $(OS) = NT { #Windows
 		-I$(NEST_LIBS)/libogg/include                                               #libogg
 		-I$(NEST_LIBS)/freetype/include                                             #freetype
 		-I$(NEST_LIBS)/harfbuzz/include                                             #harfbuzz
+		-I.
 		;
 	LINK = clang++ ;
 	LINKFLAGS = -std=c++17 -g -Wall -Werror ;
@@ -80,6 +81,7 @@ if $(OS) = NT { #Windows
 		-I$(NEST_LIBS)/libogg/include                                               #libogg
 		-I$(NEST_LIBS)/freetype/include                                             #freetype
 		-I$(NEST_LIBS)/harfbuzz/include                                             #harfbuzz
+		-I.
 		;
 	LINK = g++ -no-pie ;
 	LINKFLAGS = -std=c++17 -g -Wall -Werror ;
