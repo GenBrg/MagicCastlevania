@@ -9,8 +9,8 @@
 #include <iostream>
 
 Monster::Monster(const MonsterPrototype& monster_prototype, const glm::vec4& bounding_box, int body_attack, Room& room):
-monster_prototype_(monster_prototype),
-Mob(bounding_box, nullptr)
+Mob(bounding_box, nullptr),
+monster_prototype_(monster_prototype)
 {
 	is_monster_ = true;
 	collision_aoe_ = AOE::CreateMonsterAOE(room, bounding_box, transform_, body_attack);

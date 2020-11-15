@@ -10,6 +10,7 @@
 class Player;
 class Trigger;
 class Monster;
+class RoomPrototype;
 
 class Room {
 	friend class RoomPrototype;
