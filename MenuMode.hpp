@@ -6,7 +6,7 @@
  * https://github.com/15-466/15-466-f19-base6/blob/master/MenuMode.hpp
  *
  */
-
+#include "engine/Text.hpp"
 #include "Sprite.hpp"
 #include "Mode.hpp"
 #include "engine/Transform2D.hpp"
@@ -80,4 +80,6 @@ struct MenuMode : Mode {
 	//  the last shared_ptr that references it), then it will crash. Don't do that!
 	std::shared_ptr< Mode > background;
 
+	const std::string menu_font_file_name = "ReallyFree-ALwl7.ttf";
+	int font_size = 2500;
 };

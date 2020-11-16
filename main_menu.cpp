@@ -2,9 +2,8 @@
 #include "Load.hpp"
 #include "Sprite.hpp"
 #include "data_path.hpp"
-#include "main_play.hpp"
 #include "PlayMode.hpp"
-
+#include "main_play.hpp"
 std::shared_ptr< MenuMode > main_menu;
 
 Load< void > load_main_menu(LoadTagLate, []() {
@@ -13,6 +12,7 @@ Load< void > load_main_menu(LoadTagLate, []() {
 
 	items.emplace_back("Play", &sprites->lookup("text_button_1"), &sprites->lookup("text_button_1_selected"));
 	items.back().on_select = [](MenuMode::Item const&) {
+		main_play = std::make_shared< PlayMode >();
 		Mode::set_current(main_play);
 	};
 
