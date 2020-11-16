@@ -1,4 +1,4 @@
-
+﻿
 #include "MenuMode.hpp"
 
 //for the GL_ERRORS() macro:
@@ -12,7 +12,7 @@
 
 //for loading:
 #include "Load.hpp"
-
+#include "data_path.hpp"
 #include <random>
 
 //Load< Sound::Sample > sound_click(LoadTagDefault, []() -> Sound::Sample* {
@@ -38,10 +38,10 @@
 //	}
 //	return new Sound::Sample(data);
 //	});
+#define MENU_FONT_FILE_NAME "ReallyFree-ALwl7.ttf"
 
 
 MenuMode::MenuMode(std::vector< Item > const& items_) : items(items_) {
-
 	//select first item which can be selected:
 	for (uint32_t i = 0; i < items.size(); ++i) {
 		if (items[i].on_select) {
@@ -140,12 +140,19 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 					draw_sprites.draw(*item.sprite_selected, item.transform);
 				}
 			}
-			if (!item.name.empty()) {
-				// TODO: draw text of item here
-			}
+			
 		}
 	} //<-- gets drawn here!
-
+	for (auto const& item : items) {
+		if (!item.name.empty()) {
+			Text text = Text(data_path(menu_font_file_name));
+			text.SetFontSize(font_size)
+				.SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff))
+				.SetPos(glm::vec2(item.transform.position_.x - item.sprite->anchor_px.x + item.sprite->min_px.x, item.transform.position_.y));
+			text.SetText(item.name);
+			text.Draw();
+		}
+	}
 
 	GL_ERRORS(); //PARANOIA: print errors just in case we did something wrong.
 }
