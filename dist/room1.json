@@ -24,9 +24,31 @@
 			"name": "ghost",
 			"initial_pos": [552.0, 345.0],
 			"move_radius": 80.0
+		},
+		{
+			"name": "ghost",
+			"initial_pos": [343.0, 182.0],
+			"move_radius": 100.0
 		}
 	],
 	"items": [],
-	"doors": [],
+	"doors": [
+		{
+			"position": [95, 91],
+			"lock_type": "normal"
+		},
+		{
+			"position": [860, 135],
+			"lock_type": "unlock"
+		},
+		{
+			"position": [28, 428],
+			"lock_type": "special"
+		},
+		{
+			"position": [815, 428],
+			"lock_type": "close"
+		}
+	],
 	"background_sprite": "bg"
 }

@@ -21,13 +21,25 @@
 #include <engine/Transform2D.hpp>
 
 
-// class Door {
-// public:
+class Door {
+public:
+	enum LockStatus : uint8_t {
+		UNLOCK = 0,
+		NORMAL,
+		SPECIAL,
+		CLOSED
+	};
 
-// private:
-// 	Transform2D transform_;
-// 	Door* opposite_door_;
-// 	Room* room_;
-// 	Trigger trigger_;
-// 	AnimationController animation_controller_;
-// };
+	Door(const glm::vec2& position, Door* opposite_door, Room& room, LockStatus lock_status);
+
+	void OnOpen(); 
+
+private:
+	Transform2D transform_;
+	Door* opposite_door_;
+	Room& room_;
+	AnimationController animation_controller_;
+	LockStatus lock_status_;
+
+	static Animation* animation_;
+};

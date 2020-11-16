@@ -57,7 +57,7 @@
 	{
 		"name": "ghost_hurt",
 		"sprite_num": 2,
-		"interval": 0.1
+		"interval": 0.5
 	},
 	{
 		"name": "ghost_death",
