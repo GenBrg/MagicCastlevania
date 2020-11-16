@@ -5,7 +5,7 @@
 	"defense": 3,
 	"speed": 50.0,
 	"exp": 10,
-	"bounding_box": [0.0, 0.0, 30.0, 30.0],
+	"bounding_box": [-29.0, 0.0, 29.0, 72.0],
 	"item": {
 		"necklace": 0.05,
 		"hp_bottle": 0.10

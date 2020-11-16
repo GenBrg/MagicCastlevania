@@ -2,7 +2,7 @@
 	"hp": 100,
 	"attack": 10,
 	"defense": 10,
-	"bounding_box": [-10.0, 0.0, 10.0, 20.0],
+	"bounding_box": [-15.0, 0.0, 15.0, 53.0],
 	"movement": {
 		"max_horizontal_speed": 200.0,
 		"max_vertical_speed": 1000.0,
