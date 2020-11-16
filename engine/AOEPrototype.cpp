@@ -44,7 +44,7 @@ AOE* AOEPrototype::Create(Room& room, int attack, Transform2D* parent_transform,
 {
 	if (!attach_to_entity) {
 		if (parent_transform) {
-			initial_offset_ += parent_transform->position_;
+			initial_offset_ += parent_transform->scale_.x * parent_transform->position_;
 		}
 		parent_transform = nullptr;
 	}
