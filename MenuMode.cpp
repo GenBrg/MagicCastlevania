@@ -130,7 +130,7 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 
 		for (auto const& item : items) {
 			bool is_selected = (&item == &items[0] + selected);
-			glm::u8vec4 color = (is_selected ? item.selected_tint : item.tint);
+			// glm::u8vec4 color = (is_selected ? item.selected_tint : item.tint);
 			//float left, right;
 			if (item.sprite) {
 				if (is_selected) {
@@ -162,7 +162,7 @@ void MenuMode::vertical_layout_items(float gap) {
 	DrawSprites temp(*atlas, view_min, view_max, view_max - view_min, DrawSprites::AlignPixelPerfect); //<-- doesn't actually draw
 	float y = view_max.y;
 	for (auto& item : items) {
-		glm::vec2 min, max;
+	glm::vec2 min { 0.0f }, max { 0.0f };
 		if (item.sprite) {
 			min = glm::vec2(item.transform.scale_.x * (item.sprite->min_px - item.sprite->anchor_px).x, item.transform.scale_.y * (item.sprite->min_px - item.sprite->anchor_px).y);
 			max = glm::vec2(item.transform.scale_.x * (item.sprite->max_px - item.sprite->anchor_px).x, item.transform.scale_.y * (item.sprite->max_px - item.sprite->anchor_px).y);

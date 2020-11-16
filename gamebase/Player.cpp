@@ -1,8 +1,9 @@
 #include "Player.hpp"
-#include "../Util.hpp"
-#include "../Load.hpp"
-#include "../engine/Timer.hpp"
-#include "Room.hpp"
+
+#include <Util.hpp>
+#include <Load.hpp>
+#include <engine/Timer.hpp>
+#include <gamebase/Room.hpp>
 
 #include <SDL.h>
 
@@ -10,27 +11,12 @@
 #include <fstream>
 #include <stdexcept>
 
-// Needs to load animation after all sprites are loaded.
-Load<void> load_player_config(LoadTagLate, [](){
-	Player::LoadConfig(data_path("player.config"));
-});
-
-const std::unordered_map<std::string, Player::AnimationState> Player::kAnimationNameStateMap 
+Player::Player(Room** room, const glm::vec4 bounding_box) :
+Mob(bounding_box, nullptr),
+movement_component_(collider_, transform_)
 {
-	{ "stand", Player::AnimationState::STILL },
-	{ "walk", Player::AnimationState::WALK },
-	{ "jump", Player::AnimationState::JUMP },
-	{ "fall", Player::AnimationState::FALL },
-	{ "hurt", Player::AnimationState::HURT },
-	{ "death", Player::AnimationState::DEATH },
-	{ "attack", Player::AnimationState::ATTACK }
-};
+	is_monster_ = false;
 
-Player::Player(Room* room) :
-transform_(nullptr),
-movement_component_(glm::vec4(0.0f, 0.0f, 20.0f, 50.0f), transform_),
-animation_controller_(&transform_)
-{
 	InputSystem::Instance()->Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
 		if (state_ != State::MOVING) {
 			return;
@@ -67,23 +53,47 @@ animation_controller_(&transform_)
 			return;
 		}
 		if (key_state.pressed) {
-			Attack(room);
+			PerformAttack(**room, skills_[0]);
 		}
 	});
-
-	EnterState(State::MOVING);
 }
 
-void Player::Update(float elapsed, const std::vector<Collider*>& colliders_to_consider)
+void Player::OnDie()
+{
+	state_ = State::DYING;
+	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
+	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
+		Reset();
+	});
+}
+
+void Player::UpdateImpl(float elapsed)
+{
+	animation_controller_.Update(elapsed);
+	if (state_ == Mob::State::MOVING) {
+		switch (movement_component_.GetState())
+		{
+			case MovementComponent::State::STILL:
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::STILL), true, false);
+				break; 
+			case MovementComponent::State::MOVING:
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::WALK), true, false);
+				break;
+			case MovementComponent::State::JUMPING:
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::JUMP), false, false);
+				break;
+			case MovementComponent::State::FALLING:
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::FALL), false, false);
+				break;
+			default:
+				break;
+		}
+	}
+}
+
+void Player::UpdatePhysics(float elapsed, const std::vector<Collider*>& colliders_to_consider)
 {
 	movement_component_.Update(elapsed, colliders_to_consider);
-	animation_controller_.Update(elapsed);
-	UpdateState();
-}
-
-void Player::Draw(DrawSprites& draw) const
-{
-	animation_controller_.Draw(draw);
 }
 
 void Player::SetPosition(const glm::vec2 &pos) {
@@ -91,166 +101,50 @@ void Player::SetPosition(const glm::vec2 &pos) {
 }
 
 void Player::Reset() {
-	SwitchState(State::MOVING);
+	state_ = State::MOVING;
 	SetPosition(glm::vec2(20.0f, 113.0f));
-	hp_ = 100;
+	hp_ = max_hp_;
 }
 
-void Player::TakeDamage(int attack)
+Player* Player::Create(Room** room, const std::string& player_config_file)
 {
-	if (state_ == State::DYING || state_ == State::TAKING_DAMAGE) {
-		return;
-	}
-
-	take_damage_guard_(kStiffnessTime, [&](){
-		std::cout << "Player take damage!" << std::endl;
-
-		int damage = 1;
-
-		if (attack > defense_) {
-			damage = attack - defense_;
-		}
-
-		hp_ -= damage;
-
-		if (hp_ <= 0) {
-			SwitchState(State::DYING);
-		} else {
-			SwitchState(State::TAKING_DAMAGE);
-		}
-	});
-}
-
-void Player::Attack(Room* room)
-{
-	attack_guard_(kAttackCooldown, [&](){
-		glm::vec2 initial_pos = transform_.position_ + glm::vec2(20.0f, 0.0f) * transform_.scale_;
-		glm::vec2 velocity = glm::vec2(200.0f, 0.0f) * transform_.scale_;
-		room->AddPlayerAOE(new AOE(glm::vec4(0.0f, 0.0f, 55.0f, 66.0f), &sprites->lookup("fire_1"), velocity, 3.0f, attack_, initial_pos, nullptr));
-		SwitchState(State::ATTACKING);
-
-	});
-}
-
-void Player::LoadConfig(const std::string& config_file_path)
-{
-	std::ifstream f(config_file_path);
+	std::ifstream f(player_config_file);
 
 	if (!f.is_open()) {
-		throw std::runtime_error("Fail to load " + config_file_path);
+		throw std::runtime_error("Can not load player config file: " + player_config_file);
 	}
 
-	std::string animation_name;
-	int sprite_num;
+	json j;
+	f >> j;
 
-	while (f >> animation_name >> sprite_num) {
-		auto it = kAnimationNameStateMap.find(animation_name);
-		if (it == kAnimationNameStateMap.end()) {
-			std::cout << "No state correspoonds to " << animation_name << std::endl;
-			continue;
-		}
-		AnimationController<Player::AnimationState>::LoadAnimation((*it).second,
-		 "player_" + animation_name, sprite_num);
+	Player* player = new Player(room, j.at("bounding_box").get<glm::vec4>());
+	player->hp_ = j.at("hp").get<int>();
+	player->attack_ = j.at("attack").get<int>();
+	player->defense_ = j.at("defense").get<int>();
+
+	auto& movement_component_json = j.at("movement");
+	player->movement_component_.SetMaxGroundSpeed(movement_component_json.at("max_horizontal_speed").get<float>());
+	player->movement_component_.SetMaxVerticalSpeed(movement_component_json.at("max_vertical_speed").get<float>());
+	player->movement_component_.SetInitialJumpSpeed(movement_component_json.at("initial_jump_speed").get<float>());
+	player->movement_component_.SetMaxSpeedAfterJumpRelease(movement_component_json.at("max_speed_after_jump_release").get<float>());
+	player->movement_component_.SetGroundFraction(movement_component_json.at("ground_fraction").get<float>());
+	player->movement_component_.SetAirFraction(movement_component_json.at("air_fraction").get<float>());
+	player->movement_component_.SetHorizontalGroundAcceleration(movement_component_json.at("horizontal_ground_accelaration").get<float>());
+	player->movement_component_.SetHorizontalAirAcceleration(movement_component_json.at("horizontal_air_accelaration").get<float>());
+
+	for (const auto& attack_json : j.at("skills")) {
+		player->skills_.push_back(attack_json.get<Attack>());
 	}
 
-	// TODO populate prototype
-}
-
-// TODO migrate code to state pattern
-void Player::UpdateState()
-{
-	switch (state_)
-	{
-	case State::MOVING:
-		switch (movement_component_.GetState())
-		{
-			case MovementComponent::State::STILL:
-				animation_controller_.PlayAnimation(AnimationState::STILL, 0.1f, true, false);
-				break;
-			case MovementComponent::State::MOVING:
-				animation_controller_.PlayAnimation(AnimationState::WALK, 0.1f, true, false);
-				break;
-			case MovementComponent::State::JUMPING:
-				animation_controller_.PlayAnimation(AnimationState::JUMP, 0.1f, false, false);
-				break;
-			case MovementComponent::State::FALLING:
-				animation_controller_.PlayAnimation(AnimationState::FALL, 0.1f, false, false);
-				break;
-			default:
-				break;
-		}
-		break;
-	case State::ATTACKING:
-		break;
-	case State::TAKING_DAMAGE:
-		break;
-	case State::DYING:
-		break;
-	default:
-		throw std::runtime_error("Unknown state: " + std::to_string(static_cast<uint32_t>(state_)));
-		break;
+	// Load Animations
+	for (const auto& [animation_name, animation_state_name] : Mob::kAnimationNameStateMap) {
+		player->animations_[animation_state_name] = Animation::GetAnimation("player_" + animation_name);
 	}
+
+	return player;
 }
 
-void Player::EnterState(State state)
+Animation* Player::GetAnimation(AnimationState state)
 {
-	state_ = state;
-	switch (state)
-	{
-	case State::MOVING:
-		switch (movement_component_.GetState())
-		{
-			case MovementComponent::State::STILL:
-				animation_controller_.PlayAnimation(AnimationState::STILL, 0.1f, true, true);
-				break;
-			case MovementComponent::State::MOVING:
-				animation_controller_.PlayAnimation(AnimationState::WALK, 0.1f, true, true);
-				break;
-			case MovementComponent::State::JUMPING:
-				animation_controller_.PlayAnimation(AnimationState::JUMP, 0.1f, false, true);
-				break;
-			case MovementComponent::State::FALLING:
-				animation_controller_.PlayAnimation(AnimationState::FALL, 0.1f, false, true);
-				break;
-			default:
-				break;
-		}
-		break;
-	case State::ATTACKING:
-		animation_controller_.PlayAnimation(AnimationState::ATTACK, 0.1f, false, true);
-		TimerManager::Instance().AddTimer(animation_controller_.GetLength(), [&]() {
-			if (state_ == State::ATTACKING) {
-				SwitchState(State::MOVING);
-			}
-		});
-		break;
-	case State::TAKING_DAMAGE:
-		animation_controller_.PlayAnimation(AnimationState::HURT, 0.1f, false, true);
-		TimerManager::Instance().AddTimer(animation_controller_.GetLength(), [&]() {
-			if (state_ == State::TAKING_DAMAGE) {
-				SwitchState(State::MOVING);
-			}
-		});
-		break;
-	case State::DYING:
-		animation_controller_.PlayAnimation(AnimationState::DEATH, 0.1f, false, true);
-		TimerManager::Instance().AddTimer(animation_controller_.GetLength(), [&]() {
-			Reset();
-		});
-		break;
-	default:
-		throw std::runtime_error("Unknown state: " + std::to_string(static_cast<uint32_t>(state)));
-		break;
-	}
-}
-
-void Player::ExitState(State state)
-{
-
-}
-
-void Player::SwitchState(State state)
-{
-	ExitState(state);
-	EnterState(state);
+	return animations_[state];
 }

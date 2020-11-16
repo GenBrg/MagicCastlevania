@@ -1,0 +1,24 @@
+{
+	"hp": 100,
+	"attack": 10,
+	"defense": 10,
+	"bounding_box": [-10.0, 0.0, 10.0, 20.0],
+	"movement": {
+		"max_horizontal_speed": 200.0,
+		"max_vertical_speed": 1000.0,
+		"initial_jump_speed": 600.0,
+		"max_speed_after_jump_release": 300.0,
+		"ground_fraction": 1000.0,
+		"air_fraction": 300.0,
+		"horizontal_ground_accelaration": 1300.0,
+		"horizontal_air_accelaration": 1300.0
+	},
+	"skills": [
+		{
+			"mob_animation": "player_attack",
+			"aoe_prototype": "normal_attack",
+			"cooldown": 1.0,
+			"attach_to_entity": true
+		}
+	]
+}

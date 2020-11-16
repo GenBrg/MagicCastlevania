@@ -1,20 +1,24 @@
 #pragma once
 
-#include "../engine/Collider.hpp"
-#include "../engine/AOE.hpp"
-#include "Monster.hpp"
-#include "Door.hpp"
+#include <engine/Collider.hpp>
+#include <engine/AOE.hpp>
+#include <Sprite.hpp>
+#include <gamebase/Door.hpp>
 
 #include <vector>
-#include <unordered_map>
 
 class Player;
 class Trigger;
+class Monster;
+class RoomPrototype;
 
 class Room {
+	friend class RoomPrototype;
 private:
-	// 	// other rooms that connect with this room
-	// 	std::unordered_map<glm::vec2, Door> doors;
+	// std::vector<Door*> doors_ {};
+	const Sprite* background_sprite_;
+	const RoomPrototype& room_prototype_;
+	Transform2D camera_;
 
 	std::vector<Monster*> monsters_ {};
 	std::vector<AOE*> player_AOEs_ {};
@@ -25,13 +29,22 @@ private:
 
 	std::vector<Trigger*> triggers_ {};
 
+	void Initialize();
+	void CleanUp();
+
+	Room(const RoomPrototype& room_prototype);
+
 public:
 	void Update(float elapsed, Player* player);
 	void Draw(DrawSprites& draw_sprite);
+	void AddMonster(Monster* monster) { monsters_.push_back(monster); }
 	void AddPlayerAOE(AOE* aoe) { player_AOEs_.push_back(aoe); }
 	void AddMonsterAOE(AOE* aoe) { monster_AOEs_.push_back(aoe); }
 	void AddTrigger(Trigger* trigger) { triggers_.push_back(trigger); }
 
-	Room(const std::string& platform_file);
+	// TODO Room switch
+	void OnEnter(Player* player);
+	void OnLeave();
+
 	~Room();
 };

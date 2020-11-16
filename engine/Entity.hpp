@@ -4,6 +4,7 @@
 #include "Collider.hpp"
 #include "../DrawSprites.hpp"
 
+
 class Entity {
 public:
 	void Update(float elapsed);
@@ -12,6 +13,8 @@ public:
 	void Destroy() { destroyed_ = true; }
 	bool IsDestroyed() const { return destroyed_; }
 	Collider* GetCollider() { return &collider_; }
+	
+	virtual ~Entity() {}
 
 protected:
 	Transform2D transform_;
