@@ -35,19 +35,19 @@
 	"doors": [
 		{
 			"position": [95, 91],
-			"lock_type": "normal"
+			"lock_status": "open"
 		},
 		{
 			"position": [860, 135],
-			"lock_type": "unlock"
+			"lock_status": "close"
 		},
 		{
 			"position": [28, 428],
-			"lock_type": "special"
+			"lock_status": "locked"
 		},
 		{
 			"position": [815, 428],
-			"lock_type": "close"
+			"lock_status": "close"
 		}
 	],
 	"background_sprite": "bg"

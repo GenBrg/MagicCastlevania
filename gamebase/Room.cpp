@@ -81,6 +81,10 @@ void Room::Update(float elapsed, Player* player)
 		}
 	}
 
+	for (Door* door : doors_) {
+		door->Update(elapsed);
+	}
+
 	// Garbage collection
 	GarbageCollect(monsters_);
 	GarbageCollect(player_AOEs_);
@@ -91,6 +95,10 @@ void Room::Update(float elapsed, Player* player)
 void Room::Draw(DrawSprites& draw_sprite)
 {
 	draw_sprite.draw(*background_sprite_, camera_);
+
+	for (Door* door : doors_) {
+		door->Draw(draw_sprite);
+	}
 
 	for (Monster* monster : monsters_)
 	{

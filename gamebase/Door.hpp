@@ -1,45 +1,57 @@
-// #pragma once
-
-// #include "Room.hpp"
-
-// class Door {
-// private:
-// 	Animation animation;
-// 	Room* nextRoomP;
-
-// 	// a field to represent if this door is being open
-
-// private:
-// 	Room* getRoom();
-
-// };
-
 #pragma once
 
 #include <engine/Animation.hpp>
 #include <engine/Trigger.hpp>
 #include <engine/Transform2D.hpp>
+#include <DrawSprites.hpp>
+#include <Util.hpp>
 
-
-class Door {
+/**
+ * Door in the room.
+ * @author Jiasheng Zhou
+ */
+class Door : public Entity {
+	friend struct DoorInfo;
 public:
 	enum LockStatus : uint8_t {
 		UNLOCK = 0,
-		NORMAL,
-		SPECIAL,
+		LOCKED,
 		CLOSED
 	};
 
-	Door(const glm::vec2& position, Door* opposite_door, Room& room, LockStatus lock_status);
+	void SetOppositeDoor(Door* door) { opposite_door_ = door; }
+	void SetLockStatus(LockStatus lock_status) { lock_status_ = lock_status; }
 
-	void OnOpen(); 
+	void OnOpen();
+
+	virtual void UpdateImpl(float elapsed);
+	virtual void DrawImpl(DrawSprites& draw);
+
+	static Animation* opened_animation_;
+	static Animation* opening_animation_;
+	static Animation* closed_animation_;
+
+	inline static const glm::vec4 kBoundingBox { 0.0f, 0.0f, 76.0f, 82.0f };
 
 private:
-	Transform2D transform_;
 	Door* opposite_door_;
 	Room& room_;
 	AnimationController animation_controller_;
 	LockStatus lock_status_;
 
-	static Animation* animation_;
+	/**
+	 * @param position Anchor of the door.
+	 * @param opposite_door The door this door is connected to, nullptr if there is no door in the oppsite side.
+	 * @param room The room the door resides in.
+	 * @param lock_status The lock status of the door.
+	 */
+	Door(const glm::vec2& position, Door* opposite_door, Room& room, LockStatus lock_status);
+};
+
+struct DoorInfo {
+	glm::vec2 position_;
+	Door::LockStatus lock_status_;
+
+	friend void from_json(const json& j, DoorInfo& door_info);
+	Door* Create(Room& room) const;
 };

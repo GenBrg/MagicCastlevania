@@ -45,6 +45,10 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 			room_prototype.traps_.push_back(trap_json.get<Trap>());
 		}
 
+		for (const auto& door_json : j.at("doors")) {
+			room_prototype.doors_.push_back(door_json.get<DoorInfo>());
+		}
+
 		room_prototype.background_sprite_ = &(sprites->lookup(j.at("background_sprite").get<std::string>()));
 	}
 }
@@ -62,6 +66,10 @@ Room* RoomPrototype::Create() const
 
 	for (const auto& trap : traps_) {
 		AOE::CreateMapAOE(*room, trap.bounding_box_, trap.attack_);
+	}
+
+	for (const auto& doorinfo : doors_) {
+		doorinfo.Create(*room);
 	}
 
 	return room;

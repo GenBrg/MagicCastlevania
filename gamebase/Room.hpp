@@ -11,11 +11,12 @@ class Player;
 class Trigger;
 class Monster;
 class RoomPrototype;
+class Door;
 
 class Room {
 	friend class RoomPrototype;
 private:
-	// std::vector<Door*> doors_ {};
+	std::vector<Door*> doors_ {};
 	const Sprite* background_sprite_;
 	const RoomPrototype& room_prototype_;
 	Transform2D camera_;
@@ -41,6 +42,7 @@ public:
 	void AddPlayerAOE(AOE* aoe) { player_AOEs_.push_back(aoe); }
 	void AddMonsterAOE(AOE* aoe) { monster_AOEs_.push_back(aoe); }
 	void AddTrigger(Trigger* trigger) { triggers_.push_back(trigger); }
+	void AddDoor(Door* door) { doors_.push_back(door); }
 
 	// TODO Room switch
 	void OnEnter(Player* player);

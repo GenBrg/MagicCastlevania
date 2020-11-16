@@ -48,4 +48,5 @@ private:
 	std::vector<glm::vec4> platforms_;
 	std::vector<MonsterInfo> monsters_;
 	std::vector<Trap> traps_;
+	std::vector<DoorInfo> doors_;
 };
