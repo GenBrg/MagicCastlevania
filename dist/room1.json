@@ -34,19 +34,19 @@
 	"items": [],
 	"doors": [
 		{
-			"position": [95, 91],
+			"position": [129, 91],
 			"lock_status": "open"
 		},
 		{
-			"position": [860, 135],
+			"position": [893, 135],
 			"lock_status": "open"
 		},
 		{
-			"position": [28, 428],
+			"position": [63, 428],
 			"lock_status": "locked"
 		},
 		{
-			"position": [815, 428],
+			"position": [848, 428],
 			"lock_status": "close"
 		}
 	],

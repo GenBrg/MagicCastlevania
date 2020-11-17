@@ -15,15 +15,15 @@
 	"items": [],
 	"doors": [
 		{
-			"position": [76, 357],
+			"position": [160, 357],
 			"lock_status": "open"
 		},
 		{
-			"position": [454, 126],
+			"position": [480, 126],
 			"lock_status": "close"
 		},
 		{
-			"position": [774, 357],
+			"position": [800, 357],
 			"lock_status": "locked"
 		}
 	],
