@@ -20,7 +20,7 @@ public:
 	static MonsterPrototype* GetMonsterPrototype(const std::string& monster_name) { return &(prototypes_.at(monster_name)); };
 	MonsterPrototype() = default;
 private:
-	inline static std::unordered_map<std::string, MonsterPrototype> prototypes_;
+	static std::unordered_map<std::string, MonsterPrototype> prototypes_;
 
 	std::string name;
 	int hp_;

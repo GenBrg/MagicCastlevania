@@ -29,12 +29,16 @@ Room::~Room() {
 		delete p;
 	}
 
-	for (AOE* player_AOE : player_AOEs_) {
+	for (AOE *player_AOE : player_AOEs_) {
 		delete player_AOE;
 	}
 
-	for (AOE* monster_AOE : monster_AOEs_) {
+	for (AOE *monster_AOE : monster_AOEs_) {
 		delete monster_AOE;
+	}
+
+	for (auto *d: dialogs_) {
+		delete d;
 	}
 }
 
@@ -61,7 +65,7 @@ void Room::Update(float elapsed, Player* player)
 	for (AOE* player_AOE : player_AOEs_) {
 		std::vector<AOE::CollisionQuery> collision_queries;
 		for (Monster* monster : monsters_) {
-			collision_queries.emplace_back(monster->GetCollider(), [&](){
+			collision_queries.emplace_back(monster->GetCollider(), [=](){
 				monster->TakeDamage(player_AOE->GetAttack());
 			});
 		}	
@@ -70,7 +74,7 @@ void Room::Update(float elapsed, Player* player)
 	}
 
 	for (AOE* monster_AOE : monster_AOEs_) {
-		monster_AOE->Update(elapsed, { std::make_pair(player->GetCollider(), [&](){
+		monster_AOE->Update(elapsed, { std::make_pair(player->GetCollider(), [=](){
 			player->TakeDamage(monster_AOE->GetAttack());
 		}) });
 	}
@@ -81,16 +85,34 @@ void Room::Update(float elapsed, Player* player)
 		}
 	}
 
+	for (Door* door : doors_) {
+		door->Update(elapsed);
+	}
+
 	// Garbage collection
 	GarbageCollect(monsters_);
 	GarbageCollect(player_AOEs_);
 	GarbageCollect(monster_AOEs_);
 	GarbageCollect(triggers_);
+
+	// if needs to update dialog or reset it
+	if (cur_dialog) {
+		if (cur_dialog->ShouldExitDialog()) {
+			cur_dialog->UnregisterKeyEvents();
+			cur_dialog = nullptr;
+		} else {
+			cur_dialog->Update(elapsed);
+		}
+	}
 }
 
 void Room::Draw(DrawSprites& draw_sprite)
 {
 	draw_sprite.draw(*background_sprite_, camera_);
+
+	for (Door* door : doors_) {
+		door->Draw(draw_sprite);
+	}
 
 	for (Monster* monster : monsters_)
 	{

@@ -28,24 +28,56 @@ public:
 		glm::vec4 bounding_box_;
 		int attack_;
 
-		friend void from_json(const json& j, Trap& trap) {
+		friend void from_json(const json &j, Trap &trap) {
 			trap.bounding_box_ = util::AssetSpaceToGameSpace(j.at("bounding_box").get<glm::vec4>());
 			j.at("attack").get_to(trap.attack_);
 		}
 	};
 
-	Room* Create() const;
-	void Initialize(Room* room) const;
+	struct DialogContent {
+		std::string texts_;
+		std::string avatar_sprite_;
 
-	static void LoadConfig(const std::string& room_list_file);
-	static RoomPrototype* GetRoomPrototype(const std::string& room_name) { return &(prototypes_.at(room_name)); };
+		friend void from_json(const json &j, DialogContent &dialog_content) {
+			j.at("texts").get_to(dialog_content.texts_);
+			j.at("avatar_sprite").get_to(dialog_content.avatar_sprite_);
+		}
+	};
+
+	struct DialogInfo {
+		glm::vec4 trigger_box_;
+		int hit_time_remain_;
+		float interval_between_hit_;
+		std::vector<DialogContent> contents_;
+
+		friend void from_json(const json &j, DialogInfo &dialog_info) {
+			dialog_info.trigger_box_ = util::AssetSpaceToGameSpace(j.at("trigger_box").get<glm::vec4>());
+			j.at("hit_time_remain").get_to(dialog_info.hit_time_remain_);
+			j.at("interval_between_hit").get_to(dialog_info.interval_between_hit_);
+
+			for (const auto &content_json : j.at("contents")) {
+				dialog_info.contents_.push_back(content_json.get<DialogContent>());
+			}
+		}
+	};
+
+	Room *Create() const;
+
+	void Initialize(Room *room) const;
+
+	static void LoadConfig(const std::string &room_list_file);
+
+	static RoomPrototype *GetRoomPrototype(const std::string &room_name) { return &(prototypes_.at(room_name)); };
+
 	RoomPrototype() = default;
 
 private:
-	inline static std::unordered_map<std::string, RoomPrototype> prototypes_;
+	static std::unordered_map<std::string, RoomPrototype> prototypes_;
 
-	const Sprite* background_sprite_;
+	const Sprite *background_sprite_;
 	std::vector<glm::vec4> platforms_;
 	std::vector<MonsterInfo> monsters_;
 	std::vector<Trap> traps_;
+	std::vector<DialogInfo> dialog_infos_;
+	std::vector<DoorInfo> doors_;
 };

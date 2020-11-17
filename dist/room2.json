@@ -15,5 +15,6 @@
 	"monsters": [],
 	"items": [],
 	"doors": [],
-	"background_sprite": "room_2_bg"
+	"background_sprite": "room_2_bg",
+	"dialogs":[]
 }

@@ -26,7 +26,7 @@ public:
 	}
 
 private:
-	inline static std::unordered_map<std::string, Animation> animation_collection;
+	static std::unordered_map<std::string, Animation> animation_collection;
 
 	Animation(const std::string& animation_name, int sprite_num, float interval);
 

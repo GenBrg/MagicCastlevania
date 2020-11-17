@@ -21,8 +21,11 @@ player(Player::Create(&cur_room, data_path("player.json"))),
 hud(player)
 {
 	ProceedLevel();
-	std::string test_str = "1abcdefghijklmnopqrstuvwxyz\"~!!!\n2abcdefghijklmnopqrstuvwxyz\"~!!!\n3abcdefghijklmnopqrstuvwxyz\"~!!!\n4abcdefghijklmnopqrstuvwxyz\"~!!!\n5abcdefghijklmnopqrstuvwxyz\"~!!!\n66666666666666\n7abcdefghijklmnopqrstuvwxyz\"~!!!\n888888888888888";
-	dialog_p = new Dialog(test_str, "avatar_player", false);
+	dialog_p = new Dialog();
+	dialog_p->Append("BACKGROUND STROY111111\nBACKGROUND STROY22222\nBACKGROUND STROY333333\n1abcdefghijklmnopqrstuvwxyz", "avatar_null");
+	dialog_p->Append("avatar_assassin IS SPAEKINGSTROY111111\navatar_assassin IS STROY22222\navatar_assassin IS STROY33333", "avatar_assassin");
+	dialog_p->Append("PLAYER IS SPEAKINGSTROY111111\nPLAYER IS SPEAKING222222\nPLAYER IS SPEAKING33333\nPLAYER IS SPEAKING444444", "avatar_player");
+	dialog_p->RegisterKeyEvents();
 }
 
 PlayMode::~PlayMode() {
@@ -64,10 +67,11 @@ void PlayMode::draw(glm::uvec2 const &window_size) {
 		hud.Draw(draw);
 	}
 
-	{ //Overlay some text:
-		// if(!dialog_p->ShouldExitDialog()) {
-		// 	dialog_p->Draw(window_size);
-		// }
+	{
+		if (cur_room->cur_dialog) {
+			// draw it in the end to put in the front layer
+			cur_room->cur_dialog->Draw(window_size);
+		}
 	}
 	GL_ERRORS();
 }
@@ -95,5 +99,5 @@ void PlayMode::GenerateRooms()
 {
 	// Room 0 lobby
 	// Room 1 BOSS room
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create());
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create());
 }
