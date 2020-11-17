@@ -29,5 +29,65 @@
 		}
 	],
 	"background_sprite": "room_2_bg",
-	"dialogs":[]
+	"dialogs":[
+		{
+		"trigger_box": [0, 0, 960, 540],
+		"hit_time_remain": 1,
+		"interval_between_hit": 10.0,
+		"contents": [
+			{
+				"texts": "Hey, wake up!",
+				"avatar_sprite": "avatar_mage"
+			},
+			{
+				"texts": "...Who am I? Where am I?",
+				"avatar_sprite": "avatar_player"
+			},
+			{
+				"texts": "Thank god you wake up!\n You are in the castle of Dracula and the sun\n is covered by the castle!",
+				"avatar_sprite": "avatar_mage"
+			},
+			{
+				"texts": "You are the chosen warrior to defeat\n Dracula and save the world!",
+				"avatar_sprite": "avatar_mage"
+			},
+			{
+				"texts": "Wait, what?\nNo way!\nAm I in the dream?",
+				"avatar_sprite": "avatar_player"
+			},
+			{
+				"texts": "(bites finger)\nOooouch!",
+				"avatar_sprite": "avatar_player"
+			},
+			{
+				"texts": "Are you alright?\n",
+				"avatar_sprite": "avatar_mage"
+			},
+			{
+				"texts": "I guess yes...\nBut wait, how am I supposed to get out of here?!",
+				"avatar_sprite": "avatar_player"
+			},
+			{
+				"texts": "OK, so there are 4 levels in total\nand each level contains several rooms which\n are connected to each other randomly.",
+				"avatar_sprite": "avatar_mage"
+			},
+			{
+				"texts": "One BOSS lives in a special rooom\n protected by a key in each level.\n You need to find the key somewhere in the room\n and defeat the BOSS to proceed to next level.",
+				"avatar_sprite": "avatar_mage"
+			},
+			{
+				"texts": "You might encounter all kinds of monsters,\n items and NPCs during your adventure.",
+				"avatar_sprite": "avatar_mage"
+			},
+			{
+				"texts": "I'll see you in the top level. Good luck!",
+				"avatar_sprite": "avatar_mage"
+			},
+			{
+				"texts": "...OK",
+				"avatar_sprite": "avatar_player"
+			}
+		]
+	}
+]
 }

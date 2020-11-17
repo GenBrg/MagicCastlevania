@@ -93,8 +93,6 @@ Room* RoomPrototype::Create() const
 			                                   dialog->RegisterKeyEvents();
 			                                   room->cur_dialog = dialog;
 		                                   });
-
-		room->triggers_.push_back(trigger);
 	}
 
 	for (const auto& doorinfo : doors_) {

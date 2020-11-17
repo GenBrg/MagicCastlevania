@@ -36,7 +36,6 @@ struct PlayMode : Mode {
 	Player* player;
 	HeadsUpDisplay hud;
 
-	Dialog* dialog_p;
 	Door* cur_door { nullptr };
 	Text press_w_hint;
 	TimerGuard open_door_guard;
