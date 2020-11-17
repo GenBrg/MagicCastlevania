@@ -26,5 +26,7 @@ Roguelike Dungeon https://kenney.nl/assets/roguelike-caves-dungeons \
 Roguelike RPG https://kenney.nl/assets/roguelike-rpg-pack \
 Monsters https://craftpix.net/freebies/free-rpg-monster-sprites-pixel-art/ \
 Dungeon-platformer https://craftpix.net/product/dungeon-platformer-pixel-art-tileset-2/ \
+Font https://www.dafont.com/digital-disco.font
+
 This game was built with [NEST](NEST.md).
 
