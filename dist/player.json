@@ -17,7 +17,7 @@
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "normal_attack",
-			"cooldown": 1.0,
+			"cooldown": 0.6,
 			"attach_to_entity": true
 		}
 	]
