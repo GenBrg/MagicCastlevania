@@ -51,5 +51,18 @@
 		}
 	],
 	"background_sprite": "room_3_bg",
-	"dialogs":[]
+	"dialogs":[
+		{
+			"trigger_box": [0, 0, 960, 540],
+			"auto_trigger": true,
+			"hit_time_remain": 1,
+			"interval_between_hit": 10.0,
+			"contents": [
+				{
+					"texts": "Watch out those spikes in this room!\n",
+					"avatar_sprite": "avatar_mage"
+				}
+			]
+		}
+	]
 }
