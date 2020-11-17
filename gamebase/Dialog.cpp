@@ -29,16 +29,21 @@ glm::vec2 GetDialogBottomLeft() {
 	return glm::vec2(x, 0);
 }
 
-Dialog::Dialog() :
-		text_(data_path(FONT_FILE_NAME))
+Dialog::Dialog(bool auto_trigger) :
+		text_(data_path(FONT_FILE_NAME)),
+		auto_trigger_(auto_trigger)
 {
-
 	text_.SetFontSize(FONT_SIZE)
 			.SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff))
 			.SetPos(glm::vec2(GetDialogBottomLeft().x + 20, DIALOG_BOX_HEIGHT - LINE_HEIGHT));
+	Reset();
 }
 
 void Dialog::Update(float elapsed) {
+	if(exit_phase_ || !start_phase_) {
+		return;
+	}
+
 	if (cur_animation_sen_idx_ == (int) scripts_[cur_script_idx_].size()) {
 		// complete animation
 		return;
@@ -58,6 +63,10 @@ void Dialog::Update(float elapsed) {
 }
 
 void Dialog::Draw(const glm::uvec2 &window_size) {
+	if(exit_phase_ || !start_phase_) {
+		return;
+	}
+
 	DrawSprites *draw_sprite = new DrawSprites(*sprites, VIEW_MIN, VIEW_MAX, window_size,
 	                                           DrawSprites::AlignPixelPerfect);
 	Transform2D transform_box(nullptr);
@@ -122,8 +131,8 @@ std::string Dialog::GenerateStr() {
 	return ss.str();
 }
 
-bool Dialog::ShouldExitDialog() const {
-	return exit_flag_;
+bool Dialog::IsCompleted() const {
+	return exit_phase_;
 }
 
 void Dialog::Append(const std::string &text, const std::string &avatar_sprite) {
@@ -136,7 +145,7 @@ void Dialog::Append(const std::string &text, const std::string &avatar_sprite) {
 	while (std::getline(ss, single_text, '\n')) {
 		script.push_back(std::move(single_text));
 	}
-	script.emplace_back("<Press X to continue>");
+	script.emplace_back("<Press e to continue>");
 
 	scripts_.push_back(script);
 }
@@ -144,12 +153,17 @@ void Dialog::Append(const std::string &text, const std::string &avatar_sprite) {
 void Dialog::Reset() {
 	cur_script_idx_ = 0;
 	cur_sen_idx_ = 0;
-	exit_flag_ = false;
+	if(auto_trigger_) {
+		start_phase_ = true;
+	} else {
+		start_phase_ = false;
+	}
+	dialog_phase_ = false;
+	exit_phase_ = false;
 	cur_animation_sen_idx_ = 0;
 	cur_char_idx_ = 0;
 	elapsed_since_last_char_ = 0.0f;
 }
-
 
 void Dialog::ResetForNextScript() {
 	assert(cur_script_idx_ + 1 < (int) scripts_.size());
@@ -159,7 +173,6 @@ void Dialog::ResetForNextScript() {
 	cur_char_idx_ = 0;
 	elapsed_since_last_char_ = 0.0f;
 }
-
 
 void Dialog::RegisterKeyEvents() {
 	/* Register key events */
@@ -189,24 +202,39 @@ void Dialog::RegisterKeyEvents() {
 		}
 	});
 
-	// handle X press
-	InputSystem::Instance()->Register(SDLK_x, [this](InputSystem::KeyState &key_state, float elapsed) {
+	// handle e press
+	InputSystem::Instance()->Register(SDLK_e, [this](InputSystem::KeyState &key_state, float elapsed) {
 		if (key_state.pressed) {
 			key_state.pressed = false;
-			if (cur_sen_idx_ + TEXT_LINES_PER_BOX >= (int) scripts_[cur_script_idx_].size()) {
+
+			if (start_phase_ && !dialog_phase_) {
+				// from start phase to dialog phase
+				dialog_phase_ = true;
+			}
+
+			if (dialog_phase_ && cur_animation_sen_idx_ != (int) scripts_[cur_script_idx_].size()) {
+				// when in middle of an animation, down is pressed, directly show the whole script
+				cur_animation_sen_idx_ = (int) scripts_[cur_script_idx_].size();
+			} else {
+				// proceed to the next line
+				cur_sen_idx_ = std::min(cur_sen_idx_ + 1, (int) scripts_[cur_script_idx_].size() - 1);
+			}
+
+			if (cur_sen_idx_ + 1 >= (int) scripts_[cur_script_idx_].size()) {
 				// complete one script
 				if (cur_script_idx_ == (int) scripts_.size() - 1) {
 					// if there are not other scripts left
-					exit_flag_ = true;
+					exit_phase_ = true;
 				} else {
 					ResetForNextScript();
 				}
 			}
+			// make sure already start
+			start_phase_ = true;
 		} else if (key_state.released) {
 			key_state.released = false;
 		}
 	});
-
 }
 
 void Dialog::UnregisterKeyEvents() const {

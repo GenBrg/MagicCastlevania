@@ -21,15 +21,9 @@ player(Player::Create(&cur_room, data_path("player.json"))),
 hud(player)
 {
 	ProceedLevel();
-	dialog_p = new Dialog();
-	dialog_p->Append("BACKGROUND STROY111111\nBACKGROUND STROY22222\nBACKGROUND STROY333333\n1abcdefghijklmnopqrstuvwxyz", "avatar_null");
-	dialog_p->Append("avatar_assassin IS SPAEKINGSTROY111111\navatar_assassin IS STROY22222\navatar_assassin IS STROY33333", "avatar_assassin");
-	dialog_p->Append("PLAYER IS SPEAKINGSTROY111111\nPLAYER IS SPEAKING222222\nPLAYER IS SPEAKING33333\nPLAYER IS SPEAKING444444", "avatar_player");
-	dialog_p->RegisterKeyEvents();
 }
 
 PlayMode::~PlayMode() {
-	delete dialog_p;
 
 	for (Room* room : rooms) {
 		delete room;
@@ -47,7 +41,6 @@ void PlayMode::update(float elapsed) {
 	TimerManager::Instance().Update();
 
 	cur_room->Update(elapsed, player);
-	dialog_p->Update(elapsed);
 }
 
 void PlayMode::draw(glm::uvec2 const &window_size) {

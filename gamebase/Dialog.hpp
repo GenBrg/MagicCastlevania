@@ -20,7 +20,9 @@ private:
 	// current showing text of scripts_[cur_script_idx_]: scripts_[cur_script_idx_][cur_sen_idx_, ..., cur_sen_idx_ + TEXT_LINES_PER_BOX)
 	int cur_sen_idx_ = 0;
 
-	bool exit_flag_ = false;
+	bool start_phase_ = false;
+	bool dialog_phase_ = false;
+	bool exit_phase_ = false;
 
 	// Used for animation
 	float elapsed_since_last_char_ = 0.0f;
@@ -28,16 +30,17 @@ private:
 	int cur_char_idx_ = 0;
 
 	Text text_;
+	const bool auto_trigger_;
 
 	std::string GenerateStr();
 	void ResetForNextScript();
 public:
-	Dialog();
+	Dialog(bool auto_trigger);
 	// Append a script to this dialog
 	void Append(const std::string& text, const std::string& avatar_sprite);
 	void Update(float elapsed);
 	void Draw(const glm::uvec2& window_size);
-	bool ShouldExitDialog() const;
+	bool IsCompleted() const;
 	void Reset();
 	void RegisterKeyEvents();
 	void UnregisterKeyEvents() const;

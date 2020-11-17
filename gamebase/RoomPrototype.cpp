@@ -1,5 +1,5 @@
 #include "RoomPrototype.hpp"
-
+#include "../engine/InputSystem.hpp"
 #include <engine/AOE.hpp>
 #include <data_path.hpp>
 
@@ -77,24 +77,20 @@ Room* RoomPrototype::Create() const
 
 	// create dialog object & trigger
 	for (auto &dialog_info: dialog_infos_) {
-		auto *dialog = new Dialog();
+		auto *dialog = new Dialog(dialog_info.auto_trigger_);
 		for (auto &content: dialog_info.contents_) {
 			dialog->Append(content.texts_, content.avatar_sprite_);
 		}
 		room->dialogs_.push_back(dialog);
-		// create Trigger
-		Trigger *trigger = Trigger::Create(*room,
-		                                   dialog_info.trigger_box_,
-		                                   nullptr,
-		                                   dialog_info.hit_time_remain_,
-		                                   dialog_info.interval_between_hit_,
-		                                   [dialog, room]() -> void {
-			                                   dialog->Reset();
-			                                   dialog->RegisterKeyEvents();
-			                                   room->cur_dialog = dialog;
-		                                   });
 
-		room->triggers_.push_back(trigger);
+		auto OnTrigger = [dialog_info, dialog, room]()->void {
+			dialog->Reset();
+			dialog->RegisterKeyEvents();
+			room->cur_dialog = dialog;
+		};
+		// create Trigger
+		Trigger::Create(*room, dialog_info.trigger_box_,nullptr, dialog_info.hit_time_remain_,
+				  dialog_info.interval_between_hit_, OnTrigger);
 	}
 
 	for (const auto& doorinfo : doors_) {

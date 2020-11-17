@@ -53,8 +53,7 @@ void GarbageCollect(std::vector<T*>& arr) {
 	}),arr.end());
 }
 
-void Room::Update(float elapsed, Player* player)
-{
+void Room::Update(float elapsed, Player* player) {
 	player->Update(elapsed);
 	player->UpdatePhysics(elapsed, platforms_);
 
@@ -68,7 +67,7 @@ void Room::Update(float elapsed, Player* player)
 			collision_queries.emplace_back(monster->GetCollider(), [=](){
 				monster->TakeDamage(player_AOE->GetAttack());
 			});
-		}	
+		}
 
 		player_AOE->Update(elapsed, collision_queries);
 	}
@@ -97,7 +96,7 @@ void Room::Update(float elapsed, Player* player)
 
 	// if needs to update dialog or reset it
 	if (cur_dialog) {
-		if (cur_dialog->ShouldExitDialog()) {
+		if (cur_dialog->IsCompleted()) {
 			cur_dialog->UnregisterKeyEvents();
 			cur_dialog = nullptr;
 		} else {
