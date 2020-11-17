@@ -147,6 +147,7 @@ GAMEBASE_NAME =
 	MonsterPrototype
 	HeadsUpDisplay
     Dialog
+	Door
 	;
 
 ENGINE_NAMES =

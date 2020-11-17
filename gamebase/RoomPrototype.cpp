@@ -45,8 +45,13 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 			room_prototype.traps_.push_back(trap_json.get<Trap>());
 		}
 
+
 		for (const auto &dialog_info_json: j.at("dialogs")) {
 			room_prototype.dialog_infos_.push_back(dialog_info_json.get<DialogInfo>());
+		}
+
+		for (const auto& door_json : j.at("doors")) {
+			room_prototype.doors_.push_back(door_json.get<DoorInfo>());
 		}
 
 		room_prototype.background_sprite_ = &(sprites->lookup(j.at("background_sprite").get<std::string>()));
@@ -70,7 +75,7 @@ Room* RoomPrototype::Create() const
 
 	// create dialog object & trigger
 	for (auto &dialog_info: dialog_infos_) {
-		Dialog *dialog = new Dialog();
+		auto *dialog = new Dialog();
 		for (auto &content: dialog_info.contents_) {
 			dialog->Append(content.texts_, content.avatar_sprite_);
 		}
@@ -88,6 +93,10 @@ Room* RoomPrototype::Create() const
 		                                   });
 
 		room->triggers_.push_back(trigger);
+	}
+
+	for (const auto& doorinfo : doors_) {
+		doorinfo.Create(*room);
 	}
 
 	return room;

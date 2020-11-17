@@ -65,7 +65,7 @@ void Room::Update(float elapsed, Player* player)
 	for (AOE* player_AOE : player_AOEs_) {
 		std::vector<AOE::CollisionQuery> collision_queries;
 		for (Monster* monster : monsters_) {
-			collision_queries.emplace_back(monster->GetCollider(), [&](){
+			collision_queries.emplace_back(monster->GetCollider(), [=](){
 				monster->TakeDamage(player_AOE->GetAttack());
 			});
 		}	
@@ -74,7 +74,7 @@ void Room::Update(float elapsed, Player* player)
 	}
 
 	for (AOE* monster_AOE : monster_AOEs_) {
-		monster_AOE->Update(elapsed, { std::make_pair(player->GetCollider(), [&](){
+		monster_AOE->Update(elapsed, { std::make_pair(player->GetCollider(), [=](){
 			player->TakeDamage(monster_AOE->GetAttack());
 		}) });
 	}
@@ -83,6 +83,10 @@ void Room::Update(float elapsed, Player* player)
 		if (trigger->GetCollider()->IsColliding(*(player->GetCollider()))) {
 			trigger->OnTrigger();
 		}
+	}
+
+	for (Door* door : doors_) {
+		door->Update(elapsed);
 	}
 
 	// Garbage collection
@@ -105,6 +109,10 @@ void Room::Update(float elapsed, Player* player)
 void Room::Draw(DrawSprites& draw_sprite)
 {
 	draw_sprite.draw(*background_sprite_, camera_);
+
+	for (Door* door : doors_) {
+		door->Draw(draw_sprite);
+	}
 
 	for (Monster* monster : monsters_)
 	{

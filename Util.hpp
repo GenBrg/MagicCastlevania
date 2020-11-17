@@ -22,10 +22,6 @@ using json = nlohmann::json;
 
 inline Load< SpriteAtlas > sprites(LoadTagEarly, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
-
-	sprite_bg = &ret->lookup("bg");
-	sprite_ghost = &ret->lookup("ghost_idle_1");
-
 	return ret;
 	});
 
