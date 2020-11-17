@@ -4,6 +4,8 @@
 #include <fstream>
 #include <stdexcept>
 
+std::unordered_map<std::string, Animation> Animation::animation_collection;
+
 void AnimationController::PlayAnimation(Animation* animation, bool loop, bool force_replay)
 {
 	if (!force_replay && animation_ == animation) {
