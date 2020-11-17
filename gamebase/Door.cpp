@@ -26,7 +26,7 @@ lock_status_(lock_status)
 		animation_controller_.PlayAnimation(opened_animation_, false, true);
 		break;
 		default:
-		throw std::runtime_error("Unknown lock status: " + static_cast<uint8_t>(lock_status_));
+		throw std::runtime_error("Unknown lock status: " + std::to_string(static_cast<uint8_t>(lock_status_)));
 	}
 }
 

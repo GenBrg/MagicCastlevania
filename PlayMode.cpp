@@ -22,11 +22,6 @@ PlayMode::PlayMode() : player(Player::Create(&cur_room, data_path("player.json")
 					   press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 {
 	ProceedLevel();
-	dialog_p = new Dialog();
-	dialog_p->Append("BACKGROUND STROY111111\nBACKGROUND STROY22222\nBACKGROUND STROY333333\n1abcdefghijklmnopqrstuvwxyz", "avatar_null");
-	dialog_p->Append("avatar_assassin IS SPAEKINGSTROY111111\navatar_assassin IS STROY22222\navatar_assassin IS STROY33333", "avatar_assassin");
-	dialog_p->Append("PLAYER IS SPEAKINGSTROY111111\nPLAYER IS SPEAKING222222\nPLAYER IS SPEAKING33333\nPLAYER IS SPEAKING444444", "avatar_player");
-	dialog_p->RegisterKeyEvents();
 
 	press_w_hint.SetText("Press W to enter room").SetFontSize(2300).SetPos({0.0f, 30.0f});
 
@@ -41,8 +36,6 @@ PlayMode::PlayMode() : player(Player::Create(&cur_room, data_path("player.json")
 
 PlayMode::~PlayMode()
 {
-	delete dialog_p;
-
 	for (Room *room : rooms)
 	{
 		delete room;
@@ -62,7 +55,6 @@ void PlayMode::update(float elapsed)
 	TimerManager::Instance().Update();
 
 	cur_room->Update(elapsed, player, &cur_door);
-	dialog_p->Update(elapsed);
 }
 
 void PlayMode::draw(glm::uvec2 const &window_size)
