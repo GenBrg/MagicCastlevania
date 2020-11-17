@@ -28,5 +28,42 @@
 	],
 	"items": [],
 	"doors": [],
-	"background_sprite": "bg"
+	"background_sprite": "bg",
+	"dialogs": [
+		{
+			"trigger_box": [300, 430, 70, 70],
+			"hit_time_remain": 0,
+			"interval_between_hit": 10.0,
+			"contents": [
+				{
+					"texts": "BACKGROUND STROY111111\nBACKGROUND STROY22222\nBACKGROUND STROY333333\n4\n5\n6\n7",
+					"avatar_sprite": "avatar_null"
+				},
+				{
+					"texts": "Hi!\nHi!\n123321\n I AM NPC \n avatar_assassin is speaking!!!",
+					"avatar_sprite": "avatar_assassin"
+				},
+				{
+					"texts": "1abcdefghijklmnopqrstuvwxyz\"~!!!\n2abcdefghijklmnopqrstuvwxyz\"~!!!\n3abcdefghijklmnopqrstuvwxyz\"~!!!\n4abcdefghijklmnopqrstuvwxyz\"~!!!\n5abcdefghijklmnopqrstuvwxyz\"~!!!\n66666666666666\n7abcdefghijklmnopqrstuvwxyz\"~!!!\n888888888888888",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "1",
+					"avatar_sprite": "avatar_assassin"
+				},
+				{
+					"texts": "2",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "3",
+					"avatar_sprite": "avatar_assassin"
+				},
+				{
+					"texts": "4",
+					"avatar_sprite": "avatar_player"
+				}
+			]
+		}
+	]
 }

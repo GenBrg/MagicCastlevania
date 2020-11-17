@@ -29,12 +29,16 @@ Room::~Room() {
 		delete p;
 	}
 
-	for (AOE* player_AOE : player_AOEs_) {
+	for (AOE *player_AOE : player_AOEs_) {
 		delete player_AOE;
 	}
 
-	for (AOE* monster_AOE : monster_AOEs_) {
+	for (AOE *monster_AOE : monster_AOEs_) {
 		delete monster_AOE;
+	}
+
+	for (auto *d: dialogs_) {
+		delete d;
 	}
 }
 
@@ -86,6 +90,16 @@ void Room::Update(float elapsed, Player* player)
 	GarbageCollect(player_AOEs_);
 	GarbageCollect(monster_AOEs_);
 	GarbageCollect(triggers_);
+
+	// if needs to update dialog or reset it
+	if (cur_dialog_) {
+		if (cur_dialog_->ShouldExitDialog()) {
+			cur_dialog_->UnregisterKeyEvents();
+			cur_dialog_ = nullptr;
+		} else {
+			cur_dialog_->Update(elapsed);
+		}
+	}
 }
 
 void Room::Draw(DrawSprites& draw_sprite)

@@ -9,35 +9,37 @@
 
 class Dialog {
 private:
-	// splitted strings based on '\n'
-	std::vector<std::string> texts;
-	// if true, this is the background store from no body, avatar_sprite_ will be ignored
-	const bool no_avatar_;
-	// which charactor is speaking this dialog
-	const std::string avatar_sprite_;
-	// current showing text: texts[cur_line_idx, ..., cur_line_idx + TEXT_LINES_PER_BOX)
-	int cur_line_idx = 0;
-	Text text_;
+	// each element represents the current player/NPC/Background who is speaking ("avator_null" is a special key
+	// which means this is the narratage), used as keys to do the sprite lookup
+	std::vector<std::string> avatar_sprites_;
+	// Each element is a vector of string (split by '\n'), it represents the text of current speaking.
+	// It is the same size of avatar_names
+	std::vector<std::vector<std::string>> scripts_;
+	// cur idx of scripts and avatar_sprites_
+	int cur_script_idx_ = 0;
+	// current showing text of scripts_[cur_script_idx_]: scripts_[cur_script_idx_][cur_sen_idx_, ..., cur_sen_idx_ + TEXT_LINES_PER_BOX)
+	int cur_sen_idx_ = 0;
 
-	bool complete_flag_ = false;
+	bool complete_one_script_flag_ = false;
 	bool exit_flag_ = false;
 
 	// Used for animation
-	int cur_animation_line_idx = 0;
-	int cur_char_idx = 0;
-	float elapsed_since_last_char = 0.0f;
-	bool pause_animation = false;
+	float elapsed_since_last_char_ = 0.0f;
+	int cur_animation_sen_idx_ = 0;
+	int cur_char_idx_ = 0;
 
+	Text text_;
 
 	std::string GenerateStr();
+	void ResetForNextScript();
 public:
-	Dialog(const std::string& text, std::string avatar_sprite, bool no_avatar);
-	/**
-	 * Every time the arrow down key is pressed, it will proceed to read the following text
-	 * @param evt
-	 * @return
-	 */
+	Dialog();
+	// Append a script to this dialog
+	void Append(const std::string& text, const std::string& avatar_sprite);
 	void Update(float elapsed);
 	void Draw(const glm::uvec2& window_size);
 	bool ShouldExitDialog() const;
+	void Reset();
+	void RegisterKeyEvents();
+	void UnregisterKeyEvents() const;
 };
