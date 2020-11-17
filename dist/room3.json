@@ -19,11 +19,11 @@
 		{
 			"bounding_box": [386, 497, 191, 44],
 			"attack": 10000
-		}
+		},
 		{
 			"bounding_box": [417, 400, 256, 7],
 			"attack": 30
-		}
+		},
 		{
 			"bounding_box": [615, 231, 113, 7],
 			"attack": 30
@@ -31,7 +31,20 @@
 	],
 	"monsters": [],
 	"items": [],
-	"doors": [],
-	"background_sprite": "room_2_bg",
+	"doors": [
+		{
+			"position": [100, 194],
+			"lock_status": "open"
+		},
+		{
+			"position": [50, 491],
+			"lock_status": "close"
+		},
+		{
+			"position": [852, 491],
+			"lock_status": "locked"
+		}
+	],
+	"background_sprite": "room_3_bg",
 	"dialogs":[]
 }

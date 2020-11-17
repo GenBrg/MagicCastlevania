@@ -53,7 +53,7 @@ protected:
 	int hp_;
 	int attack_;
 	int defense_;
-	float take_damage_cooldown_ { 3.0f };
+	float take_damage_cooldown_ { 0.5f };
 	bool is_monster_;
 	AnimationController animation_controller_;
 

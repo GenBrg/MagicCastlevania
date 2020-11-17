@@ -76,7 +76,7 @@ void PlayMode::draw(glm::uvec2 const &window_size)
 	}
 
 	{
-		if (cur_door)
+		if (cur_door && cur_door->GetLockStatus() != Door::LockStatus::CLOSED)
 		{
 			press_w_hint.Draw();
 		}
@@ -120,14 +120,16 @@ void PlayMode::GenerateRooms()
 	// Room 1 BOSS room
 	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create());
 	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create());
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room3")->Create());
 	rooms[1]->GetDoor(0)->SetOppositeDoor(rooms[0]->GetDoor(0));
+	rooms[0]->GetDoor(1)->SetOppositeDoor(rooms[2]->GetDoor(0));
 }
 
 void PlayMode::OpenDoor()
 {
 	if (cur_door)
 	{
-		open_door_guard(5.0f, [&]() {
+		open_door_guard(2.0f, [&]() {
 			SwitchRoom(cur_door);
 		});
 	}
