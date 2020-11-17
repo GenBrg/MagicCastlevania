@@ -96,12 +96,12 @@ void Room::Update(float elapsed, Player* player)
 	GarbageCollect(triggers_);
 
 	// if needs to update dialog or reset it
-	if (cur_dialog_) {
-		if (cur_dialog_->ShouldExitDialog()) {
-			cur_dialog_->UnregisterKeyEvents();
-			cur_dialog_ = nullptr;
+	if (cur_dialog) {
+		if (cur_dialog->ShouldExitDialog()) {
+			cur_dialog->UnregisterKeyEvents();
+			cur_dialog = nullptr;
 		} else {
-			cur_dialog_->Update(elapsed);
+			cur_dialog->Update(elapsed);
 		}
 	}
 }

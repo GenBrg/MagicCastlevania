@@ -40,7 +40,7 @@ private:
 	Room(const RoomPrototype &room_prototype);
 
 public:
-	Dialog* cur_dialog_;
+	Dialog* cur_dialog = nullptr;
 	void Update(float elapsed, Player* player);
 	void Draw(DrawSprites& draw_sprite);
 	void AddMonster(Monster* monster) { monsters_.push_back(monster); }

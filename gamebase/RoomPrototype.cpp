@@ -89,7 +89,7 @@ Room* RoomPrototype::Create() const
 		                                   [dialog, room]() -> void {
 			                                   dialog->Reset();
 			                                   dialog->RegisterKeyEvents();
-			                                   room->cur_dialog_ = dialog;
+			                                   room->cur_dialog = dialog;
 		                                   });
 
 		room->triggers_.push_back(trigger);
