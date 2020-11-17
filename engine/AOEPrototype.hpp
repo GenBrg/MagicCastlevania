@@ -35,7 +35,7 @@ public:
 	std::string to_string() const;
 
 private:
-	inline static std::unordered_map<std::string, AOEPrototype> prototypes_;
+	static std::unordered_map<std::string, AOEPrototype> prototypes_;
 
 	/**
 	 * @param bounding_box Bounding box of the AOE for collision detection.

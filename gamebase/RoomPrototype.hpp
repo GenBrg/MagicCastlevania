@@ -72,7 +72,7 @@ public:
 	RoomPrototype() = default;
 
 private:
-	inline static std::unordered_map<std::string, RoomPrototype> prototypes_;
+	static std::unordered_map<std::string, RoomPrototype> prototypes_;
 
 	const Sprite *background_sprite_;
 	std::vector<glm::vec4> platforms_;

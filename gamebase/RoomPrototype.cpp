@@ -6,6 +6,8 @@
 #include <fstream>
 #include <stdexcept>
 
+std::unordered_map<std::string, RoomPrototype> RoomPrototype::prototypes_;
+
 void RoomPrototype::LoadConfig(const std::string& room_list_file)
 {
 	std::ifstream f(room_list_file);
