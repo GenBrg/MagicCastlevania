@@ -144,4 +144,6 @@ void Room::OnLeave()
 	ClearData(monster_AOEs_);
 	ClearData(player_AOEs_);
 	ClearData(monsters_);
+	ClearData(dialogs_);
+	cur_dialog = nullptr;
 }
