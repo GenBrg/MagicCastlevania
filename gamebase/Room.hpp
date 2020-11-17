@@ -41,7 +41,7 @@ private:
 
 public:
 	Dialog* cur_dialog = nullptr;
-	void Update(float elapsed, Player* player);
+	void Update(float elapsed, Player* player, Door** cur_door);
 	void Draw(DrawSprites& draw_sprite);
 	void AddMonster(Monster* monster) { monsters_.push_back(monster); }
 	void AddPlayerAOE(AOE* aoe) { player_AOEs_.push_back(aoe); }
@@ -49,9 +49,11 @@ public:
 	void AddTrigger(Trigger* trigger) { triggers_.push_back(trigger); }
 	void AddDoor(Door* door) { doors_.push_back(door); }
 
+	size_t GetDoorNum() const { return doors_.size(); }
+	Door* GetDoor(size_t idx) { return doors_[idx]; }
 
 	// TODO Room switch
-	void OnEnter(Player *player);
+	void OnEnter(Player *player, Door* door);
 
 	void OnLeave();
 

@@ -14,7 +14,20 @@
 	"traps": [],
 	"monsters": [],
 	"items": [],
-	"doors": [],
+	"doors": [
+		{
+			"position": [76, 357],
+			"lock_status": "open"
+		},
+		{
+			"position": [454, 126],
+			"lock_status": "close"
+		},
+		{
+			"position": [774, 357],
+			"lock_status": "locked"
+		}
+	],
 	"background_sprite": "room_2_bg",
 	"dialogs":[]
 }

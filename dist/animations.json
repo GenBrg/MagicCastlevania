@@ -73,5 +73,15 @@
 		"name": "fire",
 		"sprite_num": 1,
 		"interval": 0.1
+	},
+	{
+		"name": "door_opened",
+		"sprite_num": 1,
+		"interval": 0.1
+	},
+	{
+		"name": "door_closed",
+		"sprite_num": 1,
+		"interval": 0.1
 	}
 ]

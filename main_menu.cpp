@@ -12,7 +12,6 @@ Load< void > load_main_menu(LoadTagLate, []() {
 
 	items.emplace_back("Play", &sprites->lookup("text_button_1"), &sprites->lookup("text_button_1_selected"));
 	items.back().on_select = [](MenuMode::Item const&) {
-		main_play = std::make_shared< PlayMode >();
 		Mode::set_current(main_play);
 	};
 

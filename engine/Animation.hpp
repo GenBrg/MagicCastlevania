@@ -26,7 +26,7 @@ public:
 	}
 
 private:
-	inline static std::unordered_map<std::string, Animation> animation_collection;
+	static std::unordered_map<std::string, Animation> animation_collection;
 
 	Animation(const std::string& animation_name, int sprite_num, float interval);
 
@@ -50,7 +50,7 @@ private:
 	Animation* animation_ { nullptr };
 	const Sprite* current_sprite_ { nullptr };
 	float time_since_begin_ { 0.0f };
-	float length_;
+	float length_ { 0.0f };
 	bool loop_;
 
 	bool playing_ { false };
