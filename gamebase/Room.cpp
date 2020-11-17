@@ -70,7 +70,7 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 			collision_queries.emplace_back(monster->GetCollider(), [=](){
 				monster->TakeDamage(player_AOE->GetAttack());
 			});
-		}	
+		}
 
 		player_AOE->Update(elapsed, collision_queries);
 	}
@@ -102,7 +102,7 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 
 	// if needs to update dialog or reset it
 	if (cur_dialog) {
-		if (cur_dialog->ShouldExitDialog()) {
+		if (cur_dialog->IsCompleted()) {
 			cur_dialog->UnregisterKeyEvents();
 			cur_dialog = nullptr;
 		} else {

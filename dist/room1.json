@@ -54,11 +54,12 @@
 	"dialogs": [
 		{
 			"trigger_box": [300, 430, 70, 70],
+			"auto_trigger": false,
 			"hit_time_remain": 0,
-			"interval_between_hit": 10.0,
+			"interval_between_hit": 1000.0,
 			"contents": [
 				{
-					"texts": "BACKGROUND STROY111111\nBACKGROUND STROY22222\nBACKGROUND STROY333333\n4\n5\n6\n7",
+					"texts": "BACKGROUND STROY111111\nBACKGROUND STROY22222",
 					"avatar_sprite": "avatar_null"
 				},
 				{

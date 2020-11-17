@@ -48,13 +48,14 @@ public:
 		glm::vec4 trigger_box_;
 		int hit_time_remain_;
 		float interval_between_hit_;
+		bool auto_trigger_;
 		std::vector<DialogContent> contents_;
 
 		friend void from_json(const json &j, DialogInfo &dialog_info) {
 			dialog_info.trigger_box_ = util::AssetSpaceToGameSpace(j.at("trigger_box").get<glm::vec4>());
 			j.at("hit_time_remain").get_to(dialog_info.hit_time_remain_);
 			j.at("interval_between_hit").get_to(dialog_info.interval_between_hit_);
-
+			j.at("auto_trigger").get_to(dialog_info.auto_trigger_);
 			for (const auto &content_json : j.at("contents")) {
 				dialog_info.contents_.push_back(content_json.get<DialogContent>());
 			}
