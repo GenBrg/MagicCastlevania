@@ -56,7 +56,7 @@ MenuMode::~MenuMode() {
 
 bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size) {
 	if (evt.type == SDL_KEYDOWN) {
-		if (evt.key.keysym.sym == SDLK_UP) {
+		if (evt.key.keysym.sym == SDLK_w) {
 			//skip non-selectable items:
 			for (uint32_t i = selected - 1; i < items.size(); --i) {
 				if (items[i].on_select) {
@@ -67,7 +67,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			}
 			return true;
 		}
-		else if (evt.key.keysym.sym == SDLK_DOWN) {
+		else if (evt.key.keysym.sym == SDLK_s) {
 			//note: skips non-selectable items:
 			for (uint32_t i = selected + 1; i < items.size(); ++i) {
 				if (items[i].on_select) {
@@ -78,7 +78,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			}
 			return true;
 		}
-		else if (evt.key.keysym.sym == SDLK_RETURN) {
+		else if (evt.key.keysym.sym == SDLK_SPACE) {
 			if (selected < items.size() && items[selected].on_select) {
 				//Sound::play(*sound_clonk);
 				items[selected].on_select(items[selected]);
@@ -133,7 +133,7 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			// glm::u8vec4 color = (is_selected ? item.selected_tint : item.tint);
 			//float left, right;
 			if (item.sprite) {
-				if (is_selected) {
+				if (!is_selected) {
 					draw_sprites.draw(*item.sprite, item.transform);
 				}
 				else {
@@ -143,20 +143,9 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			
 		}
 	} //<-- gets drawn here!
-	for (auto const& item : items) {
-		if (!item.name.empty()) {
-			Text text = Text(data_path(menu_font_file_name));
-			text.SetFontSize(font_size)
-				.SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff))
-				.SetPos(glm::vec2(item.transform.position_.x - item.sprite->anchor_px.x + item.sprite->min_px.x, item.transform.position_.y));
-			text.SetText(item.name);
-			text.Draw();
-		}
-	}
 
 	GL_ERRORS(); //PARANOIA: print errors just in case we did something wrong.
 }
-
 
 void MenuMode::vertical_layout_items(float gap) {
 	DrawSprites temp(*atlas, view_min, view_max, view_max - view_min, DrawSprites::AlignPixelPerfect); //<-- doesn't actually draw

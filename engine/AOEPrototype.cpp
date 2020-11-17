@@ -10,6 +10,8 @@
 #include <fstream>
 #include <sstream>
 
+std::unordered_map<std::string, AOEPrototype> AOEPrototype::prototypes_;
+
 void AOEPrototype::LoadConfig(const std::string& config_file)
 {
 	std::ifstream f(config_file);

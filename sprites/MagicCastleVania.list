@@ -1,4 +1,8 @@
-"MagicCastleVania.xcf?menu_bg" 0 0 960 541 +0 +541 menu_bg
+"MagicCastleVania.xcf?menu_static" 0 0 960 541 +0 +541 menu_static
+"MagicCastleVania.xcf?start_button" 396 358 +167 +36 +83 +18 start_button
+"MagicCastleVania.xcf?start_button_selected" 396 358 +167 +36 +83 +18 start_button_selected
+"MagicCastleVania.xcf?quit_button" 396 417 +167 +36 +83 +18 quit_button
+"MagicCastleVania.xcf?quit_button_selected" 396 417 +167 +36 +83 +18 quit_button_selected
 "MagicCastleVania.xcf?text_button_1" 396 252 +167 +36 +83 +18 text_button_1
 "MagicCastleVania.xcf?text_button_1_selected" 396 252 +167 +36 +83 +18 text_button_1_selected
 "MagicCastleVania.xcf?room_1_bg" 0 0 960 541 +0 +541 room_1_bg

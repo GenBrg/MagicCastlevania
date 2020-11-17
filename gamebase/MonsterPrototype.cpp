@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <iostream>
 
+std::unordered_map<std::string, MonsterPrototype> MonsterPrototype::prototypes_;
+
 Monster* MonsterPrototype::Create(Room& room, const glm::vec2& initial_pos, float move_radius)
 {
 	Monster* monster = new Monster(*this, bounding_box_, body_attack_, room);

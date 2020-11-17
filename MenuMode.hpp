@@ -48,7 +48,6 @@ struct MenuMode : Mode {
 
 	//call to arrange items in a centered list:
 	void vertical_layout_items(float gap = 0.0f);
-
 	//if set, used to highlight the current selection:
 	/*Sprite const* left_select = nullptr;
 	Sprite const* right_select = nullptr;
@@ -81,5 +80,5 @@ struct MenuMode : Mode {
 	std::shared_ptr< Mode > background;
 
 	const std::string menu_font_file_name = "ReallyFree-ALwl7.ttf";
-	int font_size = 2500;
+	int font_size = 2000;
 };
