@@ -20,7 +20,6 @@ private:
 	// current showing text of scripts_[cur_script_idx_]: scripts_[cur_script_idx_][cur_sen_idx_, ..., cur_sen_idx_ + TEXT_LINES_PER_BOX)
 	int cur_sen_idx_ = 0;
 
-	bool complete_one_script_flag_ = false;
 	bool exit_flag_ = false;
 
 	// Used for animation

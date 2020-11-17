@@ -82,7 +82,6 @@ Room* RoomPrototype::Create() const
 		                                   dialog_info.hit_time_remain_,
 		                                   dialog_info.interval_between_hit_,
 		                                   [dialog, room]() -> void {
-			                                   printf("Triggerred\n");
 			                                   dialog->Reset();
 			                                   dialog->RegisterKeyEvents();
 			                                   room->cur_dialog_ = dialog;

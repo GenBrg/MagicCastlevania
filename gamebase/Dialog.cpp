@@ -144,7 +144,6 @@ void Dialog::Append(const std::string &text, const std::string &avatar_sprite) {
 void Dialog::Reset() {
 	cur_script_idx_ = 0;
 	cur_sen_idx_ = 0;
-	complete_one_script_flag_ = false;
 	exit_flag_ = false;
 	cur_animation_sen_idx_ = 0;
 	cur_char_idx_ = 0;
@@ -156,7 +155,6 @@ void Dialog::ResetForNextScript() {
 	assert(cur_script_idx_ + 1 < (int) scripts_.size());
 	cur_script_idx_++;
 	cur_sen_idx_ = 0;
-	complete_one_script_flag_ = false;
 	cur_animation_sen_idx_ = 0;
 	cur_char_idx_ = 0;
 	elapsed_since_last_char_ = 0.0f;
@@ -175,10 +173,6 @@ void Dialog::RegisterKeyEvents() {
 			} else {
 				// proceed to the next line
 				cur_sen_idx_ = std::min(cur_sen_idx_ + 1, (int) scripts_[cur_script_idx_].size() - 1);
-				if (cur_sen_idx_ + TEXT_LINES_PER_BOX >= (int) scripts_[cur_script_idx_].size()) {
-					//exit the current dialog
-					complete_one_script_flag_ = true;
-				}
 			}
 		} else if (key_state.released) {
 			key_state.released = false;
@@ -199,7 +193,8 @@ void Dialog::RegisterKeyEvents() {
 	InputSystem::Instance()->Register(SDLK_x, [this](InputSystem::KeyState &key_state, float elapsed) {
 		if (key_state.pressed) {
 			key_state.pressed = false;
-			if (complete_one_script_flag_) {
+			if (cur_sen_idx_ + TEXT_LINES_PER_BOX >= (int) scripts_[cur_script_idx_].size()) {
+				// complete one script
 				if (cur_script_idx_ == (int) scripts_.size() - 1) {
 					// if there are not other scripts left
 					exit_flag_ = true;
