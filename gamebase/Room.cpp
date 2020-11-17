@@ -13,33 +13,13 @@
 
 #include <iostream>
 
-/**
- * Constructor of a room
- * @param platform_file the position of platforms in this room
- */
-Room::Room(const RoomPrototype& room_prototype):
-room_prototype_(room_prototype),
-camera_(nullptr)
+template <typename T>
+void ClearData(std::vector<T>& data) 
 {
-	camera_.position_ = { 0.0f, 0.0f };
-}
-
-Room::~Room() {
-	for(auto p: platforms_) {
-		delete p;
-	}
-
-	for (AOE *player_AOE : player_AOEs_) {
-		delete player_AOE;
-	}
-
-	for (AOE *monster_AOE : monster_AOEs_) {
-		delete monster_AOE;
-	}
-
-	for (auto *d: dialogs_) {
+	for (T& d : data) {
 		delete d;
 	}
+	data.clear();
 }
 
 template <typename T>
@@ -53,7 +33,30 @@ void GarbageCollect(std::vector<T*>& arr) {
 	}),arr.end());
 }
 
-void Room::Update(float elapsed, Player* player) {
+/**
+ * Constructor of a room
+ * @param platform_file the position of platforms in this room
+ */
+Room::Room(const RoomPrototype& room_prototype):
+room_prototype_(room_prototype),
+camera_(nullptr)
+{
+	camera_.position_ = { 0.0f, 0.0f };
+}
+
+Room::~Room() {
+	ClearData(doors_);
+	ClearData(monsters_);
+	ClearData(player_AOEs_);
+	ClearData(monster_AOEs_);
+	ClearData(platforms_);
+	ClearData(triggers_);
+	ClearData(dialogs_);
+}
+
+void Room::Update(float elapsed, Player* player, Door** cur_door)
+{
+	*cur_door = nullptr;
 	player->Update(elapsed);
 	player->UpdatePhysics(elapsed, platforms_);
 
@@ -86,6 +89,9 @@ void Room::Update(float elapsed, Player* player) {
 
 	for (Door* door : doors_) {
 		door->Update(elapsed);
+		if (door->GetCollider()->IsColliding(*(player->GetCollider()))) {
+			*cur_door = door;
+		}
 	}
 
 	// Garbage collection
@@ -127,21 +133,17 @@ void Room::Draw(DrawSprites& draw_sprite)
 	}
 }
 
-void Room::OnEnter(Player* player)
+void Room::OnEnter(Player* player, Door* door)
 {
-	for (const auto& platform : platforms_) {
-		glm::vec2 lower_left_corner, upper_right_corner;
-		platform->GetCorners(lower_left_corner, upper_right_corner);
-	}
-	
 	room_prototype_.Initialize(this);
-	player->SetPosition({140.0f, 200.0f});
+	player->SetPosition(door->GetPosition());
 }
 
 void Room::OnLeave()
 {
-	for (AOE* monster_AOE : monster_AOEs_) {
-		delete monster_AOE;
-	}
-	monster_AOEs_.clear();
+	ClearData(monster_AOEs_);
+	ClearData(player_AOEs_);
+	ClearData(monsters_);
+	ClearData(dialogs_);
+	cur_dialog = nullptr;
 }

@@ -1,16 +1,11 @@
 #include "Door.hpp"
 
 #include <Load.hpp>
+#include <iostream>
 
 Animation* Door::opened_animation_ { nullptr };
 Animation* Door::opening_animation_ { nullptr };
 Animation* Door::closed_animation_ { nullptr };
-
-Load<void> load_animations(LoadTagLate, [](){
-	Door::opened_animation_ = Animation::GetAnimation("door");
-	Door::opening_animation_ = Animation::GetAnimation("door");
-	Door::closed_animation_ = Animation::GetAnimation("door");
-});
 
 Door::Door(const glm::vec2& position, Door* opposite_door, Room& room, LockStatus lock_status) :
 Entity(kBoundingBox, nullptr),
@@ -30,7 +25,8 @@ lock_status_(lock_status)
 		case LockStatus::UNLOCK:
 		animation_controller_.PlayAnimation(opened_animation_, false, true);
 		break;
-		default:;
+		default:
+		throw std::runtime_error("Unknown lock status: " + std::to_string(static_cast<uint8_t>(lock_status_)));
 	}
 }
 

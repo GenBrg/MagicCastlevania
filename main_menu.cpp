@@ -11,7 +11,6 @@ Load< void > load_main_menu(LoadTagLate, []() {
 	items.emplace_back("Static" ,&sprites->lookup("menu_static"),&sprites->lookup("menu_static"));
 	items.emplace_back("Start", &sprites->lookup("start_button"), &sprites->lookup("start_button_selected"));
 	items.back().on_select = [](MenuMode::Item const&) {
-		main_play = std::make_shared< PlayMode >();
 		Mode::set_current(main_play);
 	};
 	items.back().transform.position_ = glm::vec2(396.0f + 83.0f, 541.0f - (358.0f + 18.0f));

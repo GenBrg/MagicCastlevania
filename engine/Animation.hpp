@@ -50,7 +50,7 @@ private:
 	Animation* animation_ { nullptr };
 	const Sprite* current_sprite_ { nullptr };
 	float time_since_begin_ { 0.0f };
-	float length_;
+	float length_ { 0.0f };
 	bool loop_;
 
 	bool playing_ { false };

@@ -19,8 +19,16 @@ public:
 		CLOSED
 	};
 
-	void SetOppositeDoor(Door* door) { opposite_door_ = door; }
+	void SetOppositeDoor(Door* door) {
+		 opposite_door_ = door; 
+		 door->opposite_door_ = this;
+	}
+
 	void SetLockStatus(LockStatus lock_status) { lock_status_ = lock_status; }
+	Door* GetOppositeDoor() const { return opposite_door_; }
+	LockStatus GetLockStatus() const { return lock_status_; }
+	Room* GetRoom() const { return &room_; }
+	glm::vec2 GetPosition() const { return transform_.position_; }
 
 	void OnOpen();
 

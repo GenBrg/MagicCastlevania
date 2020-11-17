@@ -21,3 +21,4 @@ sprites/Makefile.windows
 .idea
 CMakeLists.txt
 cmake-build-debug/*
+sprites/Makefile.windows

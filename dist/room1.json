@@ -54,7 +54,7 @@
 	"dialogs": [
 		{
 			"trigger_box": [300, 430, 70, 70],
-			"auto_trigger": true,
+			"auto_trigger": false,
 			"hit_time_remain": 0,
 			"interval_between_hit": 1000.0,
 			"contents": [
