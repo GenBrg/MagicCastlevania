@@ -68,9 +68,9 @@ void PlayMode::draw(glm::uvec2 const &window_size) {
 	}
 
 	{
-		if (cur_room->cur_dialog_) {
+		if (cur_room->cur_dialog) {
 			// draw it in the end to put in the front layer
-			cur_room->cur_dialog_->Draw(window_size);
+			cur_room->cur_dialog->Draw(window_size);
 		}
 	}
 	GL_ERRORS();
