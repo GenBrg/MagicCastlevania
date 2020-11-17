@@ -141,7 +141,6 @@ void Room::OnEnter(Player* player, Door* door)
 
 void Room::OnLeave()
 {
-	ClearData(monster_AOEs_);
 	ClearData(player_AOEs_);
 	ClearData(monsters_);
 

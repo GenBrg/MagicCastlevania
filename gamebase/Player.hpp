@@ -70,6 +70,7 @@ public:
 private:
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;
 	MovementComponent movement_component_;
+	Room** room_;
 
 	// int level_ { 1 };
 	int max_hp_ { 100 };

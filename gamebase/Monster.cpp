@@ -44,3 +44,7 @@ Animation* Monster::GetAnimation(AnimationState state)
 {
 	return monster_prototype_.GetAnimation(state);
 }
+
+Monster::~Monster() {
+	collision_aoe_->Destroy();
+}

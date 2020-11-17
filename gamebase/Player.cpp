@@ -13,7 +13,8 @@
 
 Player::Player(Room** room, const glm::vec4 bounding_box) :
 Mob(bounding_box, nullptr),
-movement_component_(collider_, transform_)
+movement_component_(collider_, transform_),
+room_(room)
 {
 	is_monster_ = false;
 
@@ -102,7 +103,7 @@ void Player::SetPosition(const glm::vec2 &pos) {
 
 void Player::Reset() {
 	state_ = State::MOVING;
-	SetPosition(glm::vec2(20.0f, 113.0f));
+	SetPosition((*room_)->GetDoor(0)->GetPosition());
 	hp_ = max_hp_;
 }
 

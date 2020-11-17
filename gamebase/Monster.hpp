@@ -35,4 +35,5 @@ private:
 
 public:
 	// static Monster* CreateTestMonster(const glm::vec4& bounding_box, const glm::vec2& initial_pos, float move_radius, std::string monster_key, Room* room, int body_attack);
+	~Monster();
 };
