@@ -1,11 +1,11 @@
 [
 	{
 		"name": "normal_attack",
-		"bounding_box": [0.0, 0.0, 10.0, 10.0],
+		"bounding_box": [0.0, 0.0, 46.0, 46.0],
 		"animation": null,
 		"velocity": [0.0, 0.0],
 		"duration": 0.5,
-		"initial_offset": [10.0, 10.0],
+		"initial_offset": [15.0, 10.0],
 		"penetrate": true
 	},
 	{

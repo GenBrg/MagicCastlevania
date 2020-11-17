@@ -44,9 +44,11 @@ AOE* AOEPrototype::Create(Room& room, int attack, Transform2D* parent_transform,
 {
 	if (!attach_to_entity) {
 		if (parent_transform) {
-			initial_offset_ += parent_transform->scale_.x * parent_transform->position_;
+			initial_offset_ =  parent_transform->position_ + parent_transform->scale_.x * initial_offset_;
 		}
 		parent_transform = nullptr;
+	} else {
+		initial_offset_ *= parent_transform->scale_.x;
 	}
 
 	AOE* aoe = new AOE(bounding_box_, animation_, velocity_, duration_, attack, initial_offset_, penetrate_, parent_transform);
