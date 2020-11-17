@@ -95,5 +95,5 @@ void PlayMode::GenerateRooms()
 {
 	// Room 0 lobby
 	// Room 1 BOSS room
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create());
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create());
 }
