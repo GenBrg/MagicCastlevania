@@ -17,8 +17,8 @@
 
 #define TEXT_LINES_PER_BOX 3
 #define LINE_HEIGHT 38
-#define FONT_SIZE 2300
-#define FONT_FILE_NAME "ReallyFree-ALwl7.ttf"
+#define FONT_SIZE 1500
+#define FONT_FILE_NAME "DigitalDisco.ttf"
 
 #define ANIMATION_DELAY 0.05f
 
