@@ -16,6 +16,7 @@ Mob(bounding_box, nullptr),
 movement_component_(collider_, transform_),
 room_(room)
 {
+	take_damage_cooldown_ = 1.0f;
 	is_monster_ = false;
 
 	InputSystem::Instance()->Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {

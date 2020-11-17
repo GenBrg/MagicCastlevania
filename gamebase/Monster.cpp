@@ -12,6 +12,7 @@ Monster::Monster(const MonsterPrototype& monster_prototype, const glm::vec4& bou
 Mob(bounding_box, nullptr),
 monster_prototype_(monster_prototype)
 {
+	take_damage_cooldown_ = 0.3f;
 	is_monster_ = true;
 	collision_aoe_ = AOE::CreateMonsterAOE(room, bounding_box, transform_, body_attack);
 }
