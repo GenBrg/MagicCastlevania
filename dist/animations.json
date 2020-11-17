@@ -6,7 +6,7 @@
 	},
 	{
 		"name": "player_idle",
-		"sprite_num": 12,
+		"sprite_num": 24,
 		"interval": 0.1
 	},
 	{
@@ -61,6 +61,31 @@
 	},
 	{
 		"name": "ghost_death",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "vampire_idle",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "vampire_walk",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "vampire_attack",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "vampire_hurt",
+		"sprite_num": 2,
+		"interval": 0.3
+	},
+	{
+		"name": "vampire_death",
 		"sprite_num": 5,
 		"interval": 0.1
 	},
