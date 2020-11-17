@@ -69,26 +69,10 @@
 				"avatar_sprite": "avatar_player"
 			},
 			{
-				"texts": "OK, so there are 4 levels in total\nand each level contains several rooms which\n are connected to each other randomly.",
+				"texts": "Uh-huh! You got the point!\n Enter this door to start your adventure!",
 				"avatar_sprite": "avatar_mage"
-			},
-			{
-				"texts": "One BOSS lives in a special rooom\n protected by a key in each level.\n You need to find the key somewhere in the room\n and defeat the BOSS to proceed to next level.",
-				"avatar_sprite": "avatar_mage"
-			},
-			{
-				"texts": "You might encounter all kinds of monsters,\n items and NPCs during your adventure.",
-				"avatar_sprite": "avatar_mage"
-			},
-			{
-				"texts": "I'll see you in the top level. Good luck!",
-				"avatar_sprite": "avatar_mage"
-			},
-			{
-				"texts": "...OK",
-				"avatar_sprite": "avatar_player"
 			}
 		]
-	}
-]
+		}
+	]
 }
