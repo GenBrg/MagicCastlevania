@@ -129,7 +129,7 @@ void PlayMode::OpenDoor()
 {
 	if (cur_door)
 	{
-		open_door_guard(5.0f, [&]() {
+		open_door_guard(2.0f, [&]() {
 			SwitchRoom(cur_door);
 		});
 	}
