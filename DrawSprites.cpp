@@ -119,7 +119,21 @@ DrawSprites::DrawSprites(
 
 	//DEBUG: std::cout << glm::to_string(to_clip) << std::endl;
 }
-
+void DrawSprites::draw_bounding_box(glm::vec2 const lower_left_corner, glm::vec2 const upper_right_corner) {
+	Transform2D box_transform = Transform2D(nullptr);
+	box_transform.position_ = glm::vec2(lower_left_corner.x, lower_left_corner.y);
+	box_transform.scale_.x = (upper_right_corner.x - lower_left_corner.x) / 100.0f;
+	draw(sprites->lookup("bounding_edge_horizontal"), box_transform);
+	box_transform.position_ = glm::vec2(lower_left_corner.x, upper_right_corner.y);
+	draw(sprites->lookup("bounding_edge_horizontal"), box_transform);
+	box_transform.scale_.x = 1.0f;
+	box_transform.scale_.y = (upper_right_corner.y - lower_left_corner.y) / 100.0f;;
+	box_transform.position_ = glm::vec2(lower_left_corner.x, lower_left_corner.y);
+	draw(sprites->lookup("bounding_edge_vertical"), box_transform);
+	box_transform.position_ = glm::vec2(upper_right_corner.x, lower_left_corner.y);
+	draw(sprites->lookup("bounding_edge_vertical"), box_transform);
+	//std::cout << "Drawing bounding box at (" << lower_left_corner.x << "," << lower_left_corner.y << ") (" << upper_right_corner.x << "," << upper_right_corner.y << ")" << std::endl;
+}
 void DrawSprites::draw(Sprite const &sprite, const Transform2D& transform, glm::u8vec4 const &tint) {
 	glm::vec2 min_tc = sprite.min_px / glm::vec2(atlas.tex_size);
 	glm::vec2 max_tc = sprite.max_px / glm::vec2(atlas.tex_size);

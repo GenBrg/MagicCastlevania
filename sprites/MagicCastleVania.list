@@ -1,3 +1,5 @@
+"MagicCastleVania.xcf?bounding_edge_horizontal" 0 0 +100 +2 0 +2 bounding_edge_horizontal
+"MagicCastleVania.xcf?bounding_edge_vertical" 0 0 +2 +100 0 +100 bounding_edge_vertical
 "MagicCastleVania.xcf?menu_static" 0 0 960 541 +0 +541 menu_static
 "MagicCastleVania.xcf?start_button" 396 358 +167 +36 +83 +18 start_button
 "MagicCastleVania.xcf?start_button_selected" 396 358 +167 +36 +83 +18 start_button_selected

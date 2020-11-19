@@ -26,6 +26,8 @@ struct DrawSprites {
 
 	//Add more sprites to draw:
 	void draw(Sprite const &sprite, const Transform2D& transform, glm::u8vec4 const &tint = glm::u8vec4(0xff, 0xff, 0xff, 0xff));
+	//draw a bounding box for debuging purpose:
+	void draw_bounding_box(glm::vec2 lower_left_corner, glm::vec2 upper_right_corner);
 
 	//Actually draws the sprites on deallocation:
 	~DrawSprites();

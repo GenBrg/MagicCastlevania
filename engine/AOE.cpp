@@ -1,6 +1,6 @@
 #include "AOE.hpp"
 #include "../gamebase/Room.hpp"
-
+#include "../DrawLines.hpp"
 #include "../Util.hpp"
 
 AOE::AOE(const glm::vec4& box, Animation* animation, const glm::vec2& velocity, float duration, int attack, const glm::vec2& initial_pos, bool penetrate,
@@ -68,6 +68,11 @@ void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_que
 void AOE::Draw(DrawSprites& draw) const
 {
 	animation_controller_.Draw(draw);
+	// Debug draw bounding box
+	glm::vec2 lower_left_corner = glm::vec2(0.0f, 0.0f);
+	glm::vec2 upper_right_corner = glm::vec2(0.0f, 0.0f);
+	collider_.GetCorners(lower_left_corner, upper_right_corner);
+	draw.draw_bounding_box(lower_left_corner, upper_right_corner);
 }
 
 AOE* AOE::CreateMonsterAOE(Room& room, const glm::vec4& bounding_box, Transform2D& transform, int attack)
