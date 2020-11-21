@@ -4,7 +4,7 @@
 #include "../Util.hpp"
 
 AOE::AOE(const glm::vec4& box, Animation* animation, const glm::vec2& velocity, float duration, int attack, const glm::vec2& initial_pos, bool penetrate,
- Transform2D* parent_transform) :
+ bool face_right, Transform2D* parent_transform) :
 transform_(parent_transform),
 collider_(box, &transform_),
 velocity_(velocity),
@@ -13,6 +13,13 @@ animation_controller_(&transform_),
 attack_(attack),
 penetrate_(penetrate)
 {
+	if (!face_right) {
+		velocity_.x = -velocity_.x;
+		collider_.SetBoundingBox(glm::vec4(-box[2], box[1], box[0], box[3]));
+		if (!parent_transform) {
+			transform_.scale_.x = -1.0f;
+		}
+	}
 	transform_.position_ = initial_pos;
 	animation_controller_.PlayAnimation(animation, false);
 }
@@ -22,6 +29,8 @@ void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_que
 	if (IsDestroyed()) {
 		return;
 	}
+
+	animation_controller_.Update(elapsed);
 
 	if (velocity_.x == 0.0f && velocity_.y == 0.0f) {
 		// Static collision detection

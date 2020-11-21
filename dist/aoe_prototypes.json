@@ -12,7 +12,7 @@
 		"name": "remote_attack",
 		"bounding_box": [0.0, 0.0, 15.0, 15.0],
 		"animation": "fire",
-		"velocity": [10.0, 0.0],
+		"velocity": [100.0, 0.0],
 		"duration": 3.0,
 		"initial_offset": [10.0, 10.0],
 		"penetrate": true

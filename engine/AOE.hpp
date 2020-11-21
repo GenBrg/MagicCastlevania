@@ -35,9 +35,11 @@ private:
 	 * @param attack The power of the AOE.
 	 * @param initial_pos The initial offset from the parent_transform or world origin.
 	 * @param penetrate If the AOE can pierce through entities.
+	 * @param face_right If the AOE is facing right.
 	 * @param parent_transform The transform the AOE is moving with.
 	 */
-	AOE(const glm::vec4& box, Animation* animation, const glm::vec2& velocity, float duration, int attack, const glm::vec2& initial_pos, bool penetrate, Transform2D* parent_transform = nullptr);
+	AOE(const glm::vec4& box, Animation* animation, const glm::vec2& velocity, float duration, int attack, const glm::vec2& initial_pos,
+	 bool penetrate, bool face_right, Transform2D* parent_transform = nullptr);
 
 	Transform2D transform_;
 	Collider collider_;

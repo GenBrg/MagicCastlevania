@@ -8,9 +8,7 @@
 Collider::Collider(const glm::vec4& bounding_box, Transform2D* transform) :
 bounding_box_(bounding_box),
 transform_(transform)
-{
-
-}
+{ }
 
 bool Collider::IsColliding(const Collider& other_collider)
 {

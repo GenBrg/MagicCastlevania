@@ -39,9 +39,21 @@ public:
 	 */
 	bool DynamicCollisionQuery(const Collider& other_collider, const glm::vec2& delta_position, glm::vec2& contact_point, glm::vec2& contact_normal, float& time);
 
+	/** Get the absolute position of the bounding box after transformation.
+	 *  @param lower_left_corner The lower left corner position of the bounding box.
+	 *  @param upper_right_corner The upper right corner position of the bounding box.
+	 */
 	void GetCorners(glm::vec2& lower_left_corner, glm::vec2& upper_right_corner) const;
 
+	/** Get the relative bounding box to the anchor point.
+	 *  @return Relative bounding box to the anchor point.
+	 */
 	glm::vec4 GetBoundingBox() const;
+
+	/** Set the relative bounding box to the anchor point.
+	 * @param Relative bounding box to the anchor point.
+	 */
+	void SetBoundingBox(const glm::vec4& bounding_box) { bounding_box_ = bounding_box; }  
 
 private:
 	glm::vec4 bounding_box_;

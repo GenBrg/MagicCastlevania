@@ -44,16 +44,20 @@ void AOEPrototype::LoadConfig(const std::string& config_file)
 
 AOE* AOEPrototype::Create(Room& room, int attack, Transform2D* parent_transform, bool is_monster, bool attach_to_entity)
 {
+	bool face_right = true;
+	glm::vec2 initial_offset = initial_offset_;
 	if (!attach_to_entity) {
 		if (parent_transform) {
-			initial_offset_ =  parent_transform->position_ + parent_transform->scale_.x * initial_offset_;
+			initial_offset =  parent_transform->GetTranslationMat_r() * glm::vec3(initial_offset, 1.0f);
+			face_right = parent_transform->scale_.x > 0.0f;
 		}
 		parent_transform = nullptr;
 	} else {
-		initial_offset_ *= parent_transform->scale_.x;
+		face_right = parent_transform->scale_.x > 0.0f;
+		initial_offset *= parent_transform->scale_.x;
 	}
 
-	AOE* aoe = new AOE(bounding_box_, animation_, velocity_, duration_, attack, initial_offset_, penetrate_, parent_transform);
+	AOE* aoe = new AOE(bounding_box_, animation_, velocity_, duration_, attack, initial_offset, penetrate_, face_right, parent_transform);
 	if (is_monster) {
 		room.AddMonsterAOE(aoe);
 	} else {
