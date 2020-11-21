@@ -37,21 +37,12 @@
 	],
 	"items": [],
 	"doors": [
-		{
-			"position": [150, 194],
-			"lock_status": "open"
-		},
-		{
-			"position": [90, 491],
-			"lock_status": "close"
-		},
-		{
-			"position": [798, 491],
-			"lock_status": "locked"
-		}
+		[150, 194],
+		[90, 491],
+		[798, 491]
 	],
 	"background_sprite": "room_3_bg",
-	"dialogs":[
+	"dialogs": [
 		{
 			"trigger_box": [0, 0, 960, 540],
 			"auto_trigger": true,

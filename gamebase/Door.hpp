@@ -11,20 +11,18 @@
  * @author Jiasheng Zhou
  */
 class Door : public Entity {
-	friend struct DoorInfo;
 public:
 	enum LockStatus : uint8_t {
 		UNLOCK = 0,
-		LOCKED,
+		NORMAL_LOCKED,
+		SPECIAL_LOCKED,
 		CLOSED
 	};
 
-	void SetOppositeDoor(Door* door) {
-		 opposite_door_ = door; 
-		 door->opposite_door_ = this;
-	}
+	static Door* Create(Room& room, const glm::vec2& position);
 
-	void SetLockStatus(LockStatus lock_status) { lock_status_ = lock_status; }
+	void ConnectTo(Door* opposite_door, LockStatus lock_type);
+	void SetLockStatus(LockStatus lock_status);
 	Door* GetOppositeDoor() const { return opposite_door_; }
 	LockStatus GetLockStatus() const { return lock_status_; }
 	Room* GetRoom() const { return &room_; }
@@ -54,12 +52,4 @@ private:
 	 * @param lock_status The lock status of the door.
 	 */
 	Door(const glm::vec2& position, Door* opposite_door, Room& room, LockStatus lock_status);
-};
-
-struct DoorInfo {
-	glm::vec2 position_;
-	Door::LockStatus lock_status_;
-
-	friend void from_json(const json& j, DoorInfo& door_info);
-	Door* Create(Room& room) const;
 };

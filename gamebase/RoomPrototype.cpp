@@ -53,7 +53,7 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 		}
 
 		for (const auto& door_json : j.at("doors")) {
-			room_prototype.doors_.push_back(door_json.get<DoorInfo>());
+			room_prototype.doors_.push_back(util::AssetSpaceToGameSpace(door_json.get<glm::vec2>()));
 		}
 
 		room_prototype.background_sprite_ = &(sprites->lookup(j.at("background_sprite").get<std::string>()));
@@ -93,8 +93,8 @@ Room* RoomPrototype::Create() const
 				  dialog_info.interval_between_hit_, OnTrigger);
 	}
 
-	for (const auto& doorinfo : doors_) {
-		doorinfo.Create(*room);
+	for (const auto& door_position : doors_) {
+		Door::Create(*room, door_position);
 	}
 
 	return room;

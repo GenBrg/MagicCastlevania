@@ -33,22 +33,10 @@
 	],
 	"items": [],
 	"doors": [
-		{
-			"position": [129, 91],
-			"lock_status": "open"
-		},
-		{
-			"position": [893, 140],
-			"lock_status": "open"
-		},
-		{
-			"position": [63, 428],
-			"lock_status": "locked"
-		},
-		{
-			"position": [848, 428],
-			"lock_status": "close"
-		}
+		[129, 91],
+		[893, 140],
+		[63, 428],
+		[848, 428]
 	],
 	"background_sprite": "room_1_bg",
 	"dialogs": [

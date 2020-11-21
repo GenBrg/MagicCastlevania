@@ -80,5 +80,5 @@ private:
 	std::vector<MonsterInfo> monsters_;
 	std::vector<Trap> traps_;
 	std::vector<DialogInfo> dialog_infos_;
-	std::vector<DoorInfo> doors_;
+	std::vector<glm::vec2> doors_;
 };

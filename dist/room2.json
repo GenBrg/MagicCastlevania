@@ -14,64 +14,55 @@
 	"monsters": [],
 	"items": [],
 	"doors": [
-		{
-			"position": [160, 357],
-			"lock_status": "open"
-		},
-		{
-			"position": [480, 126],
-			"lock_status": "close"
-		},
-		{
-			"position": [800, 357],
-			"lock_status": "locked"
-		}
+		[160, 357],
+		[480, 126],
+		[800, 357]
 	],
 	"background_sprite": "room_2_bg",
-	"dialogs":[
+	"dialogs": [
 		{
-		"trigger_box": [0, 0, 960, 540],
-		"auto_trigger": true,
-		"hit_time_remain": 1,
-		"interval_between_hit": 10.0,
-		"contents": [
-			{
-				"texts": "Hey, wake up!",
-				"avatar_sprite": "avatar_mage"
-			},
-			{
-				"texts": "...Who am I? Where am I?",
-				"avatar_sprite": "avatar_player"
-			},
-			{
-				"texts": "Thank god you wake up!\n You are in the castle of Dracula and the sun\n is covered by the castle!",
-				"avatar_sprite": "avatar_mage"
-			},
-			{
-				"texts": "You are the chosen warrior to defeat\n Dracula and save the world!",
-				"avatar_sprite": "avatar_mage"
-			},
-			{
-				"texts": "Wait, what?\nNo way!\nAm I in the dream?",
-				"avatar_sprite": "avatar_player"
-			},
-			{
-				"texts": "(bites finger)\nOooouch!",
-				"avatar_sprite": "avatar_player"
-			},
-			{
-				"texts": "Are you alright?\n",
-				"avatar_sprite": "avatar_mage"
-			},
-			{
-				"texts": "I guess yes...\nBut wait, how am I supposed to get out of here?!",
-				"avatar_sprite": "avatar_player"
-			},
-			{
-				"texts": "Uh-huh! You got the point!\n Enter this door to start your adventure!",
-				"avatar_sprite": "avatar_mage"
-			}
-		]
+			"trigger_box": [0, 0, 960, 540],
+			"auto_trigger": true,
+			"hit_time_remain": 1,
+			"interval_between_hit": 10.0,
+			"contents": [
+				{
+					"texts": "Hey, wake up!",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "...Who am I? Where am I?",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "Thank god you wake up!\n You are in the castle of Dracula and the sun\n is covered by the castle!",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "You are the chosen warrior to defeat\n Dracula and save the world!",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "Wait, what?\nNo way!\nAm I in the dream?",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "(bites finger)\nOooouch!",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "Are you alright?\n",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "I guess yes...\nBut wait, how am I supposed to get out of here?!",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "Uh-huh! You got the point!\n Enter this door to start your adventure!",
+					"avatar_sprite": "avatar_mage"
+				}
+			]
 		}
 	]
 }
