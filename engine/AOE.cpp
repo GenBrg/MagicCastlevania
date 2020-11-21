@@ -86,14 +86,14 @@ void AOE::Draw(DrawSprites& draw) const
 
 AOE* AOE::CreateMonsterAOE(Room& room, const glm::vec4& bounding_box, Transform2D& transform, int attack)
 {
-	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack, glm::vec2(0.0f, 0.0f), true, &transform);
+	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack, glm::vec2(0.0f, 0.0f), true, true, &transform);
 	room.AddMonsterAOE(aoe);
 	return aoe;
 }
 
 AOE* AOE::CreateMapAOE(Room& room, const glm::vec4& bounding_box, int attack)
 {
-	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack, glm::vec2(0.0f, 0.0f), true, nullptr);
+	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack, glm::vec2(0.0f, 0.0f), true, true, nullptr);
 	room.AddMonsterAOE(aoe);
 	return aoe;
 }
