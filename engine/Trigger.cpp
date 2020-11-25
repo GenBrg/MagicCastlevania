@@ -9,21 +9,6 @@ Trigger* Trigger::Create(Room& room, const glm::vec4& bounding_box, Transform2D*
 	return trigger;
 }
 
-void Trigger::OnTrigger()
-{
-	if (IsDestroyed()) {
-		return;
-	}
-
-	trigger_guard_(interval_between_hit_, [&](){
-		on_trigger_();
-
-		if (--hit_time_remain_ == 0) {
-			Destroy();
-		}
-	});
-}
-
 void Trigger::UpdateImpl(float elapsed)
 {
 
@@ -32,6 +17,28 @@ void Trigger::UpdateImpl(float elapsed)
 void Trigger::DrawImpl(DrawSprites& draw)
 {
 
+}
+
+void Trigger::UpdatePhysics(const Collider& collider_to_consider)
+{
+	if (IsDestroyed()) {
+		return;
+	}
+
+	if (GetCollider()->IsColliding(collider_to_consider)) {
+		if (!is_triggering_) {
+			on_trigger_();
+			is_triggering_ = true;
+			if (--hit_time_remain_ <= 0) {
+				Destroy();
+			}
+		}
+	} else {
+		if (is_triggering_) {
+			on_leave_();
+			is_triggering_ = false;
+		}
+	}
 }
 
 Trigger::Trigger(const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain, float interval_between_hit, const std::function<void()>& on_trigger) :

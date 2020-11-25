@@ -3,7 +3,6 @@
 #include "Entity.hpp"
 #include "../DrawSprites.hpp"
 #include "../gamebase/Room.hpp"
-#include "TimerGuard.hpp"
 
 #include <functional>
 
@@ -20,10 +19,7 @@ public:
 	 *  @param on_trigger_ The callback when player moves on to the trigger.
 	 */
 	static Trigger* Create(Room& room, const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain, float interval_between_hit, const std::function<void()>& on_trigger_);
-
-	/** Called by controller when it hits the player.
-	 */
-	void OnTrigger();
+	void UpdatePhysics(const Collider& collider_to_consider);
 
 private:
 	virtual void UpdateImpl(float elapsed) override;
@@ -31,9 +27,9 @@ private:
 
 	int hit_time_remain_;
 	std::function<void()> on_trigger_;
+	std::function<void()> on_leave_;
 	float interval_between_hit_;
-
-	TimerGuard trigger_guard_;
+	bool is_triggering_ { false };
 
 	Trigger(const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain, float interval_between_hit, const std::function<void()>& on_trigger);
 };
