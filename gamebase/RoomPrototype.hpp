@@ -69,6 +69,7 @@ public:
 	static void LoadConfig(const std::string &room_list_file);
 
 	static RoomPrototype *GetRoomPrototype(const std::string &room_name) { return &(prototypes_.at(room_name)); };
+	static size_t GetRoomPrototypeNum() { return prototypes_.size(); }
 
 	RoomPrototype() = default;
 

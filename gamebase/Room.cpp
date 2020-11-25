@@ -81,10 +81,10 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 		}) });
 	}
 
-	for (Trigger* trigger : triggers_) {
-		if (trigger->GetCollider()->IsColliding(*(player->GetCollider()))) {
-			trigger->OnTrigger();
-		}
+	for (Trigger* trigger : triggers_) 
+	{
+		Collider& player_collider = *(player->GetCollider());
+		trigger->UpdatePhysics(player_collider);
 	}
 
 	for (Door* door : doors_) {

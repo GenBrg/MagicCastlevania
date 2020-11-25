@@ -13,8 +13,6 @@
 #include <vector>
 #include <deque>
 
-
-
 struct PlayMode : Mode {
 	PlayMode();
 	virtual ~PlayMode();
@@ -27,6 +25,16 @@ struct PlayMode : Mode {
 	void SwitchRoom(Door* door);
 	void ProceedLevel();
 	void GenerateRooms();
+
+	/**
+	 * Recursively generate rooms in a tree structure way.
+	 * @param special If the room is special room or normal room.
+	 * @param room_id The type id of the room.
+	 * @param remaining_room Remaining rooms to be generated in the tree of rooms which rooted at the room.
+	 * @param depth Current depth of the room which can be useful to generate different types of rooms at different depth.
+	 * @return The door the newly generated room uses to connect to the parent room.
+	 */
+	Door* GenerateRoomsHelper(bool special, int room_id, int remaining_room, int depth);
 	void OpenDoor();
 
 	//----- game state -----
