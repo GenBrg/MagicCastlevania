@@ -16,9 +16,12 @@ public:
 	 *  @param bounding_box The collision area of the trigger.
 	 *  @param transform The parent transform of the trigger.
 	 *  @param hit_time_remain How many times the trigger can be triggered. 0 or negative number will result in infinite times.
-	 *  @param on_trigger_ The callback when player moves on to the trigger.
+	 *  @param on_enter_ The callback when player moves on to the trigger.
 	 */
-	static Trigger* Create(Room& room, const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain, float interval_between_hit, const std::function<void()>& on_trigger_);
+	static Trigger* Create(Room& room, const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain);
+	void SetOnEnter(const std::function<void()>& on_enter) { on_enter_ = on_enter; }
+	void SetOnLeave(const std::function<void()>& on_leave) { on_leave_ = on_leave; }
+
 	void UpdatePhysics(const Collider& collider_to_consider);
 
 private:
@@ -26,10 +29,10 @@ private:
 	virtual void DrawImpl(DrawSprites& draw) override;
 
 	int hit_time_remain_;
-	std::function<void()> on_trigger_;
+	std::function<void()> on_enter_;
 	std::function<void()> on_leave_;
-	float interval_between_hit_;
+
 	bool is_triggering_ { false };
 
-	Trigger(const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain, float interval_between_hit, const std::function<void()>& on_trigger);
+	Trigger(const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain);
 };

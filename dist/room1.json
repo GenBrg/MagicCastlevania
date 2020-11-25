@@ -44,7 +44,6 @@
 			"trigger_box": [74, 13, 70, 70],
 			"auto_trigger": true,
 			"hit_time_remain": 1,
-			"interval_between_hit": 10000.0,
 			"contents": [
 				{
 					"texts": "Ahh! Two ghosts out there!\nTry to defeat them!\nRemember press J to attack!\nAre you ready?",

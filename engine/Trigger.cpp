@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-Trigger* Trigger::Create(Room& room, const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain, float interval_between_hit, const std::function<void()>& on_trigger_)
+Trigger* Trigger::Create(Room& room, const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain)
 {
-	Trigger* trigger = new Trigger(bounding_box, transform, hit_time_remain, interval_between_hit, on_trigger_);
+	Trigger* trigger = new Trigger(bounding_box, transform, hit_time_remain);
 	room.AddTrigger(trigger);
 	return trigger;
 }
@@ -27,7 +27,7 @@ void Trigger::UpdatePhysics(const Collider& collider_to_consider)
 
 	if (GetCollider()->IsColliding(collider_to_consider)) {
 		if (!is_triggering_) {
-			on_trigger_();
+			on_enter_();
 			is_triggering_ = true;
 			if (--hit_time_remain_ <= 0) {
 				Destroy();
@@ -41,11 +41,7 @@ void Trigger::UpdatePhysics(const Collider& collider_to_consider)
 	}
 }
 
-Trigger::Trigger(const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain, float interval_between_hit, const std::function<void()>& on_trigger) :
+Trigger::Trigger(const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain) :
 Entity(bounding_box, transform),
-hit_time_remain_(hit_time_remain),
-on_trigger_(on_trigger),
-interval_between_hit_(interval_between_hit)
-{
-
-}
+hit_time_remain_(hit_time_remain)
+{}

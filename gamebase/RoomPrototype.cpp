@@ -89,8 +89,8 @@ Room* RoomPrototype::Create() const
 			room->cur_dialog = dialog;
 		};
 		// create Trigger
-		Trigger::Create(*room, dialog_info.trigger_box_,nullptr, dialog_info.hit_time_remain_,
-				  dialog_info.interval_between_hit_, OnTrigger);
+		Trigger* trigger = Trigger::Create(*room, dialog_info.trigger_box_,nullptr, dialog_info.hit_time_remain_);
+		trigger->SetOnEnter(OnTrigger);
 	}
 
 	for (const auto& door_position : doors_) {
