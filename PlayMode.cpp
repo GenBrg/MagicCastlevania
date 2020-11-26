@@ -178,7 +178,7 @@ Door *PlayMode::GenerateRoomsHelper(bool special, int room_id, int remaining_roo
 
 void PlayMode::OpenDoor()
 {
-	open_door_guard(0.5f, [&]() {
+	open_door_guard(0.6f, [&]() {
 		if (cur_door)
 		{
 			switch (cur_door->GetLockStatus()) {
