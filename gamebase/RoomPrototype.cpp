@@ -39,6 +39,10 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 			room_prototype.platforms_.push_back(util::AssetSpaceToGameSpace(platform_json.get<glm::vec4>()));
 		}
 
+		for (const auto& platform_json : j.at("one_sided_platforms")) {
+			room_prototype.one_sided_platforms_.push_back(util::AssetSpaceToGameSpace(platform_json.get<glm::vec4>()));
+		}
+
 		for (const auto &monster_json : j.at("monsters")) {
 			room_prototype.monsters_.push_back(monster_json.get<MonsterInfo>());
 		}
@@ -69,6 +73,12 @@ Room* RoomPrototype::Create() const
 
 	for (const auto &platform : platforms_) {
 		room->platforms_.emplace_back(new Collider(platform, nullptr));
+	}
+
+	for (const auto &platform : one_sided_platforms_) {
+		Collider* collider = new Collider(platform, nullptr);
+		collider->SetOneSided(true);
+		room->platforms_.emplace_back(collider);
 	}
 
 	for (const auto &trap : traps_) {

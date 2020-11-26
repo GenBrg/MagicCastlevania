@@ -76,6 +76,7 @@ private:
 
 	const Sprite *background_sprite_;
 	std::vector<glm::vec4> platforms_;
+	std::vector<glm::vec4> one_sided_platforms_;
 	std::vector<MonsterInfo> monsters_;
 	std::vector<Trap> traps_;
 	std::vector<DialogInfo> dialog_infos_;

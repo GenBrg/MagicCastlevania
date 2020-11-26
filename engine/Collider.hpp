@@ -55,7 +55,13 @@ public:
 	 */
 	void SetBoundingBox(const glm::vec4& bounding_box) { bounding_box_ = bounding_box; }  
 
+	/** Set if the collider can only detect dynamic collision from above to below.
+	 *  @param one_sided True if the collider can only detect dynamic collision from above to below.
+	 */
+	void SetOneSided(bool one_sided) { one_sided_ = one_sided; }
+
 private:
 	glm::vec4 bounding_box_;
 	Transform2D transform_;
+	bool one_sided_ { false };
 };
