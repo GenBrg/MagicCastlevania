@@ -1,6 +1,8 @@
 #include "Door.hpp"
 
 #include <Load.hpp>
+#include <engine/Timer.hpp>
+
 #include <iostream>
 
 Animation* Door::opened_animation_ { nullptr };
@@ -19,12 +21,16 @@ animation_controller_(&transform_)
 
 void Door::UpdateImpl(float elapsed)
 {
-	animation_controller_.Update(elapsed);
+	if (lock_status_ != LockStatus::CLOSED) {
+		animation_controller_.Update(elapsed);
+	}
 }
 
 void Door::DrawImpl(DrawSprites& draw)
 {
-	animation_controller_.Draw(draw);
+	if (lock_status_ != LockStatus::CLOSED) {
+		animation_controller_.Draw(draw);
+	}
 }
 
 Door* Door::Create(Room& room, const glm::vec2& position)
@@ -38,14 +44,27 @@ void Door::SetLockStatus(LockStatus lock_status)
 {
 	lock_status_ = lock_status;
 	switch (lock_status_) {
-		case LockStatus::CLOSED:
-		animation_controller_.PlayAnimation(closed_animation_, false, true);
+		case LockStatus::OPENED:
+		animation_controller_.PlayAnimation(opened_animation_, false, true);
 		break;
 		case LockStatus::NORMAL_LOCKED:
 		animation_controller_.PlayAnimation(closed_animation_, false, true);
 		break;
+		case LockStatus::SPECIAL_LOCKED:
+		animation_controller_.PlayAnimation(closed_animation_, false, true);
+		break;
 		case LockStatus::UNLOCK:
-		animation_controller_.PlayAnimation(opened_animation_, false, true);
+		animation_controller_.PlayAnimation(closed_animation_, false, true);
+		break;
+		case LockStatus::OPENING:
+		animation_controller_.PlayAnimation(opening_animation_, false, true);
+		TimerManager::Instance().AddTimer(Door::opening_animation_->GetLength(), [&](){
+			if (lock_status_ == LockStatus::OPENING) {
+				SetLockStatus(Door::LockStatus::OPENED);
+			}
+		});
+		break;
+		case LockStatus::CLOSED:
 		break;
 		default:
 		throw std::runtime_error("Unknown lock status: " + std::to_string(static_cast<uint8_t>(lock_status_)));

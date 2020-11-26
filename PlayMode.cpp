@@ -94,10 +94,11 @@ void PlayMode::draw(glm::uvec2 const &window_size)
 
 void PlayMode::SwitchRoom(Door *door)
 {
-	if (door->GetOppositeDoor() && door->GetLockStatus() == Door::LockStatus::UNLOCK)
+	if (door->GetOppositeDoor() && door->GetLockStatus() == Door::LockStatus::OPENED)
 	{
 		cur_room->OnLeave();
 		Door *opposite_door = door->GetOppositeDoor();
+		opposite_door->SetLockStatus(Door::LockStatus::OPENED);
 		cur_room = opposite_door->GetRoom();
 		cur_room->OnEnter(player, opposite_door);
 	}
@@ -152,7 +153,8 @@ Door *PlayMode::GenerateRoomsHelper(bool special, int room_id, int remaining_roo
 			if (i != connecting_door_idx)
 			{
 				int sub_room_id = -1;
-				do {
+				do
+				{
 					sub_room_id = 1 + static_cast<int>(room_type_num * Random::Instance()->Generate());
 				} while (sub_room_id == room_id);
 
@@ -176,10 +178,18 @@ Door *PlayMode::GenerateRoomsHelper(bool special, int room_id, int remaining_roo
 
 void PlayMode::OpenDoor()
 {
-	if (cur_door)
-	{
-		open_door_guard(2.0f, [&]() {
-			SwitchRoom(cur_door);
-		});
-	}
+	open_door_guard(0.5f, [&]() {
+		if (cur_door)
+		{
+			switch (cur_door->GetLockStatus()) {
+				case Door::LockStatus::UNLOCK:
+					cur_door->SetLockStatus(Door::LockStatus::OPENING);
+				break;
+				case Door::LockStatus::OPENED:
+					SwitchRoom(cur_door);
+				break;
+				default:;
+			}
+		}
+	});
 }

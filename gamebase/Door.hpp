@@ -14,6 +14,7 @@ class Door : public Entity {
 public:
 	enum LockStatus : uint8_t {
 		UNLOCK = 0,
+		OPENING,
 		OPENED,
 		NORMAL_LOCKED,
 		SPECIAL_LOCKED,
