@@ -3,6 +3,7 @@
 	"attack": 10,
 	"defense": 10,
 	"bounding_box": [-15.0, 0.0, 15.0, 53.0],
+	"invulnerable_time": 1.0,
 	"movement": {
 		"max_horizontal_speed": 200.0,
 		"max_vertical_speed": 1000.0,

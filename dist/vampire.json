@@ -5,6 +5,7 @@
 	"defense": 5,
 	"speed": 50.0,
 	"exp": 50,
+	"invulnerable_time": 0.2,
 	"bounding_box": [-26.0, 0.0, 26.0, 86.0],
 	"item": {
 		"necklace": 0.05,

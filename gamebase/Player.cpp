@@ -123,6 +123,7 @@ Player* Player::Create(Room** room, const std::string& player_config_file)
 	player->hp_ = j.at("hp").get<int>();
 	player->attack_ = j.at("attack").get<int>();
 	player->defense_ = j.at("defense").get<int>();
+	player->take_damage_cooldown_ = j.at("invulnerable_time").get<float>();
 
 	auto& movement_component_json = j.at("movement");
 	player->movement_component_.SetMaxGroundSpeed(movement_component_json.at("max_horizontal_speed").get<float>());
