@@ -35,8 +35,7 @@ void HeadsUpDisplay::Draw(DrawSprites& draw_sprite) const {
 			continue;
 		}
         skill_transform.position_ += glm::vec2(0.0f, -80.0f);
-		if(attack.GetCoolDownLeftPercent() < 1e-3) {
-			draw_sprite.draw(*(attack.GetIconSprite()), skill_transform);
-		}
+		uint8_t alpha = 0xff * (1.0f - attack.GetCoolDownLeftPercent());
+		draw_sprite.draw(*(attack.GetIconSprite()), skill_transform, glm::u8vec4(0xff, 0xff, 0xff, alpha));
 	}
 }
