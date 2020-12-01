@@ -15,6 +15,8 @@ public:
 	 */
 	bool operator()(float cooldown, const std::function<void()>& fn);
 
+	float SecsUntilNextCall() const;
+
 private:
 	std::chrono::high_resolution_clock::time_point next_call_time_;
 };

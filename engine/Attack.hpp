@@ -19,7 +19,7 @@ public:
 
 	bool Execute(Room& room, int attack, Transform2D& transform, bool is_monster);
 	Animation* GetAnimation() const { return mob_animation_; }
-	float GetCoolDown() const { return cooldown_; }
+	float GetCoolDownLeftPercent() const { return guard_.SecsUntilNextCall() / cooldown_; }
 	const Sprite* GetIconSprite() const { return icon_sprite_; }
 
 	friend void from_json(const json& j, Attack& attack);
