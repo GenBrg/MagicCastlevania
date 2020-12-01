@@ -15,6 +15,6 @@ bool TimerGuard::operator()(float cooldown, const std::function<void()>& fn)
 
 float TimerGuard::SecsUntilNextCall() const {
     auto interval = next_call_time_ - std::chrono::high_resolution_clock::now();
-    float res = std::chrono::duration_cast<std::chrono::milliseconds>(interval).count();
+    float res = (float)std::chrono::duration_cast<std::chrono::milliseconds>(interval).count();
     return res > 0.0f ? (float)res * 1e-3 : 0.0f;
 }
