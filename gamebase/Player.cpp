@@ -151,3 +151,7 @@ Animation* Player::GetAnimation(AnimationState state)
 {
 	return animations_[state];
 }
+
+std::vector<Attack> Player::GetAttackInfo() const {
+    return skills_;
+}

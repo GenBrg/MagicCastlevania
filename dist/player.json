@@ -25,6 +25,7 @@
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "normal_attack",
+			"icon": "avatar_mage",
 			"cooldown": 0.6,
 			"attach_to_entity": true
 		}

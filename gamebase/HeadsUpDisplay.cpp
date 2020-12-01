@@ -27,4 +27,16 @@ void HeadsUpDisplay::Draw(DrawSprites& draw_sprite) const {
 		hp_curr_transform.position_ += glm::vec2(1.0f, 0.0f);
 	}
 	draw_sprite.draw(sprites->lookup("hp_corner2"), hp_curr_transform);
+
+	Transform2D skill_transform = Transform2D(nullptr);
+	skill_transform.position_ = hp_bar_transform_.position_ + glm::vec2(30.0f, 0.0f);
+	for(auto attack: player_->GetAttackInfo()) {
+		if (attack.GetIconSprite() == nullptr) {
+			continue;
+		}
+        skill_transform.position_ += glm::vec2(0.0f, -80.0f);
+		if(attack.GetCoolDownLeftPercent() < 1e-3) {
+			draw_sprite.draw(*(attack.GetIconSprite()), skill_transform);
+		}
+	}
 }

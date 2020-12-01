@@ -66,6 +66,7 @@ public:
 	void Reset();
 
 	static Player* Create(Room** room, const std::string& player_config_file);
+	std::vector<Attack> GetAttackInfo() const;
 
 private:
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;
