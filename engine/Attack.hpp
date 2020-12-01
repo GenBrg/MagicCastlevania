@@ -4,6 +4,7 @@
 #include <engine/TimerGuard.hpp>
 #include <engine/Transform2D.hpp>
 #include <gamebase/Room.hpp>
+#include <DrawSprites.hpp>
 #include <Util.hpp>
 
 class Attack {
@@ -18,6 +19,8 @@ public:
 
 	bool Execute(Room& room, int attack, Transform2D& transform, bool is_monster);
 	Animation* GetAnimation() const { return mob_animation_; }
+	float GetCoolDown() const { return cooldown_; }
+	const Sprite* GetIconSprite() const { return icon_sprite_; }
 
 	friend void from_json(const json& j, Attack& attack);
 
@@ -26,6 +29,7 @@ private:
 	AOEPrototype* aoe_prototype_;
 	float cooldown_;
 	bool attach_to_entity_;
+	const Sprite* icon_sprite_;
 
 	TimerGuard guard_;
 };
