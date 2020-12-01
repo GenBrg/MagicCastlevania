@@ -1,5 +1,7 @@
 #include "Attack.hpp"
 
+#include <Util.hpp>
+
 bool Attack::Execute(Room& room, int attack, Transform2D& transform, bool is_monster)
 {
 	return guard_(cooldown_, [&](){
@@ -13,4 +15,9 @@ void from_json(const json& j, Attack& attack)
 	attack.aoe_prototype_ = AOEPrototype::GetAOEPrototype(j.at("aoe_prototype"));
 	attack.cooldown_ = j.at("cooldown");
 	attack.attach_to_entity_ = j.at("attach_to_entity");
+	if (j.contains("icon")) {
+		attack.icon_sprite_ = &(sprites->lookup(j.at("icon").get<std::string>()));
+	} else {
+		attack.icon_sprite_ = nullptr;
+	}
 }
