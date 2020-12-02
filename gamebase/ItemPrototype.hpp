@@ -13,7 +13,7 @@ public:
 	virtual const std::string& GetName() const = 0;
 	virtual const std::string& GetDescription() const = 0;
 	virtual const Sprite* GetIconSprite() const = 0;
-	virtual const Sprite* DrawPickup() const = 0;
+	virtual const Sprite* GetPickupSprite() const = 0;
 	virtual void Apply(Player* player) = 0;
 	
 protected:

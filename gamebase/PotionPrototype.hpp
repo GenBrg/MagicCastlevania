@@ -14,7 +14,7 @@ public:
 	virtual const std::string& GetName() const { return name_; }
 	virtual const std::string& GetDescription() const { return description_; }
 	virtual const Sprite* GetIconSprite() const { return icon_sprite_; }
-	virtual const Sprite* DrawPickup() const { return pickup_sprite_; }
+	virtual const Sprite* GetPickupSprite() const { return pickup_sprite_; }
 
 	virtual void Apply(Player* player);
 
