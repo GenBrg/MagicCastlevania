@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include <algorithm>
 
 Player::Player(Room** room, const glm::vec4 bounding_box) :
 Mob(bounding_box, nullptr),
@@ -91,6 +92,13 @@ void Player::UpdateImpl(float elapsed)
 				break;
 		}
 	}
+
+	buffs_.erase(std::remove_if(buffs_.begin(), buffs_.end(), [&](Buff& buff){
+		if (buff.Update(elapsed)) {
+			return true;
+		}
+		return false;
+	}),buffs_.end());
 }
 
 void Player::UpdatePhysics(float elapsed, const std::vector<Collider*>& colliders_to_consider)
@@ -154,4 +162,49 @@ Animation* Player::GetAnimation(AnimationState state)
 
 std::vector<Attack> Player::GetAttackInfo() const {
     return skills_;
+}
+
+int Player::GetAttackPoint()
+{
+	int attack = attack_;
+	for (const Buff& buff : buffs_) {
+		attack = buff.ApplyAttack(attack);
+	}
+	return attack;
+}
+
+int Player::GetDamagePoint(int attack)
+{
+	int defense = defense_;
+	for (const Buff& buff : buffs_) {
+		defense = buff.ApplyDefense(defense);
+	}
+
+	return Mob::GetDamagePoint(attack);
+}
+
+void Player::AddHp(int hp)
+{
+	hp_ += hp;
+	hp_ = std::min(hp_, max_hp_);
+}
+
+void Player::AddMp(int mp)
+{
+	mp_ += mp;
+	mp_ = std::min(mp_, max_mp_);
+}
+
+void Player::AddExp(int exp)
+{
+	exp_ += exp;
+	while (exp_ >= max_exp_) {
+		LevelUp();
+	}
+}
+
+void Player::LevelUp()
+{
+	assert(exp_ >= max_exp_);
+	exp_ -= max_exp_;
 }

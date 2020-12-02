@@ -4,6 +4,8 @@
 #include <engine/AOEPrototype.hpp>
 #include <gamebase/MonsterPrototype.hpp>
 #include <gamebase/RoomPrototype.hpp>
+#include <gamebase/PotionPrototype.hpp>
+#include <gamebase/EquipmentPrototype.hpp>
 
 #include <iostream>
 
@@ -12,6 +14,7 @@ Load<void> load_everything(LoadTagDefault, [](){
 	AOEPrototype::LoadConfig(data_path("aoe_prototypes.json"));
 	MonsterPrototype::LoadConfig(data_path("monster.list"));
 	RoomPrototype::LoadConfig(data_path("room.list"));
+	PotionPrototype::LoadConfig(data_path("potions.json"));
 });
 
 namespace glm {

@@ -37,13 +37,12 @@ public:
 	virtual void DrawImpl(DrawSprites& draw) {
 		animation_controller_.Draw(draw);
 	}
+	virtual int GetAttackPoint() { return attack_; }
+	virtual int GetDamagePoint(int attack) { return std::max(1, attack - defense_); }
 	
 	static const std::unordered_map<std::string, AnimationState> kAnimationNameStateMap;
 
 protected:
-	virtual int GetAttackPoint() { return attack_; }
-	virtual int GetDamagePoint(int attack) { return std::max(1, attack - defense_); }
-
 	// @note nullptr will be created for the entry if the animation for the state doesn't exist.
 	virtual Animation* GetAnimation(AnimationState state) = 0;
 

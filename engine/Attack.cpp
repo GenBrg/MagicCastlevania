@@ -16,7 +16,10 @@ void from_json(const json& j, Attack& attack)
 	attack.cooldown_ = j.at("cooldown");
 	attack.attach_to_entity_ = j.at("attach_to_entity");
 	if (j.contains("icon")) {
-		attack.icon_sprite_ = &(sprites->lookup(j.at("icon").get<std::string>()));
+		json icon_json = j.at("icon");
+		if (!icon_json.is_null()) {
+			attack.icon_sprite_ = &(sprites->lookup(icon_json.get<std::string>()));
+		}
 	} else {
 		attack.icon_sprite_ = nullptr;
 	}

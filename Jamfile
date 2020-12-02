@@ -148,6 +148,9 @@ GAMEBASE_NAME =
 	HeadsUpDisplay
     Dialog
 	Door
+	Buff
+	ItemPrototype
+	PotionPrototype
 	;
 
 ENGINE_NAMES =
