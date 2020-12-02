@@ -22,9 +22,9 @@
 class Room;
 class Player : public Mob {
 public:
-	virtual void UpdateImpl(float elapsed);
-	virtual void OnDie();
-	virtual Animation* GetAnimation(AnimationState state);
+	virtual void UpdateImpl(float elapsed) override;
+	virtual void OnDie() override;
+	virtual Animation* GetAnimation(AnimationState state) override;
 
 	void UpdatePhysics(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void SetPosition(const glm::vec2& pos);
