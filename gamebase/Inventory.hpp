@@ -28,5 +28,5 @@ public:
 private:
 	std::array<EquipmentPrototype*, kEquipmentSlotNum> equipments_ { nullptr };
 	std::array<ItemPrototype*, kBackpackSlotNum> items_ { nullptr };
-	int size_ { 0 };
+	size_t size_ { 0 };
 };
