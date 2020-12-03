@@ -89,3 +89,19 @@ int Inventory::ApplyEquipmentDefense(int defense)
 	}
 	return defense;
 }
+
+const Sprite* Inventory::GetItemIconSprite(size_t slot_num)
+{
+	if (items_[slot_num]) {
+		return items_[slot_num]->GetIconSprite();
+	}
+	return nullptr;
+}
+
+const Sprite* Inventory::GetEuqipmentIconSprite(size_t slot_num)
+{
+	if (equipments_[slot_num]) {
+		return equipments_[slot_num]->GetIconSprite();
+	}
+	return nullptr;
+}

@@ -23,6 +23,9 @@ public:
 	int ApplyEquipmentAttack(int attack);
 	int ApplyEquipmentDefense(int defense);
 
+	const Sprite* GetItemIconSprite(size_t slot_num);
+	const Sprite* GetEuqipmentIconSprite(size_t slot_num);
+
 	bool IsFull() const { return size_ >= kBackpackSlotNum; }
 
 private:
