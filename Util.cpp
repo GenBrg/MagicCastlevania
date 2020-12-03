@@ -2,12 +2,15 @@
 
 #include <engine/Animation.hpp>
 #include <engine/AOEPrototype.hpp>
+#include <gamebase/Player.hpp>
 #include <gamebase/MonsterPrototype.hpp>
 #include <gamebase/RoomPrototype.hpp>
 #include <gamebase/PotionPrototype.hpp>
 #include <gamebase/EquipmentPrototype.hpp>
 
 #include <iostream>
+
+Player* player;
 
 Load<void> load_everything(LoadTagDefault, [](){
 	Animation::LoadAnimation(data_path("animations.json"));

@@ -2,15 +2,14 @@
 #include "../Util.hpp"
 #include "../Load.hpp"
 #include <iostream>
-HeadsUpDisplay::HeadsUpDisplay(Player* player) : 
+HeadsUpDisplay::HeadsUpDisplay() : 
 hp_bar_transform_(nullptr)
 {
 	hp_bar_transform_.position_ = glm::vec2(9.0f, 512.0f);
-	player_ = player;
 }
 void HeadsUpDisplay::Draw(DrawSprites& draw_sprite) const {
 	draw_sprite.draw(sprites->lookup("hp_bar"), hp_bar_transform_);
-	int hp_to_draw = player_->GetHp();
+	int hp_to_draw = player->GetHp();
 	if (hp_to_draw <= 0) {
 		return;
 	}
@@ -30,7 +29,7 @@ void HeadsUpDisplay::Draw(DrawSprites& draw_sprite) const {
 
 	Transform2D skill_transform = Transform2D(nullptr);
 	skill_transform.position_ = hp_bar_transform_.position_ + glm::vec2(30.0f, 0.0f);
-	for(auto attack: player_->GetAttackInfo()) {
+	for(auto attack: player->GetAttackInfo()) {
 		if (attack.GetIconSprite() == nullptr) {
 			continue;
 		}

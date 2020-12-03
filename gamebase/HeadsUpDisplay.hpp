@@ -12,8 +12,7 @@
 class HeadsUpDisplay {
 private:
 	Transform2D hp_bar_transform_;
-	Player* player_;
 public:
 	void Draw(DrawSprites& draw_sprite) const;
-	HeadsUpDisplay(Player* player);
+	HeadsUpDisplay();
 };

@@ -18,6 +18,8 @@ inline glm::vec2 VIEW_MAX = glm::vec2(960, 541);
 
 inline static constexpr float kGravity{ -980.0f };
 
+extern class Player* player;
+
 using json = nlohmann::json;
 
 inline Load< SpriteAtlas > sprites(LoadTagEarly, []() -> SpriteAtlas const * {

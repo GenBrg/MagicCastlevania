@@ -18,10 +18,10 @@
 #include <iostream>
 #include <sstream>
 
-PlayMode::PlayMode() : player(Player::Create(&cur_room, data_path("player.json"))),
-					   hud(player),
+PlayMode::PlayMode() : hud(),
 					   press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 {
+	player = Player::Create(&cur_room, data_path("player.json"));
 	ProceedLevel();
 
 	press_w_hint.SetText("Press W to enter room").SetFontSize(2300).SetPos({0.0f, 30.0f});

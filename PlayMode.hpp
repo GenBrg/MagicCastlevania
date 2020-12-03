@@ -41,7 +41,6 @@ struct PlayMode : Mode {
 
 	std::vector<Room*> rooms;
 	Room* cur_room;
-	Player* player;
 	HeadsUpDisplay hud;
 
 	Door* cur_door { nullptr };
