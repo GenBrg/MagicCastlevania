@@ -1,5 +1,7 @@
 #include "EquipmentPrototype.hpp"
 
+#include <gamebase/Player.hpp>
+
 void EquipmentPrototype::Apply(Player* player)
 {
 

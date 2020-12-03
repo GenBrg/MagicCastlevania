@@ -8,6 +8,7 @@
 #include <engine/Mob.hpp>
 #include <engine/Attack.hpp>
 #include <gamebase/Buff.hpp>
+#include <gamebase/Inventory.hpp>
 #include <Sprite.hpp>
 #include <DrawSprites.hpp>
 
@@ -33,6 +34,13 @@ public:
 	void AddHp(int hp);
 	void AddMp(int mp);
 	void AddExp(int exp);
+
+	// Inventory
+	bool PickupItem(ItemPrototype* item);
+	void UseItem(size_t slot_num);
+	void UnequipItem(size_t slot_num);
+	void DropItem(size_t slot_num);
+	void DropEquipment(size_t slot_num);
 	
 	static Player* Create(Room** room, const std::string& player_config_file);
 	std::vector<Attack> GetAttackInfo() const;
@@ -53,6 +61,8 @@ private:
 	int max_exp_ { 100 };
 	std::vector<Attack> skills_;
 	std::vector<Buff> buffs_;
+
+	Inventory inventory_;
 
 	Player(const Player& player);
 	Player(Room** room, const glm::vec4 bounding_box);

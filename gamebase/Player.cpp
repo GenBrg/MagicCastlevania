@@ -170,6 +170,7 @@ int Player::GetAttackPoint()
 	for (const Buff& buff : buffs_) {
 		attack = buff.ApplyAttack(attack);
 	}
+	attack = inventory_.ApplyEquipmentAttack(attack);
 	return attack;
 }
 
@@ -179,7 +180,7 @@ int Player::GetDamagePoint(int attack)
 	for (const Buff& buff : buffs_) {
 		defense = buff.ApplyDefense(defense);
 	}
-
+	defense = inventory_.ApplyEquipmentAttack(defense);
 	return Mob::GetDamagePoint(attack);
 }
 
@@ -207,4 +208,29 @@ void Player::LevelUp()
 {
 	assert(exp_ >= max_exp_);
 	exp_ -= max_exp_;
+}
+
+bool Player::PickupItem(ItemPrototype* item)
+{
+	return inventory_.PushItem(item);
+}
+
+void Player::UseItem(size_t slot_num)
+{
+	inventory_.UseItem(this, slot_num);
+}
+
+void Player::UnequipItem(size_t slot_num)
+{
+	inventory_.UnequipItem(slot_num);
+}
+
+void Player::DropItem(size_t slot_num)
+{
+	inventory_.PopItem(slot_num);
+}
+
+void Player::DropEquipment(size_t slot_num)
+{
+	inventory_.PopEquipment(slot_num);
 }

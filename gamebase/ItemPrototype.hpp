@@ -1,10 +1,11 @@
 #pragma once
 
-#include <gamebase/Player.hpp>
 #include <DrawSprites.hpp>
 
 #include <unordered_map>
 #include <string>
+
+class Player;
 
 class ItemPrototype {
 public:

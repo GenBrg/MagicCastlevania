@@ -1,5 +1,6 @@
 #include "PotionPrototype.hpp"
 
+#include <gamebase/Player.hpp>
 #include <Util.hpp>
 
 #include <fstream>

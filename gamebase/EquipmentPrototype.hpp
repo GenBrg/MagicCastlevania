@@ -19,6 +19,7 @@ public:
 	virtual void Apply(Player* player);
 	int ApplyAttack(int attack);
 	int ApplyDefense(int defense);
+	int GetSlotNum() const { return slot_; }
 
 private:
 	EquipmentPrototype() {}

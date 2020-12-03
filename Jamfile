@@ -151,6 +151,8 @@ GAMEBASE_NAME =
 	Buff
 	ItemPrototype
 	PotionPrototype
+	EquipmentPrototype
+	Inventory
 	;
 
 ENGINE_NAMES =
