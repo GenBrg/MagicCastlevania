@@ -29,6 +29,7 @@ private:
 	int defense_;
 	float speed_;
 	int exp_;
+	int coin_;
 	float invulnerable_time_;
 	glm::vec4 bounding_box_;
 	std::vector<Attack> attacks_;
