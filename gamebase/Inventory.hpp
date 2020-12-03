@@ -23,10 +23,13 @@ public:
 	int ApplyEquipmentAttack(int attack);
 	int ApplyEquipmentDefense(int defense);
 
+	const Sprite* GetItemIconSprite(size_t slot_num);
+	const Sprite* GetEuqipmentIconSprite(size_t slot_num);
+
 	bool IsFull() const { return size_ >= kBackpackSlotNum; }
 
 private:
 	std::array<EquipmentPrototype*, kEquipmentSlotNum> equipments_ { nullptr };
 	std::array<ItemPrototype*, kBackpackSlotNum> items_ { nullptr };
-	int size_ { 0 };
+	size_t size_ { 0 };
 };
