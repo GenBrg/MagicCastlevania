@@ -34,6 +34,10 @@ public:
 	void AddHp(int hp);
 	void AddMp(int mp);
 	void AddExp(int exp);
+	void AddCoin(int coin);
+	int GetLevel() {return cur_level_;}
+	int GetExp() {return exp_;}
+	int GetCoin() {return coin_;}
 
 	// Inventory
 	bool PickupItem(ItemPrototype* item);
@@ -55,12 +59,13 @@ private:
 	MovementComponent movement_component_;
 	Room** room_;
 
-	int level_ { 1 };
+	int cur_level_ { 0 };
 	int max_hp_ { 100 };
 	int mp_ { 100 };
 	int max_mp_ { 100 };
-	int exp_ { 0 };
-	int max_exp_ { 100 };
+    int exp_ { 0 };
+    int coin_ { 0 };
+	std::vector<int> level_exps_;
 	std::vector<Attack> skills_;
 	std::vector<Buff> buffs_;
 

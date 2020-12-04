@@ -28,7 +28,8 @@ private:
 	virtual void OnDie();
 	virtual Animation* GetAnimation(AnimationState state);
 
-	int exp_ { 10 };
+    int exp_ { 10 };
+    int coin_;
 	float speed_ { 50.0f };
 
 	Monster(const MonsterPrototype& monster_prototype, const glm::vec4& bounding_box, int body_attack, Room& room);

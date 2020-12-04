@@ -29,5 +29,12 @@
 			"cooldown": 0.6,
 			"attach_to_entity": true
 		}
+	],
+	"level_exps": [
+		100,
+		200,
+		400,
+		700,
+		1100
 	]
 }

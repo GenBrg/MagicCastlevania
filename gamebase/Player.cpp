@@ -152,6 +152,11 @@ Player* Player::Create(Room** room, const std::string& player_config_file)
 		player->animations_[animation_state_name] = Animation::GetAnimation("player_" + animation_name);
 	}
 
+	// Load level config
+	for (const auto& level_exp : j.at("level_exps")) {
+	    player->level_exps_.push_back(level_exp);
+	}
+
 	return player;
 }
 
@@ -198,16 +203,27 @@ void Player::AddMp(int mp)
 
 void Player::AddExp(int exp)
 {
-	exp_ += exp;
-	while (exp_ >= max_exp_) {
-		LevelUp();
-	}
+    exp_ += exp;
+    if (cur_level_ == (int)level_exps_.size() - 1 && exp_ >= level_exps_[cur_level_]) {
+        // already max level, truncate exp to not overflow
+        exp_ =  level_exps_[cur_level_];
+    } else {
+        while (exp_ >= level_exps_[cur_level_]) {
+            LevelUp();
+        }
+    }
+
+}
+
+void Player::AddCoin(int coin) {
+    coin_ += coin;
 }
 
 void Player::LevelUp()
 {
-	assert(exp_ >= max_exp_);
-	exp_ -= max_exp_;
+	assert(exp_ >= level_exps_[cur_level_]);
+	exp_ -= level_exps_[cur_level_];
+    cur_level_++;
 }
 
 bool Player::PickupItem(ItemPrototype* item)

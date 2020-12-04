@@ -3,8 +3,10 @@
 #include <Util.hpp>
 #include <DrawSprites.hpp>
 #include <gamebase/MonsterPrototype.hpp>
+#include <gamebase/HeadsUpDisplay.hpp>
 #include <gamebase/Room.hpp>
 #include <engine/Timer.hpp>
+#include <gamebase/Player.hpp>
 
 #include <iostream>
 
@@ -39,6 +41,11 @@ void Monster::OnDie()
 	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
 		Destroy();
 	});
+	// Add coin to player
+	player->AddCoin(coin_);
+	player->AddExp(exp_);
+	// add info to hud to display exp and coin gained
+	hud->AddMonsterDieInfoHUD(transform_.position_, coin_, exp_);
 }
 
 Animation* Monster::GetAnimation(AnimationState state)
