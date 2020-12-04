@@ -3,7 +3,39 @@
 #include "../Load.hpp"
 #include <iostream>
 
-#define MONSTER_DIE_HUD_LAST 1.0f
+#define MONSTER_DIE_HUD_LAST 0.8f
+#define ITEM_ANIMATION_TRANSITION 0.05f
+
+
+const Sprite* GetCoinSprite(float elapsed) {
+    int idx = (int)(elapsed / ITEM_ANIMATION_TRANSITION);
+    return &sprites->lookup("coin_" + std::to_string(idx % 5 + 1));
+}
+
+const Sprite* GetExpSprite(float elapsed) {
+    int idx = (int)(elapsed / ITEM_ANIMATION_TRANSITION);
+    return &sprites->lookup("arrow_up_" + std::to_string(idx % 5 + 1));
+}
+
+void DrawDigits(DrawSprites& draw_sprite, glm::vec2 pos, int val, glm::u8vec4 tint) {
+    std::stack<int> digits;
+    while(val > 0) {
+        digits.push(val%10);
+        val = val / 10;
+    }
+
+    Transform2D transform(nullptr);
+    transform.position_ = pos;
+
+    while(!digits.empty()) {
+        int digit = digits.top();
+        digits.pop();
+        auto digit_sprite = sprites->lookup("digit_" + std::to_string(digit));
+        draw_sprite.draw(digit_sprite, transform, tint);
+        transform.position_.x += digit_sprite.size_px.x;
+    }
+}
+
 
 HeadsUpDisplay::HeadsUpDisplay() : 
 hp_bar_transform_(nullptr)
@@ -46,10 +78,23 @@ void HeadsUpDisplay::Draw(DrawSprites& draw_sprite) const {
 	    auto die_info_transform = Transform2D(nullptr);
 	    die_info_transform.position_ = die_info.pos_;
         auto alpha = (uint8_t)(0xff * (1.0f - die_info.elapsed_/MONSTER_DIE_HUD_LAST));
-        draw_sprite.draw(sprites->lookup("avatar_mage"), die_info_transform,
-                         glm::u8vec4(0xff, 0xff, 0xff, alpha));
-	}
+        auto tint = glm::u8vec4(0xff, 0xff, 0xff, alpha);
+        // draw coin icon
+        draw_sprite.draw(*GetCoinSprite(die_info.elapsed_), die_info_transform, tint);
+        // draw coin number
+        glm::vec2 coin_digit_pos = die_info_transform.position_ + glm::vec2(sprites->lookup("coin_1").size_px.x + 5, 0);
+        DrawDigits(draw_sprite, coin_digit_pos, die_info.coin_, tint);
+
+        // draw exp icon
+        die_info_transform.position_ += glm::vec2(0, sprites->lookup("coin_1").size_px.y);
+        draw_sprite.draw(*GetExpSprite(die_info.elapsed_), die_info_transform, tint);
+
+        // draw exp number
+        glm::vec2 exp_digit_pos = die_info_transform.position_ + glm::vec2(sprites->lookup("arrow_up_1").size_px.x + 5, 0);
+        DrawDigits(draw_sprite, exp_digit_pos, die_info.exp_, tint);
+    }
 }
+
 
 void HeadsUpDisplay::AddMonsterDieInfoHUD(glm::vec2 pos, int coin, int exp) {
     MonsterDieInfo monster_die_info{};
