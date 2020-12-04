@@ -41,7 +41,6 @@ struct PlayMode : Mode {
 
 	std::vector<Room*> rooms;
 	Room* cur_room;
-	HeadsUpDisplay hud;
 
 	Door* cur_door { nullptr };
 	Text press_w_hint;

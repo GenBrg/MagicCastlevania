@@ -7,10 +7,12 @@
 #include <gamebase/RoomPrototype.hpp>
 #include <gamebase/PotionPrototype.hpp>
 #include <gamebase/EquipmentPrototype.hpp>
+#include <gamebase/HeadsUpDisplay.hpp>
 
 #include <iostream>
 
 Player* player;
+HeadsUpDisplay* hud;
 
 Load<void> load_everything(LoadTagDefault, [](){
 	Animation::LoadAnimation(data_path("animations.json"));
