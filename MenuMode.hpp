@@ -15,7 +15,8 @@
 
 struct MenuMode : Mode {
 	struct Item;
-	MenuMode(std::vector< Item > const& items);
+	int row_width;
+	MenuMode(std::vector< Item > const& items, int width);
 	virtual ~MenuMode();
 
 	//functions called by main loop:
@@ -32,8 +33,9 @@ struct MenuMode : Mode {
 			Sprite const* sprite_ = nullptr,
 			Sprite const* sprite_selected_ = nullptr,
 			glm::u8vec4 const& tint_ = glm::u8vec4(0xff),
-			std::function< void(Item const&) > const& on_select_ = nullptr
-		) : name(name_), sprite(sprite_),sprite_selected(sprite_selected_), tint(tint_), selected_tint(tint_), on_select(on_select_), transform(nullptr) {
+			std::function< void(Item const&) > const& on_select_ = nullptr,
+			std::function< void(Item const&) > const& on_discard_ = nullptr
+		) : name(name_), sprite(sprite_),sprite_selected(sprite_selected_), tint(tint_), selected_tint(tint_), on_select(on_select_), on_discard(on_discard_), transform(nullptr) {
 		}
 		std::string name;
 		Sprite const* sprite; //sprite drawn for item if not selected
@@ -42,12 +44,15 @@ struct MenuMode : Mode {
 		glm::u8vec4 tint; //tint for sprite (unselected)
 		glm::u8vec4 selected_tint; //tint for sprite (selected)
 		std::function< void(Item const&) > on_select; //if set, item is selectable
+		std::function< void(Item const&) > on_discard;
 		Transform2D transform; //transform to draw item
 	};
 	std::vector< Item > items;
 
 	//call to arrange items in a centered list:
 	void vertical_layout_items(float gap = 0.0f);
+	void grid_layout_items(glm::vec2 const& top_left, float horizontal_gap, float vertical_gap, int start_idx, int end_idx);
+
 	//if set, used to highlight the current selection:
 	/*Sprite const* left_select = nullptr;
 	Sprite const* right_select = nullptr;

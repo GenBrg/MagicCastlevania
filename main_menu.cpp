@@ -21,7 +21,7 @@ Load< void > load_main_menu(LoadTagLate, []() {
 	};
 	items.back().transform.position_ = glm::vec2(396.0f + 83.0f, 541.0f - (417.0f + 18.0f));
 
-	main_menu = std::make_shared< MenuMode >(items);
+	main_menu = std::make_shared< MenuMode >(items, 1);
 	main_menu->selected = 1;
 	main_menu->atlas = sprites;
 	main_menu->view_min = glm::vec2(0.0f, 0.0f);
