@@ -235,12 +235,12 @@ void Player::DropEquipment(size_t slot_num)
 	inventory_.PopEquipment(slot_num);
 }
 
-const Sprite* Player::GetItemIconSprite(size_t slot_num)
+ItemPrototype* Player::GetItem(size_t slot_num)
 {
-	return inventory_.GetItemIconSprite(slot_num);
+	return inventory_.PeekItem(slot_num);
 }
 
-const Sprite* Player::GetEuqipmentIconSprite(size_t slot_num)
+EquipmentPrototype* Player::GetEquipment(size_t slot_num)
 {
-	return inventory_.GetEuqipmentIconSprite(slot_num);
+	return inventory_.PeekEquipment(slot_num);
 }
