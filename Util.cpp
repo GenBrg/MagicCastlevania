@@ -7,10 +7,12 @@
 #include <gamebase/RoomPrototype.hpp>
 #include <gamebase/PotionPrototype.hpp>
 #include <gamebase/EquipmentPrototype.hpp>
+#include <gamebase/HeadsUpDisplay.hpp>
 
 #include <iostream>
 
 Player* player;
+HeadsUpDisplay* hud;
 
 Load<void> load_everything(LoadTagDefault, [](){
 	Animation::LoadAnimation(data_path("animations.json"));
@@ -18,6 +20,7 @@ Load<void> load_everything(LoadTagDefault, [](){
 	MonsterPrototype::LoadConfig(data_path("monster.list"));
 	RoomPrototype::LoadConfig(data_path("room.list"));
 	PotionPrototype::LoadConfig(data_path("potions.json"));
+	EquipmentPrototype::LoadConfig(data_path("equipments.json"));
 });
 
 namespace glm {

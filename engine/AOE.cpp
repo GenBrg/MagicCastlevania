@@ -78,10 +78,10 @@ void AOE::Draw(DrawSprites& draw) const
 {
 	animation_controller_.Draw(draw);
 	// Debug draw bounding box
-	glm::vec2 lower_left_corner = glm::vec2(0.0f, 0.0f);
-	glm::vec2 upper_right_corner = glm::vec2(0.0f, 0.0f);
-	collider_.GetCorners(lower_left_corner, upper_right_corner);
-	draw.draw_bounding_box(lower_left_corner, upper_right_corner);
+	// glm::vec2 lower_left_corner = glm::vec2(0.0f, 0.0f);
+	// glm::vec2 upper_right_corner = glm::vec2(0.0f, 0.0f);
+	// collider_.GetCorners(lower_left_corner, upper_right_corner);
+	// draw.draw_bounding_box(lower_left_corner, upper_right_corner);
 }
 
 AOE* AOE::CreateMonsterAOE(Room& room, const glm::vec4& bounding_box, Transform2D& transform, int attack)

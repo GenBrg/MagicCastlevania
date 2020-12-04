@@ -19,10 +19,10 @@
 #include <iostream>
 #include <sstream>
 
-PlayMode::PlayMode() : hud(),
-					   press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
+PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 {
 	player = Player::Create(&cur_room, data_path("player.json"));
+	hud = new HeadsUpDisplay();
 	ProceedLevel();
 
 	press_w_hint.SetText("Press W to enter room").SetFontSize(2300).SetPos({0.0f, 30.0f});
@@ -72,6 +72,7 @@ PlayMode::~PlayMode()
 	}
 
 	delete player;
+    delete hud;
 }
 
 bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
@@ -85,6 +86,7 @@ void PlayMode::update(float elapsed)
 	TimerManager::Instance().Update();
 
 	cur_room->Update(elapsed, player, &cur_door);
+	hud->Update(elapsed);
 }
 
 void PlayMode::draw(glm::uvec2 const &window_size)
@@ -102,7 +104,7 @@ void PlayMode::draw(glm::uvec2 const &window_size)
 		DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, window_size, DrawSprites::AlignPixelPerfect);
 		cur_room->Draw(draw);
 		player->Draw(draw);
-		hud.Draw(draw);
+		hud->Draw(draw);
 	}
 
 	{

@@ -36,7 +36,8 @@ public:
 	void AddExp(int exp);
 	void AddCoin(int coin);
 	int GetLevel() {return cur_level_;}
-	int GetExp() {return exp_;}
+    int GetCurLevelExp() {return exp_;}
+    int GetCurLevelMaxExp() {return level_exps_[cur_level_];}
 	int GetCoin() {return coin_;}
 
 	// Inventory
@@ -45,8 +46,8 @@ public:
 	void UnequipItem(size_t slot_num);
 	void DropItem(size_t slot_num);
 	void DropEquipment(size_t slot_num);
-	const Sprite* GetItemIconSprite(size_t slot_num);
-	const Sprite* GetEuqipmentIconSprite(size_t slot_num);
+	ItemPrototype* GetItem(size_t slot_num);
+	EquipmentPrototype* GetEquipment(size_t slot_num);
 	
 	static Player* Create(Room** room, const std::string& player_config_file);
 	std::vector<Attack> GetAttackInfo() const;

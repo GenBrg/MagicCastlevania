@@ -204,7 +204,7 @@ void Player::AddMp(int mp)
 void Player::AddExp(int exp)
 {
     exp_ += exp;
-    if (cur_level_ == level_exps_.size() - 1 && exp_ >= level_exps_[cur_level_]) {
+    if (cur_level_ == (int)level_exps_.size() - 1 && exp_ >= level_exps_[cur_level_]) {
         // already max level, truncate exp to not overflow
         exp_ =  level_exps_[cur_level_];
     } else {
@@ -251,12 +251,12 @@ void Player::DropEquipment(size_t slot_num)
 	inventory_.PopEquipment(slot_num);
 }
 
-const Sprite* Player::GetItemIconSprite(size_t slot_num)
+ItemPrototype* Player::GetItem(size_t slot_num)
 {
-	return inventory_.GetItemIconSprite(slot_num);
+	return inventory_.PeekItem(slot_num);
 }
 
-const Sprite* Player::GetEuqipmentIconSprite(size_t slot_num)
+EquipmentPrototype* Player::GetEquipment(size_t slot_num)
 {
-	return inventory_.GetEuqipmentIconSprite(slot_num);
+	return inventory_.PeekEquipment(slot_num);
 }
