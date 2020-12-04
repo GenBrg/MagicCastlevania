@@ -10,9 +10,10 @@
 #include "Sprite.hpp"
 #include "Mode.hpp"
 #include "engine/Transform2D.hpp"
+#include "gamebase/ItemPrototype.hpp"
+
 #include <vector>
 #include <functional>
-
 struct MenuMode : Mode {
 	struct Item;
 	int row_width;
@@ -32,14 +33,16 @@ struct MenuMode : Mode {
 			std::string const& name_,
 			Sprite const* sprite_ = nullptr,
 			Sprite const* sprite_selected_ = nullptr,
+			ItemPrototype const* item_prototype_ = nullptr,
 			glm::u8vec4 const& tint_ = glm::u8vec4(0xff),
 			std::function< void(Item const&) > const& on_select_ = nullptr,
 			std::function< void(Item const&) > const& on_discard_ = nullptr
-		) : name(name_), sprite(sprite_),sprite_selected(sprite_selected_), tint(tint_), selected_tint(tint_), on_select(on_select_), on_discard(on_discard_), transform(nullptr) {
+			) : name(name_), sprite(sprite_), sprite_selected(sprite_selected_), item_prototype(item_prototype_), tint(tint_), selected_tint(tint_), on_select(on_select_), on_discard(on_discard_), transform(nullptr) {
 		}
 		std::string name;
 		Sprite const* sprite; //sprite drawn for item if not selected
 		Sprite const* sprite_selected; //sprite drawn for item if selected
+		ItemPrototype const* item_prototype;
 
 		glm::u8vec4 tint; //tint for sprite (unselected)
 		glm::u8vec4 selected_tint; //tint for sprite (selected)

@@ -72,7 +72,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 		}
 		else if (evt.key.keysym.sym == SDLK_s) {
 			//note: skips non-selectable items:
-			for (int i = selected + row_width; i < items.size(); ++i) {
+			for (int i = selected + row_width; i < (int) items.size(); ++i) {
 				if (items[i].on_select) {
 					selected = i;
 					//Sound::play(*sound_click);
@@ -94,7 +94,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 		}
 		else if (evt.key.keysym.sym == SDLK_d) {
 			//note: skips non-selectable items:
-			for (int i = selected + 1; i < items.size(); ++i) {
+			for (int i = selected + 1; i < (int) items.size(); ++i) {
 				if (items[i].on_select) {
 					selected = i;
 					//Sound::play(*sound_click);

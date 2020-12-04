@@ -2,7 +2,7 @@
 #include "../Util.hpp"
 #include "../Load.hpp"
 #include <iostream>
-
+#include <stack>
 #define MONSTER_DIE_HUD_LAST 0.8f
 #define ITEM_ANIMATION_TRANSITION 0.05f
 
