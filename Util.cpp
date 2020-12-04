@@ -20,6 +20,7 @@ Load<void> load_everything(LoadTagDefault, [](){
 	MonsterPrototype::LoadConfig(data_path("monster.list"));
 	RoomPrototype::LoadConfig(data_path("room.list"));
 	PotionPrototype::LoadConfig(data_path("potions.json"));
+	EquipmentPrototype::LoadConfig(data_path("equipments.json"));
 });
 
 namespace glm {

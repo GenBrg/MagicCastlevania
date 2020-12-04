@@ -4,6 +4,7 @@
 #include <Util.hpp>
 
 #include <fstream>
+#include <iostream>
 
 void PotionPrototype::Apply(Player* player)
 {
@@ -28,7 +29,8 @@ void PotionPrototype::LoadConfig(const std::string& potion_list_file)
 	for (const auto& potion_json : j) {
 		PotionPrototype* potion_prototype = new PotionPrototype();
 		potion_prototype->name_ = potion_json.at("name").get<std::string>();
-		potion_prototype->description_ = potion_json.at("name").get<std::string>();
+		std::cout << "Load Potion: " << potion_prototype->name_ << std::endl;
+		potion_prototype->description_ = potion_json.at("description").get<std::string>();
 		potion_prototype->hp_ = potion_json.at("hp").get<int>();
 		potion_prototype->mp_ = potion_json.at("mp").get<int>();
 		potion_prototype->exp_ = potion_json.at("exp").get<int>();
