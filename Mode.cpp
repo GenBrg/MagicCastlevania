@@ -1,5 +1,5 @@
 #include "Mode.hpp"
-
+#include <iostream>
 std::shared_ptr< Mode > Mode::current;
 
 void Mode::set_current(std::shared_ptr< Mode > const &new_current) {

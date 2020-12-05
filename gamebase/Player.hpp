@@ -36,7 +36,8 @@ public:
 	void AddExp(int exp);
 	void AddCoin(int coin);
 	int GetLevel() {return cur_level_;}
-	int GetExp() {return exp_;}
+    int GetCurLevelExp() {return exp_;}
+    int GetCurLevelMaxExp() {return level_exps_[cur_level_];}
 	int GetCoin() {return coin_;}
 
 	// Inventory

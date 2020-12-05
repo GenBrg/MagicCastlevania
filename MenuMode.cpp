@@ -1,5 +1,6 @@
-﻿
+﻿#include "Mode.hpp"
 #include "MenuMode.hpp"
+#include <Util.hpp>
 
 //for the GL_ERRORS() macro:
 #include "gl_errors.hpp"
@@ -13,6 +14,7 @@
 //for loading:
 #include "Load.hpp"
 #include "data_path.hpp"
+#include "main_play.hpp"
 #include <random>
 
 //Load< Sound::Sample > sound_click(LoadTagDefault, []() -> Sound::Sample* {
@@ -41,7 +43,7 @@
 #define MENU_FONT_FILE_NAME "ReallyFree-ALwl7.ttf"
 
 
-MenuMode::MenuMode(std::vector< Item > const& items_) : items(items_) {
+MenuMode::MenuMode(std::vector< Item > const& items_, int width) : items(items_) {
 	//select first item which can be selected:
 	for (uint32_t i = 0; i < items.size(); ++i) {
 		if (items[i].on_select) {
@@ -49,6 +51,7 @@ MenuMode::MenuMode(std::vector< Item > const& items_) : items(items_) {
 			break;
 		}
 	}
+	row_width = width;
 }
 
 MenuMode::~MenuMode() {
@@ -58,7 +61,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 	if (evt.type == SDL_KEYDOWN) {
 		if (evt.key.keysym.sym == SDLK_w) {
 			//skip non-selectable items:
-			for (uint32_t i = selected - 1; i < items.size(); --i) {
+			for (int i = selected - row_width; i >= 0; --i) {
 				if (items[i].on_select) {
 					selected = i;
 					//Sound::play(*sound_click);
@@ -69,7 +72,29 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 		}
 		else if (evt.key.keysym.sym == SDLK_s) {
 			//note: skips non-selectable items:
-			for (uint32_t i = selected + 1; i < items.size(); ++i) {
+			for (int i = selected + row_width; i < (int) items.size(); ++i) {
+				if (items[i].on_select) {
+					selected = i;
+					//Sound::play(*sound_click);
+					break;
+				}
+			}
+			return true;
+		}
+		else if (evt.key.keysym.sym == SDLK_a) {
+			//note: skips non-selectable items:
+			for (int i = selected - 1; i >= 0; --i) {
+				if (items[i].on_select) {
+					selected = i;
+					//Sound::play(*sound_click);
+					break;
+				}
+			}
+			return true;
+		}
+		else if (evt.key.keysym.sym == SDLK_d) {
+			//note: skips non-selectable items:
+			for (int i = selected + 1; i < (int) items.size(); ++i) {
 				if (items[i].on_select) {
 					selected = i;
 					//Sound::play(*sound_click);
@@ -83,6 +108,18 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 				//Sound::play(*sound_clonk);
 				items[selected].on_select(items[selected]);
 				return true;
+			}
+		}
+		else if (row_width != 1) {
+			if (evt.key.keysym.sym == SDLK_ESCAPE) {
+				Mode::set_current(main_play);
+				return true;
+			}
+			if (evt.key.keysym.sym == SDLK_j) {
+				if (items[selected].on_discard) {
+					items[selected].on_discard(items[selected]);
+					return true;
+				}
 			}
 		}
 	}
@@ -133,12 +170,10 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			// glm::u8vec4 color = (is_selected ? item.selected_tint : item.tint);
 			//float left, right;
 			if (item.sprite) {
-				if (!is_selected) {
-					draw_sprites.draw(*item.sprite, item.transform);
-				}
-				else {
-					draw_sprites.draw(*item.sprite_selected, item.transform);
-				}
+				draw_sprites.draw(*item.sprite, item.transform);
+			}
+			if (item.sprite_selected && is_selected) {
+				draw_sprites.draw(*item.sprite_selected, item.transform);
 			}
 			
 		}
@@ -147,6 +182,15 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 	GL_ERRORS(); //PARANOIA: print errors just in case we did something wrong.
 }
 
+void MenuMode::grid_layout_items(glm::vec2 const& top_left, float horizontal_gap, float vertical_gap, int start_idx, int end_idx) {
+	DrawSprites temp(*atlas, view_min, view_max, view_max - view_min, DrawSprites::AlignPixelPerfect); //<-- doesn't actually draw
+	
+	for (int i = start_idx; i < end_idx; i++) {
+		Item* item = &items[i];
+		item->transform.position_.x = (i - start_idx) % row_width * horizontal_gap + top_left.x;
+		item->transform.position_.y = -(i - start_idx) / row_width * vertical_gap + top_left.y;
+	}
+}
 void MenuMode::vertical_layout_items(float gap) {
 	DrawSprites temp(*atlas, view_min, view_max, view_max - view_min, DrawSprites::AlignPixelPerfect); //<-- doesn't actually draw
 	float y = view_max.y;

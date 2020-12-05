@@ -1,5 +1,6 @@
 #include "PlayMode.hpp"
-
+#include "MenuMode.hpp"
+#include "main_play.hpp"
 #include <DrawLines.hpp>
 #include <gl_errors.hpp>
 #include <data_path.hpp>
@@ -33,6 +34,34 @@ PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 			OpenDoor();
 		}
 	});
+
+	InputSystem::Instance()->Register(SDLK_ESCAPE, [&](InputSystem::KeyState &key_state, float elapsed) {
+		if (key_state.pressed)
+		{
+			std::cout << "Pressed" << std::endl;
+			key_state.pressed = false;
+			std::vector< MenuMode::Item > items;
+			items.emplace_back("Static", &sprites->lookup("pause_window"), &sprites->lookup("pause_window"));
+			for (int i = 0; i < 16; i++) {
+				items.emplace_back("Slot_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
+				items.back().on_select = [](MenuMode::Item const&) {
+					std::cout << "Selected item" << std::endl;
+				};
+				items.back().on_discard = [](MenuMode::Item const&) {
+					std::cout << "Discarded item" << std::endl;
+				};
+			}
+			std::shared_ptr< MenuMode > pause_menu;
+			pause_menu = std::make_shared< MenuMode >(items, 4);
+			pause_menu->selected = 1;
+			pause_menu->atlas = sprites;
+			pause_menu->view_min = glm::vec2(0.0f, 0.0f);
+			pause_menu->view_max = glm::vec2(960.0f, 541.0f);
+			pause_menu->grid_layout_items(glm::vec2(574.0f, 430.0f), 77.0f, 10.0f, 1, 5);
+			pause_menu->grid_layout_items(glm::vec2(574.0f, 282.0f), 77.0f, 80.0f, 5, 17);
+			Mode::set_current(pause_menu);
+		}
+		});
 }
 
 PlayMode::~PlayMode()
