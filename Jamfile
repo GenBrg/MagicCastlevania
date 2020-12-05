@@ -153,6 +153,7 @@ GAMEBASE_NAME =
 	PotionPrototype
 	EquipmentPrototype
 	Inventory
+	MonsterAI
 	;
 
 ENGINE_NAMES =

@@ -13,7 +13,6 @@
 class MonsterPrototype {
 public:
 	Monster* Create(Room& room, const glm::vec2& initial_pos, float move_radius);
-	const Attack* GetAttack(size_t type) const { return &(attacks_.at(type)); }
 	Animation* GetAnimation(Mob::AnimationState state) const { return animations_.at(state); }
 
 	static void LoadConfig(const std::string& monster_list_file);
@@ -34,4 +33,5 @@ private:
 	glm::vec4 bounding_box_;
 	std::vector<Attack> attacks_;
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;
+	json ai_json_;
 };

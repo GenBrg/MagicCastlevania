@@ -13,6 +13,7 @@ public:
 	void Destroy() { destroyed_ = true; }
 	bool IsDestroyed() const { return destroyed_; }
 	Collider* GetCollider() { return &collider_; }
+	Transform2D& GetTransform() { return transform_; }
 	
 	virtual ~Entity() {}
 

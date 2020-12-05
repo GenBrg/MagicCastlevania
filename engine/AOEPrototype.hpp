@@ -33,6 +33,9 @@ public:
 	 */
 	AOE* Create(Room& room, int attack, Transform2D* parent_transform, bool is_monster, bool attach_to_entity);
 	std::string to_string() const;
+	glm::vec2 GetInitialOffset() const { return initial_offset_; }
+	glm::vec4 GetBoundingBox() const { return bounding_box_; }
+	glm::vec2 GetVelocity() const { return velocity_; }
 
 private:
 	static std::unordered_map<std::string, AOEPrototype> prototypes_;

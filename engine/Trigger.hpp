@@ -21,6 +21,7 @@ public:
 	static Trigger* Create(Room& room, const glm::vec4& bounding_box, Transform2D* transform, int hit_time_remain);
 	void SetOnEnter(const std::function<void()>& on_enter) { on_enter_ = on_enter; }
 	void SetOnLeave(const std::function<void()>& on_leave) { on_leave_ = on_leave; }
+	void SetOnColliding(const std::function<void()>& on_colliding) { on_colliding_ = on_colliding; }
 
 	void UpdatePhysics(const Collider& collider_to_consider);
 
@@ -30,6 +31,7 @@ private:
 
 	int hit_time_remain_;
 	std::function<void()> on_enter_;
+	std::function<void()> on_colliding_;
 	std::function<void()> on_leave_;
 
 	bool is_triggering_ { false };

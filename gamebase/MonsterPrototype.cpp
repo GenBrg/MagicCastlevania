@@ -1,5 +1,6 @@
 #include "MonsterPrototype.hpp"
 
+#include <gamebase/MonsterAI.hpp>
 #include <data_path.hpp>
 #include <Util.hpp>
 
@@ -23,6 +24,8 @@ Monster* MonsterPrototype::Create(Room& room, const glm::vec2& initial_pos, floa
 	monster->take_damage_cooldown_ = invulnerable_time_;
 	monster->speed_ = speed_;
 	monster->animation_controller_.PlayAnimation(monster->GetAnimation(Mob::AnimationState::STILL), true, true);
+	monster->skills_ = attacks_;
+	monster->ai_ = IMonsterAI::GetMonsterAI(monster, ai_json_);
 	room.AddMonster(monster);
 	return monster;
 }
@@ -60,6 +63,7 @@ void MonsterPrototype::LoadConfig(const std::string& monster_list_file)
         monster_prototype.coin_ = j.at("coin");
 		monster_prototype.invulnerable_time_ = j.at("invulnerable_time");
 		monster_prototype.bounding_box_ = j.at("bounding_box").get<glm::vec4>();
+		monster_prototype.ai_json_ = j.at("ai");
 		for (const auto& attack_json : j.at("skills")) {
 			monster_prototype.attacks_.push_back(attack_json.get<Attack>());
 		}

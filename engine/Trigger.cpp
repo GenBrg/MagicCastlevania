@@ -26,8 +26,13 @@ void Trigger::UpdatePhysics(const Collider& collider_to_consider)
 	}
 
 	if (GetCollider()->IsColliding(collider_to_consider)) {
+		if (on_colliding_) {
+			on_colliding_();
+		}
 		if (!is_triggering_) {
-			on_enter_();
+			if (on_enter_) {
+				on_enter_();
+			}
 			is_triggering_ = true;
 			if (--hit_time_remain_ <= 0) {
 				Destroy();
@@ -35,7 +40,9 @@ void Trigger::UpdatePhysics(const Collider& collider_to_consider)
 		}
 	} else {
 		if (is_triggering_) {
-			on_leave_();
+			if (on_leave_) {
+				on_leave_();
+			}
 			is_triggering_ = false;
 		}
 	}

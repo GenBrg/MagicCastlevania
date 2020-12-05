@@ -19,5 +19,8 @@
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		}
-	]
+	],
+	"ai": {
+		"type": 0
+	}
 }

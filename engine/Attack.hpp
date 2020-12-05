@@ -21,6 +21,8 @@ public:
 	Animation* GetAnimation() const { return mob_animation_; }
 	float GetCoolDownLeftPercent() const { return guard_.SecsUntilNextCall() / cooldown_; }
 	const Sprite* GetIconSprite() const { return icon_sprite_; }
+	AOEPrototype* GetAOEPrototype() { return aoe_prototype_; }
+	bool IsAttachToEntity() const { return attach_to_entity_; }
 
 	friend void from_json(const json& j, Attack& attack);
 
