@@ -1,6 +1,7 @@
 #include "MonsterAI.hpp"
 
 #include <gamebase/Monster.hpp>
+#include <gamebase/Player.hpp>
 #include <engine/Random.hpp>
 
 #include <stdexcept>
@@ -150,10 +151,47 @@ RandomWalkingMonsterAI::RandomWalkingMonsterAI(const json& j, Monster* monster) 
 transform_(monster->GetTransform()),
 monster_(*monster)
 {
+	GenerateTargetPos();
 	attack_cooldown_ = 1.0f + 3.0f * Random::Instance()->Generate();
 }
 
 void RandomWalkingMonsterAI::Update(float elapsed)
 {
-	
+	if (monster_.GetState() == Mob::State::MOVING) {
+		// Face player
+		transform_.scale_.x = (player->GetTransform().position_.x > transform_.position_.x) ? 1.0f : -1.0f;
+
+		float speed = monster_.GetSpeed();
+
+		if (target_pos_.x > transform_.position_.x) {
+			transform_.position_.x += speed * elapsed;
+			if (transform_.position_.x > target_pos_.x) {
+				transform_.position_.x = target_pos_.x;
+				GenerateTargetPos();
+			}
+		} else {
+			transform_.position_.x -= speed * elapsed;
+			if (transform_.position_.x < target_pos_.x) {
+				transform_.position_.x = target_pos_.x;
+				GenerateTargetPos();
+			}
+		}
+
+		if (monster_.GetAttackNum() > 0) {
+			attack_cooldown_ -= elapsed;
+			if (attack_cooldown_ <= 0.0f) {
+				Attack* attack = monster_.GetAttack(0);
+				monster_.PerformAttack(monster_.GetRoom(), *attack);
+				attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
+			}
+		}
+	}
+}
+
+void RandomWalkingMonsterAI::GenerateTargetPos()
+{
+	target_pos_ = monster_.GetCentralPos();
+	float move_radius = monster_.GetMoveRadius();
+
+	target_pos_.x += move_radius * (2 * Random::Instance()->Generate() - 1);
 }

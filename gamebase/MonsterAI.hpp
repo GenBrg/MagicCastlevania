@@ -81,4 +81,6 @@ private:
 
 	glm::vec2 target_pos_;
 	float attack_cooldown_;
+
+	void GenerateTargetPos();
 };
