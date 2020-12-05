@@ -15,6 +15,7 @@
 	"traps": [],
 	"monsters": [],
 	"items": [],
+	"key_position": [464, 491],
 	"doors": [
 		[160, 357],
 		[480, 126],

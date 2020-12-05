@@ -8,7 +8,7 @@ class Room;
 
 class ItemPickUp : public Entity {
 public:
-	static ItemPickUp* Generate(Room& room, ItemPrototype* item, const glm::vec2& spawn_pos);
+	static ItemPickUp* Generate(Room& room, ItemPrototype* item, const glm::vec2& spawn_pos, bool permanent = false);
 	virtual void Destroy();
 
 private:

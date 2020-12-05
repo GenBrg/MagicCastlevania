@@ -16,10 +16,15 @@ item_prototype_(item)
 	transform_.position_ = spawn_pos;
 }
 
-ItemPickUp* ItemPickUp::Generate(Room& room, ItemPrototype* item, const glm::vec2& spawn_pos)
+ItemPickUp* ItemPickUp::Generate(Room& room, ItemPrototype* item, const glm::vec2& spawn_pos, bool permanent)
 {
 	ItemPickUp* item_pickup = new ItemPickUp(item, spawn_pos);
-	room.AddItem(item_pickup);
+	if (!permanent) {
+		room.AddItem(item_pickup);
+	} else {
+		room.AddPermanentItem(item_pickup);
+	}
+	
 	item_pickup->trigger_ = Trigger::Create(room, glm::vec4(spawn_pos, spawn_pos + item->GetPickupSprite()->size_px), nullptr, 0);
 	item_pickup->trigger_->SetOnColliding([=](){
 		if (player->PickupItem(item)) {

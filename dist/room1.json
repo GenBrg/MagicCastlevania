@@ -33,7 +33,14 @@
 			"move_radius": 100.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "small attack potion",
+			"position": [744, 250],
+			"probability": 1.0
+		}
+	],
+	"key_position": [257, 489],
 	"doors": [
 		[129, 91],
 		[893, 140],
