@@ -2,8 +2,8 @@
 	{
 		"name": "small health potion",
 		"description": "hp+100",
-		"icon_sprite": null,
-		"pickup_sprite": null,
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
 		"hp": 100,
 		"mp": 0,
 		"exp": 0,
@@ -12,8 +12,8 @@
 	{
 		"name": "small attack potion",
 		"description": "attack+20 for 30 seconds",
-		"icon_sprite": null,
-		"pickup_sprite": null,
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
@@ -22,7 +22,7 @@
 				"attack": 20,
 				"defense": 0,
 				"duration": 30.0,
-				"icon_sprite": null
+				"icon_sprite": "avatar_assassin"
 			}
 		]
 	}

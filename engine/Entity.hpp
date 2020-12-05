@@ -10,7 +10,7 @@ public:
 	void Update(float elapsed);
 	void Draw(DrawSprites& draw);
 
-	void Destroy() { destroyed_ = true; }
+	virtual void Destroy() { destroyed_ = true; }
 	bool IsDestroyed() const { return destroyed_; }
 	Collider* GetCollider() { return &collider_; }
 	Transform2D& GetTransform() { return transform_; }

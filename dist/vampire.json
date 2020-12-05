@@ -9,8 +9,8 @@
 	"invulnerable_time": 0.2,
 	"bounding_box": [-26.0, 0.0, 26.0, 86.0],
 	"item": {
-		"necklace": 0.05,
-		"hp_bottle": 0.10
+		"small attack potion": 0.5,
+		"normal vest": 0.5
 	},
 	"skills": [
 		{

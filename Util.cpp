@@ -17,10 +17,10 @@ HeadsUpDisplay* hud;
 Load<void> load_everything(LoadTagDefault, [](){
 	Animation::LoadAnimation(data_path("animations.json"));
 	AOEPrototype::LoadConfig(data_path("aoe_prototypes.json"));
-	MonsterPrototype::LoadConfig(data_path("monster.list"));
-	RoomPrototype::LoadConfig(data_path("room.list"));
 	PotionPrototype::LoadConfig(data_path("potions.json"));
 	EquipmentPrototype::LoadConfig(data_path("equipments.json"));
+	MonsterPrototype::LoadConfig(data_path("monster.list"));
+	RoomPrototype::LoadConfig(data_path("room.list"));
 });
 
 namespace glm {

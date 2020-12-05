@@ -154,6 +154,7 @@ GAMEBASE_NAME =
 	EquipmentPrototype
 	Inventory
 	MonsterAI
+	ItemPickup
 	;
 
 ENGINE_NAMES =

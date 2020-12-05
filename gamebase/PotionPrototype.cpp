@@ -42,7 +42,7 @@ void PotionPrototype::LoadConfig(const std::string& potion_list_file)
 		
 		json pickup_sprite_json = potion_json.at("pickup_sprite");
 		if (!pickup_sprite_json.is_null()) {
-			potion_prototype->icon_sprite_ = &(sprites->lookup(pickup_sprite_json.get<std::string>()));
+			potion_prototype->pickup_sprite_ = &(sprites->lookup(pickup_sprite_json.get<std::string>()));
 		}
 		AddPrototype(potion_prototype->name_, potion_prototype);
 	}

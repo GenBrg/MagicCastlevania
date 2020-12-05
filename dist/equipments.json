@@ -2,8 +2,8 @@
 	{
 		"name": "normal sword",
 		"description": "attack+12",
-		"icon_sprite": null,
-		"pickup_sprite": null,
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
 		"attack": 12,
 		"defense": 0,
 		"slot": 0
@@ -11,8 +11,8 @@
 	{
 		"name": "normal vest",
 		"description": "defense+12",
-		"icon_sprite": null,
-		"pickup_sprite": null,
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
 		"attack": 0,
 		"defense": 12,
 		"slot": 2

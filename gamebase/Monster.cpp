@@ -39,6 +39,11 @@ void Monster::OnDie()
 	player->AddExp(exp_);
 	// add info to hud to display exp and coin gained
 	hud->AddMonsterDieInfoHUD(transform_.position_, coin_, exp_);
+
+	// Drop item
+	if (ItemPrototype* drop_item = monster_prototype_.GenerateItemDrop()) {
+		ItemPickUp::Generate(room_, drop_item, transform_.position_);
+	}
 }
 
 Animation* Monster::GetAnimation(AnimationState state)
@@ -47,5 +52,5 @@ Animation* Monster::GetAnimation(AnimationState state)
 }
 
 Monster::~Monster() {
-	collision_aoe_->Destroy();
+	delete ai_;
 }

@@ -7,6 +7,7 @@
 
 #include <unordered_map>
 #include <string>
+#include <utility>
 
 // Type object pattern from Game Programming Patterns
 // http://gameprogrammingpatterns.com/type-object.html
@@ -14,6 +15,7 @@ class MonsterPrototype {
 public:
 	Monster* Create(Room& room, const glm::vec2& initial_pos, float move_radius);
 	Animation* GetAnimation(Mob::AnimationState state) const { return animations_.at(state); }
+	ItemPrototype* GenerateItemDrop() const;
 
 	static void LoadConfig(const std::string& monster_list_file);
 	static MonsterPrototype* GetMonsterPrototype(const std::string& monster_name) { return &(prototypes_.at(monster_name)); };
@@ -34,4 +36,7 @@ private:
 	std::vector<Attack> attacks_;
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;
 	json ai_json_;
+
+	using ItemDropInfo = std::pair<ItemPrototype*, float>;
+	std::vector<ItemDropInfo> item_drop_infos_;
 };

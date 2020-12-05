@@ -1,8 +1,10 @@
 #include "MonsterPrototype.hpp"
 
 #include <gamebase/MonsterAI.hpp>
+#include <gamebase/ItemPrototype.hpp>
 #include <data_path.hpp>
 #include <Util.hpp>
+#include <engine/Random.hpp>
 
 #include <fstream>
 #include <stdexcept>
@@ -67,10 +69,28 @@ void MonsterPrototype::LoadConfig(const std::string& monster_list_file)
 		for (const auto& attack_json : j.at("skills")) {
 			monster_prototype.attacks_.push_back(attack_json.get<Attack>());
 		}
+		float acc_prob = 0.0f;
+		for (const auto& [key, val] : j.at("item").items()) {
+			acc_prob += val.get<float>();
+			monster_prototype.item_drop_infos_.emplace_back(ItemPrototype::GetPrototype(key), acc_prob);
+		}
+		assert(acc_prob <= 1.0f);
 
 		// Load animations
 		for (const auto& [animation_name, animation_state_name] : Mob::kAnimationNameStateMap) {
 			monster_prototype.animations_[animation_state_name] = Animation::GetAnimation(monster_name + "_" + animation_name);
 		}
 	}
+}
+
+ItemPrototype* MonsterPrototype::GenerateItemDrop() const
+{
+	float dice = Random::Instance()->Generate();
+	for (const auto& [item, acc_prob] : item_drop_infos_) {
+		if (dice < acc_prob) {
+			return item;
+		}
+	}
+
+	return nullptr;
 }

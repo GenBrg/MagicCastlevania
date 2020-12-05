@@ -52,6 +52,7 @@ Room::~Room() {
 	ClearData(platforms_);
 	ClearData(triggers_);
 	ClearData(dialogs_);
+	ClearData(items_);
 }
 
 void Room::Update(float elapsed, Player* player, Door** cur_door)
@@ -99,6 +100,7 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 	GarbageCollect(player_AOEs_);
 	GarbageCollect(monster_AOEs_);
 	GarbageCollect(triggers_);
+	GarbageCollect(items_);
 
 	// if needs to update dialog or reset it
 	if (cur_dialog) {
@@ -114,7 +116,7 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 void Room::Draw(DrawSprites& draw_sprite)
 {
 	draw_sprite.draw(*background_sprite_, camera_);
-
+	
 	for (Door* door : doors_) {
 		door->Draw(draw_sprite);
 	}
@@ -131,6 +133,10 @@ void Room::Draw(DrawSprites& draw_sprite)
 	for (const AOE* monster_AOE : monster_AOEs_) {
 		monster_AOE->Draw(draw_sprite);
 	}
+
+	for (ItemPickUp* item : items_) {
+		item->Draw(draw_sprite);
+	}
 }
 
 void Room::OnEnter(Player* player, Door* door)
@@ -143,6 +149,7 @@ void Room::OnLeave()
 {
 	ClearData(player_AOEs_);
 	ClearData(monsters_);
+	ClearData(items_);
 
 	for (Dialog* dialog : dialogs_) {
 		dialog->Reset();

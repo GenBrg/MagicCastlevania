@@ -31,7 +31,7 @@ void EquipmentPrototype::LoadConfig(const std::string& equipment_list_file)
 		
 		json pickup_sprite_json = equipment_json.at("pickup_sprite");
 		if (!pickup_sprite_json.is_null()) {
-			equipment_prototype->icon_sprite_ = &(sprites->lookup(pickup_sprite_json.get<std::string>()));
+			equipment_prototype->pickup_sprite_ = &(sprites->lookup(pickup_sprite_json.get<std::string>()));
 		}
 		AddPrototype(equipment_prototype->name_, equipment_prototype);
 	}
