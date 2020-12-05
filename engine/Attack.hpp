@@ -20,6 +20,7 @@ public:
 	bool Execute(Room& room, int attack, Transform2D& transform, bool is_monster);
 	Animation* GetAnimation() const { return mob_animation_; }
 	float GetCoolDownLeftPercent() const { return guard_.SecsUntilNextCall() / cooldown_; }
+	float GetCoolDown() const { return cooldown_; }
 	const Sprite* GetIconSprite() const { return icon_sprite_; }
 	AOEPrototype* GetAOEPrototype() { return aoe_prototype_; }
 	bool IsAttachToEntity() const { return attach_to_entity_; }

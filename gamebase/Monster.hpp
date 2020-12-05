@@ -20,7 +20,6 @@ private:
 	const MonsterPrototype& monster_prototype_;
 	float move_radius_;
 	glm::vec2 central_pos_;
-	// int mov_direction_ { 1 };
 
 	bool destroyed_ { false };
 	AOE* collision_aoe_ { nullptr };

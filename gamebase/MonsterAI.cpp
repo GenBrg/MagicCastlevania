@@ -1,6 +1,7 @@
 #include "MonsterAI.hpp"
 
 #include <gamebase/Monster.hpp>
+#include <engine/Random.hpp>
 
 #include <stdexcept>
 #include <iostream>
@@ -29,21 +30,31 @@ IMonsterAI* IMonsterAI::GetMonsterAI(Monster* monster, const json& j)
 BasicMovementMonsterAI::BasicMovementMonsterAI(const json& j, Monster* monster) :
 transform_(monster->GetTransform()),
 monster_(*monster)
-{}
+{
+	attack_cooldown_ = 1.0f + 3.0f * Random::Instance()->Generate();
+}
 
 void BasicMovementMonsterAI::Update(float elapsed)
 {
-
-	float speed = monster_.GetSpeed();
-	glm::vec2 central_pos = monster_.GetCentralPos();
-	float move_radius = monster_.GetMoveRadius();
-
 	if (monster_.GetState() == Mob::State::MOVING) {
+		float speed = monster_.GetSpeed();
+		glm::vec2 central_pos = monster_.GetCentralPos();
+		float move_radius = monster_.GetMoveRadius();
+
 		transform_.position_.x += speed * elapsed * transform_.scale_.x;
 		if (transform_.position_.x > central_pos.x + move_radius ||
 			transform_.position_.x < central_pos.x - move_radius) {
 			transform_.position_.x -= speed * elapsed * transform_.scale_.x;
 			transform_.scale_.x *= -1;
+		}
+		
+		if (monster_.GetAttackNum() > 0) {
+			attack_cooldown_ -= elapsed;
+			if (attack_cooldown_ <= 0.0f) {
+				Attack* attack = monster_.GetAttack(0);
+				monster_.PerformAttack(monster_.GetRoom(), *attack);
+				attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
+			}
 		}
 	}
 }
@@ -51,11 +62,39 @@ void BasicMovementMonsterAI::Update(float elapsed)
 BouncingMonsterAI::BouncingMonsterAI(const json& j, Monster* monster) :
 transform_(monster->GetTransform()),
 monster_(*monster)
-{}
+{
+	GenerateSpeedVec();
+	attack_cooldown_ = 1.0f + 3.0f * Random::Instance()->Generate();
+}
 
 void BouncingMonsterAI::Update(float elapsed)
 {
-	
+	if (monster_.GetState() == Mob::State::MOVING) {
+		bounce_cooldown_ -= elapsed;
+		transform_.position_ += speed_vec_ * elapsed;
+		if (transform_.position_.x <= 0.0f || transform_.position_.y <= 0.0f ||
+		transform_.position_.x >= INIT_WINDOW_W || transform_.position_.y >= INIT_WINDOW_H ||
+		bounce_cooldown_ <= 0.0f) {
+			transform_.position_ -= speed_vec_ * elapsed;
+			GenerateSpeedVec();
+		}
+
+		if (monster_.GetAttackNum() > 0) {
+			attack_cooldown_ -= elapsed;
+			if (attack_cooldown_ <= 0.0f) {
+				Attack* attack = monster_.GetAttack(0);
+				monster_.PerformAttack(monster_.GetRoom(), *attack);
+				attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
+			}
+		}
+	}
+}
+
+void BouncingMonsterAI::GenerateSpeedVec()
+{
+	float angle = glm::radians(360.0f * Random::Instance()->Generate());
+	speed_vec_ = monster_.GetSpeed() * glm::vec2(glm::cos(angle), glm::sin(angle));
+	bounce_cooldown_ = 1.0f + 4.0f * Random::Instance()->Generate();
 }
 
 FollowAndAttackMonsterAI::FollowAndAttackMonsterAI(const json& j, Monster* monster) :
@@ -102,17 +141,19 @@ void FollowAndAttackMonsterAI::Update(float elapsed)
 	
 }
 
+FollowAndAttackMonsterAI::~FollowAndAttackMonsterAI()
+{
+
+}
+
 RandomWalkingMonsterAI::RandomWalkingMonsterAI(const json& j, Monster* monster) :
 transform_(monster->GetTransform()),
 monster_(*monster)
-{}
+{
+	attack_cooldown_ = 1.0f + 3.0f * Random::Instance()->Generate();
+}
 
 void RandomWalkingMonsterAI::Update(float elapsed)
 {
 	
-}
-
-FollowAndAttackMonsterAI::~FollowAndAttackMonsterAI()
-{
-
 }

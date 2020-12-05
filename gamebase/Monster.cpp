@@ -24,15 +24,6 @@ void Monster::UpdateImpl(float elapsed)
 {
 	animation_controller_.Update(elapsed);
 	ai_->Update(elapsed);
-	// if (state_ == State::MOVING) {
-	// 	transform_.position_.x += speed_ * elapsed * (float)mov_direction_;
-	// 	if(transform_.position_.x > central_pos_.x + move_radius_ ||
-	// 		transform_.position_.x < central_pos_.x - move_radius_) {
-	// 		transform_.position_.x -= speed_ * elapsed * (float)mov_direction_;
-	// 		mov_direction_ *= -1;
-	// 		transform_.scale_.x = (mov_direction_ > 0) ? 1.0f : -1.0f;
-	// 	}
-	// }
 }
 
 void Monster::OnDie()

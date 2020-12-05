@@ -42,7 +42,10 @@ private:
 	Monster& monster_;
 
 	glm::vec2 speed_vec_;
-	float angle_;
+	float attack_cooldown_;
+	float bounce_cooldown_;
+
+	void GenerateSpeedVec();
 };
 
 class FollowAndAttackMonsterAI : public IMonsterAI {
@@ -61,6 +64,7 @@ private:
 
 	Trigger* detection_trigger_;
 	Trigger* attack_trigger_;
+	float attack_cooldown_;
 };
 
 class RandomWalkingMonsterAI : public IMonsterAI {
@@ -76,4 +80,5 @@ private:
 	Monster& monster_;
 
 	glm::vec2 target_pos_;
+	float attack_cooldown_;
 };
