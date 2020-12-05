@@ -144,7 +144,8 @@ void FollowAndAttackMonsterAI::Update(float elapsed)
 
 FollowAndAttackMonsterAI::~FollowAndAttackMonsterAI()
 {
-
+	attack_trigger_->Destroy();
+	detection_trigger_->Destroy();
 }
 
 RandomWalkingMonsterAI::RandomWalkingMonsterAI(const json& j, Monster* monster) :
