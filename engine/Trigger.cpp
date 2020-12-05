@@ -34,7 +34,7 @@ void Trigger::UpdatePhysics(const Collider& collider_to_consider)
 				on_enter_();
 			}
 			is_triggering_ = true;
-			if (--hit_time_remain_ <= 0) {
+			if (--hit_time_remain_ == 0) {
 				Destroy();
 			}
 		}
