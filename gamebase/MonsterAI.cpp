@@ -129,17 +129,72 @@ monster_(*monster)
 	detection_trigger_ = Trigger::Create(monster->GetRoom(), detection_bounding_box, nullptr, 0);
 
 	// TODO Implement trigger
-	attack_trigger_->SetOnColliding([](){
-		std::cout << "Monster attack!" << std::endl;
+	attack_trigger_->SetOnEnter([&](){
+		should_attack_ = true;
 	});
-	detection_trigger_->SetOnColliding([](){
-		std::cout << "Monster detected player!" << std::endl;
+	attack_trigger_->SetOnLeave([&](){
+		should_attack_ = false;
+	});
+	detection_trigger_->SetOnEnter([&](){
+		should_move_to_player_ = true;
+	});
+	detection_trigger_->SetOnLeave([&](){
+		should_move_to_player_ = false;
 	});
 }
 
 void FollowAndAttackMonsterAI::Update(float elapsed)
 {
-	
+	attack_cooldown_ -= elapsed;
+	if (monster_.GetState() == Mob::State::MOVING) {
+		float speed = monster_.GetSpeed();
+		glm::vec2 central_pos = monster_.GetCentralPos();
+		float move_radius = monster_.GetMoveRadius();
+
+		if (!should_move_to_player_) {
+			transform_.position_.x += speed * elapsed * transform_.scale_.x;
+			if (transform_.position_.x > central_pos.x + move_radius ||
+				transform_.position_.x < central_pos.x - move_radius) {
+				transform_.position_.x -= speed * elapsed * transform_.scale_.x;
+				transform_.scale_.x *= -1;
+			}
+		} else {
+			// Face player
+			float player_pos_x = player->GetTransform().position_.x;
+
+			if (std::abs(player_pos_x - transform_.position_.x) < 1.0f) {
+
+			} else if (player_pos_x > transform_.position_.x) {
+				transform_.scale_.x = 1.0f;
+				transform_.position_.x += speed * elapsed * transform_.scale_.x;
+				if (transform_.position_.x > central_pos.x + move_radius ||
+					transform_.position_.x < central_pos.x - move_radius) {
+					transform_.position_.x -= speed * elapsed * transform_.scale_.x;
+				}
+				if (transform_.position_.x > player_pos_x) {
+					transform_.position_.x = player_pos_x;
+				}
+			} else {
+				transform_.scale_.x = -1.0f;
+				transform_.position_.x += speed * elapsed * transform_.scale_.x;
+				if (transform_.position_.x > central_pos.x + move_radius ||
+					transform_.position_.x < central_pos.x - move_radius) {
+					transform_.position_.x -= speed * elapsed * transform_.scale_.x;
+				}
+				if (transform_.position_.x < player_pos_x) {
+					transform_.position_.x = player_pos_x;
+				}
+			}
+		}
+		
+		if (should_attack_) {
+			if (attack_cooldown_ <= 0.0f) {
+				Attack* attack = monster_.GetAttack(0);
+				monster_.PerformAttack(monster_.GetRoom(), *attack);
+				attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
+			}
+		}
+	}
 }
 
 FollowAndAttackMonsterAI::~FollowAndAttackMonsterAI()

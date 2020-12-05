@@ -65,6 +65,9 @@ private:
 	Trigger* detection_trigger_;
 	Trigger* attack_trigger_;
 	float attack_cooldown_;
+
+	bool should_move_to_player_ { false };
+	bool should_attack_ { false };
 };
 
 class RandomWalkingMonsterAI : public IMonsterAI {
