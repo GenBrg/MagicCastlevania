@@ -36,7 +36,7 @@ public:
 	State GetState() const { return state_; }
 	void SetState(State state) { state_ = state; }
 
-	virtual void DrawImpl(DrawSprites& draw) {
+	virtual void DrawImpl(DrawSprites& draw) override {
 		animation_controller_.Draw(draw);
 	}
 	virtual int GetAttackPoint() { return attack_; }
