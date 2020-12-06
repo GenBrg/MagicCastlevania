@@ -69,14 +69,23 @@ room_(room)
 		}
 	});
 
-	// InputSystem::Instance()->Register(SDLK_l, [this, room](InputSystem::KeyState& key_state, float elapsed) {
-	// 	if (state_ != State::MOVING) {
-	// 		return;
-	// 	}
-	// 	if (key_state.pressed) {
-	// 		PerformAttack(**room, skills_[2]);
-	// 	}
-	// });
+	InputSystem::Instance()->Register(SDLK_l, [this, room](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
+		if (key_state.pressed) {
+			PerformAttack(**room, skills_[2]);
+		}
+	});
+
+	InputSystem::Instance()->Register(SDLK_SEMICOLON, [this, room](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
+		if (key_state.pressed) {
+			PerformAttack(**room, skills_[3]);
+		}
+	});
 }
 
 void Player::OnDie()

@@ -25,9 +25,23 @@
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "player_comet",
-			"icon": "avatar_mage",
+			"icon": "comet_icon",
 			"cooldown": 0.6,
 			"attach_to_entity": false
+		},
+		{
+			"mob_animation": "player_attack",
+			"aoe_prototype": "player_tornado",
+			"icon": "tornado_icon",
+			"cooldown": 0.6,
+			"attach_to_entity": false
+		},
+		{
+			"mob_animation": "player_attack",
+			"aoe_prototype": "player_shine",
+			"icon": "light_icon",
+			"cooldown": 0.6,
+			"attach_to_entity": true
 		}
 	],
 	"level_exps": [

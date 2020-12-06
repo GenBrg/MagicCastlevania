@@ -25,5 +25,23 @@
 		"duration": 1.4,
 		"initial_offset": [0.0, -140.0],
 		"penetrate": true
+	},
+	{
+		"name": "player_tornado",
+		"bounding_box": [0.0, 0.0, 76.0, 79.0],
+		"animation": "tornado",
+		"velocity": [300.0, 0.0],
+		"duration": 1.1,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "player_shine",
+		"bounding_box": [0.0, 0.0, 275.0, 275.0],
+		"animation": "shine",
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [-132.0, -132.0],
+		"penetrate": true
 	}
 ]
