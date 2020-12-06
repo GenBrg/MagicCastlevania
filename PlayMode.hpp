@@ -36,6 +36,8 @@ struct PlayMode : Mode {
 	Door* GenerateRoomsHelper(std::vector<int>& candidates, int remaining_room, int depth);
 	void OpenDoor();
 	void CollectKey() { ++keys_collected; }
+	int GetKeysCollected() const { return keys_collected; }
+	int GetTotalKeysToCollect() const { return total_keys_to_collect; }
 
 	//----- game state -----
 
