@@ -280,8 +280,8 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			}
 			draw_digits(draw_sprites, glm::vec2(232.0f, 365.0f), player->GetLevel(), glm::u8vec4(0x00, 0x00, 0x00, 0xff));
 			draw_digits(draw_sprites, glm::vec2(309.0f, 365.0f), player->GetCoin(), glm::u8vec4(0x00, 0x00, 0x00, 0xff));
-			draw_digits(draw_sprites, glm::vec2(411.0f, 365.0f), player->GetCoin(), glm::u8vec4(0x00, 0x00, 0x00, 0xff));
-			draw_digits(draw_sprites, glm::vec2(445.0f, 365.0f), player->GetCoin(), glm::u8vec4(0x00, 0x00, 0x00, 0xff));
+			draw_digits(draw_sprites, glm::vec2(411.0f, 365.0f), main_play->GetKeysCollected(), glm::u8vec4(0x00, 0x00, 0x00, 0xff));
+			draw_digits(draw_sprites, glm::vec2(445.0f, 365.0f), main_play->GetTotalKeysToCollect(), glm::u8vec4(0x00, 0x00, 0x00, 0xff));
 		}
 	} //<-- gets drawn here!
 	if (row_width == 4) {
