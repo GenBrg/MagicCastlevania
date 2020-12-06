@@ -139,6 +139,46 @@ void MenuMode::update(float elapsed) {
 	if (background) {
 		background->update(elapsed);
 	}
+	if (row_width == 4) {
+		for (int i = 1; i < 5; i++) {
+			items[i].item_prototype = player->GetEquipment(i - 1);
+			if (items[i].item_prototype) {
+				items[i].on_select = [=](MenuMode::Item const&) {
+					player->UnequipItem(i - 1);
+				};
+				items[i].on_discard = [=](MenuMode::Item const&) {
+					player->DropEquipment(i - 1);
+				};
+			}
+			else {
+				items[i].on_select = [=](MenuMode::Item const&) {
+					
+				};
+				items[i].on_discard = [=](MenuMode::Item const&) {
+					
+				};
+			}
+		}
+		for (int i = 5; i < 17; i++) {
+			items[i].item_prototype = player->GetItem(i-5);
+			if (items[i].item_prototype) {
+				items[i].on_select = [=](MenuMode::Item const&) {
+					player->UseItem(i-5);
+				};
+				items[i].on_discard = [=](MenuMode::Item const&) {
+					player->DropItem(i-5);
+				};
+			}
+			else {
+				items[i].on_select = [=](MenuMode::Item const&) {
+
+				};
+				items[i].on_discard = [=](MenuMode::Item const&) {
+
+				};
+			}
+		}
+	}
 }
 
 void MenuMode::draw(glm::uvec2 const& drawable_size) {
@@ -169,13 +209,58 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			bool is_selected = (&item == &items[0] + selected);
 			// glm::u8vec4 color = (is_selected ? item.selected_tint : item.tint);
 			//float left, right;
-			if (item.sprite) {
-				draw_sprites.draw(*item.sprite, item.transform);
+			if (item.item_prototype) {
+				if (item.item_prototype->GetIconSprite()) {
+					draw_sprites.draw(*item.item_prototype->GetIconSprite(), item.transform);
+				}
+				if (item.sprite_selected && is_selected) {
+					draw_sprites.draw(*item.sprite_selected, item.transform);
+				}
 			}
-			if (item.sprite_selected && is_selected) {
-				draw_sprites.draw(*item.sprite_selected, item.transform);
+			else {
+				if (item.sprite) {
+					draw_sprites.draw(*item.sprite, item.transform);
+				}
+				if (item.sprite_selected && is_selected) {
+					draw_sprites.draw(*item.sprite_selected, item.transform);
+				}
+			}			
+		}
+		if (row_width == 4) {
+			int hp_to_draw = player->GetHp();
+			if (hp_to_draw <= 0) {
+				return;
 			}
-			
+			Transform2D hp_curr_transform = Transform2D(nullptr);
+			hp_curr_transform.position_ = glm::vec2(194.0f, 406.0f);
+			draw_sprites.draw(sprites->lookup("hp_corner1"), hp_curr_transform);
+			hp_curr_transform.position_ += glm::vec2(4.0f, 0.0f);
+			hp_to_draw -= 3;
+			if (hp_to_draw < 3) {
+				return;
+			}
+			for (; hp_to_draw >= 3; hp_to_draw--) {
+				draw_sprites.draw(sprites->lookup("hp_point"), hp_curr_transform);
+				hp_curr_transform.position_ += glm::vec2(1.0f, 0.0f);
+			}
+			draw_sprites.draw(sprites->lookup("hp_corner2"), hp_curr_transform);
+			int exp_to_draw = player->GetCurLevelExp() * 80 /player->GetCurLevelMaxExp() ;
+			if (exp_to_draw <= 0) {
+				return;
+			}
+			Transform2D exp_curr_transform = Transform2D(nullptr);
+			exp_curr_transform.position_ = glm::vec2(194.0f, 388.0f);
+			draw_sprites.draw(sprites->lookup("exp_corner1"), exp_curr_transform);
+			exp_curr_transform.position_ += glm::vec2(4.0f, 0.0f);
+			exp_to_draw -= 3;
+			if (exp_to_draw < 3) {
+				return;
+			}
+			for (; exp_to_draw >= 3; exp_to_draw--) {
+				draw_sprites.draw(sprites->lookup("exp_point"), exp_curr_transform);
+				exp_curr_transform.position_ += glm::vec2(1.0f, 0.0f);
+			}
+			draw_sprites.draw(sprites->lookup("exp_corner2"), exp_curr_transform);
 		}
 	} //<-- gets drawn here!
 
