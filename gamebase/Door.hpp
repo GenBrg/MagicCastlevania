@@ -41,7 +41,7 @@ public:
 	static const Sprite* lock_sprite_;
 
 	inline static const glm::vec4 kBoundingBox { 0.0f, 0.0f, 76.0f, 82.0f };
-	inline static const glm::vec2 lock_position { 10.0f, 30.0f };
+	inline static const glm::vec2 lock_position { 0.0f, 32.0f };
 
 private:
 	Door* opposite_door_;

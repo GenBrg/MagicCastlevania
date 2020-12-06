@@ -179,14 +179,14 @@ int Player::GetAttackPoint()
 	return attack;
 }
 
-int Player::GetDamagePoint(int attack)
+int Player::GetDefense()
 {
 	int defense = defense_;
 	for (const Buff& buff : buffs_) {
 		defense = buff.ApplyDefense(defense);
 	}
 	defense = inventory_.ApplyEquipmentDefense(defense);
-	return Mob::GetDamagePoint(attack);
+	return defense;
 }
 
 void Player::AddHp(int hp)

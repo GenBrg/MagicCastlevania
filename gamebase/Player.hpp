@@ -53,7 +53,7 @@ public:
 	std::vector<Attack> GetAttackInfo() const;
 
 	virtual int GetAttackPoint() override;
-	virtual int GetDamagePoint(int attack) override;
+	virtual int GetDefense() override;
 
 private:
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;

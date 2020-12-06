@@ -40,7 +40,8 @@ public:
 		animation_controller_.Draw(draw);
 	}
 	virtual int GetAttackPoint() { return attack_; }
-	virtual int GetDamagePoint(int attack) { return std::max(1, attack - defense_); }
+	virtual int GetDefense() { return defense_; }
+	virtual int GetDamagePoint(int attack) { return std::max(1, attack - GetDefense()); }
 	
 	static const std::unordered_map<std::string, AnimationState> kAnimationNameStateMap;
 
