@@ -21,13 +21,12 @@ private:
 	float move_radius_;
 	glm::vec2 central_pos_;
 
-	bool destroyed_ { false };
 	AOE* collision_aoe_ { nullptr };
 
 	virtual void UpdateImpl(float elapsed);
 	virtual void OnDie();
 	virtual Animation* GetAnimation(AnimationState state);
-
+	
     int exp_ { 10 };
     int coin_;
 	float speed_ { 50.0f };
@@ -44,6 +43,7 @@ public:
 	float GetMoveRadius() const { return move_radius_; }
 	glm::vec2 GetCentralPos() const { return central_pos_; }
 	float GetSpeed() const { return speed_; }
+	virtual void Destroy() override;
 
 	~Monster();
 };

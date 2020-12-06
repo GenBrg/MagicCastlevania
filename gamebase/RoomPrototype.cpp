@@ -124,13 +124,17 @@ Room* RoomPrototype::Create() const
 		}
 	}
 
+	for (const auto& monster : monsters_) {
+		monster.monster_prototype_->Create(*room, monster.initial_pos_, monster.move_radius_);
+	}
+
 	return room;
 }
 
 void RoomPrototype::Initialize(Room* room) const
 {
 	// Monsters
-	for (const auto& monster : monsters_) {
-		monster.monster_prototype_->Create(*room, monster.initial_pos_, monster.move_radius_);
-	}
+	// for (const auto& monster : monsters_) {
+	// 	monster.monster_prototype_->Create(*room, monster.initial_pos_, monster.move_radius_);
+	// }
 }

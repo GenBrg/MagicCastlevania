@@ -2,6 +2,8 @@
 
 #include <engine/Timer.hpp>
 
+#include <iostream>
+
 const std::unordered_map<std::string, Mob::AnimationState> Mob::kAnimationNameStateMap 
 {
 	{ "idle", Mob::AnimationState::STILL },
