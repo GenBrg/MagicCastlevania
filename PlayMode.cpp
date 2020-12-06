@@ -46,29 +46,10 @@ PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 			std::vector< MenuMode::Item > items;
 			items.emplace_back("Static", &sprites->lookup("pause_window"), nullptr);
 			for (size_t i = 0; i < 4; i++) {
-				EquipmentPrototype* prototype = player->GetEquipment(i);
-				if (prototype) {
-					items.emplace_back("Equipment_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
-				}
-				else {
-					items.emplace_back("Slot_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
-				}
+				items.emplace_back("Equipment_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
 			}
 			for (size_t i = 0; i < 12; i++) {
-				ItemPrototype* prototype = player->GetItem(i);
-				if (prototype) {
-					items.emplace_back("Item_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
-				}
-				else {
-					items.emplace_back("Slot_" + std::to_string(i), nullptr , &sprites->lookup("select_target"));
-					items.back().on_select = [](MenuMode::Item const&) {
-						std::cout << "Select Empty Equipment Slot" << std::endl;
-					};
-					items.back().on_discard = [](MenuMode::Item const&) {
-						std::cout << "Discard Empty Equipment Slot" << std::endl;
-					};
-				}
-				
+				items.emplace_back("Item_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
 			}
 			std::shared_ptr< MenuMode > pause_menu;
 			pause_menu = std::make_shared< MenuMode >(items, 4);
