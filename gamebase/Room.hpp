@@ -14,6 +14,7 @@ class Trigger;
 class Monster;
 class RoomPrototype;
 class Door;
+class DoorKey;
 
 class Room {
 	friend class RoomPrototype;
@@ -28,6 +29,7 @@ private:
 	std::vector<AOE *> monster_AOEs_{};
 	std::vector<ItemPickUp *> items_{};
 	std::vector<ItemPickUp *> permanent_items_{};
+	DoorKey* door_key_ { nullptr };
 
 	// layout of this single room
 	std::vector<Collider *> platforms_{};
@@ -53,6 +55,7 @@ public:
 	void AddDoor(Door* door) { doors_.push_back(door); }
 	void AddItem(ItemPickUp* item) { items_.push_back(item); }
 	void AddPermanentItem(ItemPickUp* item) { permanent_items_.push_back(item); }
+	void GenerateKey();
 
 	size_t GetDoorNum() const { return doors_.size(); }
 	Door* GetDoor(size_t idx) { return doors_[idx]; }

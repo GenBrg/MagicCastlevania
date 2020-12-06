@@ -162,6 +162,7 @@ void PlayMode::ProceedLevel()
 		delete room;
 	}
 	rooms.clear();
+	keys_collected = 0;
 	GenerateRooms();
 	cur_room = rooms[0];
 	cur_room->OnEnter(player, cur_room->GetDoor(0));
@@ -169,6 +170,8 @@ void PlayMode::ProceedLevel()
 
 void PlayMode::GenerateRooms()
 {
+	total_keys_to_collect = 0;
+
 	// Room 1 lobby
 	// Room 2 BOSS room
 	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create());
@@ -211,7 +214,9 @@ Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, int remaining_
 	assert(remaining_door_num >= 0);
 
 	if (remaining_room == 0) {
-		// TODO Generate key on the leaf node 
+		// Generate key on the leaf node 
+		room->GenerateKey();
+		++total_keys_to_collect;
 	}
 
 	if (remaining_door_num > 0 && remaining_room > 0)
@@ -256,6 +261,11 @@ void PlayMode::OpenDoor()
 				break;
 				case Door::LockStatus::OPENED:
 					SwitchRoom(cur_door);
+				break;
+				case Door::LockStatus::SPECIAL_LOCKED:
+					if (keys_collected >= total_keys_to_collect) {
+						cur_door->SetLockStatus(Door::LockStatus::OPENING);
+					}
 				break;
 				default:;
 			}
