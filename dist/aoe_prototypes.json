@@ -16,5 +16,14 @@
 		"duration": 3.0,
 		"initial_offset": [10.0, 10.0],
 		"penetrate": true
+	},
+	{
+		"name": "player_comet",
+		"bounding_box": [20.0, 0.0, 145.0, 354.0],
+		"animation": "comet",
+		"velocity": [300.0, 0.0],
+		"duration": 1.4,
+		"initial_offset": [0.0, -140.0],
+		"penetrate": true
 	}
 ]

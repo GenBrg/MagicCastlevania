@@ -34,6 +34,7 @@ void PotionPrototype::LoadConfig(const std::string& potion_list_file)
 		potion_prototype->hp_ = potion_json.at("hp").get<int>();
 		potion_prototype->mp_ = potion_json.at("mp").get<int>();
 		potion_prototype->exp_ = potion_json.at("exp").get<int>();
+		potion_prototype->price_ = potion_json.at("price").get<int>();
 
 		json icon_sprite_json = potion_json.at("icon_sprite");
 		if (!icon_sprite_json.is_null()) {

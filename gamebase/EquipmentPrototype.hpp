@@ -15,6 +15,7 @@ public:
 	virtual const std::string& GetDescription() const { return description_; }
 	virtual const Sprite* GetIconSprite() const { return icon_sprite_; }
 	virtual const Sprite* GetPickupSprite() const { return pickup_sprite_; }
+	virtual int GetPrice() const { return price_; }
 
 	virtual void Apply(Player* player);
 	int ApplyAttack(int attack);
@@ -31,5 +32,6 @@ private:
 
 	int attack_;
 	int defense_;
+	int price_;
 	int slot_;
 };

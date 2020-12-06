@@ -145,6 +145,7 @@ void PlayMode::ProceedLevel()
 	rooms.clear();
 	keys_collected = 0;
 	GenerateRooms();
+	shop.GenerateItems();
 	cur_room = rooms[0];
 	cur_room->OnEnter(player, cur_room->GetDoor(0));
 }

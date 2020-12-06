@@ -156,6 +156,7 @@ GAMEBASE_NAME =
 	MonsterAI
 	ItemPickup
 	DoorKey
+	Shop
 	;
 
 ENGINE_NAMES =

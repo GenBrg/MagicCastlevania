@@ -24,7 +24,7 @@
 		},
 		{
 			"mob_animation": "player_attack",
-			"aoe_prototype": "remote_attack",
+			"aoe_prototype": "player_comet",
 			"icon": "avatar_mage",
 			"cooldown": 0.6,
 			"attach_to_entity": false

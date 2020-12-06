@@ -5,6 +5,7 @@
 #include <gamebase/HeadsUpDisplay.hpp>
 #include <gamebase/Dialog.hpp>
 #include <gamebase/Room.hpp>
+#include <gamebase/Shop.hpp>
 #include <engine/Text.hpp>
 #include <engine/TimerGuard.hpp>
 
@@ -51,4 +52,6 @@ struct PlayMode : Mode {
 
 	int keys_collected { 0 };
 	int total_keys_to_collect { 0 };
+
+	Shop shop;
 };

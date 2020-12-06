@@ -108,5 +108,10 @@
 		"name": "fire",
 		"sprite_num": 1,
 		"interval": 0.1
+	},
+	{
+		"name": "comet",
+		"sprite_num": 14,
+		"interval": 0.1
 	}
 ]
