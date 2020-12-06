@@ -37,7 +37,7 @@ public:
 	void AddCoin(int coin);
 	int GetLevel() {return cur_level_;}
     int GetCurLevelExp() {return exp_;}
-    int GetCurLevelMaxExp() {return level_exps_[cur_level_];}
+    int GetCurLevelMaxExp() {return level_exps_[GetLevel()];}
 	int GetCoin() {return coin_;}
 
 	// Inventory
@@ -60,11 +60,11 @@ private:
 	MovementComponent movement_component_;
 	Room** room_;
 
-	int cur_level_ { 0 };
 	int max_hp_ { 100 };
 	int mp_ { 100 };
 	int max_mp_ { 100 };
     int exp_ { 0 };
+    int cur_level_ {0};
     int coin_ { 0 };
 	std::vector<int> level_exps_;
 	std::vector<Attack> skills_;
