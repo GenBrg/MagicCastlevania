@@ -67,10 +67,10 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 
 		for (const auto& item_json : j.at("items")) {
 			room_prototype.item_infos_.push_back({ItemPrototype::GetPrototype(item_json.at("name").get<std::string>()),
-			 item_json.at("position").get<glm::vec2>(), item_json.at("probability").get<float>()});
+			 util::AssetSpaceToGameSpace(item_json.at("position").get<glm::vec2>()), item_json.at("probability").get<float>()});
 		}
 
-		room_prototype.key_position_ = j.at("key_position").get<glm::vec2>();
+		room_prototype.key_position_ = util::AssetSpaceToGameSpace(j.at("key_position").get<glm::vec2>());
 	}
 }
 

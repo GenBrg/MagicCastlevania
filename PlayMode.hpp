@@ -35,6 +35,9 @@ struct PlayMode : Mode {
 	 */
 	Door* GenerateRoomsHelper(std::vector<int>& candidates, int remaining_room, int depth);
 	void OpenDoor();
+	void CollectKey() { ++keys_collected; }
+	int GetKeysCollected() const { return keys_collected; }
+	int GetTotalKeysToCollect() const { return total_keys_to_collect; }
 
 	//----- game state -----
 
@@ -45,4 +48,7 @@ struct PlayMode : Mode {
 	Text press_w_hint;
 	TimerGuard open_door_guard;
 	size_t level_ { 0 };
+
+	int keys_collected { 0 };
+	int total_keys_to_collect { 0 };
 };

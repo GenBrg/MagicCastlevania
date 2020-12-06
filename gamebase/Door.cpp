@@ -8,6 +8,7 @@
 Animation* Door::opened_animation_ { nullptr };
 Animation* Door::opening_animation_ { nullptr };
 Animation* Door::closed_animation_ { nullptr };
+const Sprite* Door::lock_sprite_;
 
 Door::Door(const glm::vec2& position, Door* opposite_door, Room& room, LockStatus lock_status) :
 Entity(kBoundingBox, nullptr),
@@ -16,6 +17,7 @@ room_(room),
 animation_controller_(&transform_)
 {
 	transform_.position_ = position;
+	lock_transform_.position_ = lock_position;
 	SetLockStatus(lock_status);
 }
 
@@ -30,6 +32,10 @@ void Door::DrawImpl(DrawSprites& draw)
 {
 	if (lock_status_ != LockStatus::CLOSED) {
 		animation_controller_.Draw(draw);
+
+		if (lock_status_ == LockStatus::SPECIAL_LOCKED) {
+			draw.draw(*lock_sprite_, lock_transform_);
+		}
 	}
 }
 

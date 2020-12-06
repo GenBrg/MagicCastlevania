@@ -8,6 +8,8 @@
 #include <gamebase/PotionPrototype.hpp>
 #include <gamebase/EquipmentPrototype.hpp>
 #include <gamebase/HeadsUpDisplay.hpp>
+#include <gamebase/DoorKey.hpp>
+#include <gamebase/Door.hpp>
 
 #include <iostream>
 
@@ -21,6 +23,8 @@ Load<void> load_everything(LoadTagDefault, [](){
 	EquipmentPrototype::LoadConfig(data_path("equipments.json"));
 	MonsterPrototype::LoadConfig(data_path("monster.list"));
 	RoomPrototype::LoadConfig(data_path("room.list"));
+	DoorKey::sprite_ = &(sprites->lookup("key"));
+	Door::lock_sprite_ = &(sprites->lookup("lock"));
 });
 
 namespace glm {

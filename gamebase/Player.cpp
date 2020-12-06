@@ -185,7 +185,7 @@ int Player::GetDamagePoint(int attack)
 	for (const Buff& buff : buffs_) {
 		defense = buff.ApplyDefense(defense);
 	}
-	defense = inventory_.ApplyEquipmentAttack(defense);
+	defense = inventory_.ApplyEquipmentDefense(defense);
 	return Mob::GetDamagePoint(attack);
 }
 
