@@ -42,7 +42,10 @@
 //	});
 # define MENU_FONT_PATH  "DigitalDisco.ttf"
 
-MenuMode::MenuMode(std::vector< Item > const& items_, int width) : items(items_), text(data_path(MENU_FONT_PATH)){
+MenuMode::MenuMode(std::vector< Item > const& items_, int width) : 
+text(data_path(MENU_FONT_PATH)),
+items(items_)
+{
 	//select first item which can be selected:
 	text.SetFontSize(font_size)
 		.SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff))
