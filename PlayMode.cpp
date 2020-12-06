@@ -181,17 +181,17 @@ void PlayMode::GenerateRooms()
 
 	// Randomly generate rooms behind first two doors
 	std::vector<int> candidate_rooms;
-	for (int i = 3; i <= RoomPrototype::GetRoomPrototypeNum(); ++i) {
-		candidate_rooms.push_back(i);
+	for (size_t i = 3; i <= RoomPrototype::GetRoomPrototypeNum(); ++i) {
+		candidate_rooms.push_back(static_cast<int>(i));
 	}
 
-	int door1_room_num = static_cast<int>(candidate_rooms.size() / 2);
-	int door2_room_num = static_cast<int>(candidate_rooms.size() - door1_room_num);
+	size_t door1_room_num = candidate_rooms.size() / 2;
+	size_t door2_room_num = candidate_rooms.size() - door1_room_num;
 	rooms[0]->GetDoor(0)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
 	rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
 }
 
-Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, int remaining_room, int depth)
+Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, size_t remaining_room, size_t depth)
 {
 	assert(candidates.size() >= remaining_room);
 
@@ -234,8 +234,8 @@ Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, int remaining_
 				}
 				else
 				{
-					int sub_remaining_room = static_cast<int>(average_remaining_room + (2 * Random::Instance()->Generate()) - 1);
-					sub_remaining_room = std::clamp(sub_remaining_room, 1, remaining_room);
+					size_t sub_remaining_room = static_cast<size_t>(average_remaining_room + (2 * Random::Instance()->Generate()) - 1);
+					sub_remaining_room = std::clamp(sub_remaining_room, 1ull, remaining_room);
 					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(candidates, sub_remaining_room, depth + 1), Door::LockStatus::UNLOCK);
 					remaining_room -= sub_remaining_room;
 				}
