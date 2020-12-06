@@ -24,6 +24,15 @@ void ClearData(std::vector<T>& data)
 }
 
 template <typename T>
+void DestroyData(std::vector<T>& data) 
+{
+	for (T& d : data) {
+		d->Destroy();
+	}
+	data.clear();
+}
+
+template <typename T>
 void GarbageCollect(std::vector<T*>& arr) {
 	arr.erase(std::remove_if(arr.begin(), arr.end(), [](T* elem){
 		if (elem->IsDestroyed()) {
@@ -167,9 +176,9 @@ void Room::OnEnter(Player* player, Door* door)
 
 void Room::OnLeave()
 {
-	ClearData(player_AOEs_);
-	ClearData(monsters_);
-	ClearData(items_);
+	DestroyData(player_AOEs_);
+	DestroyData(monsters_);
+	DestroyData(items_);
 
 	for (Dialog* dialog : dialogs_) {
 		dialog->Reset();

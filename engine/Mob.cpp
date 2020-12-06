@@ -30,7 +30,9 @@ void Mob::TakeDamage(int attack)
 		{
 			animation_controller_.PlayAnimation(GetAnimation(AnimationState::HURT), false);
 			state_ = State::TAKING_DAMAGE;
+			++pending_callbacks_;
 			TimerManager::Instance().AddTimer(GetAnimation(AnimationState::HURT)->GetLength(), [&]() {
+				--pending_callbacks_;
 				if (state_ == State::TAKING_DAMAGE)
 				{
 					state_ = State::MOVING;
@@ -54,7 +56,9 @@ void Mob::PerformAttack(Room& room, Attack& attack)
 		animation_controller_.PlayAnimation(animation, false);
 		state_ = State::ATTACKING;
 
+		pending_callbacks_++;
 		TimerManager::Instance().AddTimer(animation->GetLength(), [&]() {
+			pending_callbacks_--;
 			if (state_ == State::ATTACKING)
 			{
 				state_ = State::MOVING;
@@ -68,3 +72,8 @@ Mob::Mob(const glm::vec4& bounding_box, Transform2D* transform) :
 Entity(bounding_box, transform),
 animation_controller_(&transform_)
 {}
+
+bool Mob::IsDestroyed()
+{
+	return destroyed_ && pending_callbacks_ == 0;
+}

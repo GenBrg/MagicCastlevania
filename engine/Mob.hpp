@@ -42,6 +42,7 @@ public:
 	virtual int GetAttackPoint() { return attack_; }
 	virtual int GetDefense() { return defense_; }
 	virtual int GetDamagePoint(int attack) { return std::max(1, attack - GetDefense()); }
+	virtual bool IsDestroyed();
 	
 	static const std::unordered_map<std::string, AnimationState> kAnimationNameStateMap;
 
@@ -58,6 +59,7 @@ protected:
 	float take_damage_cooldown_ { 0.5f };
 	bool is_monster_;
 	AnimationController animation_controller_;
+	int pending_callbacks_ { 0 };
 
 private:
 	TimerGuard take_damage_guard_;

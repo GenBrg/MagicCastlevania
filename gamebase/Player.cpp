@@ -65,7 +65,9 @@ void Player::OnDie()
 {
 	state_ = State::DYING;
 	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
+	++pending_callbacks_;
 	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
+		--pending_callbacks_;
 		Reset();
 	});
 }

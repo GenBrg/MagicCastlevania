@@ -32,7 +32,9 @@ void Monster::OnDie()
 	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
 	collision_aoe_->Destroy();
 	collision_aoe_ = nullptr;
+	pending_callbacks_++;
 	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
+		pending_callbacks_--;
 		Destroy();
 	});
 	// Add coin to player
