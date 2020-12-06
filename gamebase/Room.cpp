@@ -177,7 +177,7 @@ void Room::OnEnter(Player* player, Door* door)
 void Room::OnLeave()
 {
 	DestroyData(player_AOEs_);
-	DestroyData(monsters_);
+	// DestroyData(monsters_);
 	DestroyData(items_);
 
 	for (Dialog* dialog : dialogs_) {

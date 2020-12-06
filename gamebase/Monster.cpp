@@ -57,6 +57,16 @@ Animation* Monster::GetAnimation(AnimationState state)
 Monster::~Monster() {
 	if (collision_aoe_) {
 		collision_aoe_->Destroy();
+		collision_aoe_ = nullptr;
 	}
 	delete ai_;
+}
+
+void Monster::Destroy()
+{
+	destroyed_ = true;
+	if (collision_aoe_) {
+		collision_aoe_->Destroy();
+		collision_aoe_ = nullptr;
+	}
 }
