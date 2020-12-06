@@ -31,6 +31,7 @@ void Monster::OnDie()
 	state_ = State::DYING;
 	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
 	collision_aoe_->Destroy();
+	collision_aoe_ = nullptr;
 	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
 		Destroy();
 	});
@@ -52,5 +53,8 @@ Animation* Monster::GetAnimation(AnimationState state)
 }
 
 Monster::~Monster() {
+	if (collision_aoe_) {
+		collision_aoe_->Destroy();
+	}
 	delete ai_;
 }

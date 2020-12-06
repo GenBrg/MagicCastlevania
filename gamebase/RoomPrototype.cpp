@@ -1,6 +1,9 @@
 #include "RoomPrototype.hpp"
-#include "../engine/InputSystem.hpp"
+
+#include <engine/InputSystem.hpp>
 #include <engine/AOE.hpp>
+#include <engine/Random.hpp>
+#include <gamebase/ItemPrototype.hpp>
 #include <data_path.hpp>
 
 #include <fstream>
@@ -61,6 +64,13 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 		}
 
 		room_prototype.background_sprite_ = &(sprites->lookup(j.at("background_sprite").get<std::string>()));
+
+		for (const auto& item_json : j.at("items")) {
+			room_prototype.item_infos_.push_back({ItemPrototype::GetPrototype(item_json.at("name").get<std::string>()),
+			 item_json.at("position").get<glm::vec2>(), item_json.at("probability").get<float>()});
+		}
+
+		room_prototype.key_position_ = j.at("key_position").get<glm::vec2>();
 	}
 }
 
@@ -105,6 +115,13 @@ Room* RoomPrototype::Create() const
 
 	for (const auto& door_position : doors_) {
 		Door::Create(*room, door_position);
+	}
+
+	for (const auto& item_info : item_infos_) {
+		float dice = Random::Instance()->Generate();
+		if (dice < item_info.probability_) {
+			ItemPickUp::Generate(*room, item_info.item_prototype_, item_info.position_, true);
+		}
 	}
 
 	return room;

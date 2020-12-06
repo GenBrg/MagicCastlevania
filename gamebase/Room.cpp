@@ -53,6 +53,7 @@ Room::~Room() {
 	ClearData(triggers_);
 	ClearData(dialogs_);
 	ClearData(items_);
+	ClearData(permanent_items_);
 }
 
 void Room::Update(float elapsed, Player* player, Door** cur_door)
@@ -101,6 +102,7 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 	GarbageCollect(monster_AOEs_);
 	GarbageCollect(triggers_);
 	GarbageCollect(items_);
+	GarbageCollect(permanent_items_);
 
 	// if needs to update dialog or reset it
 	if (cur_dialog) {
@@ -135,6 +137,10 @@ void Room::Draw(DrawSprites& draw_sprite)
 	}
 
 	for (ItemPickUp* item : items_) {
+		item->Draw(draw_sprite);
+	}
+
+	for (ItemPickUp* item : permanent_items_) {
 		item->Draw(draw_sprite);
 	}
 }

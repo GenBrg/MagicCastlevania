@@ -27,6 +27,7 @@ private:
 	std::vector<AOE *> player_AOEs_{};
 	std::vector<AOE *> monster_AOEs_{};
 	std::vector<ItemPickUp *> items_{};
+	std::vector<ItemPickUp *> permanent_items_{};
 
 	// layout of this single room
 	std::vector<Collider *> platforms_{};
@@ -51,6 +52,7 @@ public:
 	void AddTrigger(Trigger* trigger) { triggers_.push_back(trigger); }
 	void AddDoor(Door* door) { doors_.push_back(door); }
 	void AddItem(ItemPickUp* item) { items_.push_back(item); }
+	void AddPermanentItem(ItemPickUp* item) { permanent_items_.push_back(item); }
 
 	size_t GetDoorNum() const { return doors_.size(); }
 	Door* GetDoor(size_t idx) { return doors_[idx]; }

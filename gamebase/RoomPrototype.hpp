@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <string>
 
+class ItemPrototype;
 
 class RoomPrototype {
 public:
@@ -81,4 +82,12 @@ private:
 	std::vector<Trap> traps_;
 	std::vector<DialogInfo> dialog_infos_;
 	std::vector<glm::vec2> doors_;
+	glm::vec2 key_position_;
+	
+	struct ItemInfo {
+		ItemPrototype* item_prototype_;
+		glm::vec2 position_;
+		float probability_;
+	};
+	std::vector<ItemInfo> item_infos_;
 };

@@ -203,27 +203,25 @@ void Player::AddMp(int mp)
 
 void Player::AddExp(int exp)
 {
-    exp_ += exp;
-    if (cur_level_ == (int)level_exps_.size() - 1 && exp_ >= level_exps_[cur_level_]) {
-        // already max level, truncate exp to not overflow
-        exp_ =  level_exps_[cur_level_];
-    } else {
-        while (exp_ >= level_exps_[cur_level_]) {
-            LevelUp();
-        }
+    if(cur_level_ == (int)level_exps_.size() - 1 && exp_ == level_exps_[cur_level_]) {
+        return;
     }
 
+    exp_ += exp;
+    while (cur_level_ <= (int)level_exps_.size() - 1 && exp_ >= level_exps_[cur_level_]) {
+        exp_ -= level_exps_[cur_level_];
+        cur_level_++;
+    }
+
+    if (cur_level_ == (int)level_exps_.size()) {
+        // already max level, truncate exp to not overflow
+        cur_level_--;
+        exp_ =  level_exps_[cur_level_];
+    }
 }
 
 void Player::AddCoin(int coin) {
     coin_ += coin;
-}
-
-void Player::LevelUp()
-{
-	assert(exp_ >= level_exps_[cur_level_]);
-	exp_ -= level_exps_[cur_level_];
-    cur_level_++;
 }
 
 bool Player::PickupItem(ItemPrototype* item)
@@ -260,3 +258,4 @@ EquipmentPrototype* Player::GetEquipment(size_t slot_num)
 {
 	return inventory_.PeekEquipment(slot_num);
 }
+
