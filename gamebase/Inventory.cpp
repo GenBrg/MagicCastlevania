@@ -74,7 +74,7 @@ int Inventory::ApplyEquipmentAttack(int attack)
 {
 	for (const auto& equipment : equipments_) {
 		if (equipment) {
-			attack += equipment->ApplyAttack(attack);
+			attack = equipment->ApplyAttack(attack);
 		}
 	}
 	return attack;
@@ -84,7 +84,7 @@ int Inventory::ApplyEquipmentDefense(int defense)
 {
 	for (const auto& equipment : equipments_) {
 		if (equipment) {
-			defense += equipment->ApplyDefense(defense);
+			defense = equipment->ApplyDefense(defense);
 		}
 	}
 	return defense;

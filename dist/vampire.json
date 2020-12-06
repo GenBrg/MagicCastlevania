@@ -15,9 +15,9 @@
 	"skills": [
 		{
 			"mob_animation": "vampire_attack",
-			"aoe_prototype": "normal_attack",
+			"aoe_prototype": "remote_attack",
 			"cooldown": 1.0,
-			"attach_to_entity": true
+			"attach_to_entity": false
 		}
 	],
 	"ai": {

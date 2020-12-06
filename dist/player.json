@@ -24,10 +24,10 @@
 		},
 		{
 			"mob_animation": "player_attack",
-			"aoe_prototype": "normal_attack",
+			"aoe_prototype": "remote_attack",
 			"icon": "avatar_mage",
 			"cooldown": 0.6,
-			"attach_to_entity": true
+			"attach_to_entity": false
 		}
 	],
 	"level_exps": [
