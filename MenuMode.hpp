@@ -17,6 +17,7 @@
 struct MenuMode : Mode {
 	struct Item;
 	int row_width;
+	Text text;
 	MenuMode(std::vector< Item > const& items, int width);
 	virtual ~MenuMode();
 
@@ -87,6 +88,6 @@ struct MenuMode : Mode {
 	//  the last shared_ptr that references it), then it will crash. Don't do that!
 	std::shared_ptr< Mode > background;
 
-	const std::string menu_font_file_name = "ReallyFree-ALwl7.ttf";
-	int font_size = 2000;
+	const std::string menu_font_file_name = "bulky-pixels.regular.ttf";
+	int font_size = 1300;
 };
