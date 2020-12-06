@@ -216,7 +216,7 @@ Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, size_t remaini
 				else
 				{
 					size_t sub_remaining_room = static_cast<size_t>(average_remaining_room + (2 * Random::Instance()->Generate()) - 1);
-					sub_remaining_room = std::clamp(sub_remaining_room, 1Ui64, remaining_room);
+					sub_remaining_room = static_cast<size_t>(std::clamp(static_cast<unsigned long long>(sub_remaining_room), 1ull, static_cast<unsigned long long>(remaining_room)));
 					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(candidates, sub_remaining_room, depth + 1), Door::LockStatus::UNLOCK);
 					remaining_room -= sub_remaining_room;
 				}

@@ -73,7 +73,7 @@ Entity(bounding_box, transform),
 animation_controller_(&transform_)
 {}
 
-bool Mob::IsDestroyed()
+bool Mob::IsDestroyed() const
 {
 	return destroyed_ && pending_callbacks_ == 0;
 }
