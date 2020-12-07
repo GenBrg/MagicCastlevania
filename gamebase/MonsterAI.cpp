@@ -96,6 +96,7 @@ void BouncingMonsterAI::GenerateSpeedVec()
 	float angle = glm::radians(360.0f * Random::Instance()->Generate());
 	speed_vec_ = monster_.GetSpeed() * glm::vec2(glm::cos(angle), glm::sin(angle));
 	bounce_cooldown_ = 1.0f + 4.0f * Random::Instance()->Generate();
+	transform_.scale_.x = (speed_vec_.x > 0) ? 1.0f : -1.0f;
 }
 
 FollowAndAttackMonsterAI::FollowAndAttackMonsterAI(const json& j, Monster* monster) :
