@@ -34,6 +34,7 @@ void PotionPrototype::LoadConfig(const std::string& potion_list_file)
 		potion_prototype->hp_ = potion_json.at("hp").get<int>();
 		potion_prototype->mp_ = potion_json.at("mp").get<int>();
 		potion_prototype->exp_ = potion_json.at("exp").get<int>();
+		potion_prototype->price_ = potion_json.at("price").get<int>();
 
 		json icon_sprite_json = potion_json.at("icon_sprite");
 		if (!icon_sprite_json.is_null()) {
@@ -44,6 +45,11 @@ void PotionPrototype::LoadConfig(const std::string& potion_list_file)
 		if (!pickup_sprite_json.is_null()) {
 			potion_prototype->pickup_sprite_ = &(sprites->lookup(pickup_sprite_json.get<std::string>()));
 		}
+
+		for (const auto& buff_json : potion_json.at("buffs")) {
+			potion_prototype->buffs_.push_back(buff_json.get<Buff>());
+		}
+
 		AddPrototype(potion_prototype->name_, potion_prototype);
 	}
 }

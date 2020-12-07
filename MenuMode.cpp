@@ -288,7 +288,7 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 		}
 	} //<-- gets drawn here!
 	if (row_width == 4) {
-		std::string text_string = "Atk: " + std::to_string(player->GetAttackPoint()) + "\nDef: 30";
+		std::string text_string = "Atk: " + std::to_string(player->GetAttackPoint()) + "\nDef: " + std::to_string(player->GetDefense());
 		if (items[selected].item_prototype) {
 			text_string += "\n\nItem Description:\n" + items[selected].item_prototype->GetDescription();
 		}

@@ -12,6 +12,8 @@
 #include <gamebase/Door.hpp>
 
 #include <iostream>
+#include <fstream>
+#include <stdexcept>
 
 Player* player;
 HeadsUpDisplay* hud;
@@ -25,6 +27,32 @@ Load<void> load_everything(LoadTagDefault, [](){
 	RoomPrototype::LoadConfig(data_path("room.list"));
 	DoorKey::sprite_ = &(sprites->lookup("key"));
 	Door::lock_sprite_ = &(sprites->lookup("lock"));
+});
+
+Load<void> load_sounds(LoadTagDefault, [](){
+	std::string bgm_path = data_path("sound/bgm/opus/");
+	std::ifstream f(bgm_path + "sound.list");
+	std::string sound_file_name;
+	if (!f.is_open()) {
+		throw std::runtime_error("Can not load bgm list file");
+	}
+
+	while (f >> sound_file_name) {
+		sound_samples[sound_file_name] = new Sound::Sample(bgm_path + sound_file_name + ".opus");
+	}
+
+	f.close();
+	f.clear();
+
+	std::string sfx_path = data_path("sound/effect/opus/");
+	f.open(sfx_path + "sound.list");
+	if (!f.is_open()) {
+		throw std::runtime_error("Can not load sfx list file");
+	}
+
+	while (f >> sound_file_name) {
+		sound_samples[sound_file_name] = new Sound::Sample(sfx_path + sound_file_name + ".opus");
+	}
 });
 
 namespace glm {

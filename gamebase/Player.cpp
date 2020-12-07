@@ -59,6 +59,33 @@ room_(room)
 			PerformAttack(**room, skills_[0]);
 		}
 	});
+
+	InputSystem::Instance()->Register(SDLK_k, [this, room](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
+		if (key_state.pressed) {
+			PerformAttack(**room, skills_[1]);
+		}
+	});
+
+	InputSystem::Instance()->Register(SDLK_l, [this, room](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
+		if (key_state.pressed) {
+			PerformAttack(**room, skills_[2]);
+		}
+	});
+
+	InputSystem::Instance()->Register(SDLK_SEMICOLON, [this, room](InputSystem::KeyState& key_state, float elapsed) {
+		if (state_ != State::MOVING) {
+			return;
+		}
+		if (key_state.pressed) {
+			PerformAttack(**room, skills_[3]);
+		}
+	});
 }
 
 void Player::OnDie()
@@ -174,10 +201,13 @@ std::vector<Attack> Player::GetAttackInfo() const {
 int Player::GetAttackPoint()
 {
 	int attack = attack_;
+	// std::cout << "orig: " << attack << std::endl;
 	for (const Buff& buff : buffs_) {
 		attack = buff.ApplyAttack(attack);
 	}
+	// std::cout << "buff: " << attack << std::endl;
 	attack = inventory_.ApplyEquipmentAttack(attack);
+	// std::cout << "equip: " << attack << std::endl;
 	return attack;
 }
 

@@ -6,6 +6,7 @@
 		"pickup_sprite": "avatar_assassin",
 		"attack": 12,
 		"defense": 0,
+		"price": 500,
 		"slot": 0
 	},
 	{
@@ -15,6 +16,7 @@
 		"pickup_sprite": "avatar_assassin",
 		"attack": 0,
 		"defense": 12,
+		"price": 500,
 		"slot": 2
 	}
 ]

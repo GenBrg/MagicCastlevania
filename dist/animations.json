@@ -108,5 +108,20 @@
 		"name": "fire",
 		"sprite_num": 1,
 		"interval": 0.1
+	},
+	{
+		"name": "comet",
+		"sprite_num": 14,
+		"interval": 0.1
+	},
+	{
+		"name": "tornado",
+		"sprite_num": 11,
+		"interval": 0.1
+	},
+	{
+		"name": "shine",
+		"sprite_num": 4,
+		"interval": 0.1
 	}
 ]

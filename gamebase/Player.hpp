@@ -48,6 +48,7 @@ public:
 	void DropEquipment(size_t slot_num);
 	ItemPrototype* GetItem(size_t slot_num);
 	EquipmentPrototype* GetEquipment(size_t slot_num);
+	bool IsInventoryFull() const { return inventory_.IsFull(); }
 	
 	static Player* Create(Room** room, const std::string& player_config_file);
 	std::vector<Attack> GetAttackInfo() const;

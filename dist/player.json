@@ -18,14 +18,27 @@
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "normal_attack",
-			"icon": "avatar_player", 
 			"cooldown": 0.6,
 			"attach_to_entity": true
 		},
 		{
 			"mob_animation": "player_attack",
-			"aoe_prototype": "normal_attack",
-			"icon": "avatar_mage",
+			"aoe_prototype": "player_comet",
+			"icon": "comet_icon",
+			"cooldown": 0.6,
+			"attach_to_entity": false
+		},
+		{
+			"mob_animation": "player_attack",
+			"aoe_prototype": "player_tornado",
+			"icon": "tornado_icon",
+			"cooldown": 0.6,
+			"attach_to_entity": false
+		},
+		{
+			"mob_animation": "player_attack",
+			"aoe_prototype": "player_shine",
+			"icon": "light_icon",
 			"cooldown": 0.6,
 			"attach_to_entity": true
 		}

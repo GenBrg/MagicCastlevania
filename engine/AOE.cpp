@@ -15,7 +15,7 @@ penetrate_(penetrate)
 {
 	if (!face_right) {
 		velocity_.x = -velocity_.x;
-		collider_.SetBoundingBox(glm::vec4(-box[2], box[1], box[0], box[3]));
+		collider_.SetBoundingBox(glm::vec4(-box[2], box[1], -box[0], box[3]));
 		if (!parent_transform) {
 			transform_.scale_.x = -1.0f;
 		}

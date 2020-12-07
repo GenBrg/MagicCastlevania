@@ -23,6 +23,7 @@ void EquipmentPrototype::LoadConfig(const std::string& equipment_list_file)
 		equipment_prototype->attack_ = equipment_json.at("attack").get<int>();
 		equipment_prototype->defense_ = equipment_json.at("defense").get<int>();
 		equipment_prototype->slot_ = equipment_json.at("slot").get<int>();
+		equipment_prototype->price_ = equipment_json.at("price").get<int>();
 
 		json icon_sprite_json = equipment_json.at("icon_sprite");
 		if (!icon_sprite_json.is_null()) {
