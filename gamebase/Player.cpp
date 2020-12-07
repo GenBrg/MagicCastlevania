@@ -236,6 +236,7 @@ void Player::AddMp(int mp)
 
 void Player::AddExp(int exp)
 {
+    int old_level = cur_level_;
     if(cur_level_ == (int)level_exps_.size() - 1 && exp_ == level_exps_[cur_level_]) {
         return;
     }
@@ -250,6 +251,10 @@ void Player::AddExp(int exp)
         // already max level, truncate exp to not overflow
         cur_level_--;
         exp_ =  level_exps_[cur_level_];
+    }
+
+    if (cur_level_ != old_level) {
+        Sound::play(*sound_samples.at("level_up"));
     }
 }
 
@@ -296,10 +301,4 @@ void Player::PlayTakeDamageSound()
 {
 	int sound_idx = static_cast<int>(Random::Instance()->Generate() * 4) + 1;
 	Sound::play(*sound_samples["be_attacked_" + std::to_string(sound_idx)]);
-}
-
-void Player::PlayAttackSound()
-{
-	int sound_idx = static_cast<int>(Random::Instance()->Generate() * 4) + 1;
-	Sound::play(*sound_samples["normal_attack_" + std::to_string(sound_idx)]);
 }

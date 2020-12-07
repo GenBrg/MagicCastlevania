@@ -19,28 +19,37 @@
 			"mob_animation": "player_attack",
 			"aoe_prototype": "normal_attack",
 			"cooldown": 0.6,
-			"attach_to_entity": true
-		},
-		{
-			"mob_animation": "player_attack",
-			"aoe_prototype": "player_comet",
-			"icon": "comet_icon",
-			"cooldown": 0.6,
-			"attach_to_entity": false
+			"attach_to_entity": true,
+			"sound_effects": [
+				"normal_attack_1",
+				"normal_attack_2",
+				"normal_attack_3",
+				"normal_attack_4"
+			]
 		},
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "player_tornado",
 			"icon": "tornado_icon",
 			"cooldown": 0.6,
-			"attach_to_entity": false
+			"attach_to_entity": false,
+			"sound_effects": ["remote_attack_tornado"]
 		},
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "player_shine",
 			"icon": "light_icon",
 			"cooldown": 0.6,
-			"attach_to_entity": true
+			"attach_to_entity": true,
+			"sound_effects": ["remote_attack_light"]
+		},
+		{
+			"mob_animation": "player_attack",
+			"aoe_prototype": "player_comet",
+			"icon": "comet_icon",
+			"cooldown": 0.6,
+			"attach_to_entity": false,
+			"sound_effects": ["remote_attack_comet"]
 		}
 	],
 	"level_exps": [
