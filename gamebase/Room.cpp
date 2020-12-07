@@ -6,6 +6,7 @@
 #include <gamebase/RoomPrototype.hpp>
 #include <gamebase/Player.hpp>
 #include <gamebase/Monster.hpp>
+#include <gamebase/DoorKey.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -18,6 +19,15 @@ void ClearData(std::vector<T>& data)
 {
 	for (T& d : data) {
 		delete d;
+	}
+	data.clear();
+}
+
+template <typename T>
+void DestroyData(std::vector<T>& data) 
+{
+	for (T& d : data) {
+		d->Destroy();
 	}
 	data.clear();
 }
@@ -54,6 +64,11 @@ Room::~Room() {
 	ClearData(dialogs_);
 	ClearData(items_);
 	ClearData(permanent_items_);
+
+	if (door_key_) {
+		delete door_key_;
+		door_key_ = nullptr;
+	}
 }
 
 void Room::Update(float elapsed, Player* player, Door** cur_door)
@@ -103,6 +118,10 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 	GarbageCollect(triggers_);
 	GarbageCollect(items_);
 	GarbageCollect(permanent_items_);
+	if (door_key_ && door_key_->IsDestroyed()) {
+		delete door_key_;
+		door_key_ = nullptr;
+	}
 
 	// if needs to update dialog or reset it
 	if (cur_dialog) {
@@ -143,6 +162,10 @@ void Room::Draw(DrawSprites& draw_sprite)
 	for (ItemPickUp* item : permanent_items_) {
 		item->Draw(draw_sprite);
 	}
+
+	if (door_key_) {
+		door_key_->Draw(draw_sprite);
+	}
 }
 
 void Room::OnEnter(Player* player, Door* door)
@@ -153,9 +176,9 @@ void Room::OnEnter(Player* player, Door* door)
 
 void Room::OnLeave()
 {
-	ClearData(player_AOEs_);
-	ClearData(monsters_);
-	ClearData(items_);
+	DestroyData(player_AOEs_);
+	// DestroyData(monsters_);
+	DestroyData(items_);
 
 	for (Dialog* dialog : dialogs_) {
 		dialog->Reset();
@@ -164,4 +187,10 @@ void Room::OnLeave()
 	if (cur_dialog) {
 		cur_dialog = nullptr;
 	}
+}
+
+void Room::GenerateKey()
+{
+	assert(!door_key_);
+	door_key_ = new DoorKey(*this, room_prototype_.GetKeySpawnPosition());
 }

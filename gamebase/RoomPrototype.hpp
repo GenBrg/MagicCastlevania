@@ -64,6 +64,7 @@ public:
 	Room *Create() const;
 
 	void Initialize(Room *room) const;
+	glm::vec2 GetKeySpawnPosition() const { return key_position_; }
 
 	static void LoadConfig(const std::string &room_list_file);
 

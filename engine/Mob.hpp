@@ -36,11 +36,13 @@ public:
 	State GetState() const { return state_; }
 	void SetState(State state) { state_ = state; }
 
-	virtual void DrawImpl(DrawSprites& draw) {
+	virtual void DrawImpl(DrawSprites& draw) override {
 		animation_controller_.Draw(draw);
 	}
 	virtual int GetAttackPoint() { return attack_; }
-	virtual int GetDamagePoint(int attack) { return std::max(1, attack - defense_); }
+	virtual int GetDefense() { return defense_; }
+	virtual int GetDamagePoint(int attack) { return std::max(1, attack - GetDefense()); }
+	virtual bool IsDestroyed() const override;
 	
 	static const std::unordered_map<std::string, AnimationState> kAnimationNameStateMap;
 
@@ -57,6 +59,7 @@ protected:
 	float take_damage_cooldown_ { 0.5f };
 	bool is_monster_;
 	AnimationController animation_controller_;
+	int pending_callbacks_ { 0 };
 
 private:
 	TimerGuard take_damage_guard_;

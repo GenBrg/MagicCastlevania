@@ -38,14 +38,17 @@ public:
 	static Animation* opened_animation_;
 	static Animation* opening_animation_;
 	static Animation* closed_animation_;
+	static const Sprite* lock_sprite_;
 
 	inline static const glm::vec4 kBoundingBox { 0.0f, 0.0f, 76.0f, 82.0f };
+	inline static const glm::vec2 lock_position { 0.0f, 32.0f };
 
 private:
 	Door* opposite_door_;
 	Room& room_;
 	AnimationController animation_controller_;
 	LockStatus lock_status_;
+	Transform2D lock_transform_ { &transform_ };
 
 	/**
 	 * @param position Anchor of the door.

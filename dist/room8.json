@@ -1,0 +1,84 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[11, 91, 169, 100],
+		[11, 428, 233, 113],
+		[244, 492, 191, 49],
+		[780, 427, 169, 99]
+	],
+	"one_sided_platforms": [
+		[236, 184, 234, 34],
+		[437, 345, 234, 34],
+		[729, 251, 49, 37],
+		[832, 140, 121, 36]
+	],
+	"traps": [
+		{
+			"bounding_box": [441, 498, 519, 45],
+			"attack": 10000
+		}
+	],
+	"monsters": [
+		{
+			"name": "ghost",
+			"initial_pos": [552.0, 345.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "ghost",
+			"initial_pos": [343.0, 182.0],
+			"move_radius": 100.0
+		}
+	],
+	"items": [
+		{
+			"name": "small attack potion",
+			"position": [744, 250],
+			"probability": 1.0
+		}
+	],
+	"key_position": [257, 489],
+	"doors": [
+		[129, 91],
+		[893, 140],
+		[63, 427],
+		[848, 427]
+	],
+	"background_sprite": "room_1_bg",
+	"dialogs": [
+		{
+			"trigger_box": [74, 13, 70, 70],
+			"auto_trigger": true,
+			"hit_time_remain": 1,
+			"contents": [
+				{
+					"texts": "Ahh! Two ghosts out there!\nTry to defeat them!\nRemember press J to attack!\nAre you ready?",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "Well...",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "Awesome!\nI will wait you at the open door!\nYou can make it!",
+					"avatar_sprite": "avatar_mage"
+				}
+			]
+		},
+		{
+			"trigger_box": [847, 55, 88, 87],
+			"auto_trigger": true,
+			"hit_time_remain": 1,
+			"interval_between_hit": 10.0,
+			"contents": [
+				{
+					"texts": "Wow! You made it! Keep going!",
+					"avatar_sprite": "avatar_mage"
+				}
+			]
+		}
+	]
+}

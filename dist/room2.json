@@ -4,64 +4,78 @@
 		[940, -1000, 30, 2000],
 		[-10, 540, 1000, 30],
 
-		[0, 491, 960, 50],
-		[329, 255, 289, 99]
+		[11, 91, 169, 100],
+		[11, 428, 233, 113],
+		[244, 492, 191, 49],
+		[780, 427, 169, 99]
 	],
 	"one_sided_platforms": [
-		[76, 357, 170, 34],
-		[396, 127, 170, 34],
-		[716, 357, 170, 34]
+		[236, 184, 234, 34],
+		[437, 345, 234, 34],
+		[729, 251, 49, 37],
+		[832, 140, 121, 36]
 	],
-	"traps": [],
-	"monsters": [],
-	"items": [],
-	"key_position": [464, 491],
+	"traps": [
+		{
+			"bounding_box": [441, 498, 519, 45],
+			"attack": 10000
+		}
+	],
+	"monsters": [
+		{
+			"name": "ghost",
+			"initial_pos": [552.0, 345.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "ghost",
+			"initial_pos": [343.0, 182.0],
+			"move_radius": 100.0
+		}
+	],
+	"items": [
+		{
+			"name": "small attack potion",
+			"position": [744, 250],
+			"probability": 1.0
+		}
+	],
+	"key_position": [257, 489],
 	"doors": [
-		[160, 357],
-		[480, 126],
-		[800, 357]
+		[129, 91],
+		[893, 140],
+		[63, 427],
+		[848, 427]
 	],
-	"background_sprite": "room_2_bg",
+	"background_sprite": "room_1_bg",
 	"dialogs": [
 		{
-			"trigger_box": [0, 0, 960, 540],
+			"trigger_box": [74, 13, 70, 70],
 			"auto_trigger": true,
 			"hit_time_remain": 1,
 			"contents": [
 				{
-					"texts": "Hey, wake up!",
+					"texts": "Ahh! Two ghosts out there!\nTry to defeat them!\nRemember press J to attack!\nAre you ready?",
 					"avatar_sprite": "avatar_mage"
 				},
 				{
-					"texts": "...Who am I? Where am I?",
+					"texts": "Well...",
 					"avatar_sprite": "avatar_player"
 				},
 				{
-					"texts": "Thank god you wake up!\n You are in the castle of Dracula and the sun\n is covered by the castle!",
+					"texts": "Awesome!\nI will wait you at the open door!\nYou can make it!",
 					"avatar_sprite": "avatar_mage"
-				},
+				}
+			]
+		},
+		{
+			"trigger_box": [847, 55, 88, 87],
+			"auto_trigger": true,
+			"hit_time_remain": 1,
+			"interval_between_hit": 10.0,
+			"contents": [
 				{
-					"texts": "You are the chosen warrior to defeat\n Dracula and save the world!",
-					"avatar_sprite": "avatar_mage"
-				},
-				{
-					"texts": "Wait, what?\nNo way!\nAm I in the dream?",
-					"avatar_sprite": "avatar_player"
-				},
-				{
-					"texts": "(bites finger)\nOooouch!",
-					"avatar_sprite": "avatar_player"
-				},
-				{
-					"texts": "Are you alright?\n",
-					"avatar_sprite": "avatar_mage"
-				},
-				{
-					"texts": "I guess yes...\nBut wait, how am I supposed to get out of here?!",
-					"avatar_sprite": "avatar_player"
-				},
-				{
-					"texts": "Uh-huh! You got the point!\n Enter this door to start your adventure!",
+					"texts": "Wow! You made it! Keep going!",
 					"avatar_sprite": "avatar_mage"
 				}
 			]

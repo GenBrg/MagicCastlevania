@@ -65,7 +65,9 @@ void Player::OnDie()
 {
 	state_ = State::DYING;
 	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
+	++pending_callbacks_;
 	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
+		--pending_callbacks_;
 		Reset();
 	});
 }
@@ -179,14 +181,14 @@ int Player::GetAttackPoint()
 	return attack;
 }
 
-int Player::GetDamagePoint(int attack)
+int Player::GetDefense()
 {
 	int defense = defense_;
 	for (const Buff& buff : buffs_) {
 		defense = buff.ApplyDefense(defense);
 	}
-	defense = inventory_.ApplyEquipmentAttack(defense);
-	return Mob::GetDamagePoint(attack);
+	defense = inventory_.ApplyEquipmentDefense(defense);
+	return defense;
 }
 
 void Player::AddHp(int hp)

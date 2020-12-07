@@ -1,6 +1,9 @@
 #include "PlayMode.hpp"
 #include "MenuMode.hpp"
 #include "main_play.hpp"
+#include "gamebase/Player.hpp"
+#include "gamebase/ItemPrototype.hpp"
+#include "gamebase/EquipmentPrototype.hpp"
 #include <DrawLines.hpp>
 #include <gl_errors.hpp>
 #include <data_path.hpp>
@@ -41,15 +44,12 @@ PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 			std::cout << "Pressed" << std::endl;
 			key_state.pressed = false;
 			std::vector< MenuMode::Item > items;
-			items.emplace_back("Static", &sprites->lookup("pause_window"), &sprites->lookup("pause_window"));
-			for (int i = 0; i < 16; i++) {
-				items.emplace_back("Slot_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
-				items.back().on_select = [](MenuMode::Item const&) {
-					std::cout << "Selected item" << std::endl;
-				};
-				items.back().on_discard = [](MenuMode::Item const&) {
-					std::cout << "Discarded item" << std::endl;
-				};
+			items.emplace_back("Static", &sprites->lookup("pause_window"), nullptr);
+			for (size_t i = 0; i < 4; i++) {
+				items.emplace_back("Equipment_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
+			}
+			for (size_t i = 0; i < 12; i++) {
+				items.emplace_back("Item_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
 			}
 			std::shared_ptr< MenuMode > pause_menu;
 			pause_menu = std::make_shared< MenuMode >(items, 4);
@@ -143,6 +143,7 @@ void PlayMode::ProceedLevel()
 		delete room;
 	}
 	rooms.clear();
+	keys_collected = 0;
 	GenerateRooms();
 	cur_room = rooms[0];
 	cur_room->OnEnter(player, cur_room->GetDoor(0));
@@ -150,53 +151,74 @@ void PlayMode::ProceedLevel()
 
 void PlayMode::GenerateRooms()
 {
-	// Room 0 lobby
-	// Room 1 BOSS room
-	// rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create());
-	// rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create());
-	// rooms.push_back(RoomPrototype::GetRoomPrototype("room3")->Create());
-	// rooms[1]->GetDoor(0)->ConnectTo(rooms[0]->GetDoor(0), Door::LockStatus::UNLOCK);
-	// rooms[0]->GetDoor(1)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+	total_keys_to_collect = 0;
+
+	// Room 1 lobby
+	// Room 2 BOSS room
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create());
 	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create());
-	rooms[0]->GetDoor(0)->ConnectTo(GenerateRoomsHelper(false, 1, 7, 1), Door::LockStatus::UNLOCK);
-	rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(false, 2, 6, 1), Door::LockStatus::UNLOCK);
-	rooms[0]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(false, 3, 3, 1), Door::LockStatus::UNLOCK);
+
+	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::SPECIAL_LOCKED);
+
+	// Randomly generate rooms behind first two doors
+	std::vector<int> candidate_rooms;
+	for (size_t i = 3; i <= RoomPrototype::GetRoomPrototypeNum(); ++i) {
+		candidate_rooms.push_back(static_cast<int>(i));
+	}
+
+	size_t door1_room_num = candidate_rooms.size() / 2;
+	size_t door2_room_num = candidate_rooms.size() - door1_room_num;
+	rooms[0]->GetDoor(0)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
+	rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
 }
 
-Door *PlayMode::GenerateRoomsHelper(bool special, int room_id, int remaining_room, int depth)
+Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, size_t remaining_room, size_t depth)
 {
-	std::string room_name = (special ? "special_room" : "room") + std::to_string(room_id);
-	rooms.push_back(RoomPrototype::GetRoomPrototype(room_name)->Create());
-	Room *room = rooms.back();
+	assert(candidates.size() >= remaining_room);
+
+	auto random_choose_room = [&](){
+		size_t candidate_idx = static_cast<size_t>(candidates.size() * Random::Instance()->Generate());
+		std::string room_name = "room" + std::to_string(candidates[candidate_idx]);
+		candidates.erase(candidates.begin() + candidate_idx);
+		rooms.push_back(RoomPrototype::GetRoomPrototype(room_name)->Create());
+		return rooms.back();
+	};
+
+	// Generate current room
+	Room *room = random_choose_room();
+
 	int door_num = static_cast<int>(room->GetDoorNum());
 	int connecting_door_idx = static_cast<int>(door_num * Random::Instance()->Generate());
 	int remaining_door_num = door_num - 1;
+	--remaining_room;
 
-	assert(remaining_door_num == 0 || remaining_door_num > 0);
+	assert(remaining_door_num >= 0);
 
-	if (remaining_door_num > 0)
+	if (remaining_room == 0) {
+		// Generate key on the leaf node 
+		room->GenerateKey();
+		++total_keys_to_collect;
+	}
+
+	if (remaining_door_num > 0 && remaining_room > 0)
 	{
 		float average_remaining_room = static_cast<float>(remaining_room) / remaining_door_num;
-		size_t room_type_num = RoomPrototype::GetRoomPrototypeNum();
 
 		for (int i = 0; i < door_num && remaining_room > 0; ++i)
 		{
 			if (i != connecting_door_idx)
 			{
-				int sub_room_id = -1;
-				do
-				{
-					sub_room_id = 1 + static_cast<int>(room_type_num * Random::Instance()->Generate());
-				} while (sub_room_id == room_id);
-
 				if (remaining_door_num == 1)
 				{
-					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(false, sub_room_id, remaining_room - 1, depth + 1), Door::LockStatus::UNLOCK);
+					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(candidates, remaining_room, depth + 1), Door::LockStatus::UNLOCK);
+					remaining_room = 0;
 				}
 				else
 				{
-					int sub_remaining_room = static_cast<int>(average_remaining_room + (2 * Random::Instance()->Generate()) - 1);
-					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(false, sub_room_id, std::clamp(sub_remaining_room - 1, 0, remaining_room), depth + 1), Door::LockStatus::UNLOCK);
+					size_t sub_remaining_room = static_cast<size_t>(average_remaining_room + (2 * Random::Instance()->Generate()) - 1);
+					sub_remaining_room = static_cast<size_t>(std::clamp(static_cast<unsigned long long>(sub_remaining_room), 1ull, static_cast<unsigned long long>(remaining_room)));
+					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(candidates, sub_remaining_room, depth + 1), Door::LockStatus::UNLOCK);
+					remaining_room -= sub_remaining_room;
 				}
 
 				--remaining_door_num;
@@ -204,6 +226,8 @@ Door *PlayMode::GenerateRoomsHelper(bool special, int room_id, int remaining_roo
 		}
 	}
 
+	assert(remaining_room == 0);
+	
 	return room->GetDoor(connecting_door_idx);
 }
 
@@ -218,6 +242,11 @@ void PlayMode::OpenDoor()
 				break;
 				case Door::LockStatus::OPENED:
 					SwitchRoom(cur_door);
+				break;
+				case Door::LockStatus::SPECIAL_LOCKED:
+					if (keys_collected >= total_keys_to_collect) {
+						cur_door->SetLockStatus(Door::LockStatus::OPENING);
+					}
 				break;
 				default:;
 			}
