@@ -120,8 +120,98 @@
 		"interval": 0.1
 	},
 	{
-		"name": "shine",
+		"name": "vampire_fire",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "mosquito_walk",
 		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "mosquito_hurt",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "mosquito_death",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "mosquito_attack",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "goblin_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "goblin_hurt",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "goblin_attack",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "goblin_death",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "beholder_walk",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "beholder_hurt",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "beholder_death",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "beholder_attack",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "beholder_fire",
+		"sprite_num": 8,
+		"interval": 0.1
+	},
+	{
+		"name": "jinn_walk",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "jinn_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "jinn_death",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "jinn_attack",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "jinn_magic",
+		"sprite_num": 13,
 		"interval": 0.1
 	}
 ]
