@@ -41,7 +41,6 @@ PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 	InputSystem::Instance()->Register(SDLK_ESCAPE, [&](InputSystem::KeyState &key_state, float elapsed) {
 		if (key_state.pressed)
 		{
-			std::cout << "Pressed" << std::endl;
 			key_state.pressed = false;
 			std::vector< MenuMode::Item > items;
 			items.emplace_back("Static", &sprites->lookup("pause_window"), nullptr);
