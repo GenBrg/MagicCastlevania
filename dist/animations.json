@@ -218,5 +218,165 @@
 		"name": "jinn_magic",
 		"sprite_num": 13,
 		"interval": 0.1
+	},
+	{
+		"name": "dragon_idle",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "dragon_walk",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "dragon_attack",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "dragon_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "dragon_death",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "skeleton_idle",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "skeleton_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "skeleton_attack",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "skeleton_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "skeleton_death",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "bird_attack",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "bird_death",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "bird_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "bird_hurt",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "bird_stone",
+		"sprite_num": 1,
+		"interval": 0.1
+	},
+	{
+		"name": "snake_walk",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "snake_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "snake_death",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "snake_attack",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "spider_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "spider_hurt",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "spider_death",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "spider_attack",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "bear_attack",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "bear_death",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "bear_hurt",
+		"sprite_num": 1,
+		"interval": 0.1
+	},
+	{
+		"name": "bear_walk",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "orc_attack",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "orc_death",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "orc_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "orc_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "merchant_idle",
+		"sprite_num": 29,
+		"interval": 0.1
 	}
 ]
