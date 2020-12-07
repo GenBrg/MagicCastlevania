@@ -33,7 +33,7 @@ void Door::DrawImpl(DrawSprites& draw)
 	if (lock_status_ != LockStatus::CLOSED) {
 		animation_controller_.Draw(draw);
 
-		if (lock_status_ == LockStatus::SPECIAL_LOCKED) {
+		if (lock_status_ == LockStatus::SPECIAL_LOCKED || lock_status_ == LockStatus::NORMAL_LOCKED) {
 			draw.draw(*lock_sprite_, lock_transform_);
 		}
 	}
