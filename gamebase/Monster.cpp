@@ -7,6 +7,7 @@
 #include <gamebase/Room.hpp>
 #include <engine/Timer.hpp>
 #include <gamebase/Player.hpp>
+#include <main_play.hpp>
 
 #include <iostream>
 
@@ -44,6 +45,11 @@ void Monster::OnDie()
 	hud->AddMonsterDieInfoHUD(transform_.position_, coin_, exp_);
 
 	// Drop item
+	if (is_boss) {
+		TimerManager::Instance().AddTimer(5.0f, [&](){
+			main_play->ProceedLevel();
+		});
+	} 
 	if (ItemPrototype* drop_item = monster_prototype_.GenerateItemDrop()) {
 		ItemPickUp::Generate(room_, drop_item, transform_.position_);
 	}

@@ -32,6 +32,7 @@ private:
 	int exp_;
 	int coin_;
 	float invulnerable_time_;
+	bool is_boss_;
 	glm::vec4 bounding_box_;
 	std::vector<Attack> attacks_;
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;

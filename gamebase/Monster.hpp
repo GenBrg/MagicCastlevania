@@ -30,6 +30,7 @@ private:
     int exp_ { 10 };
     int coin_;
 	float speed_ { 50.0f };
+	bool is_boss { false };
 	std::vector<Attack> skills_;
 	Room& room_;
 	IMonsterAI* ai_;

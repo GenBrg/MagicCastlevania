@@ -27,6 +27,7 @@ Monster* MonsterPrototype::Create(Room& room, const glm::vec2& initial_pos, floa
 	monster->speed_ = speed_;
 	monster->animation_controller_.PlayAnimation(monster->GetAnimation(Mob::AnimationState::STILL), true, true);
 	monster->skills_ = attacks_;
+	monster->is_boss = is_boss_;
 	monster->ai_ = IMonsterAI::GetMonsterAI(monster, ai_json_);
 	room.AddMonster(monster);
 	return monster;
@@ -66,6 +67,7 @@ void MonsterPrototype::LoadConfig(const std::string& monster_list_file)
 		monster_prototype.invulnerable_time_ = j.at("invulnerable_time");
 		monster_prototype.bounding_box_ = j.at("bounding_box").get<glm::vec4>();
 		monster_prototype.ai_json_ = j.at("ai");
+		monster_prototype.is_boss_ = j.at("is_boss");
 		for (const auto& attack_json : j.at("skills")) {
 			monster_prototype.attacks_.push_back(attack_json.get<Attack>());
 		}
