@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Sprite.hpp"
-#include "Load.hpp"
-#include "data_path.hpp"
+#include <Sprite.hpp>
+#include <Load.hpp>
+#include <data_path.hpp>
+#include <Sound.hpp>
+
 #include <nlohmann/json.hpp>
 
 #include <glm/glm.hpp>
@@ -27,6 +29,8 @@ inline Load< SpriteAtlas > sprites(LoadTagEarly, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
 	return ret;
 	});
+
+inline std::unordered_map<std::string, Sound::Sample*> sound_samples;
 
 namespace glm {
 	void from_json(const json& j, vec2& p);
