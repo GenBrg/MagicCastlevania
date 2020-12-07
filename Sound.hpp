@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <unordered_map>
+
 #include <cmath>
 
 //Game audio system. Simplified from f18-base3.
