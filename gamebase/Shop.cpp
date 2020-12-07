@@ -43,7 +43,7 @@ void Shop::Purchase(size_t slot_num)
 		// Succeed
 		player->AddCoin(-price);
 		assert(player->PickupItem(item));
-		item = nullptr;
+		items_[slot_num] = nullptr;
 	}
 }
 
