@@ -8,6 +8,7 @@
 
 #include <vector>
 #include "Dialog.hpp"
+#include "Shop.hpp"
 
 class Player;
 class Trigger;
@@ -30,6 +31,7 @@ private:
 	std::vector<ItemPickUp *> items_{};
 	std::vector<ItemPickUp *> permanent_items_{};
 	DoorKey* door_key_ { nullptr };
+	Shop* shop_ {nullptr};
 
 	// layout of this single room
 	std::vector<Collider *> platforms_{};

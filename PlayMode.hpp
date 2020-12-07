@@ -58,7 +58,5 @@ struct PlayMode : Mode {
 	int keys_collected { 0 };
 	int total_keys_to_collect { 0 };
 
-	Shop shop;
-
 	std::shared_ptr<Sound::PlayingSample> bgm;
 };

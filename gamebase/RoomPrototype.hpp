@@ -61,6 +61,11 @@ public:
 		}
 	};
 
+	struct ShopInfo {
+	    bool contain_shop_;
+	    glm::vec2 pos_;
+	};
+
 	Room *Create() const;
 
 	void Initialize(Room *room) const;
@@ -84,8 +89,9 @@ private:
 	std::vector<DialogInfo> dialog_infos_;
 	std::vector<glm::vec2> doors_;
 	glm::vec2 key_position_;
-	
-	struct ItemInfo {
+	ShopInfo shopInfo_;
+
+    struct ItemInfo {
 		ItemPrototype* item_prototype_;
 		glm::vec2 position_;
 		float probability_;

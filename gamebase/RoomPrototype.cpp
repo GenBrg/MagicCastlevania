@@ -54,7 +54,6 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 			room_prototype.traps_.push_back(trap_json.get<Trap>());
 		}
 
-
 		for (const auto &dialog_info_json: j.at("dialogs")) {
 			room_prototype.dialog_infos_.push_back(dialog_info_json.get<DialogInfo>());
 		}
@@ -71,6 +70,13 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 		}
 
 		room_prototype.key_position_ = util::AssetSpaceToGameSpace(j.at("key_position").get<glm::vec2>());
+
+		if (j.contains("shop_position")) {
+		    room_prototype.shopInfo_.contain_shop_ = true;
+		    room_prototype.shopInfo_.pos_ = util::AssetSpaceToGameSpace(j.at("shop_position").get<glm::vec2>());
+		} else {
+            room_prototype.shopInfo_.contain_shop_ = false;
+		}
 	}
 }
 
@@ -127,6 +133,25 @@ Room* RoomPrototype::Create() const
 	for (const auto& monster : monsters_) {
 		monster.monster_prototype_->Create(*room, monster.initial_pos_, monster.move_radius_);
 	}
+
+    if (shopInfo_.contain_shop_) {
+        room->shop_ = new Shop(shopInfo_.pos_);
+        room->shop_->GenerateItems();
+
+        auto OnTrigger = [room]()->void {
+            room->shop_->RegisterKeyEvents();
+        };
+
+        auto OnLeave = [room]()-> void {
+            room->shop_->UnregisterKeyEvents();
+        };
+        // create Trigger
+        glm::vec4 trigger_box = glm::vec4(
+                shopInfo_.pos_.x,shopInfo_.pos_.y,100,100);
+        Trigger* trigger = Trigger::Create(*room, trigger_box, nullptr, 0);
+        trigger->SetOnEnter(OnTrigger);
+        trigger->SetOnLeave(OnLeave);
+    }
 
 	return room;
 }
