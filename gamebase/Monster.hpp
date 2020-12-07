@@ -23,9 +23,9 @@ private:
 
 	AOE* collision_aoe_ { nullptr };
 
-	virtual void UpdateImpl(float elapsed);
-	virtual void OnDie();
-	virtual Animation* GetAnimation(AnimationState state);
+	virtual void UpdateImpl(float elapsed) override;
+	virtual void OnDie() override;
+	virtual Animation* GetAnimation(AnimationState state) override;
 	
     int exp_ { 10 };
     int coin_;
