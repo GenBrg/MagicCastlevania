@@ -1,27 +1,27 @@
 {
-	"hp": 10,
-	"attack": 15,
+	"hp": 100,
+	"attack": 30,
 	"body_attack": 15,
 	"defense": 3,
 	"speed": 50.0,
 	"exp": 10,
 	"coin": 10,
 	"invulnerable_time": 0.2,
-	"bounding_box": [-42.0, -5.0, 22.0, 50.0],
+	"bounding_box": [-49.0, 0.0, 130.0, 130.0],
 	"item": {
 		"small health potion": 0.5,
 		"normal sword": 0.5
 	},
 	"skills": [
 		{
-			"mob_animation": "goblin_attack",
+			"mob_animation": "orc_attack",
 			"aoe_prototype": "normal_attack",
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		}
 	],
 	"ai": {
-		"type": 0
+		"type": 2
 	},
 	"is_boss": false
 }
