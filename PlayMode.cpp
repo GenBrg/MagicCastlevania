@@ -133,6 +133,7 @@ void PlayMode::SwitchRoom(Door *door)
 		cur_room = opposite_door->GetRoom();
 		cur_room->OnEnter(player, opposite_door);
 		if (cur_room == rooms[1]) {
+			opposite_door->SetLockStatus(Door::LockStatus::NORMAL_LOCKED);
 			if (bgm) {
 				bgm->stop();
 			}
@@ -171,6 +172,7 @@ void PlayMode::GenerateRooms()
 	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create());
 
 	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::SPECIAL_LOCKED);
+
 
 	// Randomly generate rooms behind first two doors
 	std::vector<int> candidate_rooms;
