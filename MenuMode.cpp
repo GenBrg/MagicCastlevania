@@ -110,8 +110,8 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 		}
 		else if (evt.key.keysym.sym == SDLK_SPACE) {
 			if (selected < items.size() && items[selected].on_select) {
-				//Sound::play(*sound_clonk);
-				items[selected].on_select(items[selected]);
+                Sound::play(*sound_samples["confirm"]);
+                items[selected].on_select(items[selected]);
 				return true;
 			}
 		}

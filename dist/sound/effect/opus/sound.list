@@ -16,3 +16,8 @@ open_door
 select
 small_jump_1
 take_drug
+remote_attack_comet
+remote_attack_light
+remote_attack_tornado
+level_up
+confirm

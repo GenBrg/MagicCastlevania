@@ -24,6 +24,7 @@ public:
 	const Sprite* GetIconSprite() const { return icon_sprite_; }
 	AOEPrototype* GetAOEPrototype() { return aoe_prototype_; }
 	bool IsAttachToEntity() const { return attach_to_entity_; }
+	void PlayAttackSound() const;
 
 	friend void from_json(const json& j, Attack& attack);
 
@@ -33,6 +34,7 @@ private:
 	float cooldown_;
 	bool attach_to_entity_;
 	const Sprite* icon_sprite_;
+	std::vector<std::string> sound_effect_;
 
 	TimerGuard guard_;
 };

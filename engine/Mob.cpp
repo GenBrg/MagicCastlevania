@@ -57,7 +57,8 @@ void Mob::PerformAttack(Room& room, Attack& attack)
 	Animation *animation = attack.GetAnimation();
 	if (attack.Execute(room, GetAttackPoint(), transform_, is_monster_))
 	{
-		PlayAttackSound();
+//		PlayAttackSound();
+        attack.PlayAttackSound();
 		animation_controller_.PlayAnimation(animation, false);
 		state_ = State::ATTACKING;
 
