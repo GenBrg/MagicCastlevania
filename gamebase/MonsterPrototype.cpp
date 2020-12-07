@@ -13,9 +13,9 @@
 
 std::unordered_map<std::string, MonsterPrototype> MonsterPrototype::prototypes_;
 
-Monster *MonsterPrototype::Create(Room &room, const glm::vec2 &initial_pos, float move_radius)
+Monster *MonsterPrototype::Create(Room &room, const glm::vec2 &initial_pos, float move_radius, size_t level)
 {
-	int level = main_play->GetLevel();
+	int leveli = static_cast<int>(level);
 	Monster *monster = new Monster(*this, bounding_box_, body_attack_, room);
 	monster->move_radius_ = move_radius;
 	monster->central_pos_ = initial_pos;
@@ -30,11 +30,11 @@ Monster *MonsterPrototype::Create(Room &room, const glm::vec2 &initial_pos, floa
 	}
 	else
 	{
-		monster->hp_ = static_cast<int>((1 + 0.5f * (level - 1)) * hp_);
-		monster->attack_ = static_cast<int>((1 + 0.3f * (level - 1)) * attack_);
-		monster->defense_ = static_cast<int>((1 + 0.3f * (level - 1)) * defense_);
-		monster->exp_ = static_cast<int>((1 + 0.5f * (level - 1)) * exp_);
-		monster->coin_ = static_cast<int>((1 + 0.5f * (level - 1)) * coin_);
+		monster->hp_ = static_cast<int>((1 + 0.5f * (leveli - 1)) * hp_);
+		monster->attack_ = static_cast<int>((1 + 0.3f * (leveli - 1)) * attack_);
+		monster->defense_ = static_cast<int>((1 + 0.3f * (leveli - 1)) * defense_);
+		monster->exp_ = static_cast<int>((1 + 0.5f * (leveli - 1)) * exp_);
+		monster->coin_ = static_cast<int>((1 + 0.5f * (leveli - 1)) * coin_);
 	}
 
 	monster->take_damage_cooldown_ = invulnerable_time_;

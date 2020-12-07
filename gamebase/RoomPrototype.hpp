@@ -66,7 +66,7 @@ public:
 	    glm::vec2 pos_;
 	};
 
-	Room *Create() const;
+	Room *Create(size_t level) const;
 
 	void Initialize(Room *room) const;
 	glm::vec2 GetKeySpawnPosition() const { return key_position_; }

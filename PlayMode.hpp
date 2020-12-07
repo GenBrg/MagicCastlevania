@@ -43,7 +43,7 @@ struct PlayMode : Mode {
 	void CollectKey() { ++keys_collected; }
 	int GetKeysCollected() const { return keys_collected; }
 	int GetTotalKeysToCollect() const { return total_keys_to_collect; }
-	int GetLevel() const { return level_; }
+	size_t GetLevel() const { return level_; }
 
 	//----- game state -----
 

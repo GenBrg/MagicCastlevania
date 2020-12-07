@@ -13,7 +13,7 @@
 // http://gameprogrammingpatterns.com/type-object.html
 class MonsterPrototype {
 public:
-	Monster* Create(Room& room, const glm::vec2& initial_pos, float move_radius);
+	Monster* Create(Room &room, const glm::vec2 &initial_pos, float move_radius, size_t level);
 	Animation* GetAnimation(Mob::AnimationState state) const { return animations_.at(state); }
 	ItemPrototype* GenerateItemDrop() const;
 

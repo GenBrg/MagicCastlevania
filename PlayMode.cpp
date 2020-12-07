@@ -167,13 +167,13 @@ void PlayMode::GenerateRooms()
 
 	// Room 1 lobby
 	// Room 2 BOSS room
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create());
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create());
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create(level_));
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create(level_));
 
 	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::SPECIAL_LOCKED);
 
 	// For Test
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room4")->Create());
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room4")->Create(level_));
 	rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
 
 	// Randomly generate rooms behind first two doors
@@ -196,7 +196,7 @@ Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, size_t remaini
 		size_t candidate_idx = static_cast<size_t>(candidates.size() * Random::Instance()->Generate());
 		std::string room_name = "room" + std::to_string(candidates[candidate_idx]);
 		candidates.erase(candidates.begin() + candidate_idx);
-		rooms.push_back(RoomPrototype::GetRoomPrototype(room_name)->Create());
+		rooms.push_back(RoomPrototype::GetRoomPrototype(room_name)->Create(level_));
 		return rooms.back();
 	};
 
