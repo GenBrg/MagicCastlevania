@@ -46,7 +46,7 @@ void MonsterPrototype::LoadConfig(const std::string& monster_list_file)
 			throw std::runtime_error("Duplicate monster name: " + monster_name);
 		}
 
-		std::string config_file_name = data_path(monster_name + ".json");
+		std::string config_file_name = data_path("monsters/" + monster_name + ".json");
 		std::ifstream monster_file(config_file_name);
 		if (!monster_file.is_open()) {
 			throw std::runtime_error("Can not load monster file: " + config_file_name);

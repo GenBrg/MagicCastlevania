@@ -21,10 +21,10 @@ HeadsUpDisplay* hud;
 Load<void> load_everything(LoadTagDefault, [](){
 	Animation::LoadAnimation(data_path("animations.json"));
 	AOEPrototype::LoadConfig(data_path("aoe_prototypes.json"));
-	PotionPrototype::LoadConfig(data_path("potions.json"));
-	EquipmentPrototype::LoadConfig(data_path("equipments.json"));
-	MonsterPrototype::LoadConfig(data_path("monster.list"));
-	RoomPrototype::LoadConfig(data_path("room.list"));
+	PotionPrototype::LoadConfig(data_path("items/potions.json"));
+	EquipmentPrototype::LoadConfig(data_path("items/equipments.json"));
+	MonsterPrototype::LoadConfig(data_path("monsters/monster.list"));
+	RoomPrototype::LoadConfig(data_path("rooms/room.list"));
 	DoorKey::sprite_ = &(sprites->lookup("key"));
 	Door::lock_sprite_ = &(sprites->lookup("lock"));
 });

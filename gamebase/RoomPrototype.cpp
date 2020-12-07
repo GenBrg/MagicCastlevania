@@ -21,7 +21,7 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 	std::string room_name;
 
 	while (f >> room_name) {
-		std::string room_name_filename = data_path(room_name + ".json");
+		std::string room_name_filename = data_path("rooms/" + room_name + ".json");
 		std::ifstream room_file(room_name_filename);
 
 		if (!room_file.is_open()) {
