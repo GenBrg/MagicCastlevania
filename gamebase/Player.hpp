@@ -37,7 +37,14 @@ public:
 	void AddCoin(int coin);
 	int GetLevel() {return cur_level_;}
     int GetCurLevelExp() {return exp_;}
-    int GetCurLevelMaxExp() {return level_exps_[GetLevel()];}
+    int GetCurLevelMaxExp() {
+		if (GetLevel() < level_exps_.size()) {
+			return level_exps_[GetLevel()];
+		}
+		else {
+			return 10000;
+		}
+	}
 	int GetCoin() {return coin_;}
 
 	// Inventory
