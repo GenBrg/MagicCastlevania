@@ -3,25 +3,25 @@
 	"attack": 15,
 	"body_attack": 15,
 	"defense": 3,
-	"speed": 150.0,
+	"speed": 50.0,
 	"exp": 10,
 	"coin": 10,
 	"invulnerable_time": 0.2,
-	"bounding_box": [-40.0, 0.0, 39.0, 71.0],
+	"bounding_box": [-29.0, 0.0, 29.0, 72.0],
 	"item": {
 		"small health potion": 0.5,
 		"normal sword": 0.5
 	},
 	"skills": [
 		{
-			"mob_animation": "mosquito_attack",
-			"aoe_prototype": "normal_attack",
+			"mob_animation": "beholder_attack",
+			"aoe_prototype": "beholder_fire",
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		}
 	],
 	"ai": {
-		"type": 1
+		"type": 2
 	},
 	"is_boss": false
 }

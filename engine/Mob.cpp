@@ -40,7 +40,7 @@ void Mob::TakeDamage(int attack)
 				if (state_ == State::TAKING_DAMAGE)
 				{
 					state_ = State::MOVING;
-					animation_controller_.PlayAnimation(GetAnimation(AnimationState::STILL), true, true);
+					animation_controller_.PlayAnimation(GetAnimation(AnimationState::WALK), true, true);
 				}
 			});
 		}
@@ -68,7 +68,7 @@ void Mob::PerformAttack(Room& room, Attack& attack)
 			if (state_ == State::ATTACKING)
 			{
 				state_ = State::MOVING;
-				animation_controller_.PlayAnimation(GetAnimation(AnimationState::STILL), true, true);
+				animation_controller_.PlayAnimation(GetAnimation(AnimationState::WALK), true, true);
 			}
 		});
 	}

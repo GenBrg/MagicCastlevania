@@ -43,5 +43,32 @@
 		"duration": 0.4,
 		"initial_offset": [0.0, 0.0],
 		"penetrate": true
+	},
+	{
+		"name": "vampire_fire",
+		"bounding_box": [0.0, 0.0, 64.0, 64.0],
+		"animation": "vampire_fire",
+		"velocity": [100.0, 0.0],
+		"duration": 0.6,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "beholder_fire",
+		"bounding_box": [0.0, 0.0, 64.0, 64.0],
+		"animation": "beholder_fire",
+		"velocity": [100.0, 0.0],
+		"duration": 0.8,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "jinn_magic",
+		"bounding_box": [0.0, 0.0, 165.0, 153.0],
+		"animation": "jinn_magic",
+		"velocity": [100.0, 0.0],
+		"duration": 1.3,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
 	}
 ]

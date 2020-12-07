@@ -25,7 +25,7 @@ Monster* MonsterPrototype::Create(Room& room, const glm::vec2& initial_pos, floa
     monster->coin_ = coin_;
 	monster->take_damage_cooldown_ = invulnerable_time_;
 	monster->speed_ = speed_;
-	monster->animation_controller_.PlayAnimation(monster->GetAnimation(Mob::AnimationState::STILL), true, true);
+	monster->animation_controller_.PlayAnimation(monster->GetAnimation(Mob::AnimationState::WALK), true, true);
 	monster->skills_ = attacks_;
 	monster->is_boss = is_boss_;
 	monster->ai_ = IMonsterAI::GetMonsterAI(monster, ai_json_);
