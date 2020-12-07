@@ -80,7 +80,7 @@ void RoomPrototype::LoadConfig(const std::string& room_list_file)
 	}
 }
 
-Room* RoomPrototype::Create() const
+Room* RoomPrototype::Create(size_t level) const
 {
 	// Platforms, items, triggers
 	Room* room = new Room(*this);
@@ -131,7 +131,7 @@ Room* RoomPrototype::Create() const
 	}
 
 	for (const auto& monster : monsters_) {
-		monster.monster_prototype_->Create(*room, monster.initial_pos_, monster.move_radius_);
+		monster.monster_prototype_->Create(*room, monster.initial_pos_, monster.move_radius_, level);
 	}
 
     if (shopInfo_.contain_shop_) {

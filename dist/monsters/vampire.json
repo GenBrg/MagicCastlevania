@@ -1,16 +1,16 @@
 {
-	"hp": 20,
+	"hp": 200,
 	"attack": 50,
-	"body_attack": 30,
-	"defense": 5,
+	"body_attack": 20,
+	"defense": 15,
 	"speed": 50.0,
-	"exp": 15,
-	"coin": 20,
+	"exp": 500,
+	"coin": 1000,
 	"invulnerable_time": 0.2,
 	"bounding_box": [-26.0, 0.0, 26.0, 86.0],
 	"item": {
-		"small attack potion": 0.5,
-		"normal vest": 0.5
+		"large attack potion": 0.1,
+		"large defense potion": 0.1
 	},
 	"skills": [
 		{

@@ -9,8 +9,7 @@
 	"invulnerable_time": 0.2,
 	"bounding_box": [-38.0, -6.0, 67.0, 99.0],
 	"item": {
-		"small health potion": 0.5,
-		"normal sword": 0.5
+		"large health potion": 0.2
 	},
 	"skills": [
 		{
