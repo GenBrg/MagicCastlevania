@@ -276,7 +276,7 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			}			
 		}
 		if (row_width == 4) {
-			int hp_to_draw = player->GetHp();
+			int hp_to_draw = player->GetHp() * 100 / player->GetMaxHP();
 			if (hp_to_draw > 0) {
 				Transform2D hp_curr_transform = Transform2D(nullptr);
 				hp_curr_transform.position_ = glm::vec2(194.0f, 406.0f);
@@ -318,7 +318,10 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 	if (row_width == 4) {
 		std::string text_string = "Atk: " + std::to_string(player->GetAttackPoint()) + "\nDef: " + std::to_string(player->GetDefense());
 		if (items[selected].item_prototype) {
-			text_string += "\n\nItem Description:\n" + items[selected].item_prototype->GetDescription();
+			std::string item_name = items[selected].item_prototype->GetName();
+			item_name[0] = std::toupper(item_name[0]);
+			text_string += "\n\n" + item_name + ":\n" + items[selected].item_prototype->GetDescription() +
+				"\n\nPress SPACE to use or equip\nPress J to discard.";
 		}
 		text.SetText(text_string);
 		text.Draw();
@@ -326,7 +329,9 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 	if (row_width == 3) {
 		std::string text_string = "Welcome to the shop!\nPress SPACE to purchase.";
 		if (items[selected].item_prototype) {
-			text_string += "\n\nItem Description:\n" + items[selected].item_prototype->GetDescription() + "\n\nPrice: " + std::to_string(items[selected].item_prototype->GetPrice());
+			std::string item_name = items[selected].item_prototype->GetName();
+			item_name[0] = std::toupper(item_name[0]);
+			text_string += "\n\n"+ item_name +  ":\n" + items[selected].item_prototype->GetDescription() + "\nPrice: " + std::to_string(items[selected].item_prototype->GetPrice());
 		}
 		text.SetText(text_string);
 		text.Draw();

@@ -44,7 +44,7 @@ hp_bar_transform_(nullptr)
 }
 void HeadsUpDisplay::Draw(DrawSprites& draw_sprite) const {
 	draw_sprite.draw(sprites->lookup("hp_bar"), hp_bar_transform_);
-	int hp_to_draw = player->GetHp();
+	int hp_to_draw = player->GetHp() * 100 / player->GetMaxHP();
 	if (hp_to_draw <= 0) {
 		return;
 	}
