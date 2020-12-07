@@ -69,6 +69,9 @@ Room::~Room() {
 		delete door_key_;
 		door_key_ = nullptr;
 	}
+	if (shop_) {
+	    delete shop_;
+	}
 }
 
 void Room::Update(float elapsed, Player* player, Door** cur_door)
@@ -132,6 +135,10 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 			cur_dialog->Update(elapsed);
 		}
 	}
+
+	if (shop_ != nullptr) {
+	    shop_->Update(elapsed);
+	}
 }
 
 void Room::Draw(DrawSprites& draw_sprite)
@@ -165,6 +172,10 @@ void Room::Draw(DrawSprites& draw_sprite)
 
 	if (door_key_) {
 		door_key_->Draw(draw_sprite);
+	}
+
+	if (shop_ != nullptr) {
+        shop_->Draw(draw_sprite);
 	}
 }
 

@@ -21,6 +21,7 @@
 		[480, 126],
 		[800, 357]
 	],
+	"shop_position": [40, 493],
 	"background_sprite": "room_2_bg",
 	"dialogs": [
 		{
