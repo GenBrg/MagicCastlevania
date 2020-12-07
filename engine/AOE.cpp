@@ -32,36 +32,17 @@ void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_que
 
 	animation_controller_.Update(elapsed);
 
-	if (velocity_.x == 0.0f && velocity_.y == 0.0f) {
-		// Static collision detection
-		for (const CollisionQuery& collision_query : collision_queries) {
-			if (collider_.IsColliding(*collision_query.first)) {
-				collision_query.second();
+	transform_.position_ += velocity_ * elapsed;
+	// Static collision detection
+	for (const CollisionQuery& collision_query : collision_queries) {
+		if (collider_.IsColliding(*collision_query.first)) {
+			collision_query.second();
 
-				if (!penetrate_) {
-					Destroy();
-					return;
-				}
+			if (!penetrate_) {
+				Destroy();
+				return;
 			}
 		}
-	} else {
-		// Dynamic collision detection
-		glm::vec2 delta_position = velocity_ * elapsed;
-		glm::vec2 contact_point, contact_normal;
-		float time;
-
-		for (const CollisionQuery& collision_query : collision_queries) {
-			if (collider_.DynamicCollisionQuery(*collision_query.first, delta_position, contact_point, contact_normal, time)) {
-				collision_query.second();
-				
-				if (!penetrate_) {
-					Destroy();
-					return;
-				}
-			}
-		}
-
-		transform_.position_ += delta_position;
 	}
 
 	if (duration_ >= 0.0f) {
