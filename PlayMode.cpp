@@ -132,6 +132,12 @@ void PlayMode::SwitchRoom(Door *door)
 		opposite_door->SetLockStatus(Door::LockStatus::OPENED);
 		cur_room = opposite_door->GetRoom();
 		cur_room->OnEnter(player, opposite_door);
+		if (cur_room == rooms[1]) {
+			if (bgm) {
+				bgm->stop();
+			}
+			bgm = Sound::loop(*sound_samples["boss_" + std::to_string(level_)]);
+		}
 	}
 }
 
@@ -148,6 +154,11 @@ void PlayMode::ProceedLevel()
 	shop.GenerateItems();
 	cur_room = rooms[0];
 	cur_room->OnEnter(player, cur_room->GetDoor(0));
+
+	if (bgm) {
+		bgm->stop();
+	}
+	bgm = Sound::loop(*sound_samples["all_1"]);
 }
 
 void PlayMode::GenerateRooms()
@@ -258,9 +269,7 @@ void PlayMode::OpenDoor()
 }
 
 void PlayMode::on_enter() {
-	if (!bgm) {
-		bgm = Sound::loop(*sound_samples["all_1"]);
-	} else {
+	if (bgm) {
 		bgm->set_volume(1.0f);
 	}
 }
