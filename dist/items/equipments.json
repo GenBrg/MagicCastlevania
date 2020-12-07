@@ -1,22 +1,162 @@
 [
 	{
-		"name": "normal sword",
-		"description": "attack+12",
+		"name": "sword1",
+		"description": "attack+20",
 		"icon_sprite": "avatar_assassin",
 		"pickup_sprite": "avatar_assassin",
-		"attack": 12,
+		"attack": 20,
 		"defense": 0,
-		"price": 500,
+		"price": 1000,
 		"slot": 0
 	},
 	{
-		"name": "normal vest",
+		"name": "vest1",
+		"description": "attack+5 defense+15",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 5,
+		"defense": 15,
+		"price": 800,
+		"slot": 2
+	},
+	{
+		"name": "shield1",
 		"description": "defense+12",
 		"icon_sprite": "avatar_assassin",
 		"pickup_sprite": "avatar_assassin",
 		"attack": 0,
 		"defense": 12,
-		"price": 500,
+		"price": 600,
+		"slot": 1
+	},
+	{
+		"name": "boot1",
+		"description": "defense+6",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 0,
+		"defense": 6,
+		"price": 200,
+		"slot": 3
+	},
+	{
+		"name": "sword2",
+		"description": "attack+40",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 40,
+		"defense": 0,
+		"price": 2000,
+		"slot": 0
+	},
+	{
+		"name": "vest2",
+		"description": "attack+10 defense+30",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 10,
+		"defense": 30,
+		"price": 1600,
 		"slot": 2
+	},
+	{
+		"name": "shield2",
+		"description": "defense+24",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 0,
+		"defense": 24,
+		"price": 1200,
+		"slot": 1
+	},
+	{
+		"name": "boot2",
+		"description": "defense+12",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 0,
+		"defense": 12,
+		"price": 400,
+		"slot": 3
+	},
+	{
+		"name": "sword3",
+		"description": "attack+60",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 60,
+		"defense": 0,
+		"price": 3000,
+		"slot": 0
+	},
+	{
+		"name": "vest3",
+		"description": "attack+15 defense+45",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 15,
+		"defense": 45,
+		"price": 2400,
+		"slot": 2
+	},
+	{
+		"name": "shield3",
+		"description": "defense+36",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 0,
+		"defense": 36,
+		"price": 1800,
+		"slot": 1
+	},
+	{
+		"name": "boot3",
+		"description": "defense+18",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 0,
+		"defense": 18,
+		"price": 600,
+		"slot": 3
+	},
+	{
+		"name": "sword4",
+		"description": "attack+80",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 80,
+		"defense": 0,
+		"price": 4500,
+		"slot": 0
+	},
+	{
+		"name": "vest4",
+		"description": "attack+20 defense+60",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 20,
+		"defense": 60,
+		"price": 3200,
+		"slot": 2
+	},
+	{
+		"name": "shield4",
+		"description": "defense+48",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 0,
+		"defense": 48,
+		"price": 2400,
+		"slot": 1
+	},
+	{
+		"name": "boot4",
+		"description": "defense+24",
+		"icon_sprite": "avatar_assassin",
+		"pickup_sprite": "avatar_assassin",
+		"attack": 0,
+		"defense": 24,
+		"price": 800,
+		"slot": 3
 	}
 ]
