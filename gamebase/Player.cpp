@@ -202,13 +202,12 @@ std::vector<Attack> Player::GetAttackInfo() const {
 int Player::GetAttackPoint()
 {
 	int attack = attack_;
-	// std::cout << "orig: " << attack << std::endl;
+	
 	for (const Buff& buff : buffs_) {
 		attack = buff.ApplyAttack(attack);
 	}
-	// std::cout << "buff: " << attack << std::endl;
 	attack = inventory_.ApplyEquipmentAttack(attack);
-	// std::cout << "equip: " << attack << std::endl;
+
 	return attack;
 }
 
@@ -236,25 +235,15 @@ void Player::AddMp(int mp)
 
 void Player::AddExp(int exp)
 {
-    int old_level = cur_level_;
-    if(cur_level_ == (int)level_exps_.size() - 1 && exp_ == level_exps_[cur_level_]) {
-        return;
-    }
+	if (cur_level_ >= level_exps_.size()) {
+		exp_ = 0;
+		return;
+	}
 
     exp_ += exp;
+
     while (cur_level_ <= (int)level_exps_.size() - 1 && exp_ >= level_exps_[cur_level_]) {
-        exp_ -= level_exps_[cur_level_];
-        cur_level_++;
-    }
-
-    if (cur_level_ == (int)level_exps_.size()) {
-        // already max level, truncate exp to not overflow
-        cur_level_--;
-        exp_ =  level_exps_[cur_level_];
-    }
-
-    if (cur_level_ != old_level) {
-        Sound::play(*sound_samples.at("level_up"));
+        LevelUp();
     }
 }
 
@@ -301,4 +290,20 @@ void Player::PlayTakeDamageSound()
 {
 	int sound_idx = static_cast<int>(Random::Instance()->Generate() * 4) + 1;
 	Sound::play(*sound_samples["be_attacked_" + std::to_string(sound_idx)]);
+}
+
+void Player::LevelUp() {
+	assert(cur_level_ < level_exps_.size());
+
+	exp_ -= level_exps_[cur_level_];
+
+	assert(exp_ >= 0);
+
+	++cur_level_;
+
+	max_hp_ += 20 * cur_level_;
+	hp_ = max_hp_;
+	attack_ += 6 * cur_level_;
+	defense_ += 6 * cur_level_;
+	Sound::play(*sound_samples.at("level_up"));
 }
