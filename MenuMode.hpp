@@ -26,6 +26,10 @@ struct MenuMode : Mode {
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const& drawable_size) override;
 
+	virtual void on_leave() override;
+
+	virtual void on_enter() override;
+
 	//----- menu state -----
 
 	//Each menu item is an "Item":

@@ -70,3 +70,8 @@ void Monster::Destroy()
 		collision_aoe_ = nullptr;
 	}
 }
+
+void Monster::PlayTakeDamageSound()
+{
+	Sound::play(*sound_samples["monster_being_attack"]);
+}

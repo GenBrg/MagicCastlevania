@@ -28,6 +28,7 @@ ItemPickUp* ItemPickUp::Generate(Room& room, ItemPrototype* item, const glm::vec
 	item_pickup->trigger_ = Trigger::Create(room, glm::vec4(spawn_pos, spawn_pos + item->GetPickupSprite()->size_px), nullptr, 0);
 	item_pickup->trigger_->SetOnColliding([=](){
 		if (player->PickupItem(item)) {
+			Sound::play(*sound_samples["collect_item"]);
 			item_pickup->Destroy();
 		}
 	});

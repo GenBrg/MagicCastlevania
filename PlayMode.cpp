@@ -239,6 +239,7 @@ void PlayMode::OpenDoor()
 		{
 			switch (cur_door->GetLockStatus()) {
 				case Door::LockStatus::UNLOCK:
+					Sound::play(*sound_samples["open_door"]);
 					cur_door->SetLockStatus(Door::LockStatus::OPENING);
 				break;
 				case Door::LockStatus::OPENED:
@@ -246,6 +247,7 @@ void PlayMode::OpenDoor()
 				break;
 				case Door::LockStatus::SPECIAL_LOCKED:
 					if (keys_collected >= total_keys_to_collect) {
+						Sound::play(*sound_samples["open_door"]);
 						cur_door->SetLockStatus(Door::LockStatus::OPENING);
 					}
 				break;
@@ -253,4 +255,17 @@ void PlayMode::OpenDoor()
 			}
 		}
 	});
+}
+
+void PlayMode::on_enter() {
+	if (!bgm) {
+		bgm = Sound::loop(*sound_samples["all_1"]);
+	} else {
+		bgm->set_volume(1.0f);
+	}
+}
+void PlayMode::on_leave() {
+	if (bgm) {
+		bgm->set_volume(0.3f);
+	}
 }

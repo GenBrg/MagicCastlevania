@@ -8,6 +8,7 @@
 
 void PotionPrototype::Apply(Player* player)
 {
+	Sound::play(*sound_samples["take_drug"]);
 	player->AddHp(hp_);
 	player->AddMp(mp_);
 	player->AddExp(exp_);

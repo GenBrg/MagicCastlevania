@@ -32,6 +32,9 @@ public:
 	void TakeDamage(int attack);
 	void PerformAttack(Room& room, Attack& attack);
 
+	virtual void PlayTakeDamageSound() {}
+	virtual void PlayAttackSound() {}
+
 	int GetHp() const { return hp_; }
 	State GetState() const { return state_; }
 	void SetState(State state) { state_ = state; }

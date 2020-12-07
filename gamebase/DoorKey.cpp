@@ -10,6 +10,7 @@ Entity(glm::vec4(spawn_position, spawn_position + sprite_->size_px), nullptr)
 	transform_.position_ = spawn_position;
 	trigger_ = Trigger::Create(room, glm::vec4(spawn_position, spawn_position + sprite_->size_px), nullptr, 1);
 	trigger_->SetOnEnter([&](){
+		Sound::play(*sound_samples["collect_item"]);
 		main_play->CollectKey();
 		Destroy();
 	});

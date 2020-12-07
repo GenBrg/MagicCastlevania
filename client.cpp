@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
 			std::cerr << "NOTE: couldn't set vsync (" << SDL_GetError() << ")." << std::endl;
 		}
 	}
-
+	
 	//Hide mouse cursor (note: showing can be useful for debugging):
 	//SDL_ShowCursor(SDL_DISABLE);
 
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
 
 	//------------ create game mode + make current --------------
 	Mode::set_current(main_menu);
-
+	
 	//------------ main loop ------------
 
 	//this inline function will be called whenever the window is resized,

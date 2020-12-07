@@ -44,6 +44,7 @@ public:
 	glm::vec2 GetCentralPos() const { return central_pos_; }
 	float GetSpeed() const { return speed_; }
 	virtual void Destroy() override;
+	virtual void PlayTakeDamageSound() override;
 
 	~Monster();
 };

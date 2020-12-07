@@ -69,7 +69,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			for (int i = selected - row_width; i >= 0; --i) {
 				if (items[i].on_select) {
 					selected = i;
-					//Sound::play(*sound_click);
+					Sound::play(*sound_samples["select"]);
 					break;
 				}
 			}
@@ -80,7 +80,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			for (int i = selected + row_width; i < (int) items.size(); ++i) {
 				if (items[i].on_select) {
 					selected = i;
-					//Sound::play(*sound_click);
+					Sound::play(*sound_samples["select"]);
 					break;
 				}
 			}
@@ -91,7 +91,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			for (int i = selected - 1; i >= 0; --i) {
 				if (items[i].on_select) {
 					selected = i;
-					//Sound::play(*sound_click);
+					Sound::play(*sound_samples["select"]);
 					break;
 				}
 			}
@@ -102,7 +102,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			for (int i = selected + 1; i < (int) items.size(); ++i) {
 				if (items[i].on_select) {
 					selected = i;
-					//Sound::play(*sound_click);
+					Sound::play(*sound_samples["select"]);
 					break;
 				}
 			}
@@ -326,4 +326,14 @@ void MenuMode::vertical_layout_items(float gap) {
 	for (auto& item : items) {
 		item.transform.position_.y += ofs;
 	}
+}
+
+void MenuMode::on_leave()
+{
+	Sound::play(*sound_samples["menu_exit"]);
+}
+
+void MenuMode::on_enter()
+{
+	Sound::play(*sound_samples["menu_enter"]);
 }

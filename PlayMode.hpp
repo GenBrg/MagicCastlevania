@@ -1,6 +1,7 @@
 #pragma once
 #include "Mode.hpp"
 
+#include <Sound.hpp>
 #include <gamebase/Player.hpp>
 #include <gamebase/HeadsUpDisplay.hpp>
 #include <gamebase/Dialog.hpp>
@@ -22,6 +23,9 @@ struct PlayMode : Mode {
 	virtual bool handle_event(SDL_Event const &, glm::uvec2 const &window_size) override;
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const &window_size) override;
+
+	virtual void on_enter() override;
+	virtual void on_leave() override;
 
 	void SwitchRoom(Door* door);
 	void ProceedLevel();
@@ -54,4 +58,6 @@ struct PlayMode : Mode {
 	int total_keys_to_collect { 0 };
 
 	Shop shop;
+
+	std::shared_ptr<Sound::PlayingSample> bgm;
 };

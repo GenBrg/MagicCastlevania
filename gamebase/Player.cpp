@@ -3,6 +3,7 @@
 #include <Util.hpp>
 #include <Load.hpp>
 #include <engine/Timer.hpp>
+#include <engine/Random.hpp>
 #include <gamebase/Room.hpp>
 
 #include <SDL.h>
@@ -291,3 +292,14 @@ EquipmentPrototype* Player::GetEquipment(size_t slot_num)
 	return inventory_.PeekEquipment(slot_num);
 }
 
+void Player::PlayTakeDamageSound()
+{
+	int sound_idx = static_cast<int>(Random::Instance()->Generate() * 4) + 1;
+	Sound::play(*sound_samples["be_attacked_" + std::to_string(sound_idx)]);
+}
+
+void Player::PlayAttackSound()
+{
+	int sound_idx = static_cast<int>(Random::Instance()->Generate() * 4) + 1;
+	Sound::play(*sound_samples["normal_attack_" + std::to_string(sound_idx)]);
+}

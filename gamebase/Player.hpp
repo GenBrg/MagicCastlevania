@@ -56,6 +56,9 @@ public:
 	virtual int GetAttackPoint() override;
 	virtual int GetDefense() override;
 
+	virtual void PlayTakeDamageSound() override;
+	virtual void PlayAttackSound() override;
+
 private:
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;
 	MovementComponent movement_component_;
