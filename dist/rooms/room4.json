@@ -4,25 +4,67 @@
 		[940, -1000, 30, 2000],
 		[-10, 540, 1000, 30],
 
-		[0, 491, 960, 50],
-		[329, 255, 289, 99]
+		[10, 491, 299, 52],
+		[651, 490, 297, 55]
 	],
 	"one_sided_platforms": [
-		[76, 357, 170, 34],
-		[396, 127, 170, 34],
-		[716, 357, 170, 34]
+		[13, 216, 168, 36],
+		[187, 128, 233, 37],
+		[157, 312, 170, 37],
+		[340, 387, 296, 36],
+		[532, 128, 233, 35],
+		[777, 218, 171, 39],
+		[659, 310, 169, 38]
 	],
-	"traps": [],
-	"monsters": [],
-	"items": [],
-	"key_position": [464, 491],
-	"doors": [
-		[160, 357],
-		[480, 126],
-		[800, 357]
-	],
-	"background_sprite": "room_2_bg",
-	"dialogs": []
+	"traps": [
+		{
+			"bounding_box": [313, 474, 336, 67],
+			"attack": 10000
 		}
-	]
+	],
+	"monsters": [
+		{
+			"name": "bear",
+			"initial_pos": [96.0, 212.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "bird",
+			"initial_pos": [242.0, 309.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "dragon",
+			"initial_pos": [303.0, 127.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "orc",
+			"initial_pos": [477.0, 384.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "skeleton",
+			"initial_pos": [647.0, 126.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "snake",
+			"initial_pos": [744.0, 307.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [862.0, 216.0],
+			"move_radius": 80.0
+		}
+	],
+	"items": [],
+	"key_position": [480, 377],
+	"doors": [
+		[112, 489],
+		[751, 489]
+	],
+	"background_sprite": "room_4_bg",
+	"dialogs": []
 }
