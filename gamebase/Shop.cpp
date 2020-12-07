@@ -11,15 +11,24 @@ Shop::Shop(glm::vec2 pos): pos_(pos) {
     printf("pos.x=%f\n", pos_.x);
 }
 
-void Shop::GenerateItems()
+void Shop::GenerateItems(size_t level)
 {
-	for (auto& item : items_) {
+	items_[0] = ItemPrototype::GetPrototype("sword" + std::to_string(level));
+	items_[1] = ItemPrototype::GetPrototype("shield" + std::to_string(level));
+	items_[2] = ItemPrototype::GetPrototype("vest" + std::to_string(level));
+	items_[3] = ItemPrototype::GetPrototype("boot" + std::to_string(level));
+
+	for (size_t i = 4; i < kSlotNum; ++i) {
 		int dice = static_cast<int>(Random::Instance()->Generate());
 		if (dice < 0.5f) {
-			int item_idx = static_cast<int>(ItemPrototype::GetPrototypeNum() * Random::Instance()->Generate());
-			item = ItemPrototype::GetPrototype(item_idx);
+			bool is_potion = false;
+			while (!is_potion) {
+				int item_idx = static_cast<int>(ItemPrototype::GetPrototypeNum() * Random::Instance()->Generate());
+				items_[i] = ItemPrototype::GetPrototype(item_idx);
+				is_potion = dynamic_cast<PotionPrototype*>(items_[i]);
+			}
 		} else {
-			item = nullptr;
+			items_[i] = nullptr;
 		}
 	}
 }

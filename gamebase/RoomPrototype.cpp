@@ -136,7 +136,7 @@ Room* RoomPrototype::Create(size_t level) const
 
     if (shopInfo_.contain_shop_) {
         room->shop_ = new Shop(shopInfo_.pos_);
-        room->shop_->GenerateItems();
+        room->shop_->GenerateItems(level);
 
         auto OnTrigger = [room]()->void {
             room->shop_->RegisterKeyEvents();

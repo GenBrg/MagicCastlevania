@@ -8,7 +8,7 @@ class Shop {
 public:
 	inline static constexpr int kSlotNum = 12;
 	Shop(glm::vec2 pos);
-	void GenerateItems();
+	void GenerateItems(size_t level);
 	void Purchase(size_t slot_num);
 	ItemPrototype* PeekItem(size_t slot_num) const { return items_[slot_num]; }
     void RegisterKeyEvents();
