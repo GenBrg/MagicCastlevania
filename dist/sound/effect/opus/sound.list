@@ -3,8 +3,6 @@ be_attacked_2
 be_attacked_3
 be_attacked_4
 collect_item
-large_jump_1
-large_jump_2
 menu_enter
 menu_exit
 monster_being_attack
@@ -14,7 +12,9 @@ normal_attack_3
 normal_attack_4
 open_door
 select
-small_jump_1
+jump_1
+jump_2
+jump_3
 take_drug
 remote_attack_comet
 remote_attack_light

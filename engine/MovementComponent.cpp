@@ -1,6 +1,7 @@
 #include "MovementComponent.hpp"
 
 #include <glm/glm.hpp>
+#include <engine/Random.hpp>
 
 #include <iostream>
 #include <stdexcept>
@@ -22,7 +23,8 @@ void MovementComponent::Jump()
 	if (jump_chance_ > 0) {
 		--jump_chance_;
 		velocity_.y = initial_jump_speed_;
-		Sound::play(*sound_samples["small_jump_1"]);
+		int sound_idx = 1 + static_cast<int>(Random::Instance()->Generate() * 3);
+		Sound::play(*sound_samples["jump_" + std::to_string(sound_idx)]);
 	}
 }
 
