@@ -1,4 +1,5 @@
 "MagicCastleVania.xcf?Nothing" 0 0 1 1 0 0 nothing
+"MagicCastleVania.xcf?White" 0 0 960 541 +0 +541 white
 "MagicCastleVania.xcf?pause_window" 0 0 960 541 +0 +541 pause_window
 "MagicCastleVania.xcf?shop_window" 0 0 960 541 +0 +541 shop_window
 "MagicCastleVania.xcf?exp_point" 199 142 +4 +10 +0 +10 exp_point
@@ -26,7 +27,13 @@
 "MagicCastleVania.xcf?room_10_bg" 0 0 960 541 +0 +541 room_10_bg
 "MagicCastleVania.xcf?room_11_bg" 0 0 960 541 +0 +541 room_11_bg
 "MagicCastleVania.xcf?room_12_bg" 0 0 960 541 +0 +541 room_12_bg
-"MagicCastleVania.xcf?room_12_bg" 0 0 960 541 +0 +541 room_13_bg
+"MagicCastleVania.xcf?room_13_bg" 0 0 960 541 +0 +541 room_13_bg
+"MagicCastleVania.xcf?room_14_bg" 0 0 960 541 +0 +541 room_14_bg
+"MagicCastleVania.xcf?room_15_bg" 0 0 960 541 +0 +541 room_15_bg
+"MagicCastleVania.xcf?room_16_bg" 0 0 960 541 +0 +541 room_16_bg
+"MagicCastleVania.xcf?room_17_bg" 0 0 960 541 +0 +541 room_17_bg
+"MagicCastleVania.xcf?room_18_bg" 0 0 960 541 +0 +541 room_18_bg
+"MagicCastleVania.xcf?room_19_bg" 0 0 960 541 +0 +541 room_19_bg
 "MagicCastleVania.xcf?player_stand_1" 113 340 +130 +88 +49 +88 player_stand_1
 "MagicCastleVania.xcf?player_stand_2" 113 340 +130 +88 +49 +88 player_stand_2
 "MagicCastleVania.xcf?player_stand_3" 113 340 +130 +88 +49 +88 player_stand_3
@@ -370,6 +377,8 @@
 "MagicCastleVania.xcf?boss_bull_anger_2" 378 132 +270 +168 +107 +163 boss_bull_anger_2
 "MagicCastleVania.xcf?boss_bull_anger_3" 378 132 +270 +168 +107 +163 boss_bull_anger_3
 "MagicCastleVania.xcf?boss_bull_anger_4" 378 132 +270 +168 +107 +163 boss_bull_anger_4
+"MagicCastleVania.xcf?boss_bull_hurt_1" 378 132 +270 +168 +107 +163 boss_bull_hurt_1
+"MagicCastleVania.xcf?boss_bull_hurt_2" 378 132 +270 +168 +107 +163 boss_bull_hurt_2
 "MagicCastleVania.xcf?boss_bull_attack_magic_lightning_1" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_lightning_1
 "MagicCastleVania.xcf?boss_bull_attack_magic_lightning_2" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_lightning_2
 "MagicCastleVania.xcf?boss_bull_attack_magic_lightning_3" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_lightning_3
@@ -527,6 +536,23 @@
 "MagicCastleVania.xcf?item_potion_defense_small" 469 260 +22 +26 +11 +13 item_potion_defense_small
 "MagicCastleVania.xcf?item_potion_attack_small" 467 258 +26 +29 +13 +14 item_potion_attack_small
 "MagicCastleVania.xcf?item_potion_attack_large" 468 260 +23 +26 +11 +13 item_potion_attack_large
+"MagicCastleVania.xcf?sword_1" 464 254 +32 +32 +16 +16 sword_1
+"MagicCastleVania.xcf?sword_2" 464 254 +32 +32 +16 +16 sword_2
+"MagicCastleVania.xcf?sword_3" 464 254 +32 +32 +16 +16 sword_3
+"MagicCastleVania.xcf?sword_4" 464 254 +32 +32 +16 +16 sword_4
+"MagicCastleVania.xcf?shield_1" 469 254 +22 +32 +11 +16 shield_1
+"MagicCastleVania.xcf?shield_2" 469 254 +22 +32 +11 +16 shield_2
+"MagicCastleVania.xcf?shield_3" 469 254 +22 +32 +11 +16 shield_3
+"MagicCastleVania.xcf?shield_4" 469 254 +22 +32 +11 +16 shield_4
+"MagicCastleVania.xcf?armor_1" 461 254 +37 +32 +18 +16 armor_1
+"MagicCastleVania.xcf?armor_2" 461 254 +37 +32 +18 +16 armor_2
+"MagicCastleVania.xcf?armor_3" 461 254 +37 +32 +18 +16 armor_3
+"MagicCastleVania.xcf?armor_4" 461 254 +37 +32 +18 +16 armor_4
+"MagicCastleVania.xcf?shoe_1" 464 253 +32 +34 +16 +17 shoe_1
+"MagicCastleVania.xcf?shoe_2" 464 253 +32 +34 +16 +17 shoe_2
+"MagicCastleVania.xcf?shoe_3" 464 253 +32 +34 +16 +17 shoe_3
+"MagicCastleVania.xcf?shoe_4" 464 253 +32 +34 +16 +17 shoe_4
+
 
 
 
