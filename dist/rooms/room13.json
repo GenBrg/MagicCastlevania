@@ -22,7 +22,23 @@
 			"attack": 10000
 		}
 	],
-	"monsters": [],
+	"monsters": [
+		{
+			"name": "spider",
+			"initial_pos": [886.0, 489.0],
+			"move_radius": 70.0
+		},
+		{
+			"name": "mosquito",
+			"initial_pos": [729.0, 126.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "snake",
+			"initial_pos": [526.0, 189.0],
+			"move_radius": 80.0
+		}
+	],
 	"items": [],
 	"key_position": [565, 212],
 	"doors": [

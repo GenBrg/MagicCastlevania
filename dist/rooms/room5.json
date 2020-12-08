@@ -23,7 +23,21 @@
 		}
 	],
 	"monsters": [
-		
+		{
+			"name": "orc",
+			"initial_pos": [386.0, 489.0],
+			"move_radius": 200.0
+		},
+		{
+			"name": "skeleton",
+			"initial_pos": [600.0, 278.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "ghost",
+			"initial_pos": [400.0, 150.0],
+			"move_radius": 80.0
+		}
 	],
 	"items": [
 		{

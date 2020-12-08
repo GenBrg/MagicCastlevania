@@ -22,7 +22,33 @@
 			"attack": 10000
 		}
 	],
-	"monsters": [],
+	"monsters": [
+		{
+			"name": "snake",
+			"initial_pos": [145.0, 270.0],
+			"move_radius": 110.0
+		},
+		{
+			"name": "snake",
+			"initial_pos": [813.0, 270.0],
+			"move_radius": 110.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [140.0, 158.0],
+			"move_radius": 110.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [805.0, 158.0],
+			"move_radius": 110.0
+		},
+		{
+			"name": "goblin",
+			"initial_pos": [483.0, 180.0],
+			"move_radius": 100.0
+		}
+	],
 	"items": [],
 	"key_position": [394, 364],
 	"doors": [

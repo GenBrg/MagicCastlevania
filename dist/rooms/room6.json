@@ -19,7 +19,21 @@
 		}
 	],
 	"monsters": [
-
+		{
+			"name": "ghost",
+			"initial_pos": [159.0, 255.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "ghost",
+			"initial_pos": [800.0, 255.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "beholder",
+			"initial_pos": [480.0, 127.0],
+			"move_radius": 130.0
+		}
 	],
 	"items": [],
 	"key_position": [470, 120],

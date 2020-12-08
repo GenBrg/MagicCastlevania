@@ -24,37 +24,32 @@
 	],
 	"monsters": [
 		{
-			"name": "bear",
+			"name": "skeleton",
 			"initial_pos": [96.0, 212.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "bird",
+			"name": "ghost",
 			"initial_pos": [242.0, 309.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "dragon",
+			"name": "beholder",
 			"initial_pos": [303.0, 127.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "orc",
-			"initial_pos": [477.0, 384.0],
-			"move_radius": 80.0
-		},
-		{
-			"name": "skeleton",
+			"name": "jinn",
 			"initial_pos": [647.0, 126.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "snake",
+			"name": "ghost",
 			"initial_pos": [744.0, 307.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "spider",
+			"name": "skeleton",
 			"initial_pos": [862.0, 216.0],
 			"move_radius": 80.0
 		}

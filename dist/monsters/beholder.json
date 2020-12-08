@@ -17,7 +17,7 @@
 			"mob_animation": "beholder_attack",
 			"aoe_prototype": "beholder_fire",
 			"cooldown": 1.0,
-			"attach_to_entity": true
+			"attach_to_entity": false
 		}
 	],
 	"ai": {

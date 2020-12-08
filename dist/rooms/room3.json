@@ -35,6 +35,11 @@
 			"name": "vampire",
 			"initial_pos": [520.0, 365.0],
 			"move_radius": 120.0
+		},
+		{
+			"name": "goblin",
+			"initial_pos": [191.0, 489.0],
+			"move_radius": 120.0
 		}
 	],
 	"items": [],

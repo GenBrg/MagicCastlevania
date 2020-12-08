@@ -21,7 +21,7 @@
 		}
 	],
 	"ai": {
-		"type": 0
+		"type": 2
 	},
 	"is_boss": false
 }

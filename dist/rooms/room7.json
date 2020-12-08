@@ -13,7 +13,28 @@
 		[205, 108, 550, 32]
 	],
 	"traps": [],
-	"monsters": [],
+	"monsters": [
+		{
+			"name": "skeleton",
+			"initial_pos": [271.0, 233.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "skeleton",
+			"initial_pos": [687.0, 233.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "jinn",
+			"initial_pos": [233.0, 362.0],
+			"move_radius": 120.0
+		},
+		{
+			"name": "jinn",
+			"initial_pos": [715.0, 362.0],
+			"move_radius": 120.0
+		}
+	],
 	"items": [],
 	"key_position": [585, 221],
 	"doors": [
