@@ -19,7 +19,7 @@ void Shop::GenerateItems(size_t level)
 	items_[3] = ItemPrototype::GetPrototype("boot" + std::to_string(level));
 
 	for (size_t i = 4; i < kSlotNum; ++i) {
-		int dice = static_cast<int>(Random::Instance()->Generate());
+		float dice = Random::Instance()->Generate();
 		if (dice < 0.5f) {
 			bool is_potion = false;
 			while (!is_potion) {
