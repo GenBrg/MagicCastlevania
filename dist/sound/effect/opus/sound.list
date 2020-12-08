@@ -5,6 +5,7 @@ be_attacked_4
 collect_item
 jump_1
 jump_2
+jump_3
 menu_enter
 menu_exit
 monster_being_attack

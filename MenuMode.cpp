@@ -375,5 +375,6 @@ void MenuMode::on_leave()
 
 void MenuMode::on_enter()
 {
-	Sound::play(*sound_samples["menu_enter"]);
+	if(row_width != 1)
+		Sound::play(*sound_samples["menu_enter"]);
 }

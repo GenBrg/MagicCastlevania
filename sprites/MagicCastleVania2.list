@@ -122,6 +122,83 @@
 "MagicCastleVania.xcf?item_potion_defense_small" 469 260 +22 +26 +11 +13 item_potion_defense_small
 "MagicCastleVania.xcf?item_potion_attack_small" 467 258 +26 +29 +13 +14 item_potion_attack_small
 "MagicCastleVania.xcf?item_potion_attack_large" 468 260 +23 +26 +11 +13 item_potion_attack_large
+"MagicCastleVania.xcf?boss_bull_walk_1" 378 132 +270 +168 +107 +163 boss_bull_walk_1
+"MagicCastleVania.xcf?boss_bull_walk_2" 378 132 +270 +168 +107 +163 boss_bull_walk_2
+"MagicCastleVania.xcf?boss_bull_walk_3" 378 132 +270 +168 +107 +163 boss_bull_walk_3
+"MagicCastleVania.xcf?boss_bull_walk_4" 378 132 +270 +168 +107 +163 boss_bull_walk_4
+"MagicCastleVania.xcf?boss_bull_walk_5" 378 132 +270 +168 +107 +163 boss_bull_walk_5
+"MagicCastleVania.xcf?boss_bull_walk_6" 378 132 +270 +168 +107 +163 boss_bull_walk_6
+"MagicCastleVania.xcf?boss_bull_run_1" 378 132 +270 +168 +107 +163 boss_bull_run_1
+"MagicCastleVania.xcf?boss_bull_run_2" 378 132 +270 +168 +107 +163 boss_bull_run_2
+"MagicCastleVania.xcf?boss_bull_run_3" 378 132 +270 +168 +107 +163 boss_bull_run_3
+"MagicCastleVania.xcf?boss_bull_run_4" 378 132 +270 +168 +107 +163 boss_bull_run_4
+"MagicCastleVania.xcf?boss_bull_run_5" 378 132 +270 +168 +107 +163 boss_bull_run_5
+"MagicCastleVania.xcf?boss_bull_run_6" 378 132 +270 +168 +107 +163 boss_bull_run_6
+"MagicCastleVania.xcf?boss_bull_idle_1" 378 132 +270 +168 +107 +163 boss_bull_idle_1
+"MagicCastleVania.xcf?boss_bull_idle_2" 378 132 +270 +168 +107 +163 boss_bull_idle_2
+"MagicCastleVania.xcf?boss_bull_idle_3" 378 132 +270 +168 +107 +163 boss_bull_idle_3
+"MagicCastleVania.xcf?boss_bull_death_1" 378 132 +270 +168 +107 +163 boss_bull_death_1
+"MagicCastleVania.xcf?boss_bull_death_2" 378 132 +270 +168 +107 +163 boss_bull_death_2
+"MagicCastleVania.xcf?boss_bull_death_3" 378 132 +270 +168 +107 +163 boss_bull_death_3
+"MagicCastleVania.xcf?boss_bull_death_4" 378 132 +270 +168 +107 +163 boss_bull_death_4
+"MagicCastleVania.xcf?boss_bull_death_5" 378 132 +270 +168 +107 +163 boss_bull_death_5
+"MagicCastleVania.xcf?boss_bull_death_6" 378 132 +270 +168 +107 +163 boss_bull_death_6
+"MagicCastleVania.xcf?boss_bull_attack_1" 378 132 +270 +168 +107 +163 boss_bull_attack_1
+"MagicCastleVania.xcf?boss_bull_attack_2" 378 132 +270 +168 +107 +163 boss_bull_attack_2
+"MagicCastleVania.xcf?boss_bull_attack_3" 378 132 +270 +168 +107 +163 boss_bull_attack_3
+"MagicCastleVania.xcf?boss_bull_attack_4" 378 132 +270 +168 +107 +163 boss_bull_attack_4
+"MagicCastleVania.xcf?boss_bull_attack_5" 378 132 +270 +168 +107 +163 boss_bull_attack_5
+"MagicCastleVania.xcf?boss_bull_attack_6" 378 132 +270 +168 +107 +163 boss_bull_attack_6
+"MagicCastleVania.xcf?boss_bull_attack_7" 378 132 +270 +168 +107 +163 boss_bull_attack_7
+"MagicCastleVania.xcf?boss_bull_anger_1" 378 132 +270 +168 +107 +163 boss_bull_anger_1
+"MagicCastleVania.xcf?boss_bull_anger_2" 378 132 +270 +168 +107 +163 boss_bull_anger_2
+"MagicCastleVania.xcf?boss_bull_anger_3" 378 132 +270 +168 +107 +163 boss_bull_anger_3
+"MagicCastleVania.xcf?boss_bull_anger_4" 378 132 +270 +168 +107 +163 boss_bull_anger_4
+"MagicCastleVania.xcf?boss_bull_attack_magic_lightning_1" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_lightning_1
+"MagicCastleVania.xcf?boss_bull_attack_magic_lightning_2" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_lightning_2
+"MagicCastleVania.xcf?boss_bull_attack_magic_lightning_3" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_lightning_3
+"MagicCastleVania.xcf?boss_bull_attack_magic_lightning_4" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_lightning_4
+"MagicCastleVania.xcf?boss_bull_attack_magic_lightning_5" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_lightning_5
+"MagicCastleVania.xcf?boss_bull_attack_magic_fire_1" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_fire_1
+"MagicCastleVania.xcf?boss_bull_attack_magic_fire_2" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_fire_2
+"MagicCastleVania.xcf?boss_bull_attack_magic_fire_3" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_fire_3
+"MagicCastleVania.xcf?boss_bull_attack_magic_fire_4" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_fire_4
+"MagicCastleVania.xcf?boss_bull_attack_magic_fire_5" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_fire_5
+"MagicCastleVania.xcf?boss_bull_attack_magic_blade_1" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_blade_1
+"MagicCastleVania.xcf?boss_bull_attack_magic_blade_2" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_blade_2
+"MagicCastleVania.xcf?boss_bull_attack_magic_blade_3" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_blade_3
+"MagicCastleVania.xcf?boss_bull_attack_magic_blade_4" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_blade_4
+"MagicCastleVania.xcf?boss_bull_attack_magic_blade_5" 378 132 +270 +168 +107 +163 boss_bull_attack_magic_blade_5
+"MagicCastleVania.xcf?boss_bull_magic_fire_1" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_1
+"MagicCastleVania.xcf?boss_bull_magic_fire_2" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_2
+"MagicCastleVania.xcf?boss_bull_magic_fire_3" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_3
+"MagicCastleVania.xcf?boss_bull_magic_fire_4" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_4
+"MagicCastleVania.xcf?boss_bull_magic_fire_5" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_5
+"MagicCastleVania.xcf?boss_bull_magic_fire_6" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_6
+"MagicCastleVania.xcf?boss_bull_magic_fire_7" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_7
+"MagicCastleVania.xcf?boss_bull_magic_fire_8" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_8
+"MagicCastleVania.xcf?boss_bull_magic_fire_9" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_9
+"MagicCastleVania.xcf?boss_bull_magic_fire_10" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_10
+"MagicCastleVania.xcf?boss_bull_magic_fire_11" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_11
+"MagicCastleVania.xcf?boss_bull_magic_fire_12" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_12
+"MagicCastleVania.xcf?boss_bull_magic_fire_13" 401 183 +126 +74 +0 +74 boss_bull_magic_fire_13
+"MagicCastleVania.xcf?boss_bull_magic_blade_1" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_1
+"MagicCastleVania.xcf?boss_bull_magic_blade_2" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_2
+"MagicCastleVania.xcf?boss_bull_magic_blade_3" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_3
+"MagicCastleVania.xcf?boss_bull_magic_blade_4" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_4
+"MagicCastleVania.xcf?boss_bull_magic_blade_5" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_5
+"MagicCastleVania.xcf?boss_bull_magic_blade_6" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_6
+"MagicCastleVania.xcf?boss_bull_magic_blade_7" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_7
+"MagicCastleVania.xcf?boss_bull_magic_blade_8" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_8
+"MagicCastleVania.xcf?boss_bull_magic_blade_9" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_9
+"MagicCastleVania.xcf?boss_bull_magic_blade_10" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_10
+"MagicCastleVania.xcf?boss_bull_magic_blade_11" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_11
+"MagicCastleVania.xcf?boss_bull_magic_blade_12" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_12
+"MagicCastleVania.xcf?boss_bull_magic_blade_13" 390 206 +140 +56 +0 +55 boss_bull_magic_blade_13
+
+
+
+
 
 
 
