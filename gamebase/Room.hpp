@@ -61,7 +61,7 @@ public:
 
 	size_t GetDoorNum() const { return doors_.size(); }
 	Door* GetDoor(size_t idx) { return doors_[idx]; }
-
+	Shop* GetShop() const { return shop_; }
 	// TODO Room switch
 	void OnEnter(Player *player, Door* door);
 

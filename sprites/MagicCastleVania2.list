@@ -115,7 +115,13 @@
 "MagicCastleVania.xcf?orc_walk_4" 398 205 +179 +130 +49 +130 orc_walk_4
 "MagicCastleVania.xcf?orc_walk_5" 398 205 +179 +130 +49 +130 orc_walk_5
 "MagicCastleVania.xcf?orc_walk_6" 398 205 +179 +130 +49 +130 orc_walk_6
-
+"MagicCastleVania.xcf?item_apple" 469 256 +22 +28 +11 +14 item_apple
+"MagicCastleVania.xcf?item_meat" 468 257 +26 +26 +13 +13 item_meat
+"MagicCastleVania.xcf?item_potion_panacea" 469 259 +22 +28 +11 +14 item_potion_panacea
+"MagicCastleVania.xcf?item_potion_defense_large" 467 258 +26 +29 +13 +14 item_potion_defense_large
+"MagicCastleVania.xcf?item_potion_defense_small" 469 260 +22 +26 +11 +13 item_potion_defense_small
+"MagicCastleVania.xcf?item_potion_attack_small" 467 258 +26 +29 +13 +14 item_potion_attack_small
+"MagicCastleVania.xcf?item_potion_attack_large" 468 260 +23 +26 +11 +13 item_potion_attack_large
 
 
 

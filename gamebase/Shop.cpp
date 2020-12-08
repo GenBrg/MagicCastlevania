@@ -1,5 +1,5 @@
 #include "Shop.hpp"
-
+#include "../MenuMode.hpp"
 #include <engine/Random.hpp>
 #include <gamebase/Player.hpp>
 
@@ -62,7 +62,19 @@ void Shop::RegisterKeyEvents() {
         if (key_state.pressed) {
             key_state.pressed = false;
             std::cout << "Pressed enter shop" << std::endl;
-            // change current mode to shop mode
+			std::vector< MenuMode::Item > items;
+			items.emplace_back("Static", &sprites->lookup("shop_window"), nullptr);
+			for (size_t i = 0; i < 12; i++) {
+				items.emplace_back("Item_" + std::to_string(i), nullptr, &sprites->lookup("select_target"));
+			}
+			std::shared_ptr< MenuMode > shop_menu;
+			shop_menu = std::make_shared< MenuMode >(items, 3);
+			shop_menu->selected = 1;
+			shop_menu->atlas = sprites;
+			shop_menu->view_min = glm::vec2(0.0f, 0.0f);
+			shop_menu->view_max = glm::vec2(960.0f, 541.0f);
+			shop_menu->grid_layout_items(glm::vec2(582.0f, 394.0f), 77.0f, 80.0f, 1, 13);
+			Mode::set_current(shop_menu);
         }
     });
 }

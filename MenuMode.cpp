@@ -47,9 +47,16 @@ text(data_path(MENU_FONT_PATH)),
 items(items_)
 {
 	//select first item which can be selected:
-	text.SetFontSize(font_size)
-		.SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff))
-		.SetPos(glm::vec2(117.0f, 328.0f));
+	if (width == 4) {
+		text.SetFontSize(font_size)
+			.SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff))
+			.SetPos(glm::vec2(117.0f, 328.0f));
+	}
+	if (width == 3) {
+		text.SetFontSize(font_size)
+			.SetColor(glm::u8vec4(0x00, 0x00, 0x00, 0xff))
+			.SetPos(glm::vec2(218.0f, 282.0f));
+	}
 	for (uint32_t i = 0; i < items.size(); ++i) {
 		if (items[i].on_select) {
 			selected = i;
@@ -120,7 +127,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 				Mode::set_current(main_play);
 				return true;
 			}
-			if (evt.key.keysym.sym == SDLK_j) {
+			if (evt.key.keysym.sym == SDLK_j && row_width == 4) {
 				if (items[selected].on_discard) {
 					items[selected].on_discard(items[selected]);
 					return true;
@@ -140,7 +147,6 @@ void MenuMode::update(float elapsed) {
 
 	//select_bounce_acc = select_bounce_acc + elapsed / 0.7f;
 	//select_bounce_acc -= std::floor(select_bounce_acc);
-
 	if (background) {
 		background->update(elapsed);
 	}
@@ -172,6 +178,25 @@ void MenuMode::update(float elapsed) {
 				};
 				items[i].on_discard = [=](MenuMode::Item const&) {
 					player->DropItem(i-5);
+				};
+			}
+			else {
+				items[i].on_select = [=](MenuMode::Item const&) {
+
+				};
+				items[i].on_discard = [=](MenuMode::Item const&) {
+
+				};
+			}
+		}
+	}
+	else if (row_width == 3) {
+		Shop* curr_shop = main_play->cur_room->GetShop();
+		for (int i = 1; i < 13; i++) {
+			items[i].item_prototype = curr_shop->PeekItem(i - 1);;
+			if (items[i].item_prototype) {
+				items[i].on_select = [=](MenuMode::Item const&) {
+					curr_shop->Purchase(i-1);
 				};
 			}
 			else {
@@ -251,7 +276,7 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			}			
 		}
 		if (row_width == 4) {
-			int hp_to_draw = player->GetHp();
+			int hp_to_draw = player->GetHp() * 100 / player->GetMaxHP();
 			if (hp_to_draw > 0) {
 				Transform2D hp_curr_transform = Transform2D(nullptr);
 				hp_curr_transform.position_ = glm::vec2(194.0f, 406.0f);
@@ -286,16 +311,31 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			draw_digits(draw_sprites, glm::vec2(411.0f, 365.0f), main_play->GetKeysCollected(), glm::u8vec4(0x00, 0x00, 0x00, 0xff));
 			draw_digits(draw_sprites, glm::vec2(445.0f, 365.0f), main_play->GetTotalKeysToCollect(), glm::u8vec4(0x00, 0x00, 0x00, 0xff));
 		}
+		if (row_width == 3) {
+			draw_digits(draw_sprites, glm::vec2(412.0f, 378.0f), player->GetCoin(), glm::u8vec4(0xff, 0xff, 0xff, 0xff));
+		}
 	} //<-- gets drawn here!
 	if (row_width == 4) {
 		std::string text_string = "Atk: " + std::to_string(player->GetAttackPoint()) + "\nDef: " + std::to_string(player->GetDefense());
 		if (items[selected].item_prototype) {
-			text_string += "\n\nItem Description:\n" + items[selected].item_prototype->GetDescription();
+			std::string item_name = items[selected].item_prototype->GetName();
+			item_name[0] = std::toupper(item_name[0]);
+			text_string += "\n\n" + item_name + ":\n" + items[selected].item_prototype->GetDescription() +
+				"\n\nPress SPACE to use or equip\nPress J to discard.";
 		}
 		text.SetText(text_string);
 		text.Draw();
 	}
-	
+	if (row_width == 3) {
+		std::string text_string = "Welcome to the shop!\nPress SPACE to purchase.";
+		if (items[selected].item_prototype) {
+			std::string item_name = items[selected].item_prototype->GetName();
+			item_name[0] = std::toupper(item_name[0]);
+			text_string += "\n\n"+ item_name +  ":\n" + items[selected].item_prototype->GetDescription() + "\nPrice: " + std::to_string(items[selected].item_prototype->GetPrice());
+		}
+		text.SetText(text_string);
+		text.Draw();
+	}
 	
 	GL_ERRORS(); //PARANOIA: print errors just in case we did something wrong.
 }

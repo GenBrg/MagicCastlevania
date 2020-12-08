@@ -24,6 +24,8 @@
 "MagicCastleVania.xcf?room_8_bg" 0 0 960 541 +0 +541 room_8_bg
 "MagicCastleVania.xcf?room_9_bg" 0 0 960 541 +0 +541 room_9_bg
 "MagicCastleVania.xcf?room_10_bg" 0 0 960 541 +0 +541 room_10_bg
+"MagicCastleVania.xcf?room_11_bg" 0 0 960 541 +0 +541 room_11_bg
+"MagicCastleVania.xcf?room_12_bg" 0 0 960 541 +0 +541 room_12_bg
 "MagicCastleVania.xcf?player_stand_1" 113 340 +130 +88 +49 +88 player_stand_1
 "MagicCastleVania.xcf?player_stand_2" 113 340 +130 +88 +49 +88 player_stand_2
 "MagicCastleVania.xcf?player_stand_3" 113 340 +130 +88 +49 +88 player_stand_3
@@ -443,7 +445,14 @@
 "MagicCastleVania.xcf?merchant_idle_27" 438 260 +58 +57 +22 +57 merchant_idle_27
 "MagicCastleVania.xcf?merchant_idle_28" 438 260 +58 +57 +22 +57 merchant_idle_28
 "MagicCastleVania.xcf?merchant_idle_29" 438 260 +58 +57 +22 +57 merchant_idle_29
-"MagicCastleVania.xcf?merchant_chest" 499 293 +26 +24 +13 +12 merchant_chest
+"MagicCastleVania.xcf?merchant_chest" 499 293 +26 +24 +13 +24 merchant_chest
+"MagicCastleVania.xcf?item_apple" 469 256 +22 +28 +11 +14 item_apple
+"MagicCastleVania.xcf?item_meat" 468 257 +26 +26 +13 +13 item_meat
+"MagicCastleVania.xcf?item_potion_panacea" 469 259 +22 +28 +11 +14 item_potion_panacea
+"MagicCastleVania.xcf?item_potion_defense_large" 467 258 +26 +29 +13 +14 item_potion_defense_large
+"MagicCastleVania.xcf?item_potion_defense_small" 469 260 +22 +26 +11 +13 item_potion_defense_small
+"MagicCastleVania.xcf?item_potion_attack_small" 467 258 +26 +29 +13 +14 item_potion_attack_small
+"MagicCastleVania.xcf?item_potion_attack_large" 468 260 +23 +26 +11 +13 item_potion_attack_large
 
 
 
