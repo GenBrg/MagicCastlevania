@@ -22,6 +22,8 @@
 #include <iostream>
 #include <sstream>
 
+#define SWITCH_ROOM_TRANSITION 1.1f
+
 PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 {
 	player = Player::Create(&cur_room, data_path("player.json"));
@@ -31,7 +33,7 @@ PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 	press_w_hint.SetText("Press W to enter room").SetFontSize(2300).SetPos({0.0f, 30.0f});
 
 	InputSystem::Instance()->Register(SDLK_w, [&](InputSystem::KeyState key_state, float elapsed) {
-		if (key_state.pressed)
+		if (key_state.pressed && !cur_room->IsDialoging())
 		{
 			key_state.pressed = false;
 			OpenDoor();
@@ -81,11 +83,22 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 
 void PlayMode::update(float elapsed)
 {
-	InputSystem::Instance()->Update(elapsed);
-	TimerManager::Instance().Update();
+    if (in_transition_) {
+        float halfway = SWITCH_ROOM_TRANSITION / 2.0f;
+        if (elapsed_since_transition_ < halfway && elapsed_since_transition_ + elapsed > halfway) {
+            SwitchRoom(cur_door);
+        }
+        elapsed_since_transition_ += elapsed;
+        if (elapsed_since_transition_ > SWITCH_ROOM_TRANSITION) {
+            in_transition_ = false;
+        }
+    } else {
+        InputSystem::Instance()->Update(elapsed);
+        TimerManager::Instance().Update();
 
-	cur_room->Update(elapsed, player, &cur_door);
-	hud->Update(elapsed);
+        cur_room->Update(elapsed, player, &cur_door);
+        hud->Update(elapsed);
+    }
 }
 
 void PlayMode::draw(glm::uvec2 const &window_size)
@@ -119,6 +132,20 @@ void PlayMode::draw(glm::uvec2 const &window_size)
 			cur_room->cur_dialog->Draw(window_size);
 		}
 	}
+
+    {
+        if (in_transition_) {
+            DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, window_size, DrawSprites::AlignPixelPerfect);
+            Transform2D transform = Transform2D(nullptr);
+            transform.position_ = glm::vec2(0.0f, 0.0f);
+            transform.scale_ = glm::vec2(10.0f, 10.0f);
+            // calculate based on current time
+            float alphaPercent = 1.0f - fabs(elapsed_since_transition_ - SWITCH_ROOM_TRANSITION / 2.0f) / (SWITCH_ROOM_TRANSITION / 2.0f);
+            auto alpha = (uint8_t)(0xff * alphaPercent);
+            draw.draw(sprites->lookup("shop_window"), transform, glm::u8vec4(0xff, 0xff, 0xff, alpha));
+        }
+    }
+
 	GL_ERRORS();
 }
 
@@ -144,6 +171,12 @@ void PlayMode::SwitchRoom(Door *door)
 void PlayMode::ProceedLevel()
 {
 	++level_;
+
+	if (level_ > 1) {
+		in_transition_ = true;
+        elapsed_since_transition_ = 0.0f;
+	}
+
 	for (Room *room : rooms)
 	{
 		delete room;
@@ -163,11 +196,11 @@ void PlayMode::ProceedLevel()
 void PlayMode::GenerateRooms()
 {
 	total_keys_to_collect = 0;
-
+	std::string level_string = std::to_string(level_);
 	// Room 1 lobby
 	// Room 2 BOSS room
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create(level_));
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create(level_));
+	rooms.push_back(RoomPrototype::GetRoomPrototype("main_lobby")->Create(level_));
+	rooms.push_back(RoomPrototype::GetRoomPrototype("boss_room" + level_string)->Create(level_));
 
 	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::SPECIAL_LOCKED);
 
@@ -257,7 +290,9 @@ void PlayMode::OpenDoor()
 					cur_door->SetLockStatus(Door::LockStatus::OPENING);
 				break;
 				case Door::LockStatus::OPENED:
-					SwitchRoom(cur_door);
+                    Sound::play(*sound_samples["footstep"]);
+                    in_transition_ = true;
+                    elapsed_since_transition_ = 0.0f;
 				break;
 				case Door::LockStatus::SPECIAL_LOCKED:
 					if (keys_collected >= total_keys_to_collect) {

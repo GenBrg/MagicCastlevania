@@ -375,6 +375,61 @@
 		"interval": 0.1
 	},
 	{
+		"name": "boss_bull_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_run",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_idle",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_death",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_anger",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_attack",
+		"sprite_num": 7,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_attack_magic_lightning",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_attack_magic_fire",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_attack_magic_blade",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_magic_fire",
+		"sprite_num": 13,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_magic_blade",
+		"sprite_num": 13,
+		"interval": 0.1
+	},
+	{
 		"name": "merchant_idle",
 		"sprite_num": 29,
 		"interval": 0.1
