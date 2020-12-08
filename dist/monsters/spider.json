@@ -6,8 +6,8 @@
 	"speed": 50.0,
 	"exp": 90,
 	"coin": 180,
-	"invulnerable_time": 0.2,
-	"bounding_box": [-37.0, -6.0, 38.0, 44.0],
+	"invulnerable_time": 0.4,
+	"bounding_box": [-34.0, -6.0, 33.0, 40.0],
 	"item": {
 		"panacea": 0.05,
 		"small health potion": 0.2

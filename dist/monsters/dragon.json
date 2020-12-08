@@ -6,8 +6,8 @@
 	"speed": 50.0,
 	"exp": 1000,
 	"coin": 2000,
-	"invulnerable_time": 0.2,
-	"bounding_box": [-91.0, 0.0, 103.0, 65.0],
+	"invulnerable_time": 0.4,
+	"bounding_box": [-65.0, 0.0, 63.0, 65.0],
 	"item": {
 		"large attack potion": 0.2,
 		"large defense potion": 0.2
