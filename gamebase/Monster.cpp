@@ -51,7 +51,7 @@ void Monster::OnDie()
 		});
 	} 
 	if (ItemPrototype* drop_item = monster_prototype_.GenerateItemDrop()) {
-		ItemPickUp::Generate(room_, drop_item, transform_.position_);
+		ItemPickUp::Generate(room_, drop_item, transform_.position_ + glm::vec2(0.0f, 14.0f));
 	}
 }
 
