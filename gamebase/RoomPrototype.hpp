@@ -13,6 +13,8 @@ class ItemPrototype;
 
 class RoomPrototype {
 public:
+	inline static constexpr size_t kMaxRoomNumber = 13;
+
 	struct MonsterInfo {
 		MonsterPrototype* monster_prototype_;
 		glm::vec2 initial_pos_;

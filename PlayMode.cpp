@@ -197,27 +197,38 @@ void PlayMode::GenerateRooms()
 {
 	total_keys_to_collect = 0;
 	std::string level_string = std::to_string(level_);
-	// Room 1 lobby
-	// Room 2 BOSS room
-	rooms.push_back(RoomPrototype::GetRoomPrototype("main_lobby")->Create(level_));
+
+	rooms.push_back(RoomPrototype::GetRoomPrototype("main_lobby" + level_string)->Create(level_));
 	rooms.push_back(RoomPrototype::GetRoomPrototype("boss_room" + level_string)->Create(level_));
 
 	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::SPECIAL_LOCKED);
 
-	// For Test
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room4")->Create(level_));
-	rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
-
 	// Randomly generate rooms behind first two doors
-	// std::vector<int> candidate_rooms;
-	// for (size_t i = 3; i <= RoomPrototype::GetRoomPrototypeNum(); ++i) {
-	// 	candidate_rooms.push_back(static_cast<int>(i));
-	// }
+	std::vector<int> candidate_rooms;
+	for (size_t i = 3; i <= RoomPrototype::kMaxRoomNumber; ++i) {
+		candidate_rooms.push_back(static_cast<int>(i));
+	}
 
-	// size_t door1_room_num = candidate_rooms.size() / 2;
-	// size_t door2_room_num = candidate_rooms.size() - door1_room_num;
-	// rooms[0]->GetDoor(0)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
-	// rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
+	if (level_ == 1) {
+		rooms.push_back(RoomPrototype::GetRoomPrototype("tutorial_room")->Create(level_));
+		rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+		
+		size_t door12_room_num = candidate_rooms.size() / 3;
+		size_t door3_room_num = candidate_rooms.size() - 2 * door12_room_num;
+		rooms[2]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
+		rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
+		rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door3_room_num, 1), Door::LockStatus::UNLOCK);
+		// For Test
+		// rooms.push_back(RoomPrototype::GetRoomPrototype("room13")->Create(level_));
+		// rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+	} else if (level_ <= 4) {
+		size_t door1_room_num = candidate_rooms.size() / 2;
+		size_t door2_room_num = candidate_rooms.size() - door1_room_num;
+		rooms[0]->GetDoor(0)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
+		rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
+	} else {
+
+	}
 }
 
 Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, size_t remaining_room, size_t depth)

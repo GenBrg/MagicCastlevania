@@ -13,7 +13,13 @@
 		[716, 357, 170, 34]
 	],
 	"traps": [],
-	"monsters": [],
+	"monsters": [
+		{
+			"name": "boss_bull",
+			"initial_pos": [478.0, 487.0],
+			"move_radius": 470.0
+		}
+	],
 	"items": [],
 	"key_position": [464, 491],
 	"doors": [
@@ -21,7 +27,6 @@
 		[480, 126],
 		[800, 357]
 	],
-	"shop_position": [40, 493],
 	"background_sprite": "room_2_bg",
 	"dialogs": []
 }
