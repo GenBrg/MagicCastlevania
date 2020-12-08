@@ -235,7 +235,7 @@ void Player::AddMp(int mp)
 
 void Player::AddExp(int exp)
 {
-	if (cur_level_ >= level_exps_.size()) {
+	if (cur_level_ >= (int)level_exps_.size()) {
 		exp_ = 0;
 		return;
 	}
