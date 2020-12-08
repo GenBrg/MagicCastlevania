@@ -171,6 +171,12 @@ void PlayMode::SwitchRoom(Door *door)
 void PlayMode::ProceedLevel()
 {
 	++level_;
+	
+	if (level_ > 1) {
+		in_transition_ = true;
+        elapsed_since_transition_ = 0.0f;
+	}
+
 	for (Room *room : rooms)
 	{
 		delete room;
