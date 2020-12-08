@@ -293,7 +293,7 @@ void Player::PlayTakeDamageSound()
 }
 
 void Player::LevelUp() {
-	assert(cur_level_ < level_exps_.size());
+	assert(cur_level_ < (int)level_exps_.size());
 
 	exp_ -= level_exps_[cur_level_];
 
