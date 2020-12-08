@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <engine/Random.hpp>
 
 void MovementComponent::MoveLeft()
 {
@@ -22,7 +23,8 @@ void MovementComponent::Jump()
 	if (jump_chance_ > 0) {
 		--jump_chance_;
 		velocity_.y = initial_jump_speed_;
-		Sound::play(*sound_samples["small_jump_1"]);
+        int sound_idx = static_cast<int>(Random::Instance()->Generate() * 2) + 1;
+        Sound::play(*sound_samples.at("jump_" + std::to_string(sound_idx)));
 	}
 }
 
