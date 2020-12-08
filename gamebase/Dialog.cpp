@@ -179,7 +179,8 @@ void Dialog::RegisterKeyEvents() {
 	// handle down press
 	InputSystem::Instance()->Register(SDLK_DOWN, [this](InputSystem::KeyState &key_state, float elapsed) {
 		if (key_state.pressed) {
-			key_state.pressed = false;
+            Sound::play(*sound_samples["select"]);
+            key_state.pressed = false;
 			if (cur_animation_sen_idx_ != (int) scripts_[cur_script_idx_].size()) {
 				// when in middle of an animation, down is pressed, directly show the whole script
 				cur_animation_sen_idx_ = (int) scripts_[cur_script_idx_].size();
@@ -195,7 +196,8 @@ void Dialog::RegisterKeyEvents() {
 	// handle up press
 	InputSystem::Instance()->Register(SDLK_UP, [this](InputSystem::KeyState &key_state, float elapsed) {
 		if (key_state.pressed) {
-			key_state.pressed = false;
+            Sound::play(*sound_samples["select"]);
+            key_state.pressed = false;
 			cur_sen_idx_ = std::max(cur_sen_idx_ - 1, 0);
 		} else if (key_state.released) {
 			key_state.released = false;
@@ -205,7 +207,8 @@ void Dialog::RegisterKeyEvents() {
 	// handle e press
 	InputSystem::Instance()->Register(SDLK_e, [this](InputSystem::KeyState &key_state, float elapsed) {
 		if (key_state.pressed) {
-			key_state.pressed = false;
+            Sound::play(*sound_samples["select"]);
+            key_state.pressed = false;
 
 			if (start_phase_ && !dialog_phase_) {
 				// from start phase to dialog phase
