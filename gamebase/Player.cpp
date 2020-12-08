@@ -22,7 +22,7 @@ room_(room)
 	is_monster_ = false;
 
 	InputSystem::Instance()->Register(SDLK_a, [this](InputSystem::KeyState& key_state, float elapsed) {
-		if (state_ != State::MOVING) {
+		if (state_ != State::MOVING || (*room_)->IsDialoging()) {
 			return;
 		}
 		if (key_state.pressed) {
@@ -31,7 +31,7 @@ room_(room)
 	});
 
 	InputSystem::Instance()->Register(SDLK_d, [this](InputSystem::KeyState& key_state, float elapsed) {
-		if (state_ != State::MOVING) {
+		if (state_ != State::MOVING || (*room_)->IsDialoging()) {
 			return;
 		}
 		if (key_state.pressed) {
@@ -40,7 +40,7 @@ room_(room)
 	});
 
 	InputSystem::Instance()->Register(SDLK_SPACE, [this](InputSystem::KeyState& key_state, float elapsed) {
-		if (state_ != State::MOVING) {
+		if (state_ != State::MOVING || (*room_)->IsDialoging()) {
 			return;
 		}
 		if (key_state.pressed) {
@@ -53,7 +53,7 @@ room_(room)
 	});
 
 	InputSystem::Instance()->Register(SDLK_j, [this, room](InputSystem::KeyState& key_state, float elapsed) {
-		if (state_ != State::MOVING) {
+		if (state_ != State::MOVING || (*room_)->IsDialoging()) {
 			return;
 		}
 		if (key_state.pressed) {
@@ -62,7 +62,7 @@ room_(room)
 	});
 
 	InputSystem::Instance()->Register(SDLK_k, [this, room](InputSystem::KeyState& key_state, float elapsed) {
-		if (state_ != State::MOVING) {
+		if (state_ != State::MOVING || (*room_)->IsDialoging()) {
 			return;
 		}
 		if (key_state.pressed) {
@@ -71,7 +71,7 @@ room_(room)
 	});
 
 	InputSystem::Instance()->Register(SDLK_l, [this, room](InputSystem::KeyState& key_state, float elapsed) {
-		if (state_ != State::MOVING) {
+		if (state_ != State::MOVING || (*room_)->IsDialoging()) {
 			return;
 		}
 		if (key_state.pressed) {
@@ -80,7 +80,7 @@ room_(room)
 	});
 
 	InputSystem::Instance()->Register(SDLK_SEMICOLON, [this, room](InputSystem::KeyState& key_state, float elapsed) {
-		if (state_ != State::MOVING) {
+		if (state_ != State::MOVING || (*room_)->IsDialoging()) {
 			return;
 		}
 		if (key_state.pressed) {

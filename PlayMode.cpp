@@ -33,7 +33,7 @@ PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 	press_w_hint.SetText("Press W to enter room").SetFontSize(2300).SetPos({0.0f, 30.0f});
 
 	InputSystem::Instance()->Register(SDLK_w, [&](InputSystem::KeyState key_state, float elapsed) {
-		if (key_state.pressed)
+		if (key_state.pressed && !cur_room->IsDialoging())
 		{
 			key_state.pressed = false;
 			OpenDoor();
@@ -171,6 +171,12 @@ void PlayMode::SwitchRoom(Door *door)
 void PlayMode::ProceedLevel()
 {
 	++level_;
+
+	if (level_ > 1) {
+		in_transition_ = true;
+        elapsed_since_transition_ = 0.0f;
+	}
+
 	for (Room *room : rooms)
 	{
 		delete room;
@@ -190,11 +196,11 @@ void PlayMode::ProceedLevel()
 void PlayMode::GenerateRooms()
 {
 	total_keys_to_collect = 0;
-
+	std::string level_string = std::to_string(level_);
 	// Room 1 lobby
 	// Room 2 BOSS room
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create(level_));
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create(level_));
+	rooms.push_back(RoomPrototype::GetRoomPrototype("main_lobby")->Create(level_));
+	rooms.push_back(RoomPrototype::GetRoomPrototype("boss_room" + level_string)->Create(level_));
 
 	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::SPECIAL_LOCKED);
 
