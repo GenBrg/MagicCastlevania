@@ -32,11 +32,14 @@ Screen Shot:
 
 Instructions:
 Move: AD\
-Attack: J\
-Jump: Space\
-Menu select: Space\
+Attack, Drop Item/Equipments: J\
+Skill1 - Tornado: K\
+Skill2 - Shine: L\
+Skill3 - Comet: ;\
+Jump, Use item: Space\
+Menu selection: Space, WASD\
 Open/Enter door: W\
-Continue dialog: E
+Continue dialog, open shop: E
 
 Sources: 
 
