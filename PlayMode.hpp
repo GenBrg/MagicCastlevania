@@ -59,4 +59,7 @@ struct PlayMode : Mode {
 	int total_keys_to_collect { 0 };
 
 	std::shared_ptr<Sound::PlayingSample> bgm;
+
+	float elapsed_since_transition_ {0.0f};
+	bool in_transition_ {false};
 };
