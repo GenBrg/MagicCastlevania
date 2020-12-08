@@ -33,7 +33,7 @@ PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 	press_w_hint.SetText("Press W to enter room").SetFontSize(2300).SetPos({0.0f, 30.0f});
 
 	InputSystem::Instance()->Register(SDLK_w, [&](InputSystem::KeyState key_state, float elapsed) {
-		if (key_state.pressed)
+		if (key_state.pressed && !cur_room->IsDialoging())
 		{
 			key_state.pressed = false;
 			OpenDoor();
@@ -171,7 +171,7 @@ void PlayMode::SwitchRoom(Door *door)
 void PlayMode::ProceedLevel()
 {
 	++level_;
-	
+
 	if (level_ > 1) {
 		in_transition_ = true;
         elapsed_since_transition_ = 0.0f;

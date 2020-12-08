@@ -58,6 +58,7 @@ public:
 	void AddItem(ItemPickUp* item) { items_.push_back(item); }
 	void AddPermanentItem(ItemPickUp* item) { permanent_items_.push_back(item); }
 	void GenerateKey();
+	bool IsDialoging() const { return cur_dialog; }
 
 	size_t GetDoorNum() const { return doors_.size(); }
 	Door* GetDoor(size_t idx) { return doors_[idx]; }

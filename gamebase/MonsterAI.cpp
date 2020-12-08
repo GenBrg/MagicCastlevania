@@ -123,11 +123,20 @@ monster_(*monster)
 		detection_bounding_box[2] = central_pos[0] + move_radius + aoe_initial_pos[0] + aoe_width;
 		attack_trigger_ = Trigger::Create(monster->GetRoom(), aoe_bounding_box + glm::vec4(aoe_initial_pos, aoe_initial_pos), &transform_, 0);
 	} else {
-		detection_bounding_box[1] = central_pos[1] + aoe_initial_pos[1];
-		detection_bounding_box[3] = central_pos[1] + aoe_initial_pos[1] + aoe_height;
-		detection_bounding_box[0] = 0;
-		detection_bounding_box[2] = INIT_WINDOW_W;
-		attack_trigger_ = Trigger::Create(monster->GetRoom(), detection_bounding_box, nullptr, 0);
+		if (attack->GetAOEPrototype()->GetVelocity().y < 0.0f) {
+			detection_bounding_box[1] = -INIT_WINDOW_H;
+			detection_bounding_box[3] = central_pos[1] + aoe_initial_pos[1] + aoe_height;
+			detection_bounding_box[0] = central_pos[0] - move_radius - aoe_initial_pos[0] - aoe_width;
+			detection_bounding_box[2] = central_pos[0] + move_radius + aoe_initial_pos[0] + aoe_width;
+			attack_trigger_ = Trigger::Create(monster->GetRoom(), aoe_bounding_box + glm::vec4(aoe_initial_pos, aoe_initial_pos) + glm::vec4(0.0f, -INIT_WINDOW_H, 0.0f, 0.0f)
+			, &transform_, 0);
+		} else {
+			detection_bounding_box[1] = central_pos[1] + aoe_initial_pos[1];
+			detection_bounding_box[3] = central_pos[1] + aoe_initial_pos[1] + aoe_height;
+			detection_bounding_box[0] = 0;
+			detection_bounding_box[2] = INIT_WINDOW_W;
+			attack_trigger_ = Trigger::Create(monster->GetRoom(), detection_bounding_box, nullptr, 0);
+		}
 	}
 	detection_trigger_ = Trigger::Create(monster->GetRoom(), detection_bounding_box, nullptr, 0);
 
