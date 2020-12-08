@@ -163,11 +163,11 @@ void PlayMode::ProceedLevel()
 void PlayMode::GenerateRooms()
 {
 	total_keys_to_collect = 0;
-
+	std::string level_string = std::to_string(level_);
 	// Room 1 lobby
 	// Room 2 BOSS room
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room1")->Create(level_));
-	rooms.push_back(RoomPrototype::GetRoomPrototype("room2")->Create(level_));
+	rooms.push_back(RoomPrototype::GetRoomPrototype("main_lobby")->Create(level_));
+	rooms.push_back(RoomPrototype::GetRoomPrototype("boss_room" + level_string)->Create(level_));
 
 	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::SPECIAL_LOCKED);
 

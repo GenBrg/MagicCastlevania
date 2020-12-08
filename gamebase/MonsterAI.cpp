@@ -52,7 +52,8 @@ void BasicMovementMonsterAI::Update(float elapsed)
 		if (monster_.GetAttackNum() > 0) {
 			attack_cooldown_ -= elapsed;
 			if (attack_cooldown_ <= 0.0f) {
-				Attack* attack = monster_.GetAttack(0);
+				int attack_idx = static_cast<int>(monster_.GetAttackNum() * Random::Instance()->Generate());
+				Attack* attack = monster_.GetAttack(attack_idx);
 				monster_.PerformAttack(monster_.GetRoom(), *attack);
 				attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
 			}
@@ -83,7 +84,8 @@ void BouncingMonsterAI::Update(float elapsed)
 		if (monster_.GetAttackNum() > 0) {
 			attack_cooldown_ -= elapsed;
 			if (attack_cooldown_ <= 0.0f) {
-				Attack* attack = monster_.GetAttack(0);
+				int attack_idx = static_cast<int>(monster_.GetAttackNum() * Random::Instance()->Generate());
+				Attack* attack = monster_.GetAttack(attack_idx);
 				monster_.PerformAttack(monster_.GetRoom(), *attack);
 				attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
 			}
@@ -190,7 +192,8 @@ void FollowAndAttackMonsterAI::Update(float elapsed)
 		
 		if (should_attack_) {
 			if (attack_cooldown_ <= 0.0f) {
-				Attack* attack = monster_.GetAttack(0);
+				int attack_idx = static_cast<int>(monster_.GetAttackNum() * Random::Instance()->Generate());
+				Attack* attack = monster_.GetAttack(attack_idx);
 				monster_.PerformAttack(monster_.GetRoom(), *attack);
 				attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
 			}
@@ -237,7 +240,8 @@ void RandomWalkingMonsterAI::Update(float elapsed)
 		if (monster_.GetAttackNum() > 0) {
 			attack_cooldown_ -= elapsed;
 			if (attack_cooldown_ <= 0.0f) {
-				Attack* attack = monster_.GetAttack(0);
+				int attack_idx = static_cast<int>(monster_.GetAttackNum() * Random::Instance()->Generate());
+				Attack* attack = monster_.GetAttack(attack_idx);
 				monster_.PerformAttack(monster_.GetRoom(), *attack);
 				attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
 			}

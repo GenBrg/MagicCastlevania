@@ -32,10 +32,12 @@ void Mob::TakeDamage(int attack)
 		}
 		else
 		{
-			animation_controller_.PlayAnimation(GetAnimation(AnimationState::HURT), false);
+			Animation* hurt_animation = GetAnimation(AnimationState::HURT);
+			animation_controller_.PlayAnimation(hurt_animation, false);
 			state_ = State::TAKING_DAMAGE;
 			++pending_callbacks_;
-			TimerManager::Instance().AddTimer(GetAnimation(AnimationState::HURT)->GetLength(), [&]() {
+			float recover_time = (hurt_animation) ? hurt_animation->GetLength() : take_damage_cooldown_;
+			TimerManager::Instance().AddTimer(recover_time, [&]() {
 				--pending_callbacks_;
 				if (state_ == State::TAKING_DAMAGE)
 				{
