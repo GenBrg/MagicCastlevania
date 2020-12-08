@@ -44,7 +44,7 @@
 			"move_radius": 110.0
 		},
 		{
-			"name": "goblin",
+			"name": "dragon",
 			"initial_pos": [483.0, 180.0],
 			"move_radius": 100.0
 		}
@@ -53,8 +53,7 @@
 	"key_position": [394, 364],
 	"doors": [
 		[92, 488],
-		[785, 488],
-		[448, 179]
+		[785, 488]
 	],
 	"background_sprite": "room_11_bg",
 	"dialogs": []
