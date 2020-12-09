@@ -7,7 +7,7 @@
 	"exp": 10,
 	"coin": 10,
 	"invulnerable_time": 0.2,
-	"bounding_box": [-38.0, -6.0, 67.0, 99.0],
+	"bounding_box": [-24.0, -4.0, 27.0, 80.0],
 	"item": {
 		"large health potion": 0.2
 	},

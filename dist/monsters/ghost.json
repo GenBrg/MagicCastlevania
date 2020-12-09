@@ -3,7 +3,7 @@
 	"attack": 10,
 	"body_attack": 5,
 	"defense": 5,
-	"speed": 50.0,
+	"speed": 100.0,
 	"exp": 20,
 	"coin": 30,
 	"invulnerable_time": 0.2,
@@ -14,13 +14,13 @@
 	"skills": [
 		{
 			"mob_animation": "ghost_attack",
-			"aoe_prototype": "normal_attack",
+			"aoe_prototype": "ghost_attack",
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		}
 	],
 	"ai": {
-		"type": 0
+		"type": 1
 	},
 	"is_boss": false
 }

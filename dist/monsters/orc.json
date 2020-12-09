@@ -7,7 +7,7 @@
 	"exp": 1000,
 	"coin": 2000,
 	"invulnerable_time": 0.4,
-	"bounding_box": [-49.0, 0.0, 50.0, 100.0],
+	"bounding_box": [-50.0, 0.0, 45.0, 100.0],
 	"item": {
 		"large attack potion": 0.2,
 		"large defense potion": 0.2
@@ -15,7 +15,7 @@
 	"skills": [
 		{
 			"mob_animation": "orc_attack",
-			"aoe_prototype": "normal_attack",
+			"aoe_prototype": "orc_attack",
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		}

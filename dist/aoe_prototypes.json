@@ -9,6 +9,24 @@
 		"penetrate": true
 	},
 	{
+		"name": "ghost_attack",
+		"bounding_box": [0.0, 0.0, 50.0, 70.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "orc_attack",
+		"bounding_box": [0.0, 0.0, 100.0, 115.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
 		"name": "remote_attack",
 		"bounding_box": [0.0, 0.0, 15.0, 15.0],
 		"animation": "fire",
@@ -55,7 +73,7 @@
 	},
 	{
 		"name": "beholder_fire",
-		"bounding_box": [0.0, 0.0, 64.0, 64.0],
+		"bounding_box": [3.0, 0.0, 43.0, 40.0],
 		"animation": "beholder_fire",
 		"velocity": [100.0, 0.0],
 		"duration": 0.8,
@@ -64,7 +82,7 @@
 	},
 	{
 		"name": "jinn_magic",
-		"bounding_box": [0.0, 0.0, 165.0, 153.0],
+		"bounding_box": [48.0, 38.0, 111.0, 92.0],
 		"animation": "jinn_magic",
 		"velocity": [100.0, 0.0],
 		"duration": 1.3,
