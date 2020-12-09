@@ -63,6 +63,22 @@ PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 			Mode::set_current(pause_menu);
 		}
 		});
+	InputSystem::Instance()->Register(SDLK_TAB, [&](InputSystem::KeyState& key_state, float elapsed) {
+		if (key_state.pressed)
+		{
+			key_state.pressed = false;
+			std::vector< MenuMode::Item > items;
+			items.emplace_back("Static", &sprites->lookup("controls_static"), nullptr);
+			std::shared_ptr< MenuMode > controls_menu;
+			controls_menu = std::make_shared< MenuMode >(items, 0);
+			controls_menu->selected = 1;
+			controls_menu->atlas = sprites;
+			controls_menu->view_min = glm::vec2(0.0f, 0.0f);
+			controls_menu->view_max = glm::vec2(960.0f, 541.0f);
+			controls_menu->background = main_play;
+			Mode::set_current(controls_menu);
+		}
+		});
 }
 
 PlayMode::~PlayMode()
