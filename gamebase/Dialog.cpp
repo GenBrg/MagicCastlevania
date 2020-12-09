@@ -242,6 +242,7 @@ void Dialog::RegisterKeyEvents() {
 
 void Dialog::UnregisterKeyEvents() const {
 	InputSystem::Instance()->Unregister(SDLK_x);
+	InputSystem::Instance()->Unregister(SDLK_e);
 	InputSystem::Instance()->Unregister(SDLK_UP);
 	InputSystem::Instance()->Unregister(SDLK_DOWN);
 }
