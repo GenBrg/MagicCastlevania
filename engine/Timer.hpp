@@ -35,6 +35,9 @@ private:
 	std::set<Timer> timers_;
 	TimerManager() = default;
 
+	bool in_call_ { false };
+	bool clear_flag_ {false };
+
 public:
 	static TimerManager &Instance()
 	{
@@ -43,5 +46,6 @@ public:
 	}
 
 	void AddTimer(float duration, const std::function<void()> &callback);
+	void ClearAllTimers();
 	void Update();
 };

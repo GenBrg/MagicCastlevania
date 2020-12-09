@@ -23,6 +23,7 @@
 #include <sstream>
 
 #define SWITCH_ROOM_TRANSITION 1.1f
+#define HALF_SWITCH_ROOM_TRANSITION SWITCH_ROOM_TRANSITION / 2.0f
 
 PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
 {
@@ -84,21 +85,17 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 void PlayMode::update(float elapsed)
 {
     if (in_transition_) {
-        float halfway = SWITCH_ROOM_TRANSITION / 2.0f;
-        if (elapsed_since_transition_ < halfway && elapsed_since_transition_ + elapsed > halfway) {
-            SwitchRoom(cur_door);
-        }
         elapsed_since_transition_ += elapsed;
         if (elapsed_since_transition_ > SWITCH_ROOM_TRANSITION) {
             in_transition_ = false;
         }
     } else {
         InputSystem::Instance()->Update(elapsed);
-        TimerManager::Instance().Update();
 
         cur_room->Update(elapsed, player, &cur_door);
         hud->Update(elapsed);
     }
+	TimerManager::Instance().Update();
 }
 
 void PlayMode::draw(glm::uvec2 const &window_size)
@@ -172,25 +169,7 @@ void PlayMode::ProceedLevel()
 {
 	++level_;
 
-	if (level_ > 1) {
-		in_transition_ = true;
-        elapsed_since_transition_ = 0.0f;
-	}
-
-	for (Room *room : rooms)
-	{
-		delete room;
-	}
-	rooms.clear();
-	keys_collected = 0;
-	GenerateRooms();
-	cur_room = rooms[0];
-	cur_room->OnEnter(player, cur_room->GetDoor(0));
-
-	if (bgm) {
-		bgm->stop();
-	}
-	bgm = Sound::loop(*sound_samples["all_1"]);
+	ResetCurrentLevel();
 }
 
 void PlayMode::GenerateRooms()
@@ -210,17 +189,17 @@ void PlayMode::GenerateRooms()
 	}
 
 	if (level_ == 1) {
-		rooms.push_back(RoomPrototype::GetRoomPrototype("tutorial_room")->Create(level_));
-		rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
-		
-		size_t door12_room_num = candidate_rooms.size() / 3;
-		size_t door3_room_num = candidate_rooms.size() - 2 * door12_room_num;
-		rooms[2]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
-		rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
-		rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door3_room_num, 1), Door::LockStatus::UNLOCK);
-		// For Test
-		// rooms.push_back(RoomPrototype::GetRoomPrototype("room13")->Create(level_));
+		// rooms.push_back(RoomPrototype::GetRoomPrototype("tutorial_room")->Create(level_));
 		// rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+		
+		// size_t door12_room_num = candidate_rooms.size() / 3;
+		// size_t door3_room_num = candidate_rooms.size() - 2 * door12_room_num;
+		// rooms[2]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
+		// rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
+		// rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door3_room_num, 1), Door::LockStatus::UNLOCK);
+		// For Test
+		rooms.push_back(RoomPrototype::GetRoomPrototype("room15")->Create(level_));
+		rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
 	} else if (level_ <= 4) {
 		size_t door1_room_num = candidate_rooms.size() / 2;
 		size_t door2_room_num = candidate_rooms.size() - door1_room_num;
@@ -301,9 +280,11 @@ void PlayMode::OpenDoor()
 					cur_door->SetLockStatus(Door::LockStatus::OPENING);
 				break;
 				case Door::LockStatus::OPENED:
-                    Sound::play(*sound_samples["footstep"]);
-                    in_transition_ = true;
-                    elapsed_since_transition_ = 0.0f;
+					Transition();
+					Sound::play(*sound_samples["footstep"]);
+					TimerManager::Instance().AddTimer(HALF_SWITCH_ROOM_TRANSITION, [&](){
+						SwitchRoom(cur_door);
+					});
 				break;
 				case Door::LockStatus::SPECIAL_LOCKED:
 					if (keys_collected >= total_keys_to_collect) {
@@ -326,4 +307,30 @@ void PlayMode::on_leave() {
 	if (bgm) {
 		bgm->set_volume(0.3f);
 	}
+}
+
+void PlayMode::ResetCurrentLevel()
+{
+	TimerManager::Instance().ClearAllTimers();
+	for (Room *room : rooms)
+	{
+		delete room;
+	}
+	rooms.clear();
+	keys_collected = 0;
+	GenerateRooms();
+
+	if (bgm) {
+		bgm->stop();
+	}
+	bgm = Sound::loop(*sound_samples["all_1"]);
+
+	cur_room = rooms[0];
+	cur_room->OnEnter(player, cur_room->GetDoor(0));
+}
+
+void PlayMode::Transition() 
+{
+	in_transition_ = true;
+    elapsed_since_transition_ = 0.0f;
 }

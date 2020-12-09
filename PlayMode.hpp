@@ -44,6 +44,8 @@ struct PlayMode : Mode {
 	int GetKeysCollected() const { return keys_collected; }
 	int GetTotalKeysToCollect() const { return total_keys_to_collect; }
 	size_t GetLevel() const { return level_; }
+	void ResetCurrentLevel();
+	void Transition();
 
 	//----- game state -----
 

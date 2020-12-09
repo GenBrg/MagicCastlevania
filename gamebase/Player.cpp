@@ -5,6 +5,7 @@
 #include <engine/Timer.hpp>
 #include <engine/Random.hpp>
 #include <gamebase/Room.hpp>
+#include <main_play.hpp>
 
 #include <SDL.h>
 
@@ -94,6 +95,11 @@ void Player::OnDie()
 	state_ = State::DYING;
 	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
 	++pending_callbacks_;
+
+	TimerManager::Instance().AddTimer(0.35f, [&](){
+		main_play->Transition();
+	});
+
 	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
 		--pending_callbacks_;
 		Reset();
@@ -141,9 +147,20 @@ void Player::SetPosition(const glm::vec2 &pos) {
 }
 
 void Player::Reset() {
+	main_play->ResetCurrentLevel();
 	state_ = State::MOVING;
 	SetPosition((*room_)->GetDoor(0)->GetPosition());
 	hp_ = max_hp_;
+	exp_ /= 2;
+	coin_ /= 2;
+	for (size_t i = 0; i < Inventory::kBackpackSlotNum; ++i) {
+		if (inventory_.PeekItem(i)) {
+			float dice = Random::Instance()->Generate();
+			if (dice < 0.5f) {
+				DropItem(i);
+			}
+		}
+	}
 }
 
 Player* Player::Create(Room** room, const std::string& player_config_file)

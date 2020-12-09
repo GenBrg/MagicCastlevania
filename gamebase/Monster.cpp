@@ -46,6 +46,9 @@ void Monster::OnDie()
 
 	// Drop item
 	if (is_boss) {
+		TimerManager::Instance().AddTimer(4.35f, [&](){
+			main_play->Transition();
+		});
 		TimerManager::Instance().AddTimer(5.0f, [&](){
 			main_play->ProceedLevel();
 		});
