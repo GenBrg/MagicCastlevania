@@ -219,8 +219,8 @@ void Dialog::RegisterKeyEvents() {
 				// when in middle of an animation, down is pressed, directly show the whole script
 				cur_animation_sen_idx_ = (int) scripts_[cur_script_idx_].size();
 			} else {
-				// proceed to the next line
-				cur_sen_idx_ = std::min(cur_sen_idx_ + 1, (int) scripts_[cur_script_idx_].size() - 1);
+				// proceed to the next 3 lines
+				cur_sen_idx_ = std::min(cur_sen_idx_ + 3, (int) scripts_[cur_script_idx_].size() - 1);
 			}
 
 			if (cur_sen_idx_ + 1 >= (int) scripts_[cur_script_idx_].size()) {
