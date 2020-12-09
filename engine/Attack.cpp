@@ -1,11 +1,16 @@
 #include "Attack.hpp"
-#include <engine/Random.hpp>
 
+#include <engine/Random.hpp>
+#include <gamebase/Player.hpp>
 #include <Util.hpp>
+
+#include <iostream>
 
 bool Attack::Execute(Room& room, int attack, Transform2D& transform, bool is_monster)
 {
 	return guard_(cooldown_, [&](){
+		attack = static_cast<int>(base_attack_per_level_ * player->GetLevel() + attack * attack_modifier_);
+		std::cout << "attack value: " << attack << std::endl;
 		aoe_prototype_->Create(room, attack, &transform, is_monster, attach_to_entity_);
 	});
 }
@@ -28,6 +33,12 @@ void from_json(const json& j, Attack& attack)
 		}
 	} else {
 		attack.icon_sprite_ = nullptr;
+	}
+	if (j.contains("base_attack_per_level")) {
+		attack.base_attack_per_level_ = j.at("base_attack_per_level").get<int>();
+	}
+	if (j.contains("attack_modifier")) {
+		attack.attack_modifier_ = j.at("attack_modifier").get<float>();
 	}
 }
 

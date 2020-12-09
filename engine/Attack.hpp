@@ -35,6 +35,8 @@ private:
 	bool attach_to_entity_;
 	const Sprite* icon_sprite_;
 	std::vector<std::string> sound_effect_;
+	int base_attack_per_level_ { 0 };
+	float attack_modifier_ { 1.0f };
 
 	TimerGuard guard_;
 };

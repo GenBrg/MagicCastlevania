@@ -33,7 +33,9 @@
 			"icon": "tornado_icon",
 			"cooldown": 5.0,
 			"attach_to_entity": false,
-			"sound_effects": ["remote_attack_tornado"]
+			"sound_effects": ["remote_attack_tornado"],
+			"base_attack_per_level": 3,
+			"attack_modifier": 1.1
 		},
 		{
 			"mob_animation": "player_attack",
@@ -41,7 +43,9 @@
 			"icon": "light_icon",
 			"cooldown": 30.0,
 			"attach_to_entity": true,
-			"sound_effects": ["remote_attack_light"]
+			"sound_effects": ["remote_attack_light"],
+			"base_attack_per_level": 5,
+			"attack_modifier": 1.3
 		},
 		{
 			"mob_animation": "player_attack",
@@ -49,7 +53,9 @@
 			"icon": "comet_icon",
 			"cooldown": 60.0,
 			"attach_to_entity": false,
-			"sound_effects": ["remote_attack_comet"]
+			"sound_effects": ["remote_attack_comet"],
+			"base_attack_per_level": 10,
+			"attack_modifier": 1.5
 		}
 	],
 	"level_exps": [
