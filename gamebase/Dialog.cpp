@@ -15,7 +15,7 @@
 #define DIALOG_BOX_WIDTH (0.5f * INIT_WINDOW_W)
 #define DIALOG_BOX_HEIGHT (0.25f * INIT_WINDOW_H)
 
-#define TEXT_LINES_PER_BOX 3
+#define TEXT_LINES_PER_BOX 4
 #define LINE_HEIGHT 38
 #define FONT_SIZE 1500
 #define FONT_FILE_NAME "DigitalDisco.ttf"
@@ -219,8 +219,8 @@ void Dialog::RegisterKeyEvents() {
 				// when in middle of an animation, down is pressed, directly show the whole script
 				cur_animation_sen_idx_ = (int) scripts_[cur_script_idx_].size();
 			} else {
-				// proceed to the next 3 lines
-				cur_sen_idx_ = std::min(cur_sen_idx_ + 3, (int) scripts_[cur_script_idx_].size() - 1);
+				// proceed to the next 4 lines
+				cur_sen_idx_ = std::min(cur_sen_idx_ + 4, (int) scripts_[cur_script_idx_].size() - 1);
 			}
 
 			if (cur_sen_idx_ + 1 >= (int) scripts_[cur_script_idx_].size()) {
