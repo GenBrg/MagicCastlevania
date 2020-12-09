@@ -16,7 +16,7 @@
 			"mob_animation": "jinn_attack",
 			"aoe_prototype": "jinn_magic",
 			"cooldown": 1.0,
-			"attach_to_entity": true
+			"attach_to_entity": false
 		}
 	],
 	"ai": {
