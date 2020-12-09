@@ -144,6 +144,10 @@ void Room::Update(float elapsed, Player* player, Door** cur_door)
 void Room::Draw(DrawSprites& draw_sprite)
 {
 	draw_sprite.draw(*background_sprite_, camera_);
+
+	for (const auto& platform : platforms_) {
+		platform->DrawDebugBox(draw_sprite);
+	}
 	
 	for (Door* door : doors_) {
 		door->Draw(draw_sprite);

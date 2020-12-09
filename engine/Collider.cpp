@@ -120,8 +120,10 @@ glm::vec4 Collider::GetBoundingBox() const
 
 void Collider::DrawDebugBox(DrawSprites& draw) const
 {
+#ifdef _DEBUG
 	glm::vec2 lower_left_corner = glm::vec2(0.0f, 0.0f);
 	glm::vec2 upper_right_corner = glm::vec2(0.0f, 0.0f);
 	GetCorners(lower_left_corner, upper_right_corner);
 	draw.draw_bounding_box(lower_left_corner, upper_right_corner);
+#endif
 }
