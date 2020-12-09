@@ -1,7 +1,8 @@
 #pragma once
 
-#include "CollisionSystem.hpp"
-#include "Transform2D.hpp"
+#include <engine/CollisionSystem.hpp>
+#include <engine/Transform2D.hpp>
+#include <DrawSprites.hpp>
 
 #include <glm/glm.hpp>
 
@@ -49,6 +50,8 @@ public:
 	 *  @return Relative bounding box to the anchor point.
 	 */
 	glm::vec4 GetBoundingBox() const;
+
+	void DrawDebugBox(DrawSprites& draw) const;
 
 	/** Set the relative bounding box to the anchor point.
 	 * @param Relative bounding box to the anchor point.
