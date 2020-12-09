@@ -1,5 +1,10 @@
 ProjectName=MagicCastlevania
+ProjectNameB=Monsters
 GIMP="C:\Program Files\GIMP 2\bin\gimp-console-2.10.exe"
+
+../dist/$(ProjectNameB).png ../dist/$(ProjectNameB).atlas : $(ProjectNameB).xcf $(ProjectNameB).list extract-sprites.py pack-sprites.exe
+	IF exist myDirName ( rmdir /s /q $(ProjectNameB) )
+	python make-sprites-win.py $(ProjectNameB) $(GIMP)
 
 ../dist/$(ProjectName).png ../dist/$(ProjectName).atlas : $(ProjectName).xcf $(ProjectName).list extract-sprites.py pack-sprites.exe
 	IF exist myDirName ( rmdir /s /q $(ProjectName) )
