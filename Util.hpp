@@ -12,6 +12,8 @@
 #define INIT_WINDOW_W 960
 #define INIT_WINDOW_H 541
 
+#define _DEBUG
+
 inline Sprite const* sprite_bg = nullptr;
 inline Sprite const* sprite_ghost = nullptr;
 

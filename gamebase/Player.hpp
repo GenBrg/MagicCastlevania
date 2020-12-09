@@ -65,6 +65,12 @@ public:
 	int GetMaxHP() { return max_hp_; }
 	virtual void PlayTakeDamageSound() override;
 
+protected:
+	virtual void DrawImpl(DrawSprites& draw) override {
+		Mob::DrawImpl(draw);
+		collider_.DrawDebugBox(draw);
+	}
+
 private:
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;
 	MovementComponent movement_component_;
