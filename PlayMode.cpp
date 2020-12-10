@@ -172,10 +172,7 @@ void PlayMode::SwitchRoom(Door *door)
 		cur_room->OnEnter(player, opposite_door);
 		if (cur_room == rooms[1]) {
 			opposite_door->SetLockStatus(Door::LockStatus::NORMAL_LOCKED);
-			if (bgm) {
-				bgm->stop();
-			}
-			bgm = Sound::loop(*sound_samples["boss_" + std::to_string(level_)]);
+			StartBGM("boss_" + std::to_string(level_));
 		}
 	}
 }
@@ -327,6 +324,7 @@ void PlayMode::on_leave() {
 void PlayMode::ResetCurrentLevel()
 {
 	TimerManager::Instance().ClearAllTimers();
+	StartBGM("all_1");
 	for (Room *room : rooms)
 	{
 		delete room;
@@ -334,11 +332,6 @@ void PlayMode::ResetCurrentLevel()
 	rooms.clear();
 	keys_collected = 0;
 	GenerateRooms();
-
-	if (bgm) {
-		bgm->stop();
-	}
-	bgm = Sound::loop(*sound_samples["all_1"]);
 
 	cur_room = rooms[0];
 	cur_room->OnEnter(player, cur_room->GetDoor(0));
@@ -349,4 +342,18 @@ void PlayMode::Transition(float trans_time)
 	in_transition_ = true;
     elapsed_since_transition_ = 0.0f;
     trans_time_ = trans_time;
+}
+
+void PlayMode::StopBGM()
+{
+	if (bgm) {
+		bgm->stop();
+		bgm = nullptr;
+	}
+}
+
+void PlayMode::StartBGM(const std::string& bgm_name)
+{
+	StopBGM();
+	bgm = Sound::loop(*sound_samples[bgm_name]);
 }

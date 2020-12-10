@@ -46,6 +46,8 @@ struct PlayMode : Mode {
 	size_t GetLevel() const { return level_; }
 	void ResetCurrentLevel();
 	void Transition(float t_time);
+	void StopBGM();
+	void StartBGM(const std::string& bgm_name);
 
 	//----- game state -----
 
