@@ -46,16 +46,16 @@ struct SpriteAtlas {
 	size_t GetSpriteAtlasNum() const { return texes.size(); } 
 
 	//this is the atlas texture; used when drawing sprites:
-	std::vector<GLuint> texes;
+	std::vector<GLuint> texes {};
 	// GLuint tex = 0;
-	std::vector<glm::uvec2> tex_sizes;
+	std::vector<glm::uvec2> tex_sizes {};
 
 	//---- internal data ---
 
 	//table of loaded sprites, sorted by name:
-	std::unordered_map< std::string, Sprite > sprites;
+	std::unordered_map< std::string, Sprite > sprites {};
 
 	//path to atlas, stored for debugging purposes:
-	std::vector<std::string> atlas_pathes;
+	std::vector<std::string> atlas_pathes {};
 };
 
