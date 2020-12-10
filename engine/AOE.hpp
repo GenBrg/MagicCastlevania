@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <functional>
+#include <set>
 
 class Room;
 
@@ -39,7 +40,7 @@ private:
 	 * @param parent_transform The transform the AOE is moving with.
 	 */
 	AOE(const glm::vec4& box, Animation* animation, const glm::vec2& velocity, float duration, int attack, const glm::vec2& initial_pos,
-	 bool penetrate, bool face_right, Transform2D* parent_transform = nullptr);
+	 bool penetrate, bool face_right, bool can_damage_same_object, Transform2D* parent_transform = nullptr);
 
 	Transform2D transform_;
 	Collider collider_;
@@ -48,6 +49,8 @@ private:
 	AnimationController animation_controller_;
 	int attack_;
 	bool penetrate_;
+	std::set<Collider*> colliders_interacted_;
+	bool can_damage_same_object_;
 
 	bool destroyed_ { false };
 };
