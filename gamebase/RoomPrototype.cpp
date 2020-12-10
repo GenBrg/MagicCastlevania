@@ -147,7 +147,7 @@ Room* RoomPrototype::Create(size_t level) const
         };
         // create Trigger
         glm::vec4 trigger_box = glm::vec4(
-                shopInfo_.pos_.x,shopInfo_.pos_.y,100,100);
+                shopInfo_.pos_.x,shopInfo_.pos_.y,150,100);
         Trigger* trigger = Trigger::Create(*room, trigger_box, nullptr, 0);
         trigger->SetOnEnter(OnTrigger);
         trigger->SetOnLeave(OnLeave);
