@@ -1,0 +1,50 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[9, 490, 942, 51],
+		[333, 427, 298, 63],
+		[333, 363, 108, 63]
+	],
+	"one_sided_platforms": [
+		[186, 145, 172, 20],
+		[491, 238, 172, 20],
+		[648, 128, 172, 20],
+		[727, 343, 172, 20]
+	],
+	"traps": [],
+	"monsters": [
+		{
+			"name": "spider",
+			"initial_pos": [263.0, 141.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [569.0, 238.0],
+			"move_radius": 60.0
+		},
+		{
+			"name": "jinn",
+			"initial_pos": [808.0, 339.0],
+			"move_radius": 90.0
+		}
+	],
+	"items": [
+		{
+			"name": "boot2",
+			"position": [379, 348],
+			"probability": 0.05
+		}
+	],
+	"key_position": [565, 224],
+	"doors": [
+		[738, 128],
+		[831, 490],
+		[202, 490]
+	],
+	"background_sprite": "room_12_bg",
+	"dialogs": []
+}

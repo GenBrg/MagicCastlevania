@@ -4,7 +4,7 @@
 		[940, -1000, 30, 2000],
 		[-10, 540, 1000, 30],
 
-		[0, 66, 61, 277],
+		[0, 66, 61, 230],
 		[61, 194, 192, 100],
 		[11, 491, 362, 50],
 		[587, 491, 362, 50],
@@ -19,7 +19,7 @@
 	"traps": [
 		{
 			"bounding_box": [386, 497, 191, 44],
-			"attack": 10000
+			"attack": 100
 		},
 		{
 			"bounding_box": [417, 400, 256, 7],
@@ -32,17 +32,23 @@
 	],
 	"monsters": [
 		{
-			"name": "vampire",
+			"name": "beholder",
 			"initial_pos": [520.0, 365.0],
 			"move_radius": 120.0
 		},
 		{
-			"name": "goblin",
+			"name": "snake",
 			"initial_pos": [191.0, 489.0],
 			"move_radius": 120.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "vest1",
+			"position": [922, 180],
+			"probability": 0.05
+		}
+	],
 	"key_position": [808, 62],
 	"doors": [
 		[150, 194],

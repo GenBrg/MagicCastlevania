@@ -4,14 +4,15 @@
 #include "../Util.hpp"
 
 AOE::AOE(const glm::vec4& box, Animation* animation, const glm::vec2& velocity, float duration, int attack, const glm::vec2& initial_pos, bool penetrate,
- bool face_right, Transform2D* parent_transform) :
+ bool face_right, bool can_damage_same_object, Transform2D* parent_transform) :
 transform_(parent_transform),
 collider_(box, &transform_),
 velocity_(velocity),
 duration_(duration),
 animation_controller_(&transform_),
 attack_(attack),
-penetrate_(penetrate)
+penetrate_(penetrate),
+can_damage_same_object_(can_damage_same_object)
 {
 	if (!face_right) {
 		velocity_.x = -velocity_.x;
@@ -35,8 +36,14 @@ void AOE::Update(float elapsed, const std::vector<CollisionQuery>& collision_que
 	transform_.position_ += velocity_ * elapsed;
 	// Static collision detection
 	for (const CollisionQuery& collision_query : collision_queries) {
-		if (collider_.IsColliding(*collision_query.first)) {
+		Collider* collider_to_consider = collision_query.first;
+		if (!can_damage_same_object_ && colliders_interacted_.count(collider_to_consider) > 0) {
+			continue;
+		}
+
+		if (collider_.IsColliding(*collider_to_consider)) {
 			collision_query.second();
+			colliders_interacted_.insert(collider_to_consider);
 
 			if (!penetrate_) {
 				Destroy();
@@ -64,14 +71,14 @@ void AOE::Draw(DrawSprites& draw) const
 
 AOE* AOE::CreateMonsterAOE(Room& room, const glm::vec4& bounding_box, Transform2D& transform, int attack)
 {
-	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack, glm::vec2(0.0f, 0.0f), true, true, &transform);
+	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack, glm::vec2(0.0f, 0.0f), true, true, true, &transform);
 	room.AddMonsterAOE(aoe);
 	return aoe;
 }
 
 AOE* AOE::CreateMapAOE(Room& room, const glm::vec4& bounding_box, int attack)
 {
-	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack, glm::vec2(0.0f, 0.0f), true, true, nullptr);
+	AOE* aoe = new AOE(bounding_box, nullptr, glm::vec2(0.0f, 0.0f), -1.0f, attack, glm::vec2(0.0f, 0.0f), true, true, true, nullptr);
 	room.AddMonsterAOE(aoe);
 	return aoe;
 }

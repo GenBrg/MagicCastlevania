@@ -139,6 +139,7 @@ monster_(*monster)
 		}
 	}
 	detection_trigger_ = Trigger::Create(monster->GetRoom(), detection_bounding_box, nullptr, 0);
+	attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
 
 	// TODO Implement trigger
 	attack_trigger_->SetOnEnter([&](){
@@ -157,7 +158,6 @@ monster_(*monster)
 
 void FollowAndAttackMonsterAI::Update(float elapsed)
 {
-	attack_cooldown_ -= elapsed;
 	if (monster_.GetState() == Mob::State::MOVING) {
 		float speed = monster_.GetSpeed();
 		glm::vec2 central_pos = monster_.GetCentralPos();
@@ -171,6 +171,8 @@ void FollowAndAttackMonsterAI::Update(float elapsed)
 				transform_.scale_.x *= -1;
 			}
 		} else {
+			attack_cooldown_ -= elapsed;
+			
 			// Face player
 			float player_pos_x = player->GetTransform().position_.x;
 

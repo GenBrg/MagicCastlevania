@@ -18,7 +18,7 @@
 	"traps": [
 		{
 			"bounding_box": [223, 267, 91, 85],
-			"attack": 100
+			"attack": 200
 		}
 	],
 	"monsters": [
@@ -31,9 +31,20 @@
 			"name": "spider",
 			"initial_pos": [534.0, 488.0],
 			"move_radius": 130.0
+		},
+		{
+			"name": "bird",
+			"initial_pos": [581.0, 77.0],
+			"move_radius": 130.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "small health potion",
+			"position": [269, 411],
+			"probability": 0.3
+		}
+	],
 	"key_position": [39, 412],
 	"doors": [
 		[289, 168],

@@ -485,6 +485,126 @@
 		"interval": 0.1
 	},
 	{
+		"name": "boss_wizard_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_run",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_idle",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_death",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_anger",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_attack",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_attack_magic_lightning",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_attack_magic_fire",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_attack_magic_blade",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_attack_lightning",
+		"sprite_num": 9,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_wizard_attack_skull",
+		"sprite_num": 9,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_run",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_idle",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_death",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_anger",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_attack",
+		"sprite_num": 7,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_attack_magic_lightning",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_attack_magic_fire",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_attack_magic_blade",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_attack_spiral",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_warrior_attack_strike",
+		"sprite_num": 7,
+		"interval": 0.1
+	},
+	{
 		"name": "merchant_idle",
 		"sprite_num": 29,
 		"interval": 0.1

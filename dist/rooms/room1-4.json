@@ -1,0 +1,65 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[10, 491, 299, 52],
+		[651, 490, 297, 55]
+	],
+	"one_sided_platforms": [
+		[13, 216, 168, 36],
+		[187, 128, 233, 37],
+		[157, 312, 170, 37],
+		[340, 387, 296, 36],
+		[532, 128, 233, 35],
+		[777, 218, 171, 39],
+		[659, 310, 169, 38]
+	],
+	"traps": [
+		{
+			"bounding_box": [313, 474, 336, 67],
+			"attack": 100
+		}
+	],
+	"monsters": [
+		{
+			"name": "beholder",
+			"initial_pos": [96.0, 212.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "beholder",
+			"initial_pos": [242.0, 309.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "goblin",
+			"initial_pos": [303.0, 127.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "goblin",
+			"initial_pos": [647.0, 126.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "fire_imp",
+			"initial_pos": [744.0, 307.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "fire_imp",
+			"initial_pos": [862.0, 216.0],
+			"move_radius": 80.0
+		}
+	],
+	"items": [],
+	"key_position": [480, 377],
+	"doors": [
+		[112, 489],
+		[751, 489]
+	],
+	"background_sprite": "room_4_bg",
+	"dialogs": []
+}

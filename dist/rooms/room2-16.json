@@ -18,32 +18,38 @@
 	"traps": [],
 	"monsters": [
 		{
-			"name": "snake",
+			"name": "spider",
 			"initial_pos": [232.0, 360.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "snake",
+			"name": "spider",
 			"initial_pos": [470.0, 360.0],
 			"move_radius": 100.0
 		},
 		{
-			"name": "spider",
+			"name": "jinn",
 			"initial_pos": [860.0, 360.0],
 			"move_radius": 100.0
 		},
 		{
-			"name": "dragon",
+			"name": "jinn",
 			"initial_pos": [109.0, 160.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "orc",
+			"name": "ghost",
 			"initial_pos": [707.0, 126.0],
 			"move_radius": 130.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "large attack potion",
+			"position": [631, 286],
+			"probability": 0.1
+		}
+	],
 	"key_position": [349, 220],
 	"doors": [
 		[38, 489],

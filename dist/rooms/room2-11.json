@@ -19,17 +19,17 @@
 	"traps": [
 		{
 			"bounding_box": [345, 496, 276, 40],
-			"attack": 10000
+			"attack": 200
 		}
 	],
 	"monsters": [
 		{
-			"name": "snake",
+			"name": "jinn",
 			"initial_pos": [145.0, 270.0],
 			"move_radius": 110.0
 		},
 		{
-			"name": "snake",
+			"name": "jinn",
 			"initial_pos": [813.0, 270.0],
 			"move_radius": 110.0
 		},
@@ -44,7 +44,7 @@
 			"move_radius": 110.0
 		},
 		{
-			"name": "dragon",
+			"name": "bear",
 			"initial_pos": [483.0, 180.0],
 			"move_radius": 100.0
 		}

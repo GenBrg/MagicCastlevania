@@ -23,12 +23,12 @@
 	],
 	"monsters": [
 		{
-			"name": "ghost",
+			"name": "beholder",
 			"initial_pos": [552.0, 345.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "ghost",
+			"name": "beholder",
 			"initial_pos": [343.0, 182.0],
 			"move_radius": 100.0
 		}

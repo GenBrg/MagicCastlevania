@@ -19,37 +19,37 @@
 	"traps": [
 		{
 			"bounding_box": [195, 291, 69, 60],
-			"attack": 100
+			"attack": 200
 		}
 	],
 	"monsters": [
 		{
-			"name": "orc",
+			"name": "snake",
 			"initial_pos": [386.0, 489.0],
 			"move_radius": 200.0
 		},
 		{
-			"name": "skeleton",
+			"name": "spider",
 			"initial_pos": [600.0, 278.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "ghost",
+			"name": "spider",
 			"initial_pos": [400.0, 150.0],
 			"move_radius": 80.0
 		}
 	],
 	"items": [
 		{
-			"name": "large attack potion",
-			"position": [57, 408],
-			"probability": 0.1
+			"name": "vest2",
+			"position": [88, 137],
+			"probability": 0.05
 		}
 	],
 	"key_position": [234, 84],
 	"doors": [
 		[180, 489],
-		[851, 488],
+		[871, 488],
 		[47, 151]
 	],
 	"background_sprite": "room_5_bg",

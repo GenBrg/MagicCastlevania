@@ -172,10 +172,7 @@ void PlayMode::SwitchRoom(Door *door)
 		cur_room->OnEnter(player, opposite_door);
 		if (cur_room == rooms[1]) {
 			opposite_door->SetLockStatus(Door::LockStatus::NORMAL_LOCKED);
-			if (bgm) {
-				bgm->stop();
-			}
-			bgm = Sound::loop(*sound_samples["boss_" + std::to_string(level_)]);
+			StartBGM("boss_" + std::to_string(level_));
 		}
 	}
 }
@@ -183,6 +180,11 @@ void PlayMode::SwitchRoom(Door *door)
 void PlayMode::ProceedLevel()
 {
 	++level_;
+
+	if (level_ > kMaxLevel) {
+		PlayEndScene();
+		return;
+	}
 
 	ResetCurrentLevel();
 }
@@ -204,34 +206,39 @@ void PlayMode::GenerateRooms()
 	}
 
 	if (level_ == 1) {
-		// rooms.push_back(RoomPrototype::GetRoomPrototype("tutorial_room")->Create(level_));
-		// rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+#ifdef DEBUG
+	// For Test
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room2-3")->Create(level_));
+	rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+#else
+	rooms.push_back(RoomPrototype::GetRoomPrototype("tutorial_room")->Create(level_));
+	rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+	
+	size_t door1_room_num = candidate_rooms.size() / 2;
+	size_t door2_room_num = candidate_rooms.size() - door1_room_num;
+	rooms[2]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
+	rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
+#endif
+
+		 
 		
-		// size_t door12_room_num = candidate_rooms.size() / 3;
-		// size_t door3_room_num = candidate_rooms.size() - 2 * door12_room_num;
-		// rooms[2]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
-		// rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
-		// rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door3_room_num, 1), Door::LockStatus::UNLOCK);
-		// For Test
-		rooms.push_back(RoomPrototype::GetRoomPrototype("room3-18")->Create(level_));
-		rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
-	} else if (level_ <= 4) {
+	} else if (level_ <= kMaxLevel) {
 		size_t door1_room_num = candidate_rooms.size() / 2;
 		size_t door2_room_num = candidate_rooms.size() - door1_room_num;
-		rooms[0]->GetDoor(0)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
-		rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
+		rooms[0]->GetDoor(0)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
+		rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
 	} else {
-
+		throw std::runtime_error("Level exceed max level!");
 	}
 }
 
-Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, size_t remaining_room, size_t depth)
+Door *PlayMode::GenerateRoomsHelper(const std::string& level_string, std::vector<int>& candidates, size_t remaining_room, size_t depth)
 {
 	assert(candidates.size() >= remaining_room);
 
 	auto random_choose_room = [&](){
 		size_t candidate_idx = static_cast<size_t>(candidates.size() * Random::Instance()->Generate());
-		std::string room_name = "room" + std::to_string(candidates[candidate_idx]);
+		std::string room_name = "room" + level_string + "-" + std::to_string(candidates[candidate_idx]);
 		candidates.erase(candidates.begin() + candidate_idx);
 		rooms.push_back(RoomPrototype::GetRoomPrototype(room_name)->Create(level_));
 		return rooms.back();
@@ -263,14 +270,14 @@ Door *PlayMode::GenerateRoomsHelper(std::vector<int>& candidates, size_t remaini
 			{
 				if (remaining_door_num == 1)
 				{
-					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(candidates, remaining_room, depth + 1), Door::LockStatus::UNLOCK);
+					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(level_string, candidates, remaining_room, depth + 1), Door::LockStatus::UNLOCK);
 					remaining_room = 0;
 				}
 				else
 				{
 					size_t sub_remaining_room = static_cast<size_t>(average_remaining_room + (2 * Random::Instance()->Generate()) - 1);
 					sub_remaining_room = static_cast<size_t>(std::clamp(static_cast<unsigned long long>(sub_remaining_room), 1ull, static_cast<unsigned long long>(remaining_room)));
-					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(candidates, sub_remaining_room, depth + 1), Door::LockStatus::UNLOCK);
+					room->GetDoor(i)->ConnectTo(GenerateRoomsHelper(level_string, candidates, sub_remaining_room, depth + 1), Door::LockStatus::UNLOCK);
 					remaining_room -= sub_remaining_room;
 				}
 
@@ -327,6 +334,7 @@ void PlayMode::on_leave() {
 void PlayMode::ResetCurrentLevel()
 {
 	TimerManager::Instance().ClearAllTimers();
+	StartBGM("all_1");
 	for (Room *room : rooms)
 	{
 		delete room;
@@ -334,11 +342,6 @@ void PlayMode::ResetCurrentLevel()
 	rooms.clear();
 	keys_collected = 0;
 	GenerateRooms();
-
-	if (bgm) {
-		bgm->stop();
-	}
-	bgm = Sound::loop(*sound_samples["all_1"]);
 
 	cur_room = rooms[0];
 	cur_room->OnEnter(player, cur_room->GetDoor(0));
@@ -349,4 +352,34 @@ void PlayMode::Transition(float trans_time)
 	in_transition_ = true;
     elapsed_since_transition_ = 0.0f;
     trans_time_ = trans_time;
+}
+
+void PlayMode::StopBGM()
+{
+	if (bgm) {
+		bgm->stop();
+		bgm = nullptr;
+	}
+}
+
+void PlayMode::StartBGM(const std::string& bgm_name)
+{
+	StopBGM();
+	bgm = Sound::loop(*sound_samples[bgm_name], 0.0f);
+	bgm->set_volume(1.0f, 2.0f);
+}
+
+void PlayMode::PlayEndScene()
+{
+	StartBGM("ending_1");
+	std::vector< MenuMode::Item > items;
+	items.emplace_back("Static", &sprites->lookup("controls_static"), nullptr);
+	std::shared_ptr< MenuMode > ending_menu;
+	ending_menu = std::make_shared< MenuMode >(items, 0);
+	ending_menu->selected = 1;
+	ending_menu->atlas = sprites;
+	ending_menu->view_min = glm::vec2(0.0f, 0.0f);
+	ending_menu->view_max = glm::vec2(960.0f, 541.0f);
+	ending_menu->background = main_play;
+	Mode::set_current(ending_menu);
 }

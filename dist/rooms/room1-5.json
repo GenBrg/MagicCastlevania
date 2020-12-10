@@ -1,0 +1,62 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[12, 427, 106, 118],
+		[108, 491, 841, 53],
+		[148, 96, 176, 220],
+		[472, 154, 40, 157],
+		[662, 280, 39, 119]
+	],
+	"one_sided_platforms": [
+		[24, 153, 133, 28],
+		[314, 150, 197, 32],
+		[505, 280, 196, 34],
+		[694, 406, 137, 33]
+	],
+	"traps": [
+		{
+			"bounding_box": [195, 291, 69, 60],
+			"attack": 100
+		}
+	],
+	"monsters": [
+		{
+			"name": "snake",
+			"initial_pos": [386.0, 489.0],
+			"move_radius": 200.0
+		},
+		{
+			"name": "beholder",
+			"initial_pos": [600.0, 278.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "beholder",
+			"initial_pos": [400.0, 150.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "mosquito",
+			"initial_pos": [400.0, 150.0],
+			"move_radius": 80.0
+		}
+	],
+	"items": [
+		{
+			"name": "large attack potion",
+			"position": [88, 137],
+			"probability": 0.1
+		}
+	],
+	"key_position": [234, 84],
+	"doors": [
+		[180, 489],
+		[871, 488],
+		[47, 151]
+	],
+	"background_sprite": "room_5_bg",
+	"dialogs": []
+}

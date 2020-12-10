@@ -15,12 +15,12 @@
 	"traps": [],
 	"monsters": [
 		{
-			"name": "skeleton",
+			"name": "ghost",
 			"initial_pos": [271.0, 233.0],
 			"move_radius": 100.0
 		},
 		{
-			"name": "skeleton",
+			"name": "ghost",
 			"initial_pos": [687.0, 233.0],
 			"move_radius": 100.0
 		},
@@ -35,7 +35,13 @@
 			"move_radius": 120.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "shield2",
+			"position": [88, 137],
+			"probability": 0.05
+		}
+	],
 	"key_position": [585, 221],
 	"doors": [
 		[64, 491],

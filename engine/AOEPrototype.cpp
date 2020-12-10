@@ -57,7 +57,7 @@ AOE* AOEPrototype::Create(Room& room, int attack, Transform2D* parent_transform,
 		initial_offset.x *= parent_transform->scale_.x;
 	}
 
-	AOE* aoe = new AOE(bounding_box_, animation_, velocity_, duration_, attack, initial_offset, penetrate_, face_right, parent_transform);
+	AOE* aoe = new AOE(bounding_box_, animation_, velocity_, duration_, attack, initial_offset, penetrate_, face_right, false, parent_transform);
 	if (is_monster) {
 		room.AddMonsterAOE(aoe);
 	} else {

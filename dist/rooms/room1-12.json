@@ -17,22 +17,28 @@
 	"traps": [],
 	"monsters": [
 		{
-			"name": "snake",
+			"name": "goblin",
 			"initial_pos": [263.0, 141.0],
 			"move_radius": 80.0
 		},
 		{
 			"name": "goblin",
-			"initial_pos": [729.0, 126.0],
-			"move_radius": 80.0
+			"initial_pos": [569.0, 238.0],
+			"move_radius": 60.0
 		},
 		{
-			"name": "goblin",
+			"name": "fire_imp",
 			"initial_pos": [808.0, 339.0],
 			"move_radius": 90.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "shield2",
+			"position": [379, 348],
+			"probability": 0.05
+		}
+	],
 	"key_position": [565, 224],
 	"doors": [
 		[738, 128],

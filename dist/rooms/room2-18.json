@@ -20,17 +20,17 @@
 	"traps": [
 		{
 			"bounding_box": [566, 282, 61, 58],
-			"attack": 100
+			"attack": 200
 		}
 	],
 	"monsters": [
 		{
-			"name": "dragon",
+			"name": "bear",
 			"initial_pos": [319.0, 490.0],
 			"move_radius": 200.0
 		},
 		{
-			"name": "goblin",
+			"name": "spider",
 			"initial_pos": [536.0, 94.0],
 			"move_radius": 80.0
 		},
@@ -40,7 +40,13 @@
 			"move_radius": 80.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "large health potion",
+			"position": [338, 254],
+			"probability": 0.3
+		}
+	],
 	"key_position": [169, 151],
 	"doors": [
 		[887, 160],

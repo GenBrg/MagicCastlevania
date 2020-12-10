@@ -19,22 +19,22 @@
 	"traps": [
 		{
 			"bounding_box": [313, 474, 336, 67],
-			"attack": 10000
+			"attack": 200
 		}
 	],
 	"monsters": [
 		{
-			"name": "skeleton",
+			"name": "spider",
 			"initial_pos": [96.0, 212.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "ghost",
+			"name": "spider",
 			"initial_pos": [242.0, 309.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "beholder",
+			"name": "jinn",
 			"initial_pos": [303.0, 127.0],
 			"move_radius": 80.0
 		},
@@ -49,7 +49,7 @@
 			"move_radius": 80.0
 		},
 		{
-			"name": "skeleton",
+			"name": "ghost",
 			"initial_pos": [862.0, 216.0],
 			"move_radius": 80.0
 		}

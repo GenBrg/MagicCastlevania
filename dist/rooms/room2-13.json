@@ -19,30 +19,36 @@
 	"traps": [
 		{
 			"bounding_box": [345, 496, 269, 40],
-			"attack": 10000
+			"attack": 200
 		}
 	],
 	"monsters": [
 		{
-			"name": "spider",
+			"name": "jinn",
 			"initial_pos": [886.0, 489.0],
 			"move_radius": 70.0
 		},
 		{
-			"name": "mosquito",
+			"name": "bird",
 			"initial_pos": [729.0, 126.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "snake",
+			"name": "ghost",
 			"initial_pos": [526.0, 189.0],
 			"move_radius": 80.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "panacea",
+			"position": [379, 348],
+			"probability": 0.1
+		}
+	],
 	"key_position": [565, 212],
 	"doors": [
-		[89, 491],
+		[121, 491],
 		[707, 296]
 	],
 	"background_sprite": "room_13_bg",

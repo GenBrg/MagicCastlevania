@@ -93,7 +93,7 @@ room_(room)
 void Player::OnDie()
 {
 	state_ = State::DYING;
-	main_play->bgm->set_volume(0.1f);
+	main_play->StopBGM();
     Sound::play(*sound_samples.at("dead"));
 	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
 	++pending_callbacks_;
@@ -102,9 +102,12 @@ void Player::OnDie()
 		main_play->Transition(ON_DIE_TRANSITION);
 	});
 
-	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
+	TimerManager::Instance().AddTimer(1.5f, [&](){
 		--pending_callbacks_;
         Reset();
+		TimerManager::Instance().AddTimer(1.5f, [&](){
+			main_play->StartBGM("all_1");
+   	 	});
     });
 }
 
@@ -151,6 +154,7 @@ void Player::SetPosition(const glm::vec2 &pos) {
 void Player::Reset() {
 	main_play->ResetCurrentLevel();
 	state_ = State::MOVING;
+	animation_controller_.PlayAnimation(GetAnimation(AnimationState::STILL), true);
 	SetPosition((*room_)->GetDoor(0)->GetPosition());
 	hp_ = max_hp_;
 	exp_ /= 2;
@@ -320,9 +324,9 @@ void Player::LevelUp() {
 
 	++cur_level_;
 
-	max_hp_ += 20 * cur_level_;
+	max_hp_ += 20;
 	hp_ = max_hp_;
-	attack_ += 6 * cur_level_;
-	defense_ += 6 * cur_level_;
+	attack_ += 3;
+	defense_ += 2;
 	Sound::play(*sound_samples.at("level_up"));
 }

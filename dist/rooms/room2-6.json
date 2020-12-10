@@ -30,7 +30,7 @@
 			"move_radius": 100.0
 		},
 		{
-			"name": "beholder",
+			"name": "bird",
 			"initial_pos": [480.0, 127.0],
 			"move_radius": 130.0
 		}

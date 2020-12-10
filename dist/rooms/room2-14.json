@@ -18,12 +18,12 @@
 	"traps": [],
 	"monsters": [
 		{
-			"name": "orc",
+			"name": "bear",
 			"initial_pos": [466.0, 159.0],
 			"move_radius": 120.0
 		},
 		{
-			"name": "snake",
+			"name": "spider",
 			"initial_pos": [219.0, 371.0],
 			"move_radius": 80.0
 		},
@@ -33,7 +33,13 @@
 			"move_radius": 80.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "small attack potion",
+			"position": [389, 252],
+			"probability": 0.3
+		}
+	],
 	"key_position": [551, 259],
 	"doors": [
 		[126, 159],

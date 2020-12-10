@@ -24,17 +24,17 @@
 	],
 	"monsters": [
 		{
-			"name": "bear",
+			"name": "snake",
 			"initial_pos": [146.0, 163.0],
 			"move_radius": 100.0
 		},
 		{
-			"name": "dragon",
+			"name": "beholder",
 			"initial_pos": [780.0, 160.0],
 			"move_radius": 100.0
 		},
 		{
-			"name": "bird",
+			"name": "mosquito",
 			"initial_pos": [477.0, 64.0],
 			"move_radius": 230.0
 		}
