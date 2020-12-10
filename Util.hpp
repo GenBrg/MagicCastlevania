@@ -11,6 +11,8 @@
 
 #define INIT_WINDOW_W 960
 #define INIT_WINDOW_H 541
+#define SWITCH_ROOM_TRANSITION 1.1f
+#define ON_DIE_TRANSITION 3.0f
 
 #define _DEBUG
 

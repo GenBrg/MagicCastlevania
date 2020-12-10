@@ -45,7 +45,7 @@ struct PlayMode : Mode {
 	int GetTotalKeysToCollect() const { return total_keys_to_collect; }
 	size_t GetLevel() const { return level_; }
 	void ResetCurrentLevel();
-	void Transition();
+	void Transition(float t_time);
 
 	//----- game state -----
 
@@ -64,4 +64,5 @@ struct PlayMode : Mode {
 
 	float elapsed_since_transition_ {0.0f};
 	bool in_transition_ {false};
+	float trans_time_ {1.0f};
 };
