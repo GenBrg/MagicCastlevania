@@ -1,5 +1,6 @@
 objs/*.obj
 objs/*.o
+objs/*.tmp
 dist/README-SDL.txt
 dist/game
 dist/game.exe

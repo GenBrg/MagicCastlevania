@@ -218,7 +218,6 @@ void PlayMode::GenerateRooms()
 	}
 
 	if (level_ == 1) {
-		#define _DEBUG
 #ifdef _DEBUG
 	// For Test
 	rooms.push_back(RoomPrototype::GetRoomPrototype("room2-3")->Create(level_));
