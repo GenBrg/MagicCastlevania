@@ -1,0 +1,47 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[11, 490, 938, 53]
+	],
+	"one_sided_platforms": [
+		[43, 256, 235, 34],
+		[330, 130, 298, 34],
+		[684, 261, 233, 35],
+		[331, 370, 299, 34]
+	],
+	"traps": [
+		{
+			"bounding_box": [436, 162, 89, 67],
+			"attack": 200
+		}
+	],
+	"monsters": [
+		{
+			"name": "vampire",
+			"initial_pos": [159.0, 255.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "skull",
+			"initial_pos": [800.0, 255.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "bear",
+			"initial_pos": [480.0, 369.0],
+			"move_radius": 130.0
+		}
+	],
+	"items": [],
+	"key_position": [480, 480],
+	"doors": [
+			[480, 128],
+			[93, 487],
+			[767, 487]
+	],
+	"background_sprite": "room_6_bg",
+	"dialogs": []
+}

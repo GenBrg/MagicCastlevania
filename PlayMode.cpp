@@ -213,7 +213,7 @@ void PlayMode::GenerateRooms()
 		// rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
 		// rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(candidate_rooms, door3_room_num, 1), Door::LockStatus::UNLOCK);
 		// For Test
-		rooms.push_back(RoomPrototype::GetRoomPrototype("room17")->Create(level_));
+		rooms.push_back(RoomPrototype::GetRoomPrototype("room3-6")->Create(level_));
 		rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
 	} else if (level_ <= 4) {
 		size_t door1_room_num = candidate_rooms.size() / 2;
