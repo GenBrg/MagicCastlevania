@@ -1,5 +1,7 @@
 "MagicCastleVania.xcf?Nothing" 0 0 1 1 0 0 nothing
 "MagicCastleVania.xcf?White" 0 0 960 541 +0 +541 white
+"MagicCastleVania.xcf?end_scene" 0 0 960 541 +0 +541 end_scene
+"MagicCastleVania.xcf?level_clear" 0 0 960 541 +0 +541 level_clear
 "MagicCastleVania.xcf?pause_window" 0 0 960 541 +0 +541 pause_window
 "MagicCastleVania.xcf?shop_window" 0 0 960 541 +0 +541 shop_window
 "MagicCastleVania.xcf?controls_static" 0 0 960 541 +0 +541 controls_static
