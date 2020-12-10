@@ -1,0 +1,54 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[0, 492, 341, 49],
+		[622, 492, 338, 49],
+		[0, 300, 65, 240],
+		[203, 428, 101, 69],
+		[653, 298, 159, 200]
+	],
+	"one_sided_platforms": [
+		[202, 277, 170, 34],
+		[447, 191, 171, 34],
+		[757, 134, 172, 33],
+		[903, 356, 54, 50]
+	],
+	"traps": [
+		{
+			"bounding_box": [345, 496, 269, 40],
+			"attack": 10000
+		}
+	],
+	"monsters": [
+		{
+			"name": "skull",
+			"initial_pos": [886.0, 489.0],
+			"move_radius": 70.0
+		},
+		{
+			"name": "ghost",
+			"initial_pos": [533.0, 191.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "vampire",
+			"initial_pos": [895.0, 489.0],
+			"move_radius": 60.0
+		}
+	],
+	"items": [{
+			"name": "large health potion",
+			"position": [857, 466],
+			"probability": 1.0
+		}],
+	"key_position": [565, 212],
+	"doors": [
+		[89, 491],
+		[707, 296]
+	],
+	"background_sprite": "room_13_bg",
+	"dialogs": []
+}

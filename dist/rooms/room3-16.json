@@ -1,0 +1,54 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[0, 490, 963, 51],
+		[332, 363, 358, 129],
+		[328, 237, 48, 127],
+		[585, 298, 105, 69]
+	],
+	"one_sided_platforms": [
+		[33, 160, 172, 30],
+		[566, 126, 301, 40],
+		[140, 363, 196, 35],
+		[783, 359, 168, 30]
+	],
+	"traps": [],
+	"monsters": [
+		{
+			"name": "skeleton",
+			"initial_pos": [232.0, 360.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "skeleton",
+			"initial_pos": [470.0, 360.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "skeleton",
+			"initial_pos": [860.0, 360.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "dragon",
+			"initial_pos": [109.0, 160.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "orc",
+			"initial_pos": [707.0, 126.0],
+			"move_radius": 130.0
+		}
+	],
+	"items": [],
+	"key_position": [349, 220],
+	"doors": [
+		[38, 489],
+		[786, 489]
+	],
+	"background_sprite": "room_16_bg",
+	"dialogs": []
+}
