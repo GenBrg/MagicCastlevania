@@ -91,7 +91,7 @@
 	},
 	{
 		"name": "fire_imp_attack_fire",
-		"bounding_box": [30.0, 56.0, 83.0, 80.0],
+		"bounding_box": [30.0, 0.0, 83.0, 34.0],
 		"animation": "fire_imp_attack_fire",
 		"velocity": [100.0, 0.0],
 		"duration": 1.0,
