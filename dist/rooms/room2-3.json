@@ -38,8 +38,8 @@
 		},
 		{
 			"name": "jinn",
-			"initial_pos": [191.0, 489.0],
-			"move_radius": 120.0
+			"initial_pos": [666.0, 195.0],
+			"move_radius": 60.0
 		}
 	],
 	"items": [
