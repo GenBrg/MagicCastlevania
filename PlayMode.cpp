@@ -206,17 +206,22 @@ void PlayMode::GenerateRooms()
 	}
 
 	if (level_ == 1) {
-		 rooms.push_back(RoomPrototype::GetRoomPrototype("tutorial_room")->Create(level_));
-		 rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+#ifdef DEBUG
+	// For Test
+	rooms.push_back(RoomPrototype::GetRoomPrototype("room2-3")->Create(level_));
+	rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+#else
+	rooms.push_back(RoomPrototype::GetRoomPrototype("tutorial_room")->Create(level_));
+	rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
+	
+	size_t door1_room_num = candidate_rooms.size() / 2;
+	size_t door2_room_num = candidate_rooms.size() - door1_room_num;
+	rooms[2]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
+	rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
+#endif
+
+		 
 		
-		size_t door12_room_num = candidate_rooms.size() / 3;
-		size_t door3_room_num = candidate_rooms.size() - 2 * door12_room_num;
-		rooms[2]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
-		rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
-		rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door3_room_num, 1), Door::LockStatus::UNLOCK);
-		// For Test
-		// rooms.push_back(RoomPrototype::GetRoomPrototype("room2-3")->Create(level_));
-		// rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
 	} else if (level_ <= kMaxLevel) {
 		size_t door1_room_num = candidate_rooms.size() / 2;
 		size_t door2_room_num = candidate_rooms.size() - door1_room_num;

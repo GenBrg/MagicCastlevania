@@ -19,7 +19,7 @@
 	"traps": [
 		{
 			"bounding_box": [289, 499, 461, 43],
-			"attack": 10000
+			"attack": 200
 		}
 	],
 	"monsters": [

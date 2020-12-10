@@ -15,7 +15,7 @@
 	"traps": [],
 	"monsters": [
 		{
-			"name": "boss_bull",
+			"name": "boss_wizard",
 			"initial_pos": [478.0, 487.0],
 			"move_radius": 470.0
 		}
