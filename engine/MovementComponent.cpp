@@ -83,10 +83,6 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 
 		if (collider_.DynamicCollisionQuery(*other_collider, delta_position, contact_point, contact_normal, time)) {
 			// collision resolution routine
-			if (time < 0.0f) {
-				std::cout << time << std::endl;
-			}
-
 			if (contact_normal.x != 0.0f) {
 				velocity_.x = 0.0f;
 			} else {

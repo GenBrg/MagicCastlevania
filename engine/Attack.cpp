@@ -10,7 +10,6 @@ bool Attack::Execute(Room& room, int attack, Transform2D& transform, bool is_mon
 {
 	return guard_(cooldown_, [&](){
 		attack = static_cast<int>(base_attack_per_level_ * player->GetLevel() + attack * attack_modifier_);
-		std::cout << "attack value: " << attack << std::endl;
 		aoe_prototype_->Create(room, attack, &transform, is_monster, attach_to_entity_);
 	});
 }
