@@ -24,5 +24,24 @@
 	"shop_position": [40, 493],
 	"background_sprite": "room_2_bg",
 	"dialogs": [
+		{
+			"trigger_box": [0, 0, 960, 540],
+			"auto_trigger": true,
+			"hit_time_remain": 1,
+			"contents": [
+				{
+					"texts": "Welcome to Magic CastleVania!\nThis is the beginning of your adventure!\n",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "...",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "Collect keys to open the locked room!",
+					"avatar_sprite": "avatar_mage"
+				}
+			]
+		}
 	]
 }
