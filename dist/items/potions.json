@@ -23,16 +23,16 @@
 	},
 	{
 		"name": "small attack potion",
-		"description": "attack+10 for 30 seconds",
+		"description": "attack+5 for 30 seconds",
 		"icon_sprite": "item_potion_attack_small",
 		"pickup_sprite": "item_potion_attack_small",
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 100,
+		"price": 50,
 		"buffs": [
 			{
-				"attack": 10,
+				"attack": 5,
 				"defense": 0,
 				"duration": 30.0,
 				"icon_sprite": "item_potion_attack_small"
@@ -41,16 +41,16 @@
 	},
 	{
 		"name": "large attack potion",
-		"description": "attack+30 for 60 seconds",
+		"description": "attack+10 for 60 seconds",
 		"icon_sprite": "item_potion_attack_large",
 		"pickup_sprite": "item_potion_attack_large",
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 550,
+		"price": 350,
 		"buffs": [
 			{
-				"attack": 30,
+				"attack": 10,
 				"defense": 0,
 				"duration": 60.0,
 				"icon_sprite": "item_potion_attack_large"
@@ -59,17 +59,17 @@
 	},
 	{
 		"name": "small defense potion",
-		"description": "defense+10 for 30 seconds",
+		"description": "defense+5 for 30 seconds",
 		"icon_sprite": "item_potion_defense_small",
 		"pickup_sprite": "item_potion_defense_small",
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 100,
+		"price": 50,
 		"buffs": [
 			{
 				"attack": 0,
-				"defense": 10,
+				"defense": 5,
 				"duration": 30.0,
 				"icon_sprite": "item_potion_defense_small"
 			}
@@ -77,17 +77,17 @@
 	},
 	{
 		"name": "large defense potion",
-		"description": "defense+30 for 60 seconds",
+		"description": "defense+10 for 60 seconds",
 		"icon_sprite": "item_potion_defense_large",
 		"pickup_sprite": "item_potion_defense_large",
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 550,
+		"price": 350,
 		"buffs": [
 			{
 				"attack": 0,
-				"defense": 30,
+				"defense": 10,
 				"duration": 60.0,
 				"icon_sprite": "item_potion_defense_large"
 			}
@@ -95,23 +95,23 @@
 	},
 	{
 		"name": "panacea",
-		"description": "attack+20 for 45 seconds\ndefense+20 for 45 seconds\nhp+300\n",
+		"description": "attack+10 for 45 seconds\ndefense+10 for 45 seconds\nhp+300\n",
 		"icon_sprite": "item_potion_panacea",
 		"pickup_sprite": "item_potion_panacea",
 		"hp": 300,
 		"mp": 0,
 		"exp": 0,
-		"price": 550,
+		"price": 700,
 		"buffs": [
 			{
-				"attack": 20,
+				"attack": 10,
 				"defense": 0,
 				"duration": 45.0,
 				"icon_sprite": "item_potion_panacea"
 			},
 			{
 				"attack": 0,
-				"defense": 20,
+				"defense": 10,
 				"duration": 45.0,
 				"icon_sprite": "item_potion_panacea"
 			}

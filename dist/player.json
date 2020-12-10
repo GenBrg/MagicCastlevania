@@ -1,7 +1,7 @@
 {
 	"hp": 100,
 	"attack": 10,
-	"defense": 10,
+	"defense": 5,
 	"bounding_box": [-15.0, 0.0, 15.0, 53.0],
 	"invulnerable_time": 1.0,
 	"movement": {

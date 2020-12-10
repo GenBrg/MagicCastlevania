@@ -19,7 +19,7 @@
 	"traps": [
 		{
 			"bounding_box": [345, 496, 269, 40],
-			"attack": 10000
+			"attack": 200
 		}
 	],
 	"monsters": [
@@ -48,7 +48,7 @@
 	],
 	"key_position": [565, 212],
 	"doors": [
-		[89, 491],
+		[121, 491],
 		[707, 296]
 	],
 	"background_sprite": "room_13_bg",

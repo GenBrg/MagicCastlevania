@@ -23,8 +23,8 @@
 		},
 		{
 			"name": "spider",
-			"initial_pos": [729.0, 126.0],
-			"move_radius": 80.0
+			"initial_pos": [569.0, 238.0],
+			"move_radius": 60.0
 		},
 		{
 			"name": "jinn",
