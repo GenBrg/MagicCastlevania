@@ -20,7 +20,7 @@
 #define FONT_SIZE 1500
 #define FONT_FILE_NAME "DigitalDisco.ttf"
 
-#define ANIMATION_DELAY 0.05f
+#define ANIMATION_DELAY 0.03f
 
 
 // get the coordinate of the dialog box (bottom left corner in pixel)
