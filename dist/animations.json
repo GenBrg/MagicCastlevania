@@ -455,6 +455,11 @@
 		"interval": 0.1
 	},
 	{
+		"name": "boss_bull_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
 		"name": "boss_bull_attack_magic_lightning",
 		"sprite_num": 5,
 		"interval": 0.1
