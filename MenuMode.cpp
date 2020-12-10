@@ -15,6 +15,7 @@
 #include "Load.hpp"
 #include "data_path.hpp"
 #include "main_play.hpp"
+#include "main_menu.hpp"
 #include <random>
 #include <stack>
 //Load< Sound::Sample > sound_click(LoadTagDefault, []() -> Sound::Sample* {
@@ -71,7 +72,11 @@ MenuMode::~MenuMode() {
 
 bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size) {
 	if (evt.type == SDL_KEYDOWN) {
-		if (evt.key.keysym.sym == SDLK_w) {
+		if (row_width == 0) {
+			if(evt.key.keysym.sym == SDLK_ESCAPE)
+				Mode::set_current(background);
+		}
+		else if (evt.key.keysym.sym == SDLK_w) {
 			//skip non-selectable items:
 			for (int i = selected - row_width; i >= 0; --i) {
 				if (items[i].on_select) {
@@ -122,6 +127,18 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 				return true;
 			}
 		}
+		else if (evt.key.keysym.sym == SDLK_TAB) {
+			std::vector< MenuMode::Item > items;
+			items.emplace_back("Static", &sprites->lookup("controls_static"), nullptr);
+			std::shared_ptr< MenuMode > controls_menu;
+			controls_menu = std::make_shared< MenuMode >(items, 0);
+			controls_menu->selected = 1;
+			controls_menu->atlas = sprites;
+			controls_menu->view_min = glm::vec2(0.0f, 0.0f);
+			controls_menu->view_max = glm::vec2(960.0f, 541.0f);
+			controls_menu->background = main_menu;
+			Mode::set_current(controls_menu);
+		}
 		else if (row_width != 1) {
 			if (evt.key.keysym.sym == SDLK_ESCAPE) {
 				Mode::set_current(main_play);
@@ -135,21 +152,22 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 			}
 		}
 	}
-	if (background) {
+	/*if (background) {
 		return background->handle_event(evt, window_size);
 	}
 	else {
 		return false;
-	}
+	}*/
+	return false;
 }
 
 void MenuMode::update(float elapsed) {
 
 	//select_bounce_acc = select_bounce_acc + elapsed / 0.7f;
 	//select_bounce_acc -= std::floor(select_bounce_acc);
-	if (background) {
+	/*if (background) {
 		background->update(elapsed);
-	}
+	}*/
 	if (row_width == 4) {
 		for (int i = 1; i < 5; i++) {
 			items[i].item_prototype = player->GetEquipment(i - 1);
