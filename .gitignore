@@ -1,6 +1,7 @@
 objs/*.obj
 objs/*.o
 objs/*.tmp
+objs/test/*.o
 dist/README-SDL.txt
 dist/game
 dist/game.exe
@@ -24,3 +25,4 @@ CMakeLists.txt
 cmake-build-debug/*
 sprites/Makefile.windows
 keyarts/
+*.DS_Store
