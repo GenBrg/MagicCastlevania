@@ -43,16 +43,12 @@ Continue dialog, open shop: E
 
 Sources: 
 
-Roguelike https://kenney.nl/assets/micro-roguelike \
-Platformer https://kenney.nl/assets/platformer-pack-redux \
-Roguelike Dungeon https://kenney.nl/assets/roguelike-caves-dungeons \
-Roguelike RPG https://kenney.nl/assets/roguelike-rpg-pack \
-Monsters https://craftpix.net/freebies/free-rpg-monster-sprites-pixel-art/ \
-Dungeon-platformer https://craftpix.net/product/dungeon-platformer-pixel-art-tileset-2/ \
-Font https://www.dafont.com/digital-disco.font \
-https://www.1001fonts.com/bulky-pixels-font.html \
-https://momentaryunicorn.itch.io/momentary-unicorns-evolving-swords
+Sprites: https://craftpix.net/product/fantasy-platformer-game-kit-pixel-art/ \
+https://momentaryunicorn.itch.io/momentary-unicorns-evolving-swords \
 https://craftpix.net/freebies/free-shield-2d-game-assets-pack/ \
 https://www.deviantart.com/tdeleeuw/art/Skyrim-Armour-pixel-art-401280056 \
+Font https://www.dafont.com/digital-disco.font \
+https://www.1001fonts.com/bulky-pixels-font.html \
+
 This game was built with [NEST](NEST.md).
 
