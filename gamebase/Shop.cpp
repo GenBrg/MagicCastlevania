@@ -57,11 +57,9 @@ void Shop::Purchase(size_t slot_num)
 }
 
 void Shop::RegisterKeyEvents() {
-    std::cout << "enter shop area, RegisterKeyEvents e" << std::endl;
     InputSystem::Instance()->Register(SDLK_e, [&](InputSystem::KeyState &key_state, float elapsed) {
         if (key_state.pressed) {
             key_state.pressed = false;
-            std::cout << "Pressed enter shop" << std::endl;
 			std::vector< MenuMode::Item > items;
 			items.emplace_back("Static", &sprites->lookup("shop_window"), nullptr);
 			for (size_t i = 0; i < 12; i++) {
@@ -80,7 +78,6 @@ void Shop::RegisterKeyEvents() {
 }
 
 void Shop::UnregisterKeyEvents() {
-    std::cout << "leave shop area, UnregisterKeyEvents e" << std::endl;
     InputSystem::Instance()->Unregister(SDLK_e);
 }
 
