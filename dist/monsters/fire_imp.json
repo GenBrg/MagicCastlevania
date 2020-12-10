@@ -1,13 +1,13 @@
 {
-	"hp": 55,
-	"attack": 20,
-	"body_attack": 10,
-	"defense": 9,
-	"speed": 80.0,
-	"exp": 60,
-	"coin": 90,
+	"hp": 30,
+	"attack": 16,
+	"body_attack": 7,
+	"defense": 6,
+	"speed": 50.0,
+	"exp": 50,
+	"coin": 70,
 	"invulnerable_time": 0.2,
-	"bounding_box": [-29.0, 0.0, 29.0, 72.0],
+	"bounding_box": [-25.0, 0.0, 25.0, 68.0],
 	"item": {
 		"small health potion": 0.02,
 		"small attack potion": 0.02,
@@ -19,10 +19,10 @@
 	},
 	"skills": [
 		{
-			"mob_animation": "ghost_attack",
-			"aoe_prototype": "ghost_attack",
+			"mob_animation": "fire_imp_attack_fire",
+			"aoe_prototype": "fire_imp_attack_fire",
 			"cooldown": 1.0,
-			"attach_to_entity": true
+			"attach_to_entity": false
 		}
 	],
 	"ai": {

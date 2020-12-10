@@ -90,6 +90,24 @@
 		"penetrate": true
 	},
 	{
+		"name": "fire_imp_attack_fire",
+		"bounding_box": [30.0, 56.0, 83.0, 80.0],
+		"animation": "fire_imp_attack_fire",
+		"velocity": [100.0, 0.0],
+		"duration": 1.0,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "skull_attack_explosion",
+		"bounding_box": [25.0, 125.0, 100.0, 200.0],
+		"animation": "skull_attack_explosion",
+		"velocity": [100.0, 0.0],
+		"duration": 0.8,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
 		"name": "bird_stone",
 		"bounding_box": [0.0, 0.0, 24.0, 23.0],
 		"animation": "bird_stone",

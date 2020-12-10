@@ -29,7 +29,7 @@
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 150,
+		"price": 100,
 		"buffs": [
 			{
 				"attack": 10,
@@ -47,7 +47,7 @@
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 400,
+		"price": 550,
 		"buffs": [
 			{
 				"attack": 30,
@@ -65,7 +65,7 @@
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 150,
+		"price": 100,
 		"buffs": [
 			{
 				"attack": 0,
@@ -83,7 +83,7 @@
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 400,
+		"price": 550,
 		"buffs": [
 			{
 				"attack": 0,
@@ -101,7 +101,7 @@
 		"hp": 300,
 		"mp": 0,
 		"exp": 0,
-		"price": 1000,
+		"price": 550,
 		"buffs": [
 			{
 				"attack": 20,

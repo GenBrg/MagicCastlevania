@@ -375,6 +375,56 @@
 		"interval": 0.1
 	},
 	{
+		"name": "fire_imp_attack",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "fire_imp_death",
+		"sprite_num": 4,
+		"interval": 0.1
+	},
+	{
+		"name": "fire_imp_hurt",
+		"sprite_num": 2,
+		"interval": 0.1
+	},
+	{
+		"name": "fire_imp_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "fire_imp_attack_fire",
+		"sprite_num": 10,
+		"interval": 0.1
+	},
+	{
+		"name": "skull_attack",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "skull_death",
+		"sprite_num": 5,
+		"interval": 0.1
+	},
+	{
+		"name": "skull_hurt",
+		"sprite_num": 3,
+		"interval": 0.1
+	},
+	{
+		"name": "skull_walk",
+		"sprite_num": 6,
+		"interval": 0.1
+	},
+	{
+		"name": "skull_attack_explosion",
+		"sprite_num": 8,
+		"interval": 0.1
+	},
+	{
 		"name": "boss_bull_walk",
 		"sprite_num": 6,
 		"interval": 0.1
@@ -402,6 +452,11 @@
 	{
 		"name": "boss_bull_attack",
 		"sprite_num": 7,
+		"interval": 0.1
+	},
+	{
+		"name": "boss_bull_hurt",
+		"sprite_num": 2,
 		"interval": 0.1
 	},
 	{

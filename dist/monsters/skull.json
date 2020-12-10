@@ -1,13 +1,13 @@
 {
-	"hp": 54,
-	"attack": 20,
+	"hp": 40,
+	"attack": 19,
 	"body_attack": 14,
 	"defense": 10,
-	"speed": 49.0,
-	"exp": 59,
-	"coin": 84,
+	"speed": 135.0,
+	"exp": 56,
+	"coin": 81,
 	"invulnerable_time": 0.4,
-	"bounding_box": [-26.0, 0.0, 22.0, 73.0],
+	"bounding_box": [-32.0, 0.0, 32.0, 60.0],
 	"item": {
 		"small health potion": 0.07,
 		"small attack potion": 0.07,
@@ -15,14 +15,14 @@
 	},
 	"skills": [
 		{
-			"mob_animation": "skeleton_attack",
-			"aoe_prototype": "normal_attack",
+			"mob_animation": "bird_attack",
+			"aoe_prototype": "bird_stone",
 			"cooldown": 1.0,
-			"attach_to_entity": true
+			"attach_to_entity": false
 		}
 	],
 	"ai": {
-		"type": 0
+		"type": 1
 	},
 	"is_boss": false
 }
