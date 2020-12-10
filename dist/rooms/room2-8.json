@@ -1,0 +1,52 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[7, 489, 942, 53],
+		[330, 425, 302, 116]
+	],
+	"one_sided_platforms": [
+		[44, 163, 235, 37],
+		[328, 272, 304, 36],
+		[684, 163, 233, 34]
+	],
+	"traps": [
+		{
+			"bounding_box": [291, 453, 65, 64],
+			"attack": 100
+		},
+		{
+			"bounding_box": [601, 453, 65, 64],
+			"attack": 100
+		}
+	],
+	"monsters": [
+		{
+			"name": "bear",
+			"initial_pos": [146.0, 163.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [780.0, 160.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "bird",
+			"initial_pos": [477.0, 64.0],
+			"move_radius": 230.0
+		}
+	],
+	"items": [
+	],
+	"key_position": [134, 155],
+	"doors": [
+		[78, 488],
+		[751, 488],
+		[454, 269]
+	],
+	"background_sprite": "room_8_bg",
+	"dialogs": []
+}

@@ -38,7 +38,7 @@ struct PlayMode : Mode {
 	 * @param depth Current depth of the room which can be useful to generate different types of rooms at different depth.
 	 * @return The door the newly generated room uses to connect to the parent room.
 	 */
-	Door* GenerateRoomsHelper(std::vector<int>& candidates, size_t remaining_room, size_t depth);
+	Door* GenerateRoomsHelper(const std::string& level_string, std::vector<int>& candidates, size_t remaining_room, size_t depth);
 	void OpenDoor();
 	void CollectKey() { ++keys_collected; }
 	int GetKeysCollected() const { return keys_collected; }

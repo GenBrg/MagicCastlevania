@@ -1,0 +1,47 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[11, 490, 938, 53]
+	],
+	"one_sided_platforms": [
+		[43, 256, 235, 34],
+		[329, 126, 300, 32],
+		[684, 261, 233, 35],
+		[331, 370, 299, 34]
+	],
+	"traps": [
+		{
+			"bounding_box": [436, 162, 89, 67],
+			"attack": 200
+		}
+	],
+	"monsters": [
+		{
+			"name": "ghost",
+			"initial_pos": [159.0, 255.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "ghost",
+			"initial_pos": [800.0, 255.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "bird",
+			"initial_pos": [480.0, 127.0],
+			"move_radius": 130.0
+		}
+	],
+	"items": [],
+	"key_position": [470, 120],
+	"doors": [
+		[93, 487],
+		[767, 487],
+		[455, 366]
+	],
+	"background_sprite": "room_6_bg",
+	"dialogs": []
+}

@@ -1,0 +1,72 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[0, 66, 61, 277],
+		[61, 194, 192, 100],
+		[11, 491, 362, 50],
+		[587, 491, 362, 50],
+		[724, 133, 171, 163],
+		[895, 197, 63, 36],
+		[786, 75, 49, 59]
+	],
+	"one_sided_platforms": [
+		[394, 365, 298, 35],
+		[597, 197, 127, 34]
+	],
+	"traps": [
+		{
+			"bounding_box": [386, 497, 191, 44],
+			"attack": 10000
+		},
+		{
+			"bounding_box": [417, 400, 256, 7],
+			"attack": 30
+		},
+		{
+			"bounding_box": [615, 231, 113, 7],
+			"attack": 30
+		}
+	],
+	"monsters": [
+		{
+			"name": "ghost",
+			"initial_pos": [520.0, 365.0],
+			"move_radius": 120.0
+		},
+		{
+			"name": "jinn",
+			"initial_pos": [191.0, 489.0],
+			"move_radius": 120.0
+		}
+	],
+	"items": [
+		{
+			"name": "sword2",
+			"position": [922, 180],
+			"probability": 0.05
+		}
+	],
+	"key_position": [808, 62],
+	"doors": [
+		[150, 194],
+		[90, 491],
+		[798, 491]
+	],
+	"background_sprite": "room_3_bg",
+	"dialogs": [
+		{
+			"trigger_box": [0, 0, 960, 540],
+			"auto_trigger": true,
+			"hit_time_remain": 1,
+			"contents": [
+				{
+					"texts": "Watch out those spikes in this room!\n",
+					"avatar_sprite": "avatar_mage"
+				}
+			]
+		}
+	]
+}

@@ -324,9 +324,9 @@ void Player::LevelUp() {
 
 	++cur_level_;
 
-	max_hp_ += 20 * cur_level_;
+	max_hp_ += 20;
 	hp_ = max_hp_;
-	attack_ += 6 * cur_level_;
-	defense_ += 6 * cur_level_;
+	attack_ += 4;
+	defense_ += 2;
 	Sound::play(*sound_samples.at("level_up"));
 }

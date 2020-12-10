@@ -1,0 +1,68 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[0, 492, 263, 51],
+		[764, 492, 202, 51]
+	],
+	"one_sided_platforms": [
+		[361, 407, 105, 30],
+		[112, 313, 173, 30],
+		[34, 159, 171, 30],
+		[263, 83, 106, 30],
+		[437, 144, 171, 30],
+		[647, 232, 296, 30],
+		[554, 353, 174, 30]
+	],
+	"traps": [
+		{
+			"bounding_box": [289, 499, 461, 43],
+			"attack": 10000
+		}
+	],
+	"monsters": [
+		{
+			"name": "bird",
+			"initial_pos": [383.0, 515.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "bird",
+			"initial_pos": [615.0, 517.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [795.0, 231.0],
+			"move_radius": 130.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [187.0, 312.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "jinn",
+			"initial_pos": [631.0, 353.0],
+			"move_radius": 80.0
+		}
+	],
+	"items": [
+		{
+			"name": "large defense potion",
+			"position": [408, 392],
+			"probability": 0.1
+		}
+	],
+	"key_position": [349, 220],
+	"doors": [
+		[89, 490],
+		[836, 490],
+		[836, 490],
+		[491, 141]
+	],
+	"background_sprite": "room_17_bg",
+	"dialogs": []
+}

@@ -1,0 +1,53 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[0, 491, 943, 50],
+		[394, 78, 171, 470]
+	],
+	"one_sided_platforms": [
+		[75, 361, 810, 37],
+		[138, 236, 683, 34],
+		[205, 108, 550, 32]
+	],
+	"traps": [],
+	"monsters": [
+		{
+			"name": "ghost",
+			"initial_pos": [271.0, 233.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "ghost",
+			"initial_pos": [687.0, 233.0],
+			"move_radius": 100.0
+		},
+		{
+			"name": "jinn",
+			"initial_pos": [233.0, 362.0],
+			"move_radius": 120.0
+		},
+		{
+			"name": "jinn",
+			"initial_pos": [715.0, 362.0],
+			"move_radius": 120.0
+		}
+	],
+	"items": [
+		{
+			"name": "shield2",
+			"position": [88, 137],
+			"probability": 0.05
+		}
+	],
+	"key_position": [585, 221],
+	"doors": [
+		[64, 491],
+		[820, 491],
+		[452, 74]
+	],
+	"background_sprite": "room_7_bg",
+	"dialogs": []
+}

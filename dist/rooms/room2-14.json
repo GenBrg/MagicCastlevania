@@ -1,0 +1,51 @@
+{
+	"platforms": [
+		[-10, -1000, 30, 2000],
+		[940, -1000, 30, 2000],
+		[-10, 540, 1000, 30],
+
+		[0, 492, 957, 49]
+	],
+	"one_sided_platforms": [
+		[32, 160, 173, 33],
+		[329, 160, 298, 33],
+		[744, 160, 172, 33],
+		[339, 270, 108, 30],
+		[339, 270, 108, 30],
+		[503, 270, 108, 30],
+		[623, 374, 171, 35]
+	],
+	"traps": [],
+	"monsters": [
+		{
+			"name": "bear",
+			"initial_pos": [466.0, 159.0],
+			"move_radius": 120.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [219.0, 371.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "spider",
+			"initial_pos": [700.0, 371.0],
+			"move_radius": 80.0
+		}
+	],
+	"items": [
+		{
+			"name": "small attack potion",
+			"position": [389, 252],
+			"probability": 0.3
+		}
+	],
+	"key_position": [551, 259],
+	"doors": [
+		[126, 159],
+		[806, 159],
+		[471, 488]
+	],
+	"background_sprite": "room_14_bg",
+	"dialogs": []
+}
