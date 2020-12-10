@@ -176,7 +176,9 @@ DrawSprites::~DrawSprites() {
 
 	//based on base0's PongMode::draw()
 
-	for (auto& [tex, attribs] : tex_attribs_map) {
+	for (GLuint tex : atlas.texes) {
+		auto& attribs = tex_attribs_map[tex];
+		
 		//upload vertices to vertex_buffer:
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer); //set vertex_buffer as current
 		glBufferData(GL_ARRAY_BUFFER, attribs.size() * sizeof(attribs[0]), attribs.data(), GL_STREAM_DRAW); //upload attribs array
