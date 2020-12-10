@@ -50,6 +50,8 @@ void Monster::OnDie()
 			main_play->Transition(SWITCH_ROOM_TRANSITION);
 		});
 		TimerManager::Instance().AddTimer(5.0f, [&](){
+			Sound::play(*sound_samples["room_level_up"]);
+			main_play->DisplayLevelClearScene(1.5f);
 			main_play->ProceedLevel();
 		});
 	} 

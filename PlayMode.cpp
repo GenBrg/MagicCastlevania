@@ -24,8 +24,11 @@
 
 #define HALF_SWITCH_ROOM_TRANSITION SWITCH_ROOM_TRANSITION / 2.0f
 
-PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
+PlayMode::PlayMode() : 
+press_w_hint(data_path("ReallyFree-ALwl7.ttf")),
+level_transition_scene(sprites->lookup("level_clear"))
 {
+	
 	player = Player::Create(&cur_room, data_path("player.json"));
 	hud = new HeadsUpDisplay();
 	ProceedLevel();
@@ -99,6 +102,8 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 
 void PlayMode::update(float elapsed)
 {
+	level_clear_scene_duration -= elapsed;
+
     if (in_transition_) {
         elapsed_since_transition_ += elapsed;
         if (elapsed_since_transition_ > trans_time_) {
@@ -124,39 +129,46 @@ void PlayMode::draw(glm::uvec2 const &window_size)
 	//don't use the depth test:
 	glDisable(GL_DEPTH_TEST);
 
-	{ //use a DrawSprites to do the drawing:
+	if (level_clear_scene_duration > 0.0f) {
 		DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, window_size, DrawSprites::AlignPixelPerfect);
-		cur_room->Draw(draw);
-		player->Draw(draw);
-		hud->Draw(draw);
-	}
-
-	{
-		if (cur_door && cur_door->GetLockStatus() != Door::LockStatus::CLOSED)
-		{
-
-			press_w_hint.Draw();
+		Transform2D transform = Transform2D(nullptr);
+		draw.draw(level_transition_scene, transform);
+	} else {
+		{ //use a DrawSprites to do the drawing:
+			DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, window_size, DrawSprites::AlignPixelPerfect);
+			cur_room->Draw(draw);
+			player->Draw(draw);
+			hud->Draw(draw);
 		}
 
-		if (cur_room->cur_dialog)
 		{
-			// draw it in the end to put in the front layer
-			cur_room->cur_dialog->Draw(window_size);
+			if (cur_door && cur_door->GetLockStatus() != Door::LockStatus::CLOSED)
+			{
+
+				press_w_hint.Draw();
+			}
+
+			if (cur_room->cur_dialog)
+			{
+				// draw it in the end to put in the front layer
+				cur_room->cur_dialog->Draw(window_size);
+			}
+		}
+
+		{
+			if (in_transition_) {
+				DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, window_size, DrawSprites::AlignPixelPerfect);
+				Transform2D transform = Transform2D(nullptr);
+				transform.position_ = glm::vec2(0.0f, 0.0f);
+				transform.scale_ = glm::vec2(10.0f, 10.0f);
+				// calculate based on current time
+				float alphaPercent = 1.0f - fabs(elapsed_since_transition_ - trans_time_ / 2.0f) / (trans_time_ / 2.0f);
+				auto alpha = (uint8_t)(0xff * alphaPercent);
+				draw.draw(sprites->lookup("shop_window"), transform, glm::u8vec4(0xff, 0xff, 0xff, alpha));
+			}
 		}
 	}
-
-    {
-        if (in_transition_) {
-            DrawSprites draw(*sprites, VIEW_MIN, VIEW_MAX, window_size, DrawSprites::AlignPixelPerfect);
-            Transform2D transform = Transform2D(nullptr);
-            transform.position_ = glm::vec2(0.0f, 0.0f);
-            transform.scale_ = glm::vec2(10.0f, 10.0f);
-            // calculate based on current time
-            float alphaPercent = 1.0f - fabs(elapsed_since_transition_ - trans_time_ / 2.0f) / (trans_time_ / 2.0f);
-            auto alpha = (uint8_t)(0xff * alphaPercent);
-            draw.draw(sprites->lookup("shop_window"), transform, glm::u8vec4(0xff, 0xff, 0xff, alpha));
-        }
-    }
+	
 
 	GL_ERRORS();
 }
@@ -206,7 +218,8 @@ void PlayMode::GenerateRooms()
 	}
 
 	if (level_ == 1) {
-#ifdef DEBUG
+		#define _DEBUG
+#ifdef _DEBUG
 	// For Test
 	rooms.push_back(RoomPrototype::GetRoomPrototype("room2-3")->Create(level_));
 	rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
@@ -373,7 +386,7 @@ void PlayMode::PlayEndScene()
 {
 	StartBGM("ending_1");
 	std::vector< MenuMode::Item > items;
-	items.emplace_back("Static", &sprites->lookup("controls_static"), nullptr);
+	items.emplace_back("Static", &sprites->lookup("end_scene"), nullptr);
 	std::shared_ptr< MenuMode > ending_menu;
 	ending_menu = std::make_shared< MenuMode >(items, 0);
 	ending_menu->selected = 1;
@@ -382,4 +395,9 @@ void PlayMode::PlayEndScene()
 	ending_menu->view_max = glm::vec2(960.0f, 541.0f);
 	ending_menu->background = main_play;
 	Mode::set_current(ending_menu);
+}
+
+void PlayMode::DisplayLevelClearScene(float duration)
+{ 
+	level_clear_scene_duration = duration;
 }

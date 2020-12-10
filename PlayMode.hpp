@@ -49,6 +49,7 @@ struct PlayMode : Mode {
 	void StopBGM();
 	void StartBGM(const std::string& bgm_name);
 	void PlayEndScene();
+	void DisplayLevelClearScene(float duration);
 
 	inline static constexpr int kMaxLevel { 3 };
 
@@ -70,4 +71,6 @@ struct PlayMode : Mode {
 	float elapsed_since_transition_ {0.0f};
 	bool in_transition_ {false};
 	float trans_time_ {1.0f};
+	const Sprite& level_transition_scene;
+	float level_clear_scene_duration { 0.0f };
 };

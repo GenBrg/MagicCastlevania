@@ -39,8 +39,8 @@
 			"move_radius": 80.0
 		},
 		{
-			"name": "goblin",
-			"initial_pos": [647.0, 126.0],
+			"name": "snake",
+			"initial_pos": [478.0, 384.0],
 			"move_radius": 80.0
 		},
 		{
@@ -54,11 +54,17 @@
 			"move_radius": 80.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "panacea",
+			"position": [799, 476],
+			"probability": 0.1
+		}
+	],
 	"key_position": [480, 377],
 	"doors": [
 		[112, 489],
-		[751, 489]
+		[619, 127]
 	],
 	"background_sprite": "room_4_bg",
 	"dialogs": []

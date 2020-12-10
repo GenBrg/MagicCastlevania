@@ -50,7 +50,7 @@
 	"doors": [
 		[180, 489],
 		[871, 488],
-		[47, 151]
+		[80, 151]
 	],
 	"background_sprite": "room_5_bg",
 	"dialogs": []
