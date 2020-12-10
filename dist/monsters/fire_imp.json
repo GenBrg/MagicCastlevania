@@ -19,9 +19,9 @@
 	},
 	"skills": [
 		{
-			"mob_animation": "fire_imp_attack_fire",
+			"mob_animation": "fire_imp_attack",
 			"aoe_prototype": "fire_imp_attack_fire",
-			"cooldown": 1.0,
+			"cooldown": 3.0,
 			"attach_to_entity": false
 		}
 	],
