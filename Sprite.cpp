@@ -9,25 +9,25 @@
 void SpriteAtlas::LoadSprites(std::string const &filebase)
 {
 	std::string png_path = filebase + ".png";
-	atlas_pathes.push_back("");
 
+	atlas_pathes.push_back(filebase + ".atlas");
 	std::string& atlas_path = atlas_pathes.back();
-	atlas_path = filebase + ".atlas";
 
-	tex_sizes.emplace_back(glm::uvec2(0, 0));
-	glm::uvec2& tex_size = tex_sizes.back();
+	glm::uvec2 tex_size;
 
-	texes.emplace_back(0);
-	GLuint& tex = texes.back();
+	GLuint tex;
 
 	// ----- load the texture data -----
 	std::vector< glm::u8vec4 > tex_data;
 	load_png(png_path, &tex_size, &tex_data, LowerLeftOrigin);
+	tex_sizes.emplace_back(tex_size);
 
 	//upload the texture data to the GPU:
 
 	//generate a new texture object name:
 	glGenTextures(1, &tex);
+
+	texes.push_back(tex);
 
 	//bind the new texture object:
 	glBindTexture(GL_TEXTURE_2D, tex);
