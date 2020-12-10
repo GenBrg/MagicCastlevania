@@ -75,6 +75,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 		if (row_width == 0) {
 			if(evt.key.keysym.sym == SDLK_ESCAPE)
 				Mode::set_current(background);
+			return true;
 		}
 		else if (evt.key.keysym.sym == SDLK_w) {
 			//skip non-selectable items:
@@ -127,7 +128,7 @@ bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size)
 				return true;
 			}
 		}
-		else if (evt.key.keysym.sym == SDLK_TAB) {
+		else if (evt.key.keysym.sym == SDLK_TAB && row_width == 1) {
 			std::vector< MenuMode::Item > items;
 			items.emplace_back("Static", &sprites->lookup("controls_static"), nullptr);
 			std::shared_ptr< MenuMode > controls_menu;
