@@ -133,5 +133,32 @@
 		"duration": 1.3,
 		"initial_offset": [0.0, 0.0],
 		"penetrate": true
+	},
+	{
+		"name": "boss_warrior_attack_strike",
+		"bounding_box": [0.0, 0.0, 140.0, 56.0],
+		"animation": "boss_warrior_attack_strike",
+		"velocity": [100.0, 0.0],
+		"duration": 0.7,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "boss_wizard_attack_lightning",
+		"bounding_box": [0.0, 0.0, 140.0, 56.0],
+		"animation": "boss_wizard_attack_lightning",
+		"velocity": [100.0, 0.0],
+		"duration": 0.9,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "boss_wizard_attack_skull",
+		"bounding_box": [0.0, 0.0, 140.0, 56.0],
+		"animation": "boss_wizard_attack_skull",
+		"velocity": [100.0, 0.0],
+		"duration": 0.9,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
 	}
 ]
