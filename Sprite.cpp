@@ -6,9 +6,19 @@
 
 #include <fstream>
 
-SpriteAtlas::SpriteAtlas(std::string const &filebase) {
+void SpriteAtlas::LoadSprites(std::string const &filebase)
+{
 	std::string png_path = filebase + ".png";
+	atlas_pathes.push_back("");
+
+	std::string& atlas_path = atlas_pathes.back();
 	atlas_path = filebase + ".atlas";
+
+	tex_sizes.emplace_back(glm::uvec2(0, 0));
+	glm::uvec2& tex_size = tex_sizes.back();
+
+	texes.emplace_back(0);
+	GLuint& tex = texes.back();
 
 	// ----- load the texture data -----
 	std::vector< glm::u8vec4 > tex_data;
@@ -83,6 +93,7 @@ SpriteAtlas::SpriteAtlas(std::string const &filebase) {
 		sprite.max_px = data.max_px;
 		sprite.anchor_px = data.anchor_px;
 		sprite.size_px = data.max_px - data.min_px;
+		sprite.atlas_idx = static_cast<GLuint>(GetSpriteAtlasNum() - 1);
 
 		//finally, insert into the sprites lookup table:
 		auto ret = sprites.insert(std::make_pair(name, sprite));
@@ -93,14 +104,16 @@ SpriteAtlas::SpriteAtlas(std::string const &filebase) {
 }
 
 SpriteAtlas::~SpriteAtlas() {
-	glDeleteTextures(1, &tex);
-	tex = 0;
+	for (auto& tex : texes) {
+		glDeleteTextures(1, &tex);
+		tex = 0;
+	}
 }
 
 Sprite const &SpriteAtlas::lookup(std::string const &name) const {
 	auto f = sprites.find(name);
 	if (f == sprites.end()) {
-		throw std::runtime_error("Sprite of name '" + name + "' not found in atlas '" + atlas_path + "'.");
+		throw std::runtime_error("Sprite of name '" + name + "' not found in atlas");
 	}
 	return f->second;
 }

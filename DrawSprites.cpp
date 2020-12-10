@@ -116,7 +116,6 @@ DrawSprites::DrawSprites(
 		0.0f, 0.0f, 1.0f, 0.0f,
 		scale.x * -0.5f * (window_min.x + window_max.x), scale.y * -0.5f * (window_min.y + window_max.y), 0.0f, 1.0f
 	);
-
 	//DEBUG: std::cout << glm::to_string(to_clip) << std::endl;
 }
 void DrawSprites::draw_bounding_box(glm::vec2 const lower_left_corner, glm::vec2 const upper_right_corner) {
@@ -135,8 +134,8 @@ void DrawSprites::draw_bounding_box(glm::vec2 const lower_left_corner, glm::vec2
 	//std::cout << "Drawing bounding box at (" << lower_left_corner.x << "," << lower_left_corner.y << ") (" << upper_right_corner.x << "," << upper_right_corner.y << ")" << std::endl;
 }
 void DrawSprites::draw(Sprite const &sprite, const Transform2D& transform, glm::u8vec4 const &tint) {
-	glm::vec2 min_tc = sprite.min_px / glm::vec2(atlas.tex_size);
-	glm::vec2 max_tc = sprite.max_px / glm::vec2(atlas.tex_size);
+	glm::vec2 min_tc = sprite.min_px / glm::vec2(atlas.tex_sizes[sprite.atlas_idx]);
+	glm::vec2 max_tc = sprite.max_px / glm::vec2(atlas.tex_sizes[sprite.atlas_idx]);
 
 	glm::vec2 lower_left_corner = sprite.min_px - sprite.anchor_px;
 	glm::vec2 upper_right_corner = sprite.max_px - sprite.anchor_px;
@@ -161,6 +160,7 @@ void DrawSprites::draw(Sprite const &sprite, const Transform2D& transform, glm::
 
 	//you may recognize this from draw_rectangle in base0:
 	//split rectangle into two triangles:
+	std::vector<Vertex>& attribs = tex_attribs_map[atlas.texes[sprite.atlas_idx]];
 	attribs.emplace_back(corners[0], glm::vec2(min_tc.x,min_tc.y), tint);
 	attribs.emplace_back(corners[1], glm::vec2(max_tc.x,min_tc.y), tint);
 	attribs.emplace_back(corners[3], glm::vec2(max_tc.x,max_tc.y), tint);
@@ -172,38 +172,40 @@ void DrawSprites::draw(Sprite const &sprite, const Transform2D& transform, glm::
 }
 
 DrawSprites::~DrawSprites() {
-	if (attribs.empty()) return;
+	if (tex_attribs_map.empty()) return;
 
 	//based on base0's PongMode::draw()
 
-	//upload vertices to vertex_buffer:
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer); //set vertex_buffer as current
-	glBufferData(GL_ARRAY_BUFFER, attribs.size() * sizeof(attribs[0]), attribs.data(), GL_STREAM_DRAW); //upload attribs array
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	for (auto& [tex, attribs] : tex_attribs_map) {
+		//upload vertices to vertex_buffer:
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer); //set vertex_buffer as current
+		glBufferData(GL_ARRAY_BUFFER, attribs.size() * sizeof(attribs[0]), attribs.data(), GL_STREAM_DRAW); //upload attribs array
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	//set color_texture_program as current program:
-	glUseProgram(color_texture_program->program);
+		//set color_texture_program as current program:
+		glUseProgram(color_texture_program->program);
 
-	//upload OBJECT_TO_CLIP to the proper uniform location:
-	glUniformMatrix4fv(color_texture_program->OBJECT_TO_CLIP_mat4, 1, GL_FALSE, glm::value_ptr(to_clip));
+		//upload OBJECT_TO_CLIP to the proper uniform location:
+		glUniformMatrix4fv(color_texture_program->OBJECT_TO_CLIP_mat4, 1, GL_FALSE, glm::value_ptr(to_clip));
 
-	//use the mapping vertex_buffer_for_color_texture_program to fetch vertex data:
-	glBindVertexArray(vertex_buffer_for_color_texture_program);
+		//use the mapping vertex_buffer_for_color_texture_program to fetch vertex data:
+		glBindVertexArray(vertex_buffer_for_color_texture_program);
 
-	//bind the solid white texture to location zero:
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, atlas.tex);
+		//bind the solid white texture to location zero:
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, tex);
 
-	//run the OpenGL pipeline:
-	glDrawArrays(GL_TRIANGLES, 0, GLsizei(attribs.size()));
+		//run the OpenGL pipeline:
+		glDrawArrays(GL_TRIANGLES, 0, GLsizei(attribs.size()));
 
-	//unbind the solid white texture:
-	glBindTexture(GL_TEXTURE_2D, 0);
+		//unbind the solid white texture:
+		glBindTexture(GL_TEXTURE_2D, 0);
 
-	//reset vertex array to none:
-	glBindVertexArray(0);
+		//reset vertex array to none:
+		glBindVertexArray(0);
 
-	//reset current program to none:
-	glUseProgram(0);
+		//reset current program to none:
+		glUseProgram(0);
+	}
 }
 

@@ -27,10 +27,12 @@ extern class HeadsUpDisplay* hud;
 
 using json = nlohmann::json;
 
-inline Load< SpriteAtlas > sprites(LoadTagEarly, []() -> SpriteAtlas const * {
-	SpriteAtlas const *ret = new SpriteAtlas(data_path("MagicCastlevania"));
+inline Load< SpriteAtlas > sprites(LoadTagEarly, []() -> SpriteAtlas* const {
+	SpriteAtlas *ret = new SpriteAtlas();
+	ret->LoadSprites(data_path("MagicCastlevania"));
+	ret->LoadSprites(data_path("Monsters"));
 	return ret;
-	});
+});
 
 inline std::unordered_map<std::string, Sound::Sample*> sound_samples;
 

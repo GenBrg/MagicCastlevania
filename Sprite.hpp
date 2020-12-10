@@ -13,6 +13,7 @@
 
 #include <unordered_map>
 #include <string>
+#include <vector>
 
 struct Sprite {
 	//Sprites are rectangles in an atlas texture:
@@ -20,6 +21,8 @@ struct Sprite {
 	glm::vec2 max_px; //position of upper right corner (in pixels; ll-origin)
 	glm::vec2 anchor_px; //position of 'anchor' (in pixels; ll-origin)
 	glm::vec2 size_px;
+
+	GLuint atlas_idx;
 
 	//NOTE:
 	//The 'anchor' is the "center" or "pivot point" of the sprite --
@@ -32,16 +35,20 @@ struct Sprite {
 
 struct SpriteAtlas {
 	//load from filebase.png and filebase.atlas:
-	SpriteAtlas(std::string const &filebase);
+	SpriteAtlas() = default;
 	~SpriteAtlas();
 
 	//look up sprite in list of loaded sprites:
 	// throws an error if name is missing
 	Sprite const &lookup(std::string const &name) const;
 
+	void LoadSprites(std::string const &filebase);
+	size_t GetSpriteAtlasNum() const { return texes.size(); } 
+
 	//this is the atlas texture; used when drawing sprites:
-	GLuint tex = 0;
-	glm::uvec2 tex_size = glm::uvec2(0);
+	std::vector<GLuint> texes;
+	// GLuint tex = 0;
+	std::vector<glm::uvec2> tex_sizes;
 
 	//---- internal data ---
 
@@ -49,6 +56,6 @@ struct SpriteAtlas {
 	std::unordered_map< std::string, Sprite > sprites;
 
 	//path to atlas, stored for debugging purposes:
-	std::string atlas_path;
+	std::vector<std::string> atlas_pathes;
 };
 

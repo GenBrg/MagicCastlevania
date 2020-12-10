@@ -14,7 +14,7 @@
 
 #include <glm/glm.hpp>
 
-#include <vector>
+#include <unordered_map>
 
 struct DrawSprites {
 	enum AlignMode {
@@ -45,5 +45,5 @@ struct DrawSprites {
 		glm::vec2 TexCoord;
 		glm::u8vec4 Color;
 	};
-	std::vector< Vertex > attribs;
+	std::unordered_map<GLuint, std::vector<Vertex>> tex_attribs_map;
 };
