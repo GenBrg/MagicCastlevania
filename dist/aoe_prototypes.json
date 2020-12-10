@@ -100,7 +100,7 @@
 	},
 	{
 		"name": "skull_attack_explosion",
-		"bounding_box": [25.0, 125.0, 100.0, 200.0],
+		"bounding_box": [5.0, 0.0, 60.0, 40.0],
 		"animation": "skull_attack_explosion",
 		"velocity": [100.0, 0.0],
 		"duration": 0.8,
