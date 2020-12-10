@@ -1,28 +1,28 @@
 {
-	"hp": 1,
-	"attack": 30,
-	"body_attack": 30,
-	"defense": 10,
+	"hp": 250,
+	"attack": 45,
+	"body_attack": 50,
+	"defense": 15,
 	"speed": 60.0,
-	"exp": 380,
-	"coin": 500,
+	"exp": 598,
+	"coin": 800,
 	"invulnerable_time": 0.4,
-	"bounding_box": [-28.0, 0.0, 28.0, 110.0],
+	"bounding_box": [-33.0, 0.0, 33.0, 110.0],
 	"item": {
-		"sword1": 0.25,
-		"vest1": 0.25,
-		"shield1": 0.25,
-		"boot1": 0.25
+		"sword2": 0.25,
+		"vest2": 0.25,
+		"shield2": 0.25,
+		"boot2": 0.25
 	},
 	"skills": [
 		{
-			"mob_animation": "boss_bull_attack",
+			"mob_animation": "boss_warrior_attack",
 			"aoe_prototype": "normal_attack",
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		},
 		{
-			"mob_animation": "boss_bull_attack_magic_fire",
+			"mob_animation": "boss_warrior_attack_magic_fire",
 			"aoe_prototype": "boss_bull_magic_fire",
 			"cooldown": 3.0,
 			"attack_modifier": 1.3,
@@ -30,10 +30,10 @@
 		},
 		{
 			"mob_animation": "boss_bull_attack_magic_blade",
-			"aoe_prototype": "boss_bull_magic_blade",
+			"aoe_prototype": "boss_warrior_attack_strike",
 			"cooldown": 6.0,
 			"attack_modifier": 1.5,
-			"attach_to_entity": false
+			"attach_to_entity": true
 		}
 	],
 	"ai": {
