@@ -23,5 +23,17 @@
 	],
 	"shop_position": [40, 493],
 	"background_sprite": "room_2_bg",
-	"dialogs": []
+	"dialogs": [
+		{
+			"trigger_box": [0, 0, 960, 540],
+			"auto_trigger": true,
+			"hit_time_remain": 1,
+			"contents": [
+				{
+					"texts": "You made it!\nKeep it going!\nWe are in level 2 now!",
+					"avatar_sprite": "avatar_mage"
+				}
+			]
+		}
+	]
 }
