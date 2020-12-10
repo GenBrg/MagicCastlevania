@@ -93,17 +93,19 @@ room_(room)
 void Player::OnDie()
 {
 	state_ = State::DYING;
+	main_play->bgm->set_volume(0.1f);
+    Sound::play(*sound_samples.at("dead"));
 	animation_controller_.PlayAnimation(GetAnimation(AnimationState::DEATH), false);
 	++pending_callbacks_;
 
 	TimerManager::Instance().AddTimer(0.35f, [&](){
-		main_play->Transition();
+		main_play->Transition(ON_DIE_TRANSITION);
 	});
 
 	TimerManager::Instance().AddTimer(GetAnimation(AnimationState::DEATH)->GetLength(), [&](){
 		--pending_callbacks_;
-		Reset();
-	});
+        Reset();
+    });
 }
 
 void Player::UpdateImpl(float elapsed)

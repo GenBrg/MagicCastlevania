@@ -43,16 +43,58 @@ Continue dialog, open shop: E
 
 Sources: 
 
-Roguelike https://kenney.nl/assets/micro-roguelike \
-Platformer https://kenney.nl/assets/platformer-pack-redux \
-Roguelike Dungeon https://kenney.nl/assets/roguelike-caves-dungeons \
-Roguelike RPG https://kenney.nl/assets/roguelike-rpg-pack \
-Monsters https://craftpix.net/freebies/free-rpg-monster-sprites-pixel-art/ \
-Dungeon-platformer https://craftpix.net/product/dungeon-platformer-pixel-art-tileset-2/ \
-Font https://www.dafont.com/digital-disco.font \
-https://www.1001fonts.com/bulky-pixels-font.html \
-https://momentaryunicorn.itch.io/momentary-unicorns-evolving-swords
+Sprites: https://craftpix.net/product/fantasy-platformer-game-kit-pixel-art/ \
+https://momentaryunicorn.itch.io/momentary-unicorns-evolving-swords \
 https://craftpix.net/freebies/free-shield-2d-game-assets-pack/ \
 https://www.deviantart.com/tdeleeuw/art/Skyrim-Armour-pixel-art-401280056 \
+
+Font https://www.dafont.com/digital-disco.font \
+https://www.1001fonts.com/bulky-pixels-font.html \
+
+BGM:
+- Bleeping Demo" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
+
+- "Malicious" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
+  
+- "Return of the Mummy" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
+  
+- "Nightmare Machine" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
+  
+- "SCP-x7x (6th Floor)" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
+  
+Sound effect:
+- https://www.zapsplat.com/music/bedroom-door-open-2/
+- https://www.zapsplat.com/music/person-swallows-gulp-drinking/
+- https://www.zapsplat.com/music/sword-swing-fast-whoosh-in-air-with-metal-sound-of-blade-swiping-version-3/
+- https://www.zapsplat.com/music/sword-swing-fast-whoosh-in-air-with-metal-sound-of-blade-swiping-version-2/
+- https://www.zapsplat.com/music/sword-swing-fast-whoosh-in-air-with-metal-sound-of-blade-swiping-version-1/
+- https://www.zapsplat.com/music/sword-swing-fast-whoosh-in-air-with-metal-sound-of-blade-swiping-version-5/
+- https://www.zapsplat.com/music/small-cartoon-character-high-pitched-voice-fight-vocalisation-24/
+- https://www.zapsplat.com/music/small-cartoon-character-high-pitched-voice-fight-vocalisation-4/
+- https://www.zapsplat.com/music/small-cartoon-character-high-pitched-voice-fight-vocalisation-21/
+- https://www.zapsplat.com/music/small-cartoon-character-high-pitched-voice-fight-vocalisation-26/
+- https://www.zapsplat.com/music/small-cartoon-character-high-pitched-voice-fight-vocalisation-17/
+- https://www.zapsplat.com/music/small-cartoon-character-high-pitched-voice-fight-vocalisation-11/
+- https://www.zapsplat.com/music/small-cartoon-character-high-pitched-voice-fight-vocalisation-13/
+- https://www.zapsplat.com/music/small-cartoon-character-high-pitched-voice-fight-vocalisation-15/
+- https://freesound.org/people/Mixedupmoviestuff/sounds/179222/
+- https://www.zapsplat.com/music/button-tick/
+- https://www.zapsplat.com/music/computer-menu-button-select-sound/
+- https://www.zapsplat.com/music/alert-tone-simple-and-basic-warm-soft-synth-positive-sound-1/
+- https://www.zapsplat.com/music/alert-tone-simple-and-basic-warm-soft-synth-positive-sound-2/
+- https://www.zapsplat.com/music/collect-treasure-or-coin-game-sound-action-3/
+- https://freesound.org/people/LittleRobotSoundFactory/sounds/270397/
+
+
 This game was built with [NEST](NEST.md).
 

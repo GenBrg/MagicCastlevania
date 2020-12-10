@@ -22,7 +22,6 @@
 #include <iostream>
 #include <sstream>
 
-#define SWITCH_ROOM_TRANSITION 1.1f
 #define HALF_SWITCH_ROOM_TRANSITION SWITCH_ROOM_TRANSITION / 2.0f
 
 PlayMode::PlayMode() : press_w_hint(data_path("ReallyFree-ALwl7.ttf"))
@@ -102,7 +101,7 @@ void PlayMode::update(float elapsed)
 {
     if (in_transition_) {
         elapsed_since_transition_ += elapsed;
-        if (elapsed_since_transition_ > SWITCH_ROOM_TRANSITION) {
+        if (elapsed_since_transition_ > trans_time_) {
             in_transition_ = false;
         }
     } else {
@@ -153,7 +152,7 @@ void PlayMode::draw(glm::uvec2 const &window_size)
             transform.position_ = glm::vec2(0.0f, 0.0f);
             transform.scale_ = glm::vec2(10.0f, 10.0f);
             // calculate based on current time
-            float alphaPercent = 1.0f - fabs(elapsed_since_transition_ - SWITCH_ROOM_TRANSITION / 2.0f) / (SWITCH_ROOM_TRANSITION / 2.0f);
+            float alphaPercent = 1.0f - fabs(elapsed_since_transition_ - trans_time_ / 2.0f) / (trans_time_ / 2.0f);
             auto alpha = (uint8_t)(0xff * alphaPercent);
             draw.draw(sprites->lookup("shop_window"), transform, glm::u8vec4(0xff, 0xff, 0xff, alpha));
         }
@@ -296,7 +295,7 @@ void PlayMode::OpenDoor()
 					cur_door->SetLockStatus(Door::LockStatus::OPENING);
 				break;
 				case Door::LockStatus::OPENED:
-					Transition();
+					Transition(SWITCH_ROOM_TRANSITION);
 					Sound::play(*sound_samples["footstep"]);
 					TimerManager::Instance().AddTimer(HALF_SWITCH_ROOM_TRANSITION, [&](){
 						SwitchRoom(cur_door);
@@ -345,8 +344,9 @@ void PlayMode::ResetCurrentLevel()
 	cur_room->OnEnter(player, cur_room->GetDoor(0));
 }
 
-void PlayMode::Transition() 
+void PlayMode::Transition(float trans_time)
 {
 	in_transition_ = true;
     elapsed_since_transition_ = 0.0f;
+    trans_time_ = trans_time;
 }
