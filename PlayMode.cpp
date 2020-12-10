@@ -181,6 +181,11 @@ void PlayMode::ProceedLevel()
 {
 	++level_;
 
+	if (level_ > kMaxLevel) {
+		PlayEndScene();
+		return;
+	}
+
 	ResetCurrentLevel();
 }
 
@@ -210,15 +215,15 @@ void PlayMode::GenerateRooms()
 		rooms[2]->GetDoor(2)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door12_room_num, 1), Door::LockStatus::UNLOCK);
 		rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door3_room_num, 1), Door::LockStatus::UNLOCK);
 		// For Test
-		// rooms.push_back(RoomPrototype::GetRoomPrototype("room3-6")->Create(level_));
+		// rooms.push_back(RoomPrototype::GetRoomPrototype("room2-3")->Create(level_));
 		// rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
-	} else if (level_ <= 4) {
+	} else if (level_ <= kMaxLevel) {
 		size_t door1_room_num = candidate_rooms.size() / 2;
 		size_t door2_room_num = candidate_rooms.size() - door1_room_num;
 		rooms[0]->GetDoor(0)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door1_room_num, 1), Door::LockStatus::UNLOCK);
 		rooms[0]->GetDoor(1)->ConnectTo(GenerateRoomsHelper(level_string, candidate_rooms, door2_room_num, 1), Door::LockStatus::UNLOCK);
 	} else {
-
+		throw std::runtime_error("Level exceed max level!");
 	}
 }
 
@@ -355,5 +360,21 @@ void PlayMode::StopBGM()
 void PlayMode::StartBGM(const std::string& bgm_name)
 {
 	StopBGM();
-	bgm = Sound::loop(*sound_samples[bgm_name]);
+	bgm = Sound::loop(*sound_samples[bgm_name], 0.0f);
+	bgm->set_volume(1.0f, 2.0f);
+}
+
+void PlayMode::PlayEndScene()
+{
+	StartBGM("ending_1");
+	std::vector< MenuMode::Item > items;
+	items.emplace_back("Static", &sprites->lookup("controls_static"), nullptr);
+	std::shared_ptr< MenuMode > ending_menu;
+	ending_menu = std::make_shared< MenuMode >(items, 0);
+	ending_menu->selected = 1;
+	ending_menu->atlas = sprites;
+	ending_menu->view_min = glm::vec2(0.0f, 0.0f);
+	ending_menu->view_max = glm::vec2(960.0f, 541.0f);
+	ending_menu->background = main_play;
+	Mode::set_current(ending_menu);
 }

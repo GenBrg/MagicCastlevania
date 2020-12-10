@@ -19,37 +19,37 @@
 	"traps": [
 		{
 			"bounding_box": [313, 474, 336, 67],
-			"attack": 10000
+			"attack": 100
 		}
 	],
 	"monsters": [
 		{
-			"name": "skeleton",
+			"name": "beholder",
 			"initial_pos": [96.0, 212.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "ghost",
+			"name": "beholder",
 			"initial_pos": [242.0, 309.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "beholder",
+			"name": "goblin",
 			"initial_pos": [303.0, 127.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "jinn",
+			"name": "goblin",
 			"initial_pos": [647.0, 126.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "ghost",
+			"name": "fire_imp",
 			"initial_pos": [744.0, 307.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "skeleton",
+			"name": "fire_imp",
 			"initial_pos": [862.0, 216.0],
 			"move_radius": 80.0
 		}

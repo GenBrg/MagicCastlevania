@@ -48,6 +48,9 @@ struct PlayMode : Mode {
 	void Transition(float t_time);
 	void StopBGM();
 	void StartBGM(const std::string& bgm_name);
+	void PlayEndScene();
+
+	inline static constexpr int kMaxLevel { 3 };
 
 	//----- game state -----
 

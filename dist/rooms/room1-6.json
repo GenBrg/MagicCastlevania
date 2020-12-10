@@ -15,22 +15,22 @@
 	"traps": [
 		{
 			"bounding_box": [436, 162, 89, 67],
-			"attack": 200
+			"attack": 100
 		}
 	],
 	"monsters": [
 		{
-			"name": "ghost",
+			"name": "fire_imp",
 			"initial_pos": [159.0, 255.0],
 			"move_radius": 100.0
 		},
 		{
-			"name": "ghost",
+			"name": "fire_imp",
 			"initial_pos": [800.0, 255.0],
 			"move_radius": 100.0
 		},
 		{
-			"name": "beholder",
+			"name": "mosquito",
 			"initial_pos": [480.0, 127.0],
 			"move_radius": 130.0
 		}

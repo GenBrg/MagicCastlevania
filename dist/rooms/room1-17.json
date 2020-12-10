@@ -34,22 +34,28 @@
 			"move_radius": 100.0
 		},
 		{
-			"name": "goblin",
+			"name": "snake",
 			"initial_pos": [795.0, 231.0],
 			"move_radius": 130.0
 		},
 		{
-			"name": "snake",
+			"name": "goblin",
 			"initial_pos": [187.0, 312.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "spider",
+			"name": "goblin",
 			"initial_pos": [631.0, 353.0],
 			"move_radius": 80.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "large attack potion",
+			"position": [408, 392],
+			"probability": 0.1
+		}
+	],
 	"key_position": [349, 220],
 	"doors": [
 		[89, 490],

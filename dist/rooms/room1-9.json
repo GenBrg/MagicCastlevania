@@ -22,12 +22,17 @@
 	],
 	"monsters": [
 		{
-			"name": "bird",
+			"name": "mosquito",
 			"initial_pos": [480.0, 85.0],
 			"move_radius": 380.0
 		},
 		{
-			"name": "ghost",
+			"name": "mosquito",
+			"initial_pos": [380.0, 85.0],
+			"move_radius": 380.0
+		},
+		{
+			"name": "fire_imp",
 			"initial_pos": [857.0, 356.0],
 			"move_radius": 80.0
 		}

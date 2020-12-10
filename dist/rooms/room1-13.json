@@ -24,7 +24,7 @@
 	],
 	"monsters": [
 		{
-			"name": "spider",
+			"name": "beholder",
 			"initial_pos": [886.0, 489.0],
 			"move_radius": 70.0
 		},
@@ -39,7 +39,13 @@
 			"move_radius": 80.0
 		}
 	],
-	"items": [],
+	"items": [
+		{
+			"name": "boot1",
+			"position": [379, 348],
+			"probability": 0.05
+		}
+	],
 	"key_position": [565, 212],
 	"doors": [
 		[89, 491],

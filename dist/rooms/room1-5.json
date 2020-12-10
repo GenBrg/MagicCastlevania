@@ -24,17 +24,22 @@
 	],
 	"monsters": [
 		{
-			"name": "orc",
+			"name": "snake",
 			"initial_pos": [386.0, 489.0],
 			"move_radius": 200.0
 		},
 		{
-			"name": "skeleton",
+			"name": "beholder",
 			"initial_pos": [600.0, 278.0],
 			"move_radius": 80.0
 		},
 		{
-			"name": "ghost",
+			"name": "beholder",
+			"initial_pos": [400.0, 150.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "mosquito",
 			"initial_pos": [400.0, 150.0],
 			"move_radius": 80.0
 		}
@@ -42,7 +47,7 @@
 	"items": [
 		{
 			"name": "large attack potion",
-			"position": [57, 408],
+			"position": [88, 137],
 			"probability": 0.1
 		}
 	],

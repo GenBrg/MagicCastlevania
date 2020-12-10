@@ -23,13 +23,18 @@
 	],
 	"monsters": [
 		{
-			"name": "jinn",
+			"name": "beholder",
 			"initial_pos": [462.0, 231.0],
 			"move_radius": 100.0
 		},
 		{
-			"name": "spider",
+			"name": "goblin",
 			"initial_pos": [534.0, 488.0],
+			"move_radius": 130.0
+		},
+		{
+			"name": "mosquito",
+			"initial_pos": [581.0, 77.0],
 			"move_radius": 130.0
 		}
 	],
