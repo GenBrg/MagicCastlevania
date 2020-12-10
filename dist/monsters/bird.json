@@ -1,16 +1,17 @@
 {
-	"hp": 20,
-	"attack": 20,
-	"body_attack": 10,
-	"defense": 5,
-	"speed": 100.0,
-	"exp": 80,
-	"coin": 160,
+	"hp": 35,
+	"attack": 14,
+	"body_attack": 7,
+	"defense": 7,
+	"speed": 140.0,
+	"exp": 42,
+	"coin": 56,
 	"invulnerable_time": 0.4,
 	"bounding_box": [-40.0, 0.0, 33.0, 48.0],
 	"item": {
-		"small health potion": 0.2,
-		"panacea": 0.05
+		"small health potion": 0.07,
+		"small attack potion": 0.07,
+		"small defense potion": 0.07
 	},
 	"skills": [
 		{
@@ -21,7 +22,7 @@
 		}
 	],
 	"ai": {
-		"type": 0
+		"type": 1
 	},
 	"is_boss": false
 }

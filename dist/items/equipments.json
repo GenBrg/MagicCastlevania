@@ -16,7 +16,7 @@
 		"pickup_sprite": "armor_1",
 		"attack": 5,
 		"defense": 15,
-		"price": 800,
+		"price": 1000,
 		"slot": 2
 	},
 	{
@@ -36,7 +36,7 @@
 		"pickup_sprite": "shoe_1",
 		"attack": 0,
 		"defense": 6,
-		"price": 200,
+		"price": 300,
 		"slot": 3
 	},
 	{
@@ -46,7 +46,7 @@
 		"pickup_sprite": "sword_2",
 		"attack": 40,
 		"defense": 0,
-		"price": 2000,
+		"price": 1900,
 		"slot": 0
 	},
 	{
@@ -56,7 +56,7 @@
 		"pickup_sprite": "armor_2",
 		"attack": 10,
 		"defense": 30,
-		"price": 1600,
+		"price": 1900,
 		"slot": 2
 	},
 	{
@@ -66,7 +66,7 @@
 		"pickup_sprite": "shield_2",
 		"attack": 0,
 		"defense": 24,
-		"price": 1200,
+		"price": 1150,
 		"slot": 1
 	},
 	{
@@ -76,7 +76,7 @@
 		"pickup_sprite": "shoe_2",
 		"attack": 0,
 		"defense": 12,
-		"price": 400,
+		"price": 550,
 		"slot": 3
 	},
 	{
@@ -86,7 +86,7 @@
 		"pickup_sprite": "sword_3",
 		"attack": 60,
 		"defense": 0,
-		"price": 3000,
+		"price": 2700,
 		"slot": 0
 	},
 	{
@@ -96,7 +96,7 @@
 		"pickup_sprite": "armor_3",
 		"attack": 15,
 		"defense": 45,
-		"price": 2400,
+		"price": 2700,
 		"slot": 2
 	},
 	{
@@ -106,7 +106,7 @@
 		"pickup_sprite": "shield_3",
 		"attack": 0,
 		"defense": 36,
-		"price": 1800,
+		"price": 1600,
 		"slot": 1
 	},
 	{
@@ -116,7 +116,7 @@
 		"pickup_sprite": "shoe_3",
 		"attack": 0,
 		"defense": 18,
-		"price": 600,
+		"price": 800,
 		"slot": 3
 	},
 	{
@@ -126,7 +126,7 @@
 		"pickup_sprite": "sword_4",
 		"attack": 80,
 		"defense": 0,
-		"price": 4500,
+		"price": 3700,
 		"slot": 0
 	},
 	{
@@ -136,7 +136,7 @@
 		"pickup_sprite": "armor_4",
 		"attack": 20,
 		"defense": 60,
-		"price": 3200,
+		"price": 3700,
 		"slot": 2
 	},
 	{
@@ -146,7 +146,7 @@
 		"pickup_sprite": "shield_4",
 		"attack": 0,
 		"defense": 48,
-		"price": 2400,
+		"price": 2200,
 		"slot": 1
 	},
 	{
@@ -156,7 +156,7 @@
 		"pickup_sprite": "shoe_4",
 		"attack": 0,
 		"defense": 24,
-		"price": 800,
+		"price": 1100,
 		"slot": 3
 	}
 ]
