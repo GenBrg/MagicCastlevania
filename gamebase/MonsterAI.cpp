@@ -192,6 +192,15 @@ void FollowAndAttackMonsterAI::Update(float elapsed)
 			// Face player
 			float player_pos_x = player->GetTransform().position_.x;
 
+			if (player_pos_x > transform_.position_.x)
+			{
+				transform_.scale_.x = 1.0f;
+			}
+			else
+			{
+				transform_.scale_.x = -1.0f;
+			}
+
 			if (should_attack_)
 			{
 				if (attack_cooldown_ <= 0.0f)

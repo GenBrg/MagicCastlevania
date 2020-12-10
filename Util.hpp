@@ -14,7 +14,7 @@
 #define SWITCH_ROOM_TRANSITION 1.1f
 #define ON_DIE_TRANSITION 3.0f
 
-#define _DEBUG
+// #define _DEBUG
 
 inline Sprite const* sprite_bg = nullptr;
 inline Sprite const* sprite_ghost = nullptr;
