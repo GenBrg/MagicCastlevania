@@ -20,23 +20,11 @@ Monster *MonsterPrototype::Create(Room &room, const glm::vec2 &initial_pos, floa
 	monster->move_radius_ = move_radius;
 	monster->central_pos_ = initial_pos;
 	monster->transform_.position_ = initial_pos;
-	if (is_boss_)
-	{
-		monster->hp_ = hp_;
-		monster->attack_ = attack_;
-		monster->defense_ = defense_;
-		monster->exp_ = exp_;
-		monster->coin_ = coin_;
-	}
-	else
-	{
-		monster->hp_ = static_cast<int>((1 + 0.5f * (leveli - 1)) * hp_);
-		monster->attack_ = static_cast<int>((1 + 0.3f * (leveli - 1)) * attack_);
-		monster->defense_ = static_cast<int>((1 + 0.3f * (leveli - 1)) * defense_);
-		monster->exp_ = static_cast<int>((1 + 0.5f * (leveli - 1)) * exp_);
-		monster->coin_ = static_cast<int>((1 + 0.5f * (leveli - 1)) * coin_);
-	}
-
+	monster->hp_ = hp_;
+	monster->attack_ = attack_;
+	monster->defense_ = defense_;
+	monster->exp_ = exp_;
+	monster->coin_ = coin_;
 	monster->take_damage_cooldown_ = invulnerable_time_;
 	monster->speed_ = speed_;
 	monster->animation_controller_.PlayAnimation(monster->GetAnimation(Mob::AnimationState::WALK), true, true);
