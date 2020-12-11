@@ -18,3 +18,8 @@ float TimerGuard::SecsUntilNextCall() const {
     float res = (float)std::chrono::duration_cast<std::chrono::milliseconds>(interval).count();
     return res > 0.0f ? (float)(res * 1e-3f) : 0.0f;
 }
+
+void TimerGuard::ClearCoolDown() 
+{
+	next_call_time_ = std::chrono::high_resolution_clock::now();
+}

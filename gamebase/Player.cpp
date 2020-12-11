@@ -172,6 +172,9 @@ void Player::Reset() {
 			}
 		}
 	}
+	for (auto& skill : skills_) {
+		skill.ClearCooldown();
+	}
 }
 
 Player* Player::Create(Room** room, const std::string& player_config_file)

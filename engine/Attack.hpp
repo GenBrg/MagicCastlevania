@@ -25,6 +25,7 @@ public:
 	AOEPrototype* GetAOEPrototype() { return aoe_prototype_; }
 	bool IsAttachToEntity() const { return attach_to_entity_; }
 	void PlayAttackSound() const;
+	void ClearCooldown() { guard_.ClearCoolDown(); }
 
 	friend void from_json(const json& j, Attack& attack);
 
