@@ -19,7 +19,7 @@
 	"traps": [
 		{
 			"bounding_box": [313, 9, 65, 61],
-			"attack": 80
+			"attack": 100
 		},
 		{
 			"bounding_box": [344, 496, 399, 39],

@@ -19,7 +19,7 @@
 	"traps": [
 		{
 			"bounding_box": [313, 474, 336, 67],
-			"attack": 10000
+			"attack": 100
 		}
 	],
 	"monsters": [
@@ -55,7 +55,7 @@
 	"doors": [
 		[112, 489],
 		[751, 489],
-		[601, 129]
+		[601, 127]
 	],
 	"background_sprite": "room_4_bg",
 	"dialogs": []
