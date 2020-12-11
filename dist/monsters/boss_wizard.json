@@ -1,7 +1,7 @@
 {
 	"hp": 500,
-	"attack": 65,
-	"body_attack": 52,
+	"attack": 70,
+	"body_attack": 56,
 	"defense": 0,
 	"speed": 60.0,
 	"exp": 1600,
@@ -37,7 +37,7 @@
 		}
 	],
 	"ai": {
-		"type": 0
+		"type": 2
 	},
 	"is_boss": true
 }
