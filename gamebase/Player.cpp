@@ -113,6 +113,11 @@ void Player::OnDie()
 
 void Player::UpdateImpl(float elapsed)
 {
+	shining_duration_ -= elapsed;
+	if (shining_duration_ > 0.0f) {
+		is_shining_ = static_cast<int>(shining_duration_ / 0.05f) % 2 == 0;
+	}
+
 	animation_controller_.Update(elapsed);
 	if (state_ == Mob::State::MOVING) {
 		switch (movement_component_.GetState())
@@ -330,3 +335,21 @@ void Player::LevelUp() {
 	defense_ += 2;
 	Sound::play(*sound_samples.at("level_up"));
 }
+
+void Player::DrawImpl(DrawSprites& draw)
+{
+	if (shining_duration_ > 0.0f) {
+		if (is_shining_) {
+			Mob::DrawImpl(draw);
+		}
+	} else {
+		Mob::DrawImpl(draw);
+	}
+	collider_.DrawDebugBox(draw);
+}
+
+void Player::OnTakeDamage()
+{
+	Shine(take_damage_cooldown_);
+}
+

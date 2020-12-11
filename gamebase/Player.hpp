@@ -64,12 +64,10 @@ public:
 	virtual int GetDefense() override;
 	int GetMaxHP() { return max_hp_; }
 	virtual void PlayTakeDamageSound() override;
+	virtual void OnTakeDamage() override;
 
 protected:
-	virtual void DrawImpl(DrawSprites& draw) override {
-		Mob::DrawImpl(draw);
-		collider_.DrawDebugBox(draw);
-	}
+	virtual void DrawImpl(DrawSprites& draw) override;
 
 private:
 	std::unordered_map<Mob::AnimationState, Animation*> animations_;
@@ -85,6 +83,8 @@ private:
 	std::vector<int> level_exps_;
 	std::vector<Attack> skills_;
 	std::vector<Buff> buffs_;
+	float shining_duration_ { 0.0f };
+	bool is_shining_ { false };
 
 	Inventory inventory_;
 
@@ -92,4 +92,5 @@ private:
 	Player(Room** room, const glm::vec4 bounding_box);
 
 	void LevelUp();
+	void Shine(float duration) { shining_duration_ = duration; }
 };

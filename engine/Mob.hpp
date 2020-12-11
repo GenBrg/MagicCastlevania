@@ -46,6 +46,7 @@ public:
 	virtual int GetDefense() { return defense_; }
 	virtual int GetDamagePoint(int attack) { return std::max(1, attack - GetDefense()); }
 	virtual bool IsDestroyed() const override;
+	virtual void OnTakeDamage() {}
 	
 	static const std::unordered_map<std::string, AnimationState> kAnimationNameStateMap;
 

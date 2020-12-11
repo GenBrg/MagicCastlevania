@@ -23,6 +23,7 @@ void Mob::TakeDamage(int attack)
 
 	take_damage_guard_(take_damage_cooldown_, [&]() {
 		PlayTakeDamageSound();
+		OnTakeDamage();
 
 		hp_ -= GetDamagePoint(attack);
 
