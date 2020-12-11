@@ -177,6 +177,7 @@ void PlayMode::SwitchRoom(Door *door)
 {
 	if (door->GetOppositeDoor() && door->GetLockStatus() == Door::LockStatus::OPENED)
 	{
+		player->StopMovement();
 		cur_room->OnLeave();
 		Door *opposite_door = door->GetOppositeDoor();
 		opposite_door->SetLockStatus(Door::LockStatus::OPENED);
@@ -192,7 +193,7 @@ void PlayMode::SwitchRoom(Door *door)
 void PlayMode::ProceedLevel()
 {
 	++level_;
-
+	player->StopMovement();
 	if (level_ > kMaxLevel) {
 		PlayEndScene();
 		return;
@@ -342,11 +343,13 @@ void PlayMode::OpenDoor()
 }
 
 void PlayMode::on_enter() {
+	InputSystem::Instance()->ClearKeyStates();
 	if (bgm) {
 		bgm->set_volume(1.0f);
 	}
 }
 void PlayMode::on_leave() {
+	InputSystem::Instance()->ClearKeyStates();
 	if (bgm) {
 		bgm->set_volume(0.3f);
 	}

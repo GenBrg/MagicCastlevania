@@ -26,7 +26,7 @@ public:
 	MovementComponent(Collider& collider, Transform2D& transform) : 
 	transform_(transform),
 	collider_(collider)
-	{ acceleration_.y = kGravity; }
+	{ }
 
 	// Gameplay
 	void MoveLeft();  
@@ -34,6 +34,7 @@ public:
 	void Jump();
 	void ReleaseJump();
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
+	void StopMovement();
 
 	// Configure
 	void SetMaxGroundSpeed(float max_ground_speed) { max_horizontal_speed_ = max_ground_speed; }

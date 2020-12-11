@@ -66,6 +66,7 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 		}
 	}
 
+	acceleration_.y = kGravity;
 	velocity_.y += acceleration_.y * elapsed;
 
 	velocity_.x = glm::clamp(velocity_.x, -max_horizontal_speed_, max_horizontal_speed_);
@@ -134,4 +135,12 @@ void MovementComponent::Update(float elapsed, const std::vector<Collider*>& coll
 		default:
 		throw std::runtime_error("Unknown MovementComponent::State!");
 	}
+}
+
+void MovementComponent::StopMovement()
+{
+	velocity_ = glm::vec2(0.0f, 0.0f);
+	acceleration_ = glm::vec2(0.0f, 0.0f);
+	state_ = State::STILL;
+	jump_chance_ = max_jump_chance_;
 }

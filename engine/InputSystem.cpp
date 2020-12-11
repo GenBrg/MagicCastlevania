@@ -44,3 +44,17 @@ void InputSystem::Update(float elapsed)
 		action(key_states_[keycode], elapsed);
 	}
 }
+
+void InputSystem::ClearKeyStates()
+{
+	for (auto& [_, state] : key_states_) {
+		state.Clear();
+	}
+}
+
+void InputSystem::KeyState::Clear()
+{
+	downs = 0;
+	pressed = 0;
+	released = false;
+}

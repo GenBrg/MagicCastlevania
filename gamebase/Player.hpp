@@ -28,6 +28,7 @@ public:
 	virtual Animation* GetAnimation(AnimationState state) override;
 
 	void UpdatePhysics(float elapsed, const std::vector<Collider*>& colliders_to_consider);
+	void StopMovement() { movement_component_.StopMovement(); }
 	void SetPosition(const glm::vec2& pos);
 	void Reset();
 	void AddBuff(const Buff& buff) { buffs_.push_back(buff); }

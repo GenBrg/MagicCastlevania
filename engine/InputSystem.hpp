@@ -20,6 +20,8 @@ public:
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
 		bool released = false;
+
+		void Clear();
 	};
 
 	void Register(SDL_Keycode keycode, const std::function<void(KeyState&, float)>& action);
@@ -27,6 +29,7 @@ public:
 
 	bool OnKeyEvent(const SDL_Event& evt);
 	void Update(float elapsed);
+	void ClearKeyStates();
 
 private:
 	std::unordered_map<SDL_Keycode, std::function<void(KeyState&, float)>> input_action_map_;
