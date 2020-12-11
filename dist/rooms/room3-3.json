@@ -37,14 +37,9 @@
 			"move_radius": 120.0
 		},
 		{
-			"name": "skeleton",
-			"initial_pos": [191.0, 489.0],
-			"move_radius": 120.0
-		},
-		{
-			"name": "skeleton",
-			"initial_pos": [776.0, 489.0],
-			"move_radius": 120.0
+			"name": "dragon",
+			"initial_pos": [666.0, 197.0],
+			"move_radius": 50.0
 		}
 	],
 	"items": [

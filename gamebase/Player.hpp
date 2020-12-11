@@ -31,7 +31,8 @@ public:
 	void StopMovement() { movement_component_.StopMovement(); }
 	void SetPosition(const glm::vec2& pos);
 	void Reset();
-	void AddBuff(const Buff& buff) { buffs_.push_back(buff); }
+	void AddBuff(const Buff& buff) { buff_ = buff; }
+	void ClearBuff();
 	void AddHp(int hp);
 	void AddMp(int mp);
 	void AddExp(int exp);
@@ -82,7 +83,7 @@ private:
     int coin_ { 0 };
 	std::vector<int> level_exps_;
 	std::vector<Attack> skills_;
-	std::vector<Buff> buffs_;
+	Buff buff_;
 	float shining_duration_ { 0.0f };
 	bool is_shining_ { false };
 

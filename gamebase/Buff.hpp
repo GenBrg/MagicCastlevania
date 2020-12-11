@@ -15,7 +15,7 @@ public:
 
 	int ApplyAttack(int attack) const { return attack_ + attack; }
 	int ApplyDefense(int defense) const { return defense_ + defense; }
-
+	void Clear();
 	friend void from_json(const json& j, Buff& buff);
 
 	/** Update the timer

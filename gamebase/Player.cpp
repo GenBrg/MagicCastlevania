@@ -139,12 +139,9 @@ void Player::UpdateImpl(float elapsed)
 		}
 	}
 
-	buffs_.erase(std::remove_if(buffs_.begin(), buffs_.end(), [&](Buff& buff){
-		if (buff.Update(elapsed)) {
-			return true;
-		}
-		return false;
-	}),buffs_.end());
+	if (buff_.Update(elapsed)) {
+		buff_.Clear();
+	}
 }
 
 void Player::UpdatePhysics(float elapsed, const std::vector<Collider*>& colliders_to_consider)
@@ -175,6 +172,7 @@ void Player::Reset() {
 	for (auto& skill : skills_) {
 		skill.ClearCooldown();
 	}
+	ClearBuff();
 }
 
 Player* Player::Create(Room** room, const std::string& player_config_file)
@@ -234,9 +232,7 @@ int Player::GetAttackPoint()
 {
 	int attack = attack_;
 	
-	for (const Buff& buff : buffs_) {
-		attack = buff.ApplyAttack(attack);
-	}
+	attack = buff_.ApplyAttack(attack);
 	attack = inventory_.ApplyEquipmentAttack(attack);
 
 	return attack;
@@ -245,9 +241,7 @@ int Player::GetAttackPoint()
 int Player::GetDefense()
 {
 	int defense = defense_;
-	for (const Buff& buff : buffs_) {
-		defense = buff.ApplyDefense(defense);
-	}
+	defense = buff_.ApplyDefense(defense);
 	defense = inventory_.ApplyEquipmentDefense(defense);
 	return defense;
 }
@@ -353,3 +347,7 @@ void Player::OnTakeDamage()
 	Sound::play(*sound_samples["be_attacked_" + std::to_string(sound_idx)]);
 }
 
+void Player::ClearBuff()
+{
+	buff_.Clear();
+}

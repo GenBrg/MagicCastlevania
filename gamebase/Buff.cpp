@@ -6,6 +6,13 @@ bool Buff::Update(float elapsed)
 	return duration_ <= 0.0f;
 }
 
+void Buff::Clear()
+{
+	attack_ = 0;
+	defense_ = 0;
+	duration_ = 0.0f;
+}
+
 void from_json(const json& j, Buff& buff)
 {
 	buff.attack_ = j.at("attack").get<int>();
