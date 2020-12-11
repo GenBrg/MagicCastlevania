@@ -9,12 +9,10 @@
 	"invulnerable_time": 0.2,
 	"bounding_box": [-26.0, 0.0, 26.0, 86.0],
 	"item": {
-		"small health potion": 0.07,
-		"small attack potion": 0.07,
-		"small defense potion": 0.07,
-		"large health potion": 0.03,
-		"large attack potion": 0.03,
-		"large defense potion": 0.03
+		"small health potion": 0.2,
+		"large health potion": 0.1,
+		"small attack potion": 0.01,
+		"small defense potion": 0.01
 	},
 	"skills": [
 		{

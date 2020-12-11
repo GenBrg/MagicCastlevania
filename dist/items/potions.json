@@ -95,10 +95,10 @@
 	},
 	{
 		"name": "panacea",
-		"description": "attack+10 for 45 seconds\ndefense+10 for 45 seconds\nhp+300\n",
+		"description": "attack+10 for 45 seconds\ndefense+10 for 45 seconds\nhp+200\n",
 		"icon_sprite": "item_potion_panacea",
 		"pickup_sprite": "item_potion_panacea",
-		"hp": 300,
+		"hp": 200,
 		"mp": 0,
 		"exp": 0,
 		"price": 700,
