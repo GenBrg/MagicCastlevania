@@ -25,7 +25,7 @@
 	"monsters": [
 		{
 			"name": "skull",
-			"initial_pos": [886.0, 489.0],
+			"initial_pos": [459.0, 495.0],
 			"move_radius": 70.0
 		},
 		{
@@ -44,7 +44,7 @@
 			"position": [857, 466],
 			"probability": 1.0
 		}],
-	"key_position": [565, 212],
+	"key_position": [565, 180],
 	"doors": [
 		[89, 491],
 		[707, 296]
