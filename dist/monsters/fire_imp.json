@@ -5,7 +5,7 @@
 	"defense": 0,
 	"speed": 50.0,
 	"exp": 50,
-	"coin": 70,
+	"coin": 40,
 	"invulnerable_time": 0.2,
 	"bounding_box": [-25.0, 0.0, 25.0, 68.0],
 	"item": {

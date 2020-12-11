@@ -4,8 +4,8 @@
 	"body_attack": 52,
 	"defense": 0,
 	"speed": 60.0,
-	"exp": 1000,
-	"coin": 1300,
+	"exp": 1600,
+	"coin": 1280,
 	"invulnerable_time": 0.4,
 	"bounding_box": [-35.0, 0.0, 35.0, 110.0],
 	"item": {

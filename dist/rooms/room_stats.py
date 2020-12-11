@@ -31,6 +31,11 @@ if __name__ == "__main__":
 					total_coin += monster_info["coin"]
 					total_exp += monster_info["exp"]
 
+		with open("boss_room%d.json" % i, "r") as f:
+			boss = monster_infos[json.load(f)["monsters"][0]["name"]]
+			total_coin += boss["coin"]
+			total_exp += boss["exp"]
+
 		print("Level %d:" % i)
 		print(monster_count)
 		print("total exp: %d" % total_exp)
