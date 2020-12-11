@@ -48,6 +48,7 @@ void InputSystem::Update(float elapsed)
 void InputSystem::ClearKeyStates()
 {
 	for (auto& [_, state] : key_states_) {
+		static_cast<void>(_);
 		state.Clear();
 	}
 }
