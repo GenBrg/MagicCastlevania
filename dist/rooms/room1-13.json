@@ -34,7 +34,7 @@
 			"move_radius": 80.0
 		},
 		{
-			"name": "snake",
+			"name": "fire_imp",
 			"initial_pos": [526.0, 189.0],
 			"move_radius": 80.0
 		}

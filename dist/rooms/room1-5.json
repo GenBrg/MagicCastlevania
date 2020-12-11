@@ -24,7 +24,7 @@
 	],
 	"monsters": [
 		{
-			"name": "snake",
+			"name": "fire_imp",
 			"initial_pos": [386.0, 489.0],
 			"move_radius": 200.0
 		},

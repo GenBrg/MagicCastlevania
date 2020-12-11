@@ -7,7 +7,7 @@
 		"hp": 30,
 		"mp": 0,
 		"exp": 0,
-		"price": 100,
+		"price": 50,
 		"buffs": []
 	},
 	{
@@ -18,7 +18,7 @@
 		"hp": 100,
 		"mp": 0,
 		"exp": 0,
-		"price": 300,
+		"price": 150,
 		"buffs": []
 	},
 	{
@@ -29,7 +29,7 @@
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 50,
+		"price": 75,
 		"buffs": [
 			{
 				"attack": 5,
@@ -65,7 +65,7 @@
 		"hp": 0,
 		"mp": 0,
 		"exp": 0,
-		"price": 50,
+		"price": 75,
 		"buffs": [
 			{
 				"attack": 0,
