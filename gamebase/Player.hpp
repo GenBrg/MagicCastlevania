@@ -64,7 +64,6 @@ public:
 	virtual int GetAttackPoint() override;
 	virtual int GetDefense() override;
 	int GetMaxHP() { return max_hp_; }
-	virtual void PlayTakeDamageSound() override;
 	virtual void OnTakeDamage() override;
 
 protected:

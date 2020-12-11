@@ -73,7 +73,7 @@ void Monster::Destroy()
 	}
 }
 
-void Monster::PlayTakeDamageSound()
+void Monster::OnTakeDamage()
 {
 	Sound::play(*sound_samples["monster_being_attack"]);
 }

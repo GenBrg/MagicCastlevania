@@ -317,12 +317,6 @@ EquipmentPrototype* Player::GetEquipment(size_t slot_num)
 	return inventory_.PeekEquipment(slot_num);
 }
 
-void Player::PlayTakeDamageSound()
-{
-	int sound_idx = static_cast<int>(Random::Instance()->Generate() * 4) + 1;
-	Sound::play(*sound_samples["be_attacked_" + std::to_string(sound_idx)]);
-}
-
 void Player::LevelUp() {
 	assert(cur_level_ < (int)level_exps_.size());
 
@@ -354,5 +348,8 @@ void Player::DrawImpl(DrawSprites& draw)
 void Player::OnTakeDamage()
 {
 	Shine(take_damage_cooldown_);
+	movement_component_.ApplyDamageFallback();
+	int sound_idx = static_cast<int>(Random::Instance()->Generate() * 4) + 1;
+	Sound::play(*sound_samples["be_attacked_" + std::to_string(sound_idx)]);
 }
 

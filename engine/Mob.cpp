@@ -22,7 +22,6 @@ void Mob::TakeDamage(int attack)
 	}
 
 	take_damage_guard_(take_damage_cooldown_, [&]() {
-		PlayTakeDamageSound();
 		OnTakeDamage();
 
 		hp_ -= GetDamagePoint(attack);
@@ -60,7 +59,6 @@ void Mob::PerformAttack(Room& room, Attack& attack)
 	Animation *animation = attack.GetAnimation();
 	if (attack.Execute(room, GetAttackPoint(), transform_, is_monster_))
 	{
-//		PlayAttackSound();
         attack.PlayAttackSound();
 		animation_controller_.PlayAnimation(animation, false);
 		state_ = State::ATTACKING;

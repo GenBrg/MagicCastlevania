@@ -144,3 +144,14 @@ void MovementComponent::StopMovement()
 	state_ = State::STILL;
 	jump_chance_ = max_jump_chance_;
 }
+
+void MovementComponent::ApplyDamageFallback()
+{
+	if (velocity_.x == 0.0f) {
+		velocity_ = (transform_.scale_.x > 0.0f) ? fallback_initial_speed : -fallback_initial_speed;
+	} else if (velocity_.x > 0.0f) {
+		velocity_ = fallback_initial_speed;
+	} else {
+		velocity_ = -fallback_initial_speed;
+	}
+}

@@ -16,6 +16,8 @@
  */
 class MovementComponent {
 public:
+	inline static const glm::vec2 fallback_initial_speed = { -200.0f, 100.f };
+
 	enum class State : uint8_t {
 		STILL = 0,
 		MOVING,
@@ -35,6 +37,7 @@ public:
 	void ReleaseJump();
 	void Update(float elapsed, const std::vector<Collider*>& colliders_to_consider);
 	void StopMovement();
+	void ApplyDamageFallback();
 
 	// Configure
 	void SetMaxGroundSpeed(float max_ground_speed) { max_horizontal_speed_ = max_ground_speed; }

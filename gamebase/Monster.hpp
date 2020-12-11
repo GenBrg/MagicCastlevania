@@ -26,6 +26,7 @@ private:
 	virtual void UpdateImpl(float elapsed) override;
 	virtual void OnDie() override;
 	virtual Animation* GetAnimation(AnimationState state) override;
+	virtual void OnTakeDamage() override;
 	
     int exp_ { 10 };
     int coin_;
@@ -45,7 +46,6 @@ public:
 	glm::vec2 GetCentralPos() const { return central_pos_; }
 	float GetSpeed() const { return speed_; }
 	virtual void Destroy() override;
-	virtual void PlayTakeDamageSound() override;
 
 	~Monster();
 };
