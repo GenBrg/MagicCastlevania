@@ -29,7 +29,7 @@
 			"attach_to_entity": false
 		},
 		{
-			"mob_animation": "boss_bull_attack_magic_blade",
+			"mob_animation": "boss_warrior_attack_strike",
 			"aoe_prototype": "boss_warrior_attack_strike",
 			"cooldown": 6.0,
 			"attack_modifier": 1.5,
