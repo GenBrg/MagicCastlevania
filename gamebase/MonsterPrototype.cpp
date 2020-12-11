@@ -15,7 +15,6 @@ std::unordered_map<std::string, MonsterPrototype> MonsterPrototype::prototypes_;
 
 Monster *MonsterPrototype::Create(Room &room, const glm::vec2 &initial_pos, float move_radius, size_t level)
 {
-	int leveli = static_cast<int>(level);
 	Monster *monster = new Monster(*this, bounding_box_, body_attack_, room);
 	monster->move_radius_ = move_radius;
 	monster->central_pos_ = initial_pos;
