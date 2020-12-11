@@ -9,10 +9,10 @@
 	"invulnerable_time": 0.4,
 	"bounding_box": [-33.0, 0.0, 33.0, 110.0],
 	"item": {
-		"sword2": 0.25,
-		"vest2": 0.25,
-		"shield2": 0.25,
-		"boot2": 0.25
+		"sword3": 0.25,
+		"vest3": 0.25,
+		"shield3": 0.25,
+		"boot3": 0.25
 	},
 	"skills": [
 		{
