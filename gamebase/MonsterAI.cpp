@@ -70,6 +70,10 @@ BouncingMonsterAI::BouncingMonsterAI(const json &j, Monster *monster) : transfor
 {
 	GenerateSpeedVec();
 	attack_cooldown_ = 1.0f + 3.0f * Random::Instance()->Generate();
+	glm::vec4 monster_bounding_box = monster->GetCollider()->GetBoundingBox();
+	glm::vec2 monster_size = glm::vec2(monster_bounding_box[2] - monster_bounding_box[0], monster_bounding_box[3] - monster_bounding_box[1]);
+	lower_left_bound_ = monster_size;
+	upper_right_bound_ = glm::vec2(INIT_WINDOW_W - monster_size[0], INIT_WINDOW_H - monster_size[1]);
 }
 
 void BouncingMonsterAI::Update(float elapsed)
@@ -78,8 +82,8 @@ void BouncingMonsterAI::Update(float elapsed)
 	{
 		bounce_cooldown_ -= elapsed;
 		transform_.position_ += speed_vec_ * elapsed;
-		if (transform_.position_.x <= 0.0f || transform_.position_.y <= 0.0f ||
-			transform_.position_.x >= INIT_WINDOW_W || transform_.position_.y >= INIT_WINDOW_H ||
+		if (transform_.position_.x <= lower_left_bound_.x || transform_.position_.y <= lower_left_bound_.y ||
+			transform_.position_.x >= upper_right_bound_.x || transform_.position_.y >= upper_right_bound_.y ||
 			bounce_cooldown_ <= 0.0f)
 		{
 			transform_.position_ -= speed_vec_ * elapsed;

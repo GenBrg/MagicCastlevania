@@ -44,6 +44,8 @@ private:
 	glm::vec2 speed_vec_;
 	float attack_cooldown_;
 	float bounce_cooldown_;
+	glm::vec2 lower_left_bound_;
+	glm::vec2 upper_right_bound_;
 
 	void GenerateSpeedVec();
 };
