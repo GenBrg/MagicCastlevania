@@ -1,8 +1,8 @@
 {
-	"hp": 25,
-	"attack": 10,
-	"body_attack": 5,
-	"defense": 5,
+	"hp": 20,
+	"attack": 20,
+	"body_attack": 16,
+	"defense": 0,
 	"speed": 150.0,
 	"exp": 30,
 	"coin": 40,

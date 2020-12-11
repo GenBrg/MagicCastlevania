@@ -329,7 +329,7 @@ void Player::LevelUp() {
 
 	++cur_level_;
 
-	max_hp_ += 20;
+	max_hp_ += 10;
 	hp_ = max_hp_;
 	attack_ += 3;
 	defense_ += 2;

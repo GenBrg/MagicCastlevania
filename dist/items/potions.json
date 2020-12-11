@@ -1,10 +1,10 @@
 [
 	{
 		"name": "small health potion",
-		"description": "hp+100",
+		"description": "hp+30",
 		"icon_sprite": "item_apple",
 		"pickup_sprite": "item_apple",
-		"hp": 100,
+		"hp": 30,
 		"mp": 0,
 		"exp": 0,
 		"price": 100,
@@ -12,10 +12,10 @@
 	},
 	{
 		"name": "large health potion",
-		"description": "hp+500",
+		"description": "hp+100",
 		"icon_sprite": "item_meat",
 		"pickup_sprite": "item_meat",
-		"hp": 500,
+		"hp": 100,
 		"mp": 0,
 		"exp": 0,
 		"price": 300,

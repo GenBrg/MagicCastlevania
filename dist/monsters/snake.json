@@ -1,7 +1,7 @@
 {
-	"hp": 65,
-	"attack": 17,
-	"body_attack": 11,
+	"hp": 60,
+	"attack": 33,
+	"body_attack": 26,
 	"defense": 9,
 	"speed": 80.0,
 	"exp": 100,
