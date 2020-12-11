@@ -33,7 +33,7 @@ void Door::DrawImpl(DrawSprites& draw)
 	if (lock_status_ != LockStatus::CLOSED) {
 		animation_controller_.Draw(draw);
 
-		if (lock_status_ == LockStatus::SPECIAL_LOCKED || lock_status_ == LockStatus::NORMAL_LOCKED) {
+		if (lock_status_ == LockStatus::LOCKED || lock_status_ == LockStatus::BOSS_LOCKED) {
 			draw.draw(*lock_sprite_, lock_transform_);
 		}
 	}
@@ -51,16 +51,21 @@ void Door::SetLockStatus(LockStatus lock_status)
 	lock_status_ = lock_status;
 	switch (lock_status_) {
 		case LockStatus::OPENED:
+		case LockStatus::BOSS_OPENED:
 		animation_controller_.PlayAnimation(opened_animation_, false, true);
 		break;
-		case LockStatus::NORMAL_LOCKED:
-		animation_controller_.PlayAnimation(closed_animation_, false, true);
-		break;
-		case LockStatus::SPECIAL_LOCKED:
-		animation_controller_.PlayAnimation(closed_animation_, false, true);
-		break;
+		case LockStatus::BOSS_LOCKED:
 		case LockStatus::UNLOCK:
+		case LockStatus::LOCKED:
 		animation_controller_.PlayAnimation(closed_animation_, false, true);
+		break;
+		case LockStatus::BOSS_OPENING:
+		animation_controller_.PlayAnimation(opening_animation_, false, true);
+		TimerManager::Instance().AddTimer(Door::opening_animation_->GetLength(), [&](){
+			if (lock_status_ == LockStatus::BOSS_OPENING) {
+				SetLockStatus(Door::LockStatus::BOSS_OPENED);
+			}
+		});
 		break;
 		case LockStatus::OPENING:
 		animation_controller_.PlayAnimation(opening_animation_, false, true);

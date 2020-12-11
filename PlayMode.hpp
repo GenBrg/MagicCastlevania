@@ -50,6 +50,7 @@ struct PlayMode : Mode {
 	void StartBGM(const std::string& bgm_name);
 	void PlayEndScene();
 	void DisplayLevelClearScene(float duration);
+	void OpenBossRoomDoor();
 
 	inline static constexpr int kMaxLevel { 3 };
 

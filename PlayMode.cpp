@@ -183,7 +183,7 @@ void PlayMode::SwitchRoom(Door *door)
 		cur_room = opposite_door->GetRoom();
 		cur_room->OnEnter(player, opposite_door);
 		if (cur_room == rooms[1]) {
-			opposite_door->SetLockStatus(Door::LockStatus::NORMAL_LOCKED);
+			opposite_door->SetLockStatus(Door::LockStatus::BOSS_LOCKED);
 			StartBGM("boss_" + std::to_string(level_));
 		}
 	}
@@ -209,7 +209,7 @@ void PlayMode::GenerateRooms()
 	rooms.push_back(RoomPrototype::GetRoomPrototype("main_lobby" + level_string)->Create(level_));
 	rooms.push_back(RoomPrototype::GetRoomPrototype("boss_room" + level_string)->Create(level_));
 
-	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::SPECIAL_LOCKED);
+	rooms[0]->GetDoor(2)->ConnectTo(rooms[1]->GetDoor(0), Door::LockStatus::LOCKED);
 
 	// Randomly generate rooms behind first two doors
 	std::vector<int> candidate_rooms;
@@ -320,11 +320,20 @@ void PlayMode::OpenDoor()
 						SwitchRoom(cur_door);
 					});
 				break;
-				case Door::LockStatus::SPECIAL_LOCKED:
+				case Door::LockStatus::LOCKED:
 					if (keys_collected >= total_keys_to_collect) {
 						Sound::play(*sound_samples["open_door"]);
 						cur_door->SetLockStatus(Door::LockStatus::OPENING);
 					}
+				break;
+				case Door::LockStatus::BOSS_OPENED:
+					Transition(SWITCH_ROOM_TRANSITION);
+					Sound::play(*sound_samples["footstep"]);
+					TimerManager::Instance().AddTimer(HALF_SWITCH_ROOM_TRANSITION, [&](){
+						Sound::play(*sound_samples["room_level_up"]);
+						DisplayLevelClearScene(1.5f);
+						ProceedLevel();
+					});
 				break;
 				default:;
 			}
@@ -399,4 +408,10 @@ void PlayMode::PlayEndScene()
 void PlayMode::DisplayLevelClearScene(float duration)
 { 
 	level_clear_scene_duration = duration;
+}
+
+void PlayMode::OpenBossRoomDoor()
+{
+	assert(cur_room == rooms[1]);
+	cur_room->GetDoor(0)->SetLockStatus(Door::LockStatus::BOSS_OPENING);
 }

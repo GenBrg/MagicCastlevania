@@ -43,18 +43,9 @@ void Monster::OnDie()
 	player->AddExp(exp_);
 	// add info to hud to display exp and coin gained
 	hud->AddMonsterDieInfoHUD(transform_.position_, coin_, exp_);
-
-	// Drop item
 	if (is_boss) {
-		TimerManager::Instance().AddTimer(4.35f, [&](){
-			main_play->Transition(SWITCH_ROOM_TRANSITION);
-		});
-		TimerManager::Instance().AddTimer(5.0f, [&](){
-			Sound::play(*sound_samples["room_level_up"]);
-			main_play->DisplayLevelClearScene(1.5f);
-			main_play->ProceedLevel();
-		});
-	} 
+		main_play->OpenBossRoomDoor();
+	}
 	if (ItemPrototype* drop_item = monster_prototype_.GenerateItemDrop()) {
 		ItemPickUp::Generate(room_, drop_item, transform_.position_ + glm::vec2(0.0f, 14.0f));
 	}
