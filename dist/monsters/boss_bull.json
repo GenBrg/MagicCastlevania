@@ -16,10 +16,11 @@
 	},
 	"skills": [
 		{
-			"mob_animation": "boss_bull_attack",
-			"aoe_prototype": "normal_attack",
-			"cooldown": 1.0,
-			"attach_to_entity": true
+			"mob_animation": "boss_bull_attack_magic_blade",
+			"aoe_prototype": "boss_bull_magic_blade",
+			"cooldown": 6.0,
+			"attack_modifier": 1.5,
+			"attach_to_entity": false
 		},
 		{
 			"mob_animation": "boss_bull_attack_magic_fire",
@@ -29,11 +30,10 @@
 			"attach_to_entity": false
 		},
 		{
-			"mob_animation": "boss_bull_attack_magic_blade",
-			"aoe_prototype": "boss_bull_magic_blade",
-			"cooldown": 6.0,
-			"attack_modifier": 1.5,
-			"attach_to_entity": false
+			"mob_animation": "boss_bull_attack",
+			"aoe_prototype": "normal_attack",
+			"cooldown": 1.0,
+			"attach_to_entity": true
 		}
 	],
 	"ai": {

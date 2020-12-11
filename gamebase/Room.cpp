@@ -181,6 +181,10 @@ void Room::Draw(DrawSprites& draw_sprite)
 	if (shop_ != nullptr) {
         shop_->Draw(draw_sprite);
 	}
+
+	for (Trigger* trigger : triggers_) {
+		trigger->Draw(draw_sprite);
+	}
 }
 
 void Room::OnEnter(Player* player, Door* door)

@@ -144,17 +144,22 @@ FollowAndAttackMonsterAI::FollowAndAttackMonsterAI(const json &j, Monster *monst
 		{
 			AOEPrototype* aoe = attack->GetAOEPrototype();
 			float attack_distance = aoe->GetVelocity().x * aoe->GetDuration();
+			glm::vec4 attack_bounding_box;
+			attack_bounding_box[1] = aoe_initial_pos[1];
+			attack_bounding_box[3] = aoe_initial_pos[1] + aoe_height;
+			attack_bounding_box[0] = -attack_distance - aoe_initial_pos[0] - aoe_width;
+			attack_bounding_box[2] = attack_distance + aoe_initial_pos[0] + aoe_width;
+			attack_trigger_ = Trigger::Create(monster->GetRoom(), attack_bounding_box, &transform_, 0);
+
 			detection_bounding_box[1] = central_pos[1] + aoe_initial_pos[1];
 			detection_bounding_box[3] = central_pos[1] + aoe_initial_pos[1] + aoe_height;
-			detection_bounding_box[0] = central_pos[0] - attack_distance - aoe_initial_pos[0] - aoe_width;
-			detection_bounding_box[2] = central_pos[0] + attack_distance + aoe_initial_pos[0] + aoe_width;
-			attack_trigger_ = Trigger::Create(monster->GetRoom(), detection_bounding_box, nullptr, 0);
+			detection_bounding_box[0] = central_pos[0] - move_radius - aoe_initial_pos[0] - aoe_width - attack_distance;
+			detection_bounding_box[2] = central_pos[0] + move_radius + aoe_initial_pos[0] + aoe_width + attack_distance;
 		}
 	}
 	detection_trigger_ = Trigger::Create(monster->GetRoom(), detection_bounding_box, nullptr, 0);
 	attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
 
-	// TODO Implement trigger
 	attack_trigger_->SetOnEnter([&]() {
 		should_attack_ = true;
 	});

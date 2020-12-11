@@ -16,7 +16,7 @@ void Trigger::UpdateImpl(float elapsed)
 
 void Trigger::DrawImpl(DrawSprites& draw)
 {
-
+	collider_.DrawDebugBox(draw);
 }
 
 void Trigger::UpdatePhysics(const Collider& collider_to_consider)

@@ -106,7 +106,7 @@ void Player::OnDie()
 		--pending_callbacks_;
         Reset();
 		TimerManager::Instance().AddTimer(1.5f, [&](){
-			main_play->StartBGM("all_1");
+			main_play->StartBGM("all_" + std::to_string(main_play->GetLevel()));
    	 	});
     });
 }
