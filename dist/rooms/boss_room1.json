@@ -4,13 +4,14 @@
 		[940, -1000, 30, 2000],
 		[-10, 540, 1000, 30],
 
-		[0, 491, 960, 50],
-		[329, 255, 289, 99]
+		[0, 491, 960, 50]
 	],
 	"one_sided_platforms": [
-		[76, 357, 170, 34],
-		[396, 127, 170, 34],
-		[716, 357, 170, 34]
+		[40, 173, 166, 35],
+		[192, 283, 170, 34],
+		[397, 385, 165, 34],
+		[619, 283, 170, 34],
+		[783, 173, 165, 34]
 	],
 	"traps": [],
 	"monsters": [
@@ -23,22 +24,8 @@
 	"items": [],
 	"key_position": [464, 491],
 	"doors": [
-		[160, 357],
-		[480, 126],
-		[800, 357]
+		[94, 172]
 	],
-	"background_sprite": "room_2_bg",
-	"dialogs": [
-		{
-			"trigger_box": [0, 0, 960, 540],
-			"auto_trigger": true,
-			"hit_time_remain": 1,
-			"contents": [
-				{
-					"texts": "Oh...No!\nThe door is locked!\nGo and defeat it!",
-					"avatar_sprite": "avatar_mage"
-				}
-			]
-		}
-	]
+	"background_sprite": "room_19_bg",
+	"dialogs": []
 }
