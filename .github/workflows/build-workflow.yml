@@ -5,7 +5,7 @@ on:
     types: [created]
 
 env:
-  BASE_NAME: game4
+  BASE_NAME: magic_castlevania
   NEST_LIBS_VERSION: v0.6
 
 jobs:
