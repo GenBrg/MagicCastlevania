@@ -71,6 +71,14 @@ http://creativecommons.org/licenses/by/4.0/
 - "SCP-x7x (6th Floor)" Kevin MacLeod (incompetech.com)
   Licensed under Creative Commons: By Attribution 4.0 License
   http://creativecommons.org/licenses/by/4.0/
+
+- "Adding the Sun" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
+
+- "Beauty Flow" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
   
 Sound effect:
 - https://www.zapsplat.com/music/bedroom-door-open-2/

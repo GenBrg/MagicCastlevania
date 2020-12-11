@@ -21,7 +21,7 @@
 			"cooldown": 6.0,
 			"attack_modifier": 1.5,
 			"attach_to_entity": false
-		}
+		},
 		{
 			"mob_animation": "boss_warrior_attack_magic_fire",
 			"aoe_prototype": "boss_bull_magic_fire",
