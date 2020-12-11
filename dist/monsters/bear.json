@@ -1,5 +1,5 @@
 {
-	"hp": 100,
+	"hp": 130,
 	"attack": 52,
 	"body_attack": 41,
 	"defense": 0,
@@ -23,7 +23,7 @@
 		}
 	],
 	"ai": {
-		"type": 3
+		"type": 2
 	},
 	"is_boss": false
 }
