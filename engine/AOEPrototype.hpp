@@ -36,6 +36,7 @@ public:
 	glm::vec2 GetInitialOffset() const { return initial_offset_; }
 	glm::vec4 GetBoundingBox() const { return bounding_box_; }
 	glm::vec2 GetVelocity() const { return velocity_; }
+	float GetDuration() const { return duration_; }
 
 private:
 	static std::unordered_map<std::string, AOEPrototype> prototypes_;
