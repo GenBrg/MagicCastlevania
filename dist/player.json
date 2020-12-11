@@ -31,31 +31,31 @@
 			"mob_animation": "player_attack",
 			"aoe_prototype": "player_tornado",
 			"icon": "tornado_icon",
-			"cooldown": 5.0,
+			"cooldown": 10.0,
 			"attach_to_entity": false,
 			"sound_effects": ["remote_attack_tornado"],
-			"base_attack_per_level": 3,
-			"attack_modifier": 1.2
+			"base_attack_per_level": 1,
+			"attack_modifier": 1.1
 		},
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "player_shine",
 			"icon": "light_icon",
-			"cooldown": 20.0,
+			"cooldown": 30.0,
 			"attach_to_entity": true,
 			"sound_effects": ["remote_attack_light"],
-			"base_attack_per_level": 5,
-			"attack_modifier": 1.4
+			"base_attack_per_level": 2,
+			"attack_modifier": 2.0
 		},
 		{
 			"mob_animation": "player_attack",
 			"aoe_prototype": "player_comet",
 			"icon": "comet_icon",
-			"cooldown": 40.0,
+			"cooldown": 90.0,
 			"attach_to_entity": false,
 			"sound_effects": ["remote_attack_comet"],
-			"base_attack_per_level": 10,
-			"attack_modifier": 1.75
+			"base_attack_per_level": 3,
+			"attack_modifier": 3.7
 		}
 	],
 	"level_exps": [
