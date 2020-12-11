@@ -358,7 +358,7 @@ void PlayMode::on_leave() {
 void PlayMode::ResetCurrentLevel()
 {
 	TimerManager::Instance().ClearAllTimers();
-	StartBGM("all_1");
+	StartBGM("all_" + std::to_string(GetLevel()));
 	for (Room *room : rooms)
 	{
 		delete room;

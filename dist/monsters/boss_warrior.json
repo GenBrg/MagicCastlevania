@@ -16,12 +16,6 @@
 	},
 	"skills": [
 		{
-			"mob_animation": "boss_warrior_attack",
-			"aoe_prototype": "normal_attack",
-			"cooldown": 1.0,
-			"attach_to_entity": true
-		},
-		{
 			"mob_animation": "boss_warrior_attack_magic_fire",
 			"aoe_prototype": "boss_bull_magic_fire",
 			"cooldown": 3.0,
@@ -29,7 +23,13 @@
 			"attach_to_entity": false
 		},
 		{
-			"mob_animation": "boss_warrior_attack_strike",
+			"mob_animation": "boss_warrior_attack",
+			"aoe_prototype": "normal_attack",
+			"cooldown": 1.0,
+			"attach_to_entity": true
+		},
+		{
+			"mob_animation": "boss_warrior_anger",
 			"aoe_prototype": "boss_warrior_attack_strike",
 			"cooldown": 6.0,
 			"attack_modifier": 1.5,
