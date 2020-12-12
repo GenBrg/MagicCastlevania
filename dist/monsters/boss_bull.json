@@ -18,14 +18,14 @@
 		{
 			"mob_animation": "boss_bull_attack_magic_blade",
 			"aoe_prototype": "boss_bull_magic_blade",
-			"cooldown": 6.0,
+			"cooldown": 3.0,
 			"attack_modifier": 1.2,
 			"attach_to_entity": false
 		},
 		{
 			"mob_animation": "boss_bull_attack_magic_fire",
 			"aoe_prototype": "boss_bull_magic_fire",
-			"cooldown": 3.0,
+			"cooldown": 2.0,
 			"attack_modifier": 1.1,
 			"attach_to_entity": false
 		},
