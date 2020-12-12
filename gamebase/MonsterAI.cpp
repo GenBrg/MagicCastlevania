@@ -146,7 +146,7 @@ FollowAndAttackMonsterAI::FollowAndAttackMonsterAI(const json &j, Monster *monst
 		}
 		else
 		{
-			AOEPrototype* aoe = attack->GetAOEPrototype();
+			AOEPrototype *aoe = attack->GetAOEPrototype();
 			float attack_distance = aoe->GetVelocity().x * aoe->GetDuration();
 			glm::vec4 attack_bounding_box;
 			attack_bounding_box[1] = aoe_initial_pos[1];
@@ -222,38 +222,36 @@ void FollowAndAttackMonsterAI::Update(float elapsed)
 					attack_cooldown_ = (1 + Random::Instance()->Generate()) * attack->GetCoolDown();
 				}
 			}
+
+			if (std::abs(player_pos_x - transform_.position_.x) < 80.0f)
+			{
+			}
+			else if (player_pos_x > transform_.position_.x)
+			{
+				transform_.scale_.x = 1.0f;
+				transform_.position_.x += speed * elapsed * transform_.scale_.x;
+				if (transform_.position_.x > central_pos.x + move_radius ||
+					transform_.position_.x < central_pos.x - move_radius)
+				{
+					transform_.position_.x -= speed * elapsed * transform_.scale_.x;
+				}
+				if (transform_.position_.x > player_pos_x)
+				{
+					transform_.position_.x = player_pos_x;
+				}
+			}
 			else
 			{
-				if (std::abs(player_pos_x - transform_.position_.x) < 10.0f)
+				transform_.scale_.x = -1.0f;
+				transform_.position_.x += speed * elapsed * transform_.scale_.x;
+				if (transform_.position_.x > central_pos.x + move_radius ||
+					transform_.position_.x < central_pos.x - move_radius)
 				{
+					transform_.position_.x -= speed * elapsed * transform_.scale_.x;
 				}
-				else if (player_pos_x > transform_.position_.x)
+				if (transform_.position_.x < player_pos_x)
 				{
-					transform_.scale_.x = 1.0f;
-					transform_.position_.x += speed * elapsed * transform_.scale_.x;
-					if (transform_.position_.x > central_pos.x + move_radius ||
-						transform_.position_.x < central_pos.x - move_radius)
-					{
-						transform_.position_.x -= speed * elapsed * transform_.scale_.x;
-					}
-					if (transform_.position_.x > player_pos_x)
-					{
-						transform_.position_.x = player_pos_x;
-					}
-				}
-				else
-				{
-					transform_.scale_.x = -1.0f;
-					transform_.position_.x += speed * elapsed * transform_.scale_.x;
-					if (transform_.position_.x > central_pos.x + move_radius ||
-						transform_.position_.x < central_pos.x - move_radius)
-					{
-						transform_.position_.x -= speed * elapsed * transform_.scale_.x;
-					}
-					if (transform_.position_.x < player_pos_x)
-					{
-						transform_.position_.x = player_pos_x;
-					}
+					transform_.position_.x = player_pos_x;
 				}
 			}
 		}
