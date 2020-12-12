@@ -597,7 +597,7 @@
 	{
 		"name": "boss_warrior_attack_spiral",
 		"sprite_num": 3,
-		"interval": 0.1
+		"interval": 0.2
 	},
 	{
 		"name": "boss_warrior_attack_strike",

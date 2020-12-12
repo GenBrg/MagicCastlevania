@@ -17,8 +17,33 @@
 	"monsters": [
 		{
 			"name": "boss_wizard",
-			"initial_pos": [478.0, 487.0],
+			"initial_pos": [482.0, 136.0],
 			"move_radius": 470.0
+		},
+		{
+			"name": "skull",
+			"initial_pos": [386.0, 69.0],
+			"move_radius": 470.0
+		},
+		{
+			"name": "skull",
+			"initial_pos": [760.0, 69.0],
+			"move_radius": 470.0
+		},
+		{
+			"name": "skull",
+			"initial_pos": [477.0, 305.0],
+			"move_radius": 470.0
+		},
+		{
+			"name": "orc",
+			"initial_pos": [272.0, 282.0],
+			"move_radius": 80.0
+		},
+		{
+			"name": "orc",
+			"initial_pos": [700.0, 282.0],
+			"move_radius": 80.0
 		}
 	],
 	"items": [],

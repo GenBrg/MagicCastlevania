@@ -9,6 +9,15 @@
 		"penetrate": true
 	},
 	{
+		"name": "boss_normal_attack",
+		"bounding_box": [0.0, 0.0, 152.0, 162.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
 		"name": "ghost_attack",
 		"bounding_box": [0.0, 0.0, 50.0, 70.0],
 		"animation": null,
@@ -136,16 +145,25 @@
 	},
 	{
 		"name": "boss_warrior_attack_strike",
-		"bounding_box": [0.0, 0.0, 140.0, 56.0],
+		"bounding_box": [0.0, 0.0, 101.0, 101.0],
 		"animation": "boss_warrior_attack_strike",
-		"velocity": [100.0, 0.0],
+		"velocity": [200.0, 0.0],
 		"duration": 0.7,
 		"initial_offset": [0.0, 0.0],
 		"penetrate": true
 	},
 	{
+		"name": "boss_warrior_attack_spiral",
+		"bounding_box": [7.0, 6.0, 90.0, 84.0],
+		"animation": "boss_warrior_attack_spiral",
+		"velocity": [300.0, 0.0],
+		"duration": 0.6,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
 		"name": "boss_wizard_attack_lightning",
-		"bounding_box": [0.0, 0.0, 140.0, 56.0],
+		"bounding_box": [0.0, 0.0, 231.0, 56.0],
 		"animation": "boss_wizard_attack_lightning",
 		"velocity": [100.0, 0.0],
 		"duration": 0.9,
@@ -154,7 +172,7 @@
 	},
 	{
 		"name": "boss_wizard_attack_skull",
-		"bounding_box": [0.0, 0.0, 140.0, 56.0],
+		"bounding_box": [21.0, 18.0, 91.0, 96.0],
 		"animation": "boss_wizard_attack_skull",
 		"velocity": [100.0, 0.0],
 		"duration": 0.9,

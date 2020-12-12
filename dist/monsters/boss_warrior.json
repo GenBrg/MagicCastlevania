@@ -1,7 +1,7 @@
 {
-	"hp": 400,
-	"attack": 50,
-	"body_attack": 40,
+	"hp": 800,
+	"attack": 70,
+	"body_attack": 56,
 	"defense": 0,
 	"speed": 60.0,
 	"exp": 800,
@@ -16,22 +16,22 @@
 	},
 	"skills": [
 		{
-			"mob_animation": "boss_warrior_anger",
+			"mob_animation": "boss_warrior_attack_magic_fire",
 			"aoe_prototype": "boss_warrior_attack_strike",
-			"cooldown": 6.0,
+			"cooldown": 2.0,
 			"attack_modifier": 1.5,
 			"attach_to_entity": false
 		},
 		{
-			"mob_animation": "boss_warrior_attack_magic_fire",
-			"aoe_prototype": "boss_bull_magic_fire",
-			"cooldown": 3.0,
+			"mob_animation": "boss_warrior_attack_magic_blade",
+			"aoe_prototype": "boss_warrior_attack_spiral",
+			"cooldown": 1.5,
 			"attack_modifier": 1.3,
 			"attach_to_entity": false
 		},
 		{
 			"mob_animation": "boss_warrior_attack",
-			"aoe_prototype": "normal_attack",
+			"aoe_prototype": "boss_normal_attack",
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		}
