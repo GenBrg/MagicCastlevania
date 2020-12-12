@@ -9,7 +9,8 @@
 #include <iostream>
 
 ItemPickUp::ItemPickUp(ItemPrototype* item, const glm::vec2& spawn_pos) :
-Entity(glm::vec4(item->GetPickupSprite()->min_px, item->GetPickupSprite()->max_px),
+Entity(glm::vec4(item->GetPickupSprite()->min_px - item->GetPickupSprite()->anchor_px,
+ item->GetPickupSprite()->max_px - item->GetPickupSprite()->anchor_px),
 nullptr),
 item_prototype_(item)
 {
@@ -25,7 +26,9 @@ ItemPickUp* ItemPickUp::Generate(Room& room, ItemPrototype* item, const glm::vec
 		room.AddPermanentItem(item_pickup);
 	}
 	
-	item_pickup->trigger_ = Trigger::Create(room, glm::vec4(spawn_pos, spawn_pos + item->GetPickupSprite()->size_px), nullptr, 0);
+	const Sprite* item_sprite = item->GetPickupSprite();
+	glm::vec2 anchor_offset = item_sprite->min_px - item_sprite->anchor_px;
+	item_pickup->trigger_ = Trigger::Create(room, glm::vec4(spawn_pos + anchor_offset, spawn_pos + anchor_offset + item_sprite->size_px), nullptr, 0);
 	item_pickup->trigger_->SetOnColliding([=](){
 		if (player->PickupItem(item)) {
 			Sound::play(*sound_samples["collect_item"]);
