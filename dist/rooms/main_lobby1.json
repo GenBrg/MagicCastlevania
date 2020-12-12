@@ -38,7 +38,35 @@
 					"avatar_sprite": "avatar_player"
 				},
 				{
-					"texts": "Collect keys to open the locked room!",
+					"texts": "Collect keys to open the locked room!\nIf you died, you will be respawn here\nat the start of level with half your coin\nand exp as the price.",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "...",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "You can buy items and equipments at\nthe shop on the left of the room.\n",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "Visit me for the best equipments \nand items you need during your\nadventure!\n",
+					"avatar_sprite": "avatar_witch"
+				},
+				{
+					"texts": "...",
+					"avatar_sprite": "avatar_player"
+				},
+				{
+					"texts": "You can check your equipped items, \nand inventories and status by pressing\nEsc.\n",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "Don't forget you can always see the\nhelp by pressing TAB.\n",
+					"avatar_sprite": "avatar_mage"
+				},
+				{
+					"texts": "Good luck!\n",
 					"avatar_sprite": "avatar_mage"
 				}
 			]
