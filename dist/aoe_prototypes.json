@@ -18,8 +18,62 @@
 		"penetrate": true
 	},
 	{
+		"name": "bear_attack",
+		"bounding_box": [0.0, 0.0, 80.0, 77.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "dragon_attack",
+		"bounding_box": [0.0, 0.0, 84.0, 50.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "snake_attack",
+		"bounding_box": [0.0, 0.0, 121.0, 42.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "spider_attack",
+		"bounding_box": [0.0, 0.0, 50.0, 30.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "mosquito_attack",
+		"bounding_box": [0.0, 0.0, 45.0, 20.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
 		"name": "ghost_attack",
 		"bounding_box": [0.0, 0.0, 50.0, 70.0],
+		"animation": null,
+		"velocity": [0.0, 0.0],
+		"duration": 0.4,
+		"initial_offset": [0.0, 0.0],
+		"penetrate": true
+	},
+	{
+		"name": "skeleton_attack",
+		"bounding_box": [0.0, 0.0, 80.0, 40.0],
 		"animation": null,
 		"velocity": [0.0, 0.0],
 		"duration": 0.4,

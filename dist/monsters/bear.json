@@ -17,7 +17,7 @@
 	"skills": [
 		{
 			"mob_animation": "bear_attack",
-			"aoe_prototype": "normal_attack",
+			"aoe_prototype": "bear_attack",
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		}

@@ -17,7 +17,7 @@
 	"skills": [
 		{
 			"mob_animation": "dragon_attack",
-			"aoe_prototype": "normal_attack",
+			"aoe_prototype": "dragon_attack",
 			"cooldown": 1.0,
 			"attach_to_entity": true
 		}

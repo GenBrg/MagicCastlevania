@@ -25,7 +25,7 @@
 	"monsters": [
 		{
 			"name": "skull",
-			"initial_pos": [383.0, 515.0],
+			"initial_pos": [383.0, 300.0],
 			"move_radius": 80.0
 		},
 		{

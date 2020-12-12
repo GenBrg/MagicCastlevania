@@ -25,12 +25,12 @@
 	"monsters": [
 		{
 			"name": "bird",
-			"initial_pos": [383.0, 515.0],
+			"initial_pos": [383.0, 300.0],
 			"move_radius": 80.0
 		},
 		{
 			"name": "bird",
-			"initial_pos": [615.0, 517.0],
+			"initial_pos": [615.0, 300.0],
 			"move_radius": 100.0
 		},
 		{
