@@ -2,7 +2,7 @@
 	"hp": 60,
 	"attack": 33,
 	"body_attack": 26,
-	"defense": 9,
+	"defense": 0,
 	"speed": 80.0,
 	"exp": 150,
 	"coin": 120,

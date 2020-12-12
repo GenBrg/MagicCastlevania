@@ -230,10 +230,7 @@ void FollowAndAttackMonsterAI::Update(float elapsed)
 				}
 			}
 
-			if (std::abs(player_pos_x - transform_.position_.x) < 50.0f)
-			{
-			}
-			else if (player_pos_x > transform_.position_.x)
+			if (player_pos_x > transform_.position_.x)
 			{
 				transform_.scale_.x = 1.0f;
 				transform_.position_.x += speed * elapsed * transform_.scale_.x;
