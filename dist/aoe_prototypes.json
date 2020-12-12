@@ -165,7 +165,7 @@
 		"name": "skull_attack_explosion",
 		"bounding_box": [5.0, 0.0, 60.0, 40.0],
 		"animation": "skull_attack_explosion",
-		"velocity": [100.0, 0.0],
+		"velocity": [200.0, 0.0],
 		"duration": 0.8,
 		"initial_offset": [0.0, 0.0],
 		"penetrate": true
