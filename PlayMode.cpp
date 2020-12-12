@@ -221,7 +221,7 @@ void PlayMode::GenerateRooms()
 	if (level_ == 1) {
 #ifdef _DEBUG
 	// For Test
-	rooms.push_back(RoomPrototype::GetRoomPrototype("boss_room3")->Create(level_));
+	rooms.push_back(RoomPrototype::GetRoomPrototype("boss_room2")->Create(level_));
 	rooms[0]->GetDoor(0)->ConnectTo(rooms[2]->GetDoor(0), Door::LockStatus::UNLOCK);
 #else
 	rooms.push_back(RoomPrototype::GetRoomPrototype("tutorial_room")->Create(level_));
