@@ -132,7 +132,14 @@ FollowAndAttackMonsterAI::FollowAndAttackMonsterAI(const json &j, Monster *monst
 		detection_bounding_box[3] = central_pos[1] + aoe_initial_pos[1] + aoe_height;
 		detection_bounding_box[0] = central_pos[0] - move_radius - aoe_initial_pos[0] - aoe_width;
 		detection_bounding_box[2] = central_pos[0] + move_radius + aoe_initial_pos[0] + aoe_width;
-		attack_trigger_ = Trigger::Create(monster->GetRoom(), aoe_bounding_box + glm::vec4(aoe_initial_pos, aoe_initial_pos), &transform_, 0);
+
+		glm::vec4 attack_bounding_box;
+		
+		attack_bounding_box[1] = aoe_initial_pos[1];
+		attack_bounding_box[3] = aoe_initial_pos[1] + aoe_height;
+		attack_bounding_box[0] = -aoe_initial_pos[0] - aoe_width;
+		attack_bounding_box[2] = aoe_initial_pos[0] + aoe_width;
+		attack_trigger_ = Trigger::Create(monster->GetRoom(), attack_bounding_box, &transform_, 0);
 	}
 	else
 	{
@@ -223,7 +230,7 @@ void FollowAndAttackMonsterAI::Update(float elapsed)
 				}
 			}
 
-			if (std::abs(player_pos_x - transform_.position_.x) < 80.0f)
+			if (std::abs(player_pos_x - transform_.position_.x) < 50.0f)
 			{
 			}
 			else if (player_pos_x > transform_.position_.x)
