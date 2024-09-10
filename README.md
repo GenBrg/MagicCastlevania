@@ -30,6 +30,9 @@ Screen Shot:
 
 ![Screen Shot](screenshot.png)
 
+Demo:
+https://www.youtube.com/watch?v=Xccm9wYhbkU
+
 Instructions:
 Move: AD\
 Attack, Drop Item/Equipments: J\
